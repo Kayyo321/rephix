@@ -15,7 +15,7 @@ import numpy as np
 from .gguf_quant import recover_blocks
 from .io import write_json
 
-_QUANTIZED = {"Q4_0", "Q8_0"}
+_QUANTIZED = {"Q4_0", "Q5_0", "Q8_0", "Q4_K", "Q6_K"}
 _SUPPORTED = _QUANTIZED | {"F32", "F16", "BF16"}
 _TILE_FLOATS = 1 << 22
 
@@ -159,16 +159,20 @@ def _write_tensors(gguf, reader, layouts, target, call_tensor, batch_size):
             calls += count
             observed += values.size
             if encoding in _QUANTIZED:
-                packed, counts = recover_blocks(values.reshape(-1, 32), encoding)
+                block_width, _ = gguf.GGML_QUANT_SIZES[layout.encoding]
+                try:
+                    packed, counts = recover_blocks(values.reshape(-1, block_width), encoding)
+                except ValueError as exc:
+                    raise ValueError(f"{layout.name}, output rows {start}:{stop}: {exc}") from exc
                 for key, value in counts.items():
                     stats[key] = stats.get(key, 0) + value
             else:
                 packed = gguf.quantize(values.reshape(1, -1), layout.encoding)
-                decoded = gguf.dequantize(packed, layout.encoding).reshape(values.shape)
-                if not np.array_equal(decoded, values):
-                    raise ValueError(f"{layout.name}: values are outside the {encoding} lattice")
             if packed.nbytes != (stop - start) * layout.row_bytes:
                 raise ValueError(f"{layout.name}: packed GGUF tensor shape mismatch")
+            decoded = gguf.dequantize(packed.reshape(1, -1), layout.encoding).reshape(values.shape)
+            if not np.array_equal(decoded, values):
+                raise ValueError(f"{layout.name}: packed {encoding} tile does not reproduce probes")
             target.write(memoryview(np.ascontiguousarray(packed)).cast("B"))
     return calls, observed, by_encoding
 

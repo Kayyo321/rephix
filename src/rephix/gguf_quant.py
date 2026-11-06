@@ -8,7 +8,7 @@ _BLOCK_SIZE = 32
 _CHUNK_BLOCKS = 1 << 15
 _HALF_UNIT_EXPONENT = 24
 _HALF_MAX = int(np.finfo(np.float16).max)
-_FORMATS = {"Q8_0": (128, 34), "Q4_0": (8, 18)}
+_FORMATS = {"Q8_0": (128, 34), "Q5_0": (16, 22), "Q4_0": (8, 18)}
 
 
 def _scale_is_half(scale_units):
@@ -80,15 +80,19 @@ def _recover_chunk(blocks, limit, q8):
     scale = np.ldexp(scale_units.astype(np.float64), -_HALF_UNIT_EXPONENT)
     scale[selected < 0] *= -1
     if not q8:
-        # ggml's Q4_0 reference uses signed_max / -8; signed_max starts at +0.
+        # The reference divides signed_max by the negative code limit.
         scale[zero] = -0.0
     d = scale.astype("<f2").view(np.uint8).reshape(-1, 2)
     codes = primitive * selected[:, None]
     if q8:
         qs = codes.astype(np.int8).view(np.uint8)
     else:
-        nibbles = (codes + 8).astype(np.uint8)
-        qs = nibbles[:, :16] | (nibbles[:, 16:] << 4)
+        unsigned = (codes + limit).astype(np.uint8)
+        low = unsigned & 15
+        qs = low[:, :16] | (low[:, 16:] << 4)
+        if limit == 16:
+            high = np.packbits(unsigned >> 4, axis=1, bitorder="little")
+            qs = np.concatenate((high, qs), axis=1)
     return np.concatenate((d, qs), axis=1), {
         "blocks": len(blocks),
         "ambiguous_blocks": int(np.count_nonzero(zero | (choices > 1))),
@@ -98,14 +102,19 @@ def _recover_chunk(blocks, limit, q8):
 
 
 def recover_blocks(values, encoding):
-    """Pack exact ``(..., 32)`` observations as little-endian Q8_0 or Q4_0.
+    """Pack exact observations in the chosen GGML block encoding.
 
-    The packed shape has last dimension 34 or 18. The ambiguity count includes
-    any distinct legal packed representation, even if a single one matches the
-    GGML reference quantizer's nonzero extremum convention. The canonical zero
-    encoding uses zero codes and the reference quantizer's signed zero scale.
+    Q8_0, Q5_0, and Q4_0 take 32 values per block. K-quants take 256 values.
     """
     encoding = getattr(encoding, "name", encoding)
+    if encoding == "Q4_K":
+        from .gguf_q4k import recover_q4k
+
+        return recover_q4k(values)
+    if encoding == "Q6_K":
+        from .gguf_q6k import recover_q6k
+
+        return recover_q6k(values)
     if not isinstance(encoding, str) or encoding not in _FORMATS:
         raise ValueError(f"unsupported GGML block encoding {encoding!r}")
     limit, width = _FORMATS[encoding]

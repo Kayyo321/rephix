@@ -1,0 +1,1795 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "reference_file": {
+        "filename": "qwen2.5-0.5b-instruct-q6_k.gguf",
+        "size_bytes": 650379104,
+        "sha256": "2f82233630c349ccf6b8daccf48f9a7865713d9f08a2eadfa456cebe9b97c7f5"
+      },
+      "candidate_file": {
+        "filename": "qwen-q6-recovered.gguf",
+        "size_bytes": 650379104,
+        "sha256": "fa7a7bb733a960f70c16eb9f27cb632fd1dee616f8facac3803cb90aba24aa23"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "gguf": "0.19.0",
+        "accelerate": "1.15.0",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "threads": 4,
+        "inference": "standalone GGUF dequantized by Transformers to FP32"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 1190,
+        "observed_output_scalars": 630167424,
+        "copied_structural_prefix_bytes": 5947744,
+        "by_encoding": {
+          "Q8_0": {
+            "tensors": 146,
+            "dequantized_values": 525500416,
+            "blocks": 16421888,
+            "ambiguous_blocks": 16421888,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 16421888
+          },
+          "F32": {
+            "tensors": 121,
+            "dequantized_values": 71552
+          },
+          "Q6_K": {
+            "tensors": 24,
+            "dequantized_values": 104595456,
+            "blocks": 408576,
+            "ambiguous_blocks": 408517,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 408576
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 291,
+          "payload_bytes": 644431360,
+          "exact_payload_bytes": 641929074,
+          "stored_fields": 653535104,
+          "exact_stored_fields": 652162068,
+          "quantized_blocks": 16830464,
+          "exact_quantized_blocks": 16756645,
+          "dequantized_values": 630167424,
+          "exact_dequantized_values": 630167424,
+          "within_tolerance_dequantized_values": 630167424,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 0.9961170635767943,
+          "fraction_exact_stored_fields": 0.9978990631236238,
+          "fraction_exact_quantized_blocks": 0.9956139652477792,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 121,
+            "payload_bytes": 286208,
+            "exact_payload_bytes": 286208,
+            "stored_fields": 71552,
+            "exact_stored_fields": 71552,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 71552,
+            "exact_dequantized_values": 71552,
+            "within_tolerance_dequantized_values": 71552,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q6_K": {
+            "tensors": 24,
+            "payload_bytes": 85800960,
+            "exact_payload_bytes": 83298674,
+            "stored_fields": 111541248,
+            "exact_stored_fields": 110168212,
+            "quantized_blocks": 408576,
+            "exact_quantized_blocks": 334757,
+            "dequantized_values": 104595456,
+            "exact_dequantized_values": 104595456,
+            "within_tolerance_dequantized_values": 104595456,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.970836153814596,
+            "fraction_exact_stored_fields": 0.9876903295900007,
+            "fraction_exact_quantized_blocks": 0.8193261473997494,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q8_0": {
+            "tensors": 146,
+            "payload_bytes": 558344192,
+            "exact_payload_bytes": 558344192,
+            "stored_fields": 541922304,
+            "exact_stored_fields": 541922304,
+            "quantized_blocks": 16421888,
+            "exact_quantized_blocks": 16421888,
+            "dequantized_values": 525500416,
+            "exact_dequantized_values": 525500416,
+            "within_tolerance_dequantized_values": 525500416,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "held_out_behavior": {
+        "prompt_count": 6,
+        "max_new_tokens": 4,
+        "prompt_token_ids_match": true,
+        "logit_coordinates": 911616,
+        "exact_logit_coordinates": 911616,
+        "logit_max_abs_error": 0.0,
+        "logit_rmse": 0.0,
+        "next_token_top1_matches": 6,
+        "exact_cached_greedy_matches": 6,
+        "prompts": [
+          "The city decided to build a new library because",
+          "Translate into Spanish: The train arrives in ten minutes.\nSpanish:",
+          "If a box holds 12 pencils, then 5 boxes hold",
+          "def is_even(number):\n    return",
+          "Why do some birds migrate in winter?\nAnswer:",
+          "A balanced lunch might contain rice, vegetables, and"
+        ],
+        "reference": {
+          "logits_sha256": "9372146776c12ef963959ab5dc065ba75944d7a10751ec2c41f2295aff9dcd6a",
+          "token_ids": [
+            [
+              785,
+              3283,
+              6635,
+              311,
+              1936,
+              264,
+              501,
+              6733,
+              1576
+            ],
+            [
+              27473,
+              1119,
+              15154,
+              25,
+              576,
+              5426,
+              29682,
+              304,
+              5779,
+              4420,
+              624,
+              61797,
+              25
+            ],
+            [
+              2679,
+              264,
+              3745,
+              9982,
+              220,
+              16,
+              17,
+              96338,
+              11,
+              1221,
+              220,
+              20,
+              14697,
+              3331
+            ],
+            [
+              750,
+              374,
+              68347,
+              17918,
+              982,
+              262,
+              470
+            ],
+            [
+              10234,
+              653,
+              1045,
+              19654,
+              44566,
+              304,
+              12406,
+              5267,
+              16141,
+              25
+            ],
+            [
+              32,
+              23831,
+              15786,
+              2578,
+              6644,
+              19653,
+              11,
+              23880,
+              11,
+              323
+            ]
+          ],
+          "continuation_ids": [
+            [
+              432,
+              572,
+              6635,
+              429
+            ],
+            [
+              3984,
+              73600,
+              32502,
+              64
+            ],
+            [
+              220,
+              21,
+              15,
+              96338
+            ],
+            [
+              1372,
+              1018,
+              220,
+              17
+            ],
+            [
+              56528,
+              44566,
+              304,
+              12406
+            ],
+            [
+              13041,
+              13,
+              576,
+              11341
+            ]
+          ],
+          "top1_token_ids": [
+            432,
+            3984,
+            220,
+            1372,
+            56528,
+            13041
+          ],
+          "architecture": "Qwen2ForCausalLM",
+          "tokenizer": "Qwen2TokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        },
+        "candidate": {
+          "logits_sha256": "9372146776c12ef963959ab5dc065ba75944d7a10751ec2c41f2295aff9dcd6a",
+          "token_ids": [
+            [
+              785,
+              3283,
+              6635,
+              311,
+              1936,
+              264,
+              501,
+              6733,
+              1576
+            ],
+            [
+              27473,
+              1119,
+              15154,
+              25,
+              576,
+              5426,
+              29682,
+              304,
+              5779,
+              4420,
+              624,
+              61797,
+              25
+            ],
+            [
+              2679,
+              264,
+              3745,
+              9982,
+              220,
+              16,
+              17,
+              96338,
+              11,
+              1221,
+              220,
+              20,
+              14697,
+              3331
+            ],
+            [
+              750,
+              374,
+              68347,
+              17918,
+              982,
+              262,
+              470
+            ],
+            [
+              10234,
+              653,
+              1045,
+              19654,
+              44566,
+              304,
+              12406,
+              5267,
+              16141,
+              25
+            ],
+            [
+              32,
+              23831,
+              15786,
+              2578,
+              6644,
+              19653,
+              11,
+              23880,
+              11,
+              323
+            ]
+          ],
+          "continuation_ids": [
+            [
+              432,
+              572,
+              6635,
+              429
+            ],
+            [
+              3984,
+              73600,
+              32502,
+              64
+            ],
+            [
+              220,
+              21,
+              15,
+              96338
+            ],
+            [
+              1372,
+              1018,
+              220,
+              17
+            ],
+            [
+              56528,
+              44566,
+              304,
+              12406
+            ],
+            [
+              13041,
+              13,
+              576,
+              11341
+            ]
+          ],
+          "top1_token_ids": [
+            432,
+            3984,
+            220,
+            1372,
+            56528,
+            13041
+          ],
+          "architecture": "Qwen2ForCausalLM",
+          "tokenizer": "Qwen2TokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        }
+      },
+      "evaluation_seconds": 42.03666870699999
+    },
+    {
+      "schema_version": 1,
+      "model_id": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "reference_file": {
+        "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+        "size_bytes": 491400032,
+        "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+      },
+      "candidate_file": {
+        "filename": "qwen-q4m-recovered.gguf",
+        "size_bytes": 491400032,
+        "sha256": "17bacd5ca8629ce81ec1401d9d04193583c6ae73ade20dd2dda08bf4889cdce1"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "gguf": "0.19.0",
+        "accelerate": "1.15.0",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "threads": 4,
+        "inference": "standalone GGUF dequantized by Transformers to FP32"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 1190,
+        "observed_output_scalars": 630167424,
+        "copied_structural_prefix_bytes": 5947744,
+        "by_encoding": {
+          "Q8_0": {
+            "tensors": 13,
+            "dequantized_values": 137510912,
+            "blocks": 4297216,
+            "ambiguous_blocks": 4297216,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 4297216
+          },
+          "Q5_0": {
+            "tensors": 133,
+            "dequantized_values": 387989504,
+            "blocks": 12124672,
+            "ambiguous_blocks": 40,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 12124672
+          },
+          "F32": {
+            "tensors": 121,
+            "dequantized_values": 71552
+          },
+          "Q6_K": {
+            "tensors": 12,
+            "dequantized_values": 52297728,
+            "blocks": 204288,
+            "ambiguous_blocks": 204257,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 204288
+          },
+          "Q4_K": {
+            "tensors": 12,
+            "dequantized_values": 52297728,
+            "blocks": 204288,
+            "ambiguous_blocks": 135,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 204288
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 291,
+          "payload_bytes": 485452288,
+          "exact_payload_bytes": 484208980,
+          "stored_fields": 653739392,
+          "exact_stored_fields": 653056517,
+          "quantized_blocks": 16830464,
+          "exact_quantized_blocks": 16793814,
+          "dequantized_values": 630167424,
+          "exact_dequantized_values": 630167424,
+          "within_tolerance_dequantized_values": 630167424,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 0.9974388667419362,
+          "fraction_exact_stored_fields": 0.9989554323812263,
+          "fraction_exact_quantized_blocks": 0.997822401093636,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 121,
+            "payload_bytes": 286208,
+            "exact_payload_bytes": 286208,
+            "stored_fields": 71552,
+            "exact_stored_fields": 71552,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 71552,
+            "exact_dequantized_values": 71552,
+            "within_tolerance_dequantized_values": 71552,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q4_K": {
+            "tensors": 12,
+            "payload_bytes": 29417472,
+            "exact_payload_bytes": 29417345,
+            "stored_fields": 55974912,
+            "exact_stored_fields": 55974695,
+            "quantized_blocks": 204288,
+            "exact_quantized_blocks": 204287,
+            "dequantized_values": 52297728,
+            "exact_dequantized_values": 52297728,
+            "within_tolerance_dequantized_values": 52297728,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.9999956828377367,
+            "fraction_exact_stored_fields": 0.999996123263222,
+            "fraction_exact_quantized_blocks": 0.9999951049498746,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q5_0": {
+            "tensors": 133,
+            "payload_bytes": 266742784,
+            "exact_payload_bytes": 266742784,
+            "stored_fields": 400114176,
+            "exact_stored_fields": 400114176,
+            "quantized_blocks": 12124672,
+            "exact_quantized_blocks": 12124672,
+            "dequantized_values": 387989504,
+            "exact_dequantized_values": 387989504,
+            "within_tolerance_dequantized_values": 387989504,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q6_K": {
+            "tensors": 12,
+            "payload_bytes": 42900480,
+            "exact_payload_bytes": 41657299,
+            "stored_fields": 55770624,
+            "exact_stored_fields": 55087966,
+            "quantized_blocks": 204288,
+            "exact_quantized_blocks": 167639,
+            "dequantized_values": 52297728,
+            "exact_dequantized_values": 52297728,
+            "within_tolerance_dequantized_values": 52297728,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.9710217461436329,
+            "fraction_exact_stored_fields": 0.9877595416540436,
+            "fraction_exact_quantized_blocks": 0.8206013079573935,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q8_0": {
+            "tensors": 13,
+            "payload_bytes": 146105344,
+            "exact_payload_bytes": 146105344,
+            "stored_fields": 141808128,
+            "exact_stored_fields": 141808128,
+            "quantized_blocks": 4297216,
+            "exact_quantized_blocks": 4297216,
+            "dequantized_values": 137510912,
+            "exact_dequantized_values": 137510912,
+            "within_tolerance_dequantized_values": 137510912,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "held_out_behavior": {
+        "prompt_count": 6,
+        "max_new_tokens": 4,
+        "prompt_token_ids_match": true,
+        "logit_coordinates": 911616,
+        "exact_logit_coordinates": 911616,
+        "logit_max_abs_error": 0.0,
+        "logit_rmse": 0.0,
+        "next_token_top1_matches": 6,
+        "exact_cached_greedy_matches": 6,
+        "prompts": [
+          "The city decided to build a new library because",
+          "Translate into Spanish: The train arrives in ten minutes.\nSpanish:",
+          "If a box holds 12 pencils, then 5 boxes hold",
+          "def is_even(number):\n    return",
+          "Why do some birds migrate in winter?\nAnswer:",
+          "A balanced lunch might contain rice, vegetables, and"
+        ],
+        "reference": {
+          "logits_sha256": "41ad24a735275bea39b142be494e9cb60947d2507ade9f909ed3034e4992fc5b",
+          "token_ids": [
+            [
+              785,
+              3283,
+              6635,
+              311,
+              1936,
+              264,
+              501,
+              6733,
+              1576
+            ],
+            [
+              27473,
+              1119,
+              15154,
+              25,
+              576,
+              5426,
+              29682,
+              304,
+              5779,
+              4420,
+              624,
+              61797,
+              25
+            ],
+            [
+              2679,
+              264,
+              3745,
+              9982,
+              220,
+              16,
+              17,
+              96338,
+              11,
+              1221,
+              220,
+              20,
+              14697,
+              3331
+            ],
+            [
+              750,
+              374,
+              68347,
+              17918,
+              982,
+              262,
+              470
+            ],
+            [
+              10234,
+              653,
+              1045,
+              19654,
+              44566,
+              304,
+              12406,
+              5267,
+              16141,
+              25
+            ],
+            [
+              32,
+              23831,
+              15786,
+              2578,
+              6644,
+              19653,
+              11,
+              23880,
+              11,
+              323
+            ]
+          ],
+          "continuation_ids": [
+            [
+              432,
+              572,
+              6635,
+              429
+            ],
+            [
+              3984,
+              73600,
+              32502,
+              64
+            ],
+            [
+              220,
+              21,
+              15,
+              96338
+            ],
+            [
+              1372,
+              1018,
+              220,
+              17
+            ],
+            [
+              4329,
+              19654,
+              44566,
+              304
+            ],
+            [
+              13041,
+              13,
+              576,
+              19653
+            ]
+          ],
+          "top1_token_ids": [
+            432,
+            3984,
+            220,
+            1372,
+            4329,
+            13041
+          ],
+          "architecture": "Qwen2ForCausalLM",
+          "tokenizer": "Qwen2TokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        },
+        "candidate": {
+          "logits_sha256": "41ad24a735275bea39b142be494e9cb60947d2507ade9f909ed3034e4992fc5b",
+          "token_ids": [
+            [
+              785,
+              3283,
+              6635,
+              311,
+              1936,
+              264,
+              501,
+              6733,
+              1576
+            ],
+            [
+              27473,
+              1119,
+              15154,
+              25,
+              576,
+              5426,
+              29682,
+              304,
+              5779,
+              4420,
+              624,
+              61797,
+              25
+            ],
+            [
+              2679,
+              264,
+              3745,
+              9982,
+              220,
+              16,
+              17,
+              96338,
+              11,
+              1221,
+              220,
+              20,
+              14697,
+              3331
+            ],
+            [
+              750,
+              374,
+              68347,
+              17918,
+              982,
+              262,
+              470
+            ],
+            [
+              10234,
+              653,
+              1045,
+              19654,
+              44566,
+              304,
+              12406,
+              5267,
+              16141,
+              25
+            ],
+            [
+              32,
+              23831,
+              15786,
+              2578,
+              6644,
+              19653,
+              11,
+              23880,
+              11,
+              323
+            ]
+          ],
+          "continuation_ids": [
+            [
+              432,
+              572,
+              6635,
+              429
+            ],
+            [
+              3984,
+              73600,
+              32502,
+              64
+            ],
+            [
+              220,
+              21,
+              15,
+              96338
+            ],
+            [
+              1372,
+              1018,
+              220,
+              17
+            ],
+            [
+              4329,
+              19654,
+              44566,
+              304
+            ],
+            [
+              13041,
+              13,
+              576,
+              19653
+            ]
+          ],
+          "top1_token_ids": [
+            432,
+            3984,
+            220,
+            1372,
+            4329,
+            13041
+          ],
+          "architecture": "Qwen2ForCausalLM",
+          "tokenizer": "Qwen2TokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        }
+      },
+      "evaluation_seconds": 43.122490334999384
+    },
+    {
+      "schema_version": 1,
+      "model_id": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+      "revision": "52e7645ba7c309695bec7ac98f4f005b139cf465",
+      "reference_file": {
+        "filename": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+        "size_bytes": 668788096,
+        "sha256": "9fecc3b3cd76bba89d504f29b616eedf7da85b96540e490ca5824d3f7d2776a0"
+      },
+      "candidate_file": {
+        "filename": "tinyllama-q4m-recovered.gguf",
+        "size_bytes": 668788096,
+        "sha256": "bc1a5cf5681732f54943a38d14a2241de02b0eb3025d440181bb6cf9bc31aab0"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "gguf": "0.19.0",
+        "accelerate": "1.15.0",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "threads": 4,
+        "inference": "standalone GGUF dequantized by Transformers to FP32"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 1914,
+        "observed_output_scalars": 1100048384,
+        "copied_structural_prefix_bytes": 1709440,
+        "by_encoding": {
+          "Q6_K": {
+            "tensors": 21,
+            "dequantized_values": 186122240,
+            "blocks": 727040,
+            "ambiguous_blocks": 726959,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 727040
+          },
+          "Q4_K": {
+            "tensors": 135,
+            "dequantized_values": 913833984,
+            "blocks": 3569664,
+            "ambiguous_blocks": 2853,
+            "zero_blocks": 880,
+            "reference_convention_blocks": 3569664
+          },
+          "F32": {
+            "tensors": 45,
+            "dequantized_values": 92160
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 201,
+          "payload_bytes": 667078656,
+          "exact_payload_bytes": 663287478,
+          "stored_fields": 1176662016,
+          "exact_stored_fields": 1174593798,
+          "quantized_blocks": 4296704,
+          "exact_quantized_blocks": 4183034,
+          "dequantized_values": 1100048384,
+          "exact_dequantized_values": 1100048384,
+          "within_tolerance_dequantized_values": 1100048384,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 0.9943167451605587,
+          "fraction_exact_stored_fields": 0.9982423007015806,
+          "fraction_exact_quantized_blocks": 0.9735448380898475,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 45,
+            "payload_bytes": 368640,
+            "exact_payload_bytes": 368640,
+            "stored_fields": 92160,
+            "exact_stored_fields": 92160,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 92160,
+            "exact_dequantized_values": 92160,
+            "within_tolerance_dequantized_values": 92160,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q4_K": {
+            "tensors": 135,
+            "payload_bytes": 514031616,
+            "exact_payload_bytes": 514031379,
+            "stored_fields": 978087936,
+            "exact_stored_fields": 978087700,
+            "quantized_blocks": 3569664,
+            "exact_quantized_blocks": 3569653,
+            "dequantized_values": 913833984,
+            "exact_dequantized_values": 913833984,
+            "within_tolerance_dequantized_values": 913833984,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.9999995389388656,
+            "fraction_exact_stored_fields": 0.9999997587129017,
+            "fraction_exact_quantized_blocks": 0.9999969184774814,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q6_K": {
+            "tensors": 21,
+            "payload_bytes": 152678400,
+            "exact_payload_bytes": 148887459,
+            "stored_fields": 198481920,
+            "exact_stored_fields": 196413938,
+            "quantized_blocks": 727040,
+            "exact_quantized_blocks": 613381,
+            "dequantized_values": 186122240,
+            "exact_dequantized_values": 186122240,
+            "within_tolerance_dequantized_values": 186122240,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.9751704170334508,
+            "fraction_exact_stored_fields": 0.9895810056654026,
+            "fraction_exact_quantized_blocks": 0.8436688490316901,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "held_out_behavior": {
+        "prompt_count": 6,
+        "max_new_tokens": 4,
+        "prompt_token_ids_match": true,
+        "logit_coordinates": 192000,
+        "exact_logit_coordinates": 192000,
+        "logit_max_abs_error": 0.0,
+        "logit_rmse": 0.0,
+        "next_token_top1_matches": 6,
+        "exact_cached_greedy_matches": 6,
+        "prompts": [
+          "The city decided to build a new library because",
+          "Translate into Spanish: The train arrives in ten minutes.\nSpanish:",
+          "If a box holds 12 pencils, then 5 boxes hold",
+          "def is_even(number):\n    return",
+          "Why do some birds migrate in winter?\nAnswer:",
+          "A balanced lunch might contain rice, vegetables, and"
+        ],
+        "reference": {
+          "logits_sha256": "a157caa64c3468c69e89d6fecb3c54f61cbf822d69f2c29e3ca1ea2f1ddaebfb",
+          "token_ids": [
+            [
+              1,
+              450,
+              4272,
+              8459,
+              304,
+              2048,
+              263,
+              716,
+              3489,
+              1363
+            ],
+            [
+              1,
+              4103,
+              9632,
+              964,
+              10432,
+              29901,
+              450,
+              7945,
+              6974,
+              267,
+              297,
+              3006,
+              6233,
+              29889,
+              13,
+              15495,
+              728,
+              29901
+            ],
+            [
+              1,
+              960,
+              263,
+              3800,
+              8640,
+              29871,
+              29896,
+              29906,
+              282,
+              3977,
+              2719,
+              29892,
+              769,
+              29871,
+              29945,
+              16273,
+              4808
+            ],
+            [
+              1,
+              822,
+              338,
+              29918,
+              11884,
+              29898,
+              4537,
+              1125,
+              13,
+              1678,
+              736
+            ],
+            [
+              1,
+              3750,
+              437,
+              777,
+              17952,
+              9725,
+              403,
+              297,
+              13851,
+              29973,
+              13,
+              22550,
+              29901
+            ],
+            [
+              1,
+              319,
+              6411,
+              8362,
+              301,
+              3322,
+              1795,
+              1712,
+              19408,
+              29892,
+              18655,
+              1849,
+              29892,
+              322
+            ]
+          ],
+          "continuation_ids": [
+            [
+              372,
+              471,
+              263,
+              20136
+            ],
+            [
+              1260,
+              20639,
+              10953,
+              29874
+            ],
+            [
+              29871,
+              29896,
+              29906,
+              29900
+            ],
+            [
+              1353,
+              1273,
+              29871,
+              29906
+            ],
+            [
+              3834,
+              17952,
+              9725,
+              403
+            ],
+            [
+              263,
+              20793,
+              26823,
+              2752
+            ]
+          ],
+          "top1_token_ids": [
+            372,
+            1260,
+            29871,
+            1353,
+            3834,
+            263
+          ],
+          "architecture": "LlamaForCausalLM",
+          "tokenizer": "LlamaTokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        },
+        "candidate": {
+          "logits_sha256": "a157caa64c3468c69e89d6fecb3c54f61cbf822d69f2c29e3ca1ea2f1ddaebfb",
+          "token_ids": [
+            [
+              1,
+              450,
+              4272,
+              8459,
+              304,
+              2048,
+              263,
+              716,
+              3489,
+              1363
+            ],
+            [
+              1,
+              4103,
+              9632,
+              964,
+              10432,
+              29901,
+              450,
+              7945,
+              6974,
+              267,
+              297,
+              3006,
+              6233,
+              29889,
+              13,
+              15495,
+              728,
+              29901
+            ],
+            [
+              1,
+              960,
+              263,
+              3800,
+              8640,
+              29871,
+              29896,
+              29906,
+              282,
+              3977,
+              2719,
+              29892,
+              769,
+              29871,
+              29945,
+              16273,
+              4808
+            ],
+            [
+              1,
+              822,
+              338,
+              29918,
+              11884,
+              29898,
+              4537,
+              1125,
+              13,
+              1678,
+              736
+            ],
+            [
+              1,
+              3750,
+              437,
+              777,
+              17952,
+              9725,
+              403,
+              297,
+              13851,
+              29973,
+              13,
+              22550,
+              29901
+            ],
+            [
+              1,
+              319,
+              6411,
+              8362,
+              301,
+              3322,
+              1795,
+              1712,
+              19408,
+              29892,
+              18655,
+              1849,
+              29892,
+              322
+            ]
+          ],
+          "continuation_ids": [
+            [
+              372,
+              471,
+              263,
+              20136
+            ],
+            [
+              1260,
+              20639,
+              10953,
+              29874
+            ],
+            [
+              29871,
+              29896,
+              29906,
+              29900
+            ],
+            [
+              1353,
+              1273,
+              29871,
+              29906
+            ],
+            [
+              3834,
+              17952,
+              9725,
+              403
+            ],
+            [
+              263,
+              20793,
+              26823,
+              2752
+            ]
+          ],
+          "top1_token_ids": [
+            372,
+            1260,
+            29871,
+            1353,
+            3834,
+            263
+          ],
+          "architecture": "LlamaForCausalLM",
+          "tokenizer": "LlamaTokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        }
+      },
+      "evaluation_seconds": 22.456531507999898
+    },
+    {
+      "schema_version": 1,
+      "model_id": "OuteAI/Lite-Mistral-150M-v2-Instruct-GGUF",
+      "revision": "b76ce5212026af9de0f919463d04da12a93cd9ea",
+      "reference_file": {
+        "filename": "Lite-Mistral-150M-v2-Instruct-Q4_K_M.gguf",
+        "size_bytes": 99446336,
+        "sha256": "080745ad5cb61dc98114741123c8088f694cf6df7f2bc6661dd0579346f68903"
+      },
+      "candidate_file": {
+        "filename": "mistral-q4m-final.gguf",
+        "size_bytes": 99446336,
+        "sha256": "77f40024e06590229499dc7938992242cd6f752472912a994427ed1075efff34"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "gguf": "0.19.0",
+        "accelerate": "1.15.0",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "threads": 4,
+        "inference": "standalone GGUF dequantized by Transformers to FP32"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 294,
+        "observed_output_scalars": 156519168,
+        "copied_structural_prefix_bytes": 744512,
+        "by_encoding": {
+          "Q6_K": {
+            "tensors": 13,
+            "dequantized_values": 41091072,
+            "blocks": 160512,
+            "ambiguous_blocks": 160489,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 160512
+          },
+          "Q4_K": {
+            "tensors": 73,
+            "dequantized_values": 115408896,
+            "blocks": 450816,
+            "ambiguous_blocks": 244,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 450816
+          },
+          "F32": {
+            "tensors": 25,
+            "dequantized_values": 19200
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 111,
+          "payload_bytes": 98701824,
+          "exact_payload_bytes": 97855568,
+          "stored_fields": 167362560,
+          "exact_stored_fields": 166901707,
+          "quantized_blocks": 611328,
+          "exact_quantized_blocks": 586046,
+          "dequantized_values": 156519168,
+          "exact_dequantized_values": 156519168,
+          "within_tolerance_dequantized_values": 156519168,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 0.9914261361573217,
+          "fraction_exact_stored_fields": 0.997246379357486,
+          "fraction_exact_quantized_blocks": 0.958644132118928,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 25,
+            "payload_bytes": 76800,
+            "exact_payload_bytes": 76800,
+            "stored_fields": 19200,
+            "exact_stored_fields": 19200,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 19200,
+            "exact_dequantized_values": 19200,
+            "within_tolerance_dequantized_values": 19200,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q4_K": {
+            "tensors": 73,
+            "payload_bytes": 64917504,
+            "exact_payload_bytes": 64917504,
+            "stored_fields": 123523584,
+            "exact_stored_fields": 123523584,
+            "quantized_blocks": 450816,
+            "exact_quantized_blocks": 450816,
+            "dequantized_values": 115408896,
+            "exact_dequantized_values": 115408896,
+            "within_tolerance_dequantized_values": 115408896,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q6_K": {
+            "tensors": 13,
+            "payload_bytes": 33707520,
+            "exact_payload_bytes": 32861264,
+            "stored_fields": 43819776,
+            "exact_stored_fields": 43358923,
+            "quantized_blocks": 160512,
+            "exact_quantized_blocks": 135230,
+            "dequantized_values": 41091072,
+            "exact_dequantized_values": 41091072,
+            "within_tolerance_dequantized_values": 41091072,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.9748941482494115,
+            "fraction_exact_stored_fields": 0.989482990510951,
+            "fraction_exact_quantized_blocks": 0.8424915271132376,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "held_out_behavior": {
+        "prompt_count": 6,
+        "max_new_tokens": 4,
+        "prompt_token_ids_match": true,
+        "logit_coordinates": 196608,
+        "exact_logit_coordinates": 196608,
+        "logit_max_abs_error": 0.0,
+        "logit_rmse": 0.0,
+        "next_token_top1_matches": 6,
+        "exact_cached_greedy_matches": 6,
+        "prompts": [
+          "The city decided to build a new library because",
+          "Translate into Spanish: The train arrives in ten minutes.\nSpanish:",
+          "If a box holds 12 pencils, then 5 boxes hold",
+          "def is_even(number):\n    return",
+          "Why do some birds migrate in winter?\nAnswer:",
+          "A balanced lunch might contain rice, vegetables, and"
+        ],
+        "reference": {
+          "logits_sha256": "ee3a105be1160279ce4ae69af52e9c508c6ce757086527b33b78167bd0729e0f",
+          "token_ids": [
+            [
+              1,
+              415,
+              2990,
+              4496,
+              298,
+              1813,
+              264,
+              633,
+              7607,
+              1096
+            ],
+            [
+              1,
+              4335,
+              10020,
+              778,
+              10177,
+              28747,
+              415,
+              5835,
+              26746,
+              297,
+              3095,
+              3486,
+              28723,
+              13,
+              13116,
+              789,
+              28747
+            ],
+            [
+              1,
+              1047,
+              264,
+              3890,
+              8288,
+              28705,
+              28740,
+              28750,
+              284,
+              831,
+              4544,
+              28725,
+              868,
+              28705,
+              28782,
+              13446,
+              2400
+            ],
+            [
+              1,
+              801,
+              349,
+              28730,
+              8790,
+              28732,
+              4810,
+              1329,
+              13,
+              2287,
+              604
+            ],
+            [
+              1,
+              4315,
+              511,
+              741,
+              12780,
+              11205,
+              380,
+              297,
+              8539,
+              28804,
+              13,
+              2820,
+              16981,
+              28747
+            ],
+            [
+              1,
+              330,
+              19971,
+              9957,
+              1659,
+              7001,
+              13825,
+              28725,
+              19045,
+              28725,
+              304
+            ]
+          ],
+          "continuation_ids": [
+            [
+              378,
+              403,
+              264,
+              1598
+            ],
+            [
+              2,
+              1,
+              1,
+              1
+            ],
+            [
+              28705,
+              28740,
+              28750,
+              284
+            ],
+            [
+              1474,
+              1239,
+              28705,
+              28750
+            ],
+            [
+              2,
+              1,
+              1,
+              1
+            ],
+            [
+              6115,
+              2096,
+              1126,
+              28723
+            ]
+          ],
+          "top1_token_ids": [
+            378,
+            2,
+            28705,
+            1474,
+            2,
+            6115
+          ],
+          "architecture": "LlamaForCausalLM",
+          "tokenizer": "LlamaTokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        },
+        "candidate": {
+          "logits_sha256": "ee3a105be1160279ce4ae69af52e9c508c6ce757086527b33b78167bd0729e0f",
+          "token_ids": [
+            [
+              1,
+              415,
+              2990,
+              4496,
+              298,
+              1813,
+              264,
+              633,
+              7607,
+              1096
+            ],
+            [
+              1,
+              4335,
+              10020,
+              778,
+              10177,
+              28747,
+              415,
+              5835,
+              26746,
+              297,
+              3095,
+              3486,
+              28723,
+              13,
+              13116,
+              789,
+              28747
+            ],
+            [
+              1,
+              1047,
+              264,
+              3890,
+              8288,
+              28705,
+              28740,
+              28750,
+              284,
+              831,
+              4544,
+              28725,
+              868,
+              28705,
+              28782,
+              13446,
+              2400
+            ],
+            [
+              1,
+              801,
+              349,
+              28730,
+              8790,
+              28732,
+              4810,
+              1329,
+              13,
+              2287,
+              604
+            ],
+            [
+              1,
+              4315,
+              511,
+              741,
+              12780,
+              11205,
+              380,
+              297,
+              8539,
+              28804,
+              13,
+              2820,
+              16981,
+              28747
+            ],
+            [
+              1,
+              330,
+              19971,
+              9957,
+              1659,
+              7001,
+              13825,
+              28725,
+              19045,
+              28725,
+              304
+            ]
+          ],
+          "continuation_ids": [
+            [
+              378,
+              403,
+              264,
+              1598
+            ],
+            [
+              2,
+              1,
+              1,
+              1
+            ],
+            [
+              28705,
+              28740,
+              28750,
+              284
+            ],
+            [
+              1474,
+              1239,
+              28705,
+              28750
+            ],
+            [
+              2,
+              1,
+              1,
+              1
+            ],
+            [
+              6115,
+              2096,
+              1126,
+              28723
+            ]
+          ],
+          "top1_token_ids": [
+            378,
+            2,
+            28705,
+            1474,
+            2,
+            6115
+          ],
+          "architecture": "LlamaForCausalLM",
+          "tokenizer": "LlamaTokenizerFast",
+          "dtype": "torch.float32",
+          "unexpected_weight_keys": []
+        }
+      },
+      "evaluation_seconds": 39.52550419199906
+    }
+  ]
+}
