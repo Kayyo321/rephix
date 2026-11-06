@@ -17,6 +17,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
 - [Full checkpoint recovery with layer access and cross-family measurements](docs/LAYER_RECOVERY.md)
 - [Layer staging for checkpoints larger than available GPU memory](docs/LAYER_STAGING.md)
+- [Quantized GGUF recovery and packed weight audits](docs/GGUF_RECOVERY.md)
 - [Full checkpoint recovery from passive layer traces](docs/PASSIVE_LAYER_RECOVERY.md)
 - [ViT and DeiT classifier recovery](docs/VISION_RECOVERY.md)
 - [T5-family and BART encoder–decoder recovery](docs/SEQ2SEQ_RECOVERY.md)
@@ -83,6 +84,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `fit`, `evaluate` | Fit candidates and measure held-out continuations | Behavioral reconstruction, separately from parameter recovery |
 | `compare-weights` | Compare compatible checkpoint tensors | Coordinate distance without general symmetry alignment |
 | `audit-weights` | Stream local safetensors and report exact agreement, tolerance agreement, and coverage | Agreement on same-name stored tensor coordinates, including buffers |
+| `recover-gguf` | Rebuild a local GGUF checkpoint from chosen tensor-operator inputs | Exact float32 responses and known GGUF layout |
+| `audit-gguf` | Compare original packed fields and dequantized GGUF values | Separate raw encoding and effective weight agreement |
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |
