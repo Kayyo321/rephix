@@ -8,6 +8,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
+from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
@@ -26,6 +27,7 @@ _DIRECT_HF_RMS_NORMS = {
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
 }
 _BART = "transformers.models.bart.modeling_bart."
+_DEBERTA_MLM_HEAD = "transformers.models.deberta_v2.modeling_deberta_v2.DebertaV2LMPredictionHead"
 _WHISPER_POSITIONS = "transformers.models.whisper.modeling_whisper.WhisperPositionalEmbedding"
 _RELATIVE_BIAS_EMBEDDING = ".relative_attention_bias"
 _VISION_EMBEDDINGS = {
@@ -46,6 +48,8 @@ def _operator(torch, module, *, direct):
         return "linear"
     if direct and qualified_name in SSM_MIXERS:
         return "ssm_mixer"
+    if direct and qualified_name == _DEBERTA_MLM_HEAD:
+        return "deberta_mlm_bias"
     if direct and cls is torch.nn.Conv1d:
         from .convolution import validate_conv1d
 
@@ -90,6 +94,14 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
     for path, module in model.named_modules():
         parameters = dict(module.named_parameters(recurse=False, remove_duplicate=False))
         pending = {name: value for name, value in parameters.items() if id(value) not in seen}
+        # Native masked-LM heads can register the same bias on a wrapper and
+        # its decoder. Probe the affine child, where zero input exposes it.
+        if direct and type(module) is not torch.nn.Linear and "bias" in pending:
+            if any(
+                type(child) is torch.nn.Linear and child.bias is pending["bias"]
+                for child in module.children()
+            ):
+                del pending["bias"]
         if not pending:
             continue
         kind = _operator(torch, module, direct=direct)
@@ -110,6 +122,10 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             if pending.keys() != allowed:
                 raise ValueError(f"{path}: unexpected or tied state-space mixer parameters")
             validate_ssm_mixer(module)
+        elif kind == "deberta_mlm_bias":
+            allowed = {"bias"}
+            if pending.keys() != allowed or pending["bias"].ndim != 1:
+                raise ValueError(f"{path}: invalid standalone MLM bias")
         else:
             allowed = {"weight", "bias"}
         if not pending.keys() <= allowed:
@@ -237,6 +253,8 @@ def recover_from_layer_calls(
     addressed by negative positions. Its final_logits_bias path takes one token
     ID and returns the root logits at zero input to the language-model head.
     Whisper position probes take absolute row IDs, as for token embeddings.
+    A standalone DeBERTa MLM bias probe returns logits at zero input to its
+    tied vocabulary projection.
     In attention mode, T5-family bias probes take a vector of cache positions
     at the attention parent path and return its relative bias tensor. The bucket
     device selects the backend used by the oracle for position bucketing.
@@ -320,6 +338,10 @@ def recover_from_layer_calls(
             elif kind == "bart_logits_bias":
                 bias = module.final_logits_bias
                 bias.copy_(read(torch.zeros(1, dtype=torch.long), tuple(bias.shape)))
+            elif kind == "deberta_mlm_bias":
+                bias = module.bias
+                hidden = bias.new_zeros((1, module.dense.in_features))
+                bias.copy_(read(hidden, (1, bias.numel()))[0])
             elif kind == "vision_embeddings":
                 gauges.append({"module": path, **_vision_embeddings(module, read)})
             else:
@@ -367,6 +389,7 @@ def export_recovered_model(
     batch_size=128,
     include_tokenizer=True,
     relative_bias_mode="embedding",
+    architecture=None,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
@@ -387,6 +410,14 @@ def export_recovered_model(
         raise ValueError("layer recovery dtype must be auto, float32, or float64")
     is_vision = config.model_type in {"vit", "deit"}
     is_speech = config.model_type == "whisper"
+    is_encoder = (
+        config.model_type in ENCODER_MODEL_TYPES
+        and not config.is_decoder
+        and not config.is_encoder_decoder
+    )
+    source_architectures = config.architectures
+    if architecture is not None and not is_encoder:
+        raise ValueError("--architecture is supported only for native encoder-only models")
     preprocessor = source / "preprocessor_config.json"
     if include_tokenizer and (is_vision or is_speech) and not preprocessor.is_file():
         raise ValueError("source has no preprocessor_config.json; use --without-preprocessor")
@@ -403,6 +434,10 @@ def export_recovered_model(
         from transformers import AutoModelForSeq2SeqLM
 
         auto_model = AutoModelForSeq2SeqLM
+    elif is_encoder:
+        auto_model = encoder_auto_model(config, architecture=architecture)
+        if architecture is not None:
+            config.architectures = [architecture]
     target, loading = auto_model.from_pretrained(
         source,
         config=config,
@@ -437,6 +472,14 @@ def export_recovered_model(
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))[0]
         if name == _WHISPER_POSITIONS:
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))
+        if name == _DEBERTA_MLM_HEAD:
+            handle = module.LayerNorm.register_forward_hook(
+                lambda _layer, _args, values: torch.zeros_like(values)
+            )
+            try:
+                return module(inputs.to(device), target.get_input_embeddings())
+            finally:
+                handle.remove()
         if relative_bias_mode == "attention" and hasattr(module, "relative_attention_bias"):
             from .relative_bias import relative_bias_spec
 
@@ -469,6 +512,8 @@ def export_recovered_model(
     report["image_processor_exported" if is_vision else "tokenizer_exported"] = include_tokenizer
     if is_speech:
         report["audio_feature_extractor_exported"] = include_tokenizer
+    if is_encoder:
+        report["source_architectures"] = source_architectures
     target = None
 
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -499,6 +544,10 @@ def export_recovered_model(
                 **tokenizer_options,
             )
             tokenizer.save_pretrained(staged)
+            if is_encoder and config.model_type == "albert":
+                vocab = source / "spiece.model"
+                if vocab.is_file() and not (staged / vocab.name).is_file():
+                    shutil.copyfile(vocab, staged / vocab.name)
         write_json(staged / "layer-recovery.json", report)
         if output.exists() or output.is_symlink():
             raise ValueError("recovery output already exists; choose a new directory")
@@ -515,6 +564,7 @@ def _command(args):
         batch_size=args.batch_size,
         include_tokenizer=not args.without_tokenizer,
         relative_bias_mode=args.relative_bias_mode,
+        architecture=args.architecture,
     )
 
 
@@ -527,6 +577,9 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument(
+        "--architecture", help="native encoder class to use instead of config.json"
+    )
     recover.add_argument(
         "--relative-bias-mode",
         choices=("embedding", "attention"),

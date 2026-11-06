@@ -19,6 +19,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Full checkpoint recovery from passive layer traces](docs/PASSIVE_LAYER_RECOVERY.md)
 - [ViT and DeiT classifier recovery](docs/VISION_RECOVERY.md)
 - [T5-family and BART encoder–decoder recovery](docs/SEQ2SEQ_RECOVERY.md)
+- [BERT-family encoder and task-head recovery](docs/ENCODER_RECOVERY.md)
 - [Whisper speech recognition recovery](docs/WHISPER_RECOVERY.md)
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
