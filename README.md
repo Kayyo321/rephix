@@ -6,6 +6,16 @@ An experimental engine for reconstructing model behavior and identifiable parame
 
 Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. It also tests actual parameter recovery on controlled affine models and selected open-model components. Matching a finite set of responses does not establish matching weights; high-accuracy recovery of an entire language model remains a research question.
 
+## Run a persistent reconstruction session
+
+The session workflow accepts local text models or an authorized agent endpoint. It learns a standalone byte-level candidate without the target tokenizer, saves evidence and recovery state across process restarts, and locks a validation-selected candidate before final testing. Real runs cover three text model families and a controlled two-step tool agent.
+
+- [Session commands, target protocol, and capability matrix](docs/SESSIONS.md)
+- [Cross-family results and restart verification](docs/SESSION_RESULTS.md)
+- [Live agent, passive observation, and backend change](docs/LIVE_SESSION_RESULTS.md)
+- [Behavioral identification and calibration](docs/IDENTIFICATION.md)
+- [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
+
 ## Start with a controlled experiment
 
 Requires Python 3.10 or later. Core commands need only NumPy.

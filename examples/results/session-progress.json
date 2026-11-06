@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "711b5ab8e805b23857b62da17d196e64ec7d9465",
+  "milestones": {
+    "A": {
+      "status": "demonstrated",
+      "scope": "Persistent local and loopback HTTP sessions, training checkpoints, validation selection, and offline export",
+      "evidence": ["text-sessions.json", "session-reproduction.json", "live-session.json", "text-session-followup.json"],
+      "next": "Exercise longer-running sessions and large evidence stores on independent devices."
+    },
+    "B": {
+      "status": "demonstrated",
+      "scope": "One UTF-8 pipeline for Qwen2.5, SmolLM2, and GPT-2, plus evaluator-only backend identity in live mode",
+      "evidence": ["text-sessions.json", "identity-local.json", "live-session.json"],
+      "next": "Benchmark an MoE and a state-space target with the same held-out protocol."
+    },
+    "C": {
+      "status": "demonstrated",
+      "scope": "Two-step controlled integer sandbox, passive and active HTTP, backend replacement, unknown hypothesis, and target-free rollout",
+      "evidence": ["live-session.json", "live-objectives.json"],
+      "next": "Train and evaluate a separate tool-choice objective before adding unconstrained tool arguments."
+    },
+    "D": {
+      "status": "demonstrated",
+      "scope": "Two-seed matched query and UTF-8 evidence comparison, three-round curves, one-seed replay ablation and validation-selected fresh test",
+      "evidence": ["text-sessions.json", "text-session-followup.json", "live-objectives.json"],
+      "next": "Repeat with fresh prompt families and measure adaptive selection against more than two seeds."
+    },
+    "E": {
+      "status": "demonstrated",
+      "scope": "Selected output contrast subspace under dense log-probability access with two replicates and negative controls",
+      "evidence": ["logit-subspace.json"],
+      "next": "Study stability across families, endpoint precision and constrained bias queries."
+    }
+  },
+  "capabilities": {
+    "metadata_blind_identification": "demonstrated_on_declared_calibration_population",
+    "robust_family_identification_after_deployment_shift": "partial",
+    "tool_task_fidelity": "partial",
+    "open_ended_remote_tool_rollout": "unsupported",
+    "session_moe_and_state_space_measurements": "untested",
+    "version_and_architecture_inference_from_text": "unproven",
+    "whole_model_original_weight_recovery": "unproven"
+  }
+}

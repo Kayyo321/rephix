@@ -136,9 +136,29 @@ def build_parser():
     split.add_argument("--seed", type=int, default=42)
     split.set_defaults(func=_split)
 
-    from . import alignment, doctor, experiments, hf, projection, query, tiny
+    from . import (
+        alignment,
+        doctor,
+        experiments,
+        hf,
+        projection,
+        query,
+        session,
+        session_targets,
+        tiny,
+    )
 
-    for module in (hf, projection, alignment, query, experiments, doctor, tiny):
+    for module in (
+        hf,
+        projection,
+        alignment,
+        query,
+        experiments,
+        doctor,
+        tiny,
+        session,
+        session_targets,
+    ):
         module.add_subcommands(commands)
     return parser
 

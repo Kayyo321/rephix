@@ -1,0 +1,4460 @@
+{
+  "schema_version": 1,
+  "argv": [
+    "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+    "examples/run_session_followup.py",
+    "--output",
+    "/home/dev/.local/share/rephix-sessions/text-followup-v1",
+    "--qwen",
+    "/home/dev/.local/share/rephix-local-20261106/qwen"
+  ],
+  "final_prompt_sha256": "e2e536de01223f5aa1049c3bdd98209e1ed1d720400ad82ea3f84c656fa160fc",
+  "arms": {
+    "lr-only-17": {
+      "settings": {
+        "acquire": 12,
+        "byte_cap": 24,
+        "policy": "active",
+        "replay": "cumulative",
+        "seed": 17,
+        "updates": 96
+      },
+      "priors": {
+        "candidate_codec": "UTF-8 bytes; target token IDs unused",
+        "candidate_initialization": "random",
+        "selection_data": "validation only",
+        "supplied": {
+          "model_identity": "withheld by the target integration",
+          "plan": "synthetic held-out-family text and sandbox tasks v1",
+          "plan_seed": 20261106
+        },
+        "target_internals_used_for_fitting": false
+      },
+      "candidates": {
+        "byte-gru": {
+          "architecture": "gru",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.001,
+          "seed": 17,
+          "width": 64
+        }
+      },
+      "active_queries": 51,
+      "epoch_events": [
+        {
+          "epoch": "text-reference-1",
+          "request_id": "dbb69fe0a20441e5b53aca8f925a48b3-1",
+          "source": "active"
+        }
+      ],
+      "checkpoints": [
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.3120221690001017,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 4.8769933978716535,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.02478333500039298,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 3.2218851447105408,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.024644464000175503,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 2.949703057607015,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.024952434999704565,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 2.7203378776709237,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.25525024800026586,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 3.005478322505951,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.024778054999842425,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 2.735726604859034,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.024554354999963834,
+          "step": 168,
+          "supervised_positions": 1536,
+          "training_loss": 2.4974988102912903,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.024402133999956277,
+          "step": 192,
+          "supervised_positions": 1536,
+          "training_loss": 2.3266810874144235,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.02625314300030368,
+          "step": 216,
+          "supervised_positions": 1536,
+          "training_loss": 2.362267325321833,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025330293999559217,
+          "step": 240,
+          "supervised_positions": 1536,
+          "training_loss": 2.2256960372130075,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.02588774400010152,
+          "step": 264,
+          "supervised_positions": 1536,
+          "training_loss": 2.158191735545794,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.02464768500021819,
+          "step": 288,
+          "supervised_positions": 1536,
+          "training_loss": 1.9998491605122883,
+          "updates": 24
+        }
+      ],
+      "rounds": [
+        {
+          "number": 1,
+          "selected": [
+            {
+              "id": "text-pool-comparison-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-comparison-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-01",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "e53cc81f30ea037af1e8ed4db1351ac73440f7f838145e492e5f5f02b5b0f760",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.18888888888888888,
+                "cross_entropy": 3.287494574652778,
+                "matches": 68,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "eb99254483d7714f077d95ec5e2930ce57b5a21f0080253966b1a89a80be77a3"
+          }
+        },
+        {
+          "number": 2,
+          "selected": [
+            {
+              "entropy": 3.6030149459838867,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-01",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6876098611487842
+            },
+            {
+              "entropy": 3.510098457336426,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-03",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6708887231873837
+            },
+            {
+              "entropy": 3.5093834400177,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-02",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6707600495428536
+            },
+            {
+              "entropy": 3.7097463607788086,
+              "failure_similarity": 0.21052631578947367,
+              "id": "text-pool-sequence-04",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6559055236615623
+            },
+            {
+              "entropy": 3.6040101051330566,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-01",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6485732625009062
+            },
+            {
+              "entropy": 3.520622730255127,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-04",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6335669722302613
+            },
+            {
+              "entropy": 3.510488271713257,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-05",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6317431874326496
+            },
+            {
+              "entropy": 3.7577953338623047,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-03",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6206927091267598
+            },
+            {
+              "entropy": 3.511493682861328,
+              "failure_similarity": 0.2631578947368421,
+              "id": "text-pool-boundary-03",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6173042369555626
+            },
+            {
+              "entropy": 3.6469643115997314,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-01",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6007476935473723
+            },
+            {
+              "entropy": 3.6224968433380127,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-02",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5963445578033746
+            },
+            {
+              "entropy": 3.520172119140625,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-05",
+              "novelty": 0.625,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.591819214137065
+            }
+          ],
+          "dataset_sha256": "49c733a566b017a386756f2a6649d804f111da6a755ebe7ad4ae5eecd337dfc7",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-03",
+            "text-pool-repair-02",
+            "text-pool-sequence-04",
+            "text-pool-boundary-01",
+            "text-pool-boundary-04",
+            "text-pool-boundary-05",
+            "text-pool-sequence-03",
+            "text-pool-boundary-03",
+            "text-pool-sequence-01",
+            "text-pool-sequence-02",
+            "text-pool-repair-05"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.22777777777777777,
+                "cross_entropy": 3.090621609157986,
+                "matches": 82,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 22,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "f8d4e0965162d851aca96d4a48965abcb3bb2fe1b6ca3d6242b9ee665fff7d2d"
+          }
+        },
+        {
+          "number": 3,
+          "selected": [
+            {
+              "entropy": 3.860257148742676,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-05",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.432782406004844
+            },
+            {
+              "entropy": 3.353158473968506,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-05",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1230381520719808
+            },
+            {
+              "entropy": 3.3501057624816895,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-02",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1224887898363813
+            },
+            {
+              "entropy": 3.3241119384765625,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.117810972974584
+            },
+            {
+              "entropy": 3.4583826065063477,
+              "failure_similarity": 0.29411764705882354,
+              "id": "text-pool-travel-02",
+              "novelty": 0.18181818181818177,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0983021443553023
+            },
+            {
+              "entropy": 3.458372116088867,
+              "failure_similarity": 0.29411764705882354,
+              "id": "text-pool-travel-04",
+              "novelty": 0.18181818181818177,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0983002565125684
+            },
+            {
+              "entropy": 3.4561607837677,
+              "failure_similarity": 0.29411764705882354,
+              "id": "text-pool-travel-01",
+              "novelty": 0.18181818181818177,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0979023078453405
+            },
+            {
+              "entropy": 3.3735837936401367,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-01",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.09428551172838
+            },
+            {
+              "entropy": 3.371528148651123,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-02",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0939155803635459
+            },
+            {
+              "entropy": 3.3713300228118896,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-03",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.093879925879183
+            },
+            {
+              "entropy": 3.3709816932678223,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-05",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0938172409193103
+            },
+            {
+              "entropy": 3.3790082931518555,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0905383512153244
+            }
+          ],
+          "dataset_sha256": "cbb42b9276d90a950a0b87c9461b1fcc315605da25083b22b8802e3cbd223833",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-03",
+            "text-pool-repair-02",
+            "text-pool-sequence-04",
+            "text-pool-boundary-01",
+            "text-pool-boundary-04",
+            "text-pool-boundary-05",
+            "text-pool-sequence-03",
+            "text-pool-boundary-03",
+            "text-pool-sequence-01",
+            "text-pool-sequence-02",
+            "text-pool-repair-05",
+            "text-pool-sequence-05",
+            "text-pool-school-05",
+            "text-pool-school-02",
+            "text-pool-school-04",
+            "text-pool-travel-02",
+            "text-pool-travel-04",
+            "text-pool-travel-01",
+            "text-pool-fable-01",
+            "text-pool-fable-02",
+            "text-pool-fable-03",
+            "text-pool-fable-05",
+            "text-pool-history-04"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.22777777777777777,
+                "cross_entropy": 2.969911872016059,
+                "matches": 82,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 16,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "28b1d2f16c93a255bafd90eaead93844ccf552573f8dcf654d29e1fc94599683"
+          }
+        }
+      ],
+      "usage": {
+        "validation": {
+          "queries": 15,
+          "native_generated_tokens": 360,
+          "completion_bytes": 1745,
+          "eligible_at_cap": 360,
+          "below_cap": 0
+        },
+        "pool": {
+          "queries": 36,
+          "native_generated_tokens": 816,
+          "completion_bytes": 3444,
+          "eligible_at_cap": 864,
+          "below_cap": 0
+        }
+      },
+      "response_and_event_hash": "8b05b9a2eb7368a17b98759a3301aa3ee91f4e9d287b0bbedc9aa062b2683f1c",
+      "journal_actions": [
+        "created",
+        "run_started",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "validation_frozen",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped",
+        "run_started",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped"
+      ],
+      "best_sha256": "28b1d2f16c93a255bafd90eaead93844ccf552573f8dcf654d29e1fc94599683",
+      "best_round": 3,
+      "best_candidate": "byte-gru",
+      "commands": [
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "/home/dev/rephix/examples/session_prompt_plan.py",
+            "--mode",
+            "text",
+            "--seed",
+            "17",
+            "--device",
+            "cuda",
+            "--learning-rate",
+            "0.001",
+            "--updates",
+            "96",
+            "--policy",
+            "active",
+            "--output",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/spec.json",
+            "--architecture",
+            "gru"
+          ],
+          "status": 0,
+          "seconds": 0.025297283999861975,
+          "peak_rss_kib": 24960
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "create",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/session",
+            "--spec",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/spec.json"
+          ],
+          "status": 0,
+          "seconds": 0.5942842949998521,
+          "peak_rss_kib": 921088
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/target.json",
+            "--max-rounds",
+            "1",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 9.378714246000072,
+          "peak_rss_kib": 3877988
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/target.json",
+            "--max-rounds",
+            "3",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 8.024103336999815,
+          "peak_rss_kib": 4482164
+        }
+      ],
+      "spec_sha256": "42f5bbf93ea321c9e4092b3603c1096b13aec2c8a0d6520e2611cc8574d9a7db"
+    },
+    "short-only-17": {
+      "settings": {
+        "acquire": 12,
+        "byte_cap": 24,
+        "policy": "active",
+        "replay": "cumulative",
+        "seed": 17,
+        "updates": 48
+      },
+      "priors": {
+        "candidate_codec": "UTF-8 bytes; target token IDs unused",
+        "candidate_initialization": "random",
+        "selection_data": "validation only",
+        "supplied": {
+          "model_identity": "withheld by the target integration",
+          "plan": "synthetic held-out-family text and sandbox tasks v1",
+          "plan_seed": 20261106
+        },
+        "target_internals_used_for_fitting": false
+      },
+      "candidates": {
+        "byte-gru": {
+          "architecture": "gru",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.003,
+          "seed": 17,
+          "width": 64
+        }
+      },
+      "active_queries": 51,
+      "epoch_events": [
+        {
+          "epoch": "text-reference-1",
+          "request_id": "ec4426cbe9b84f3b8d8d2a8ee3320b1a-1",
+          "source": "active"
+        }
+      ],
+      "checkpoints": [
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.31442463899975337,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 3.791909784078598,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.02715071300008276,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 2.6606402496496835,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.25773264700001164,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 2.8156270384788513,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.025641254000220215,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 2.339618136485418,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025537643999996362,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 2.094795346260071,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025401293999948393,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 1.8751300225655239,
+          "updates": 24
+        }
+      ],
+      "rounds": [
+        {
+          "number": 1,
+          "selected": [
+            {
+              "id": "text-pool-comparison-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-comparison-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-01",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "33f13bf15cfa855466c2220c72951376c76e7b9e270d062b9506312df0936d06",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.19722222222222222,
+                "cross_entropy": 3.3749182807074654,
+                "matches": 71,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "c0b9043324319ba4fb6cac1fd1fb9cbefb3d572a0ea106cd69e69e72ef11a233"
+          }
+        },
+        {
+          "number": 2,
+          "selected": [
+            {
+              "entropy": 3.268935441970825,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-01",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6274893211026191
+            },
+            {
+              "entropy": 3.215575695037842,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-02",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6178867661305183
+            },
+            {
+              "entropy": 3.210937023162842,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-03",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6170519963979486
+            },
+            {
+              "entropy": 3.270005702972412,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-01",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5884662376924958
+            },
+            {
+              "entropy": 3.324655055999756,
+              "failure_similarity": 0.21052631578947367,
+              "id": "text-pool-sequence-04",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5866049621715828
+            },
+            {
+              "entropy": 3.217764377593994,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-05",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5790649524991514
+            },
+            {
+              "entropy": 3.213578701019287,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-04",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.578311703248278
+            },
+            {
+              "entropy": 3.2157223224639893,
+              "failure_similarity": 0.2631578947368421,
+              "id": "text-pool-boundary-03",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5640775837078325
+            },
+            {
+              "entropy": 3.3717117309570312,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-03",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5512135748763487
+            },
+            {
+              "entropy": 3.2120766639709473,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-05",
+              "novelty": 0.625,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5363747318265133
+            },
+            {
+              "entropy": 3.2766342163085938,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-02",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.53410354131174
+            },
+            {
+              "entropy": 3.273320198059082,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-01",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5335071546298569
+            }
+          ],
+          "dataset_sha256": "459f36c038ec67a7029fc861f05d1af5e172553d3d11b173c519d7e6a57bda15",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-02",
+            "text-pool-repair-03",
+            "text-pool-boundary-01",
+            "text-pool-sequence-04",
+            "text-pool-boundary-05",
+            "text-pool-boundary-04",
+            "text-pool-boundary-03",
+            "text-pool-sequence-03",
+            "text-pool-repair-05",
+            "text-pool-sequence-02",
+            "text-pool-sequence-01"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.20833333333333334,
+                "cross_entropy": 3.1351075066460505,
+                "matches": 75,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 14,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "fc60bbf2edfb007e9d68e1dbecf9cb9ad2a84b168bf7b579246047d649a5b554"
+          }
+        },
+        {
+          "number": 3,
+          "selected": [
+            {
+              "entropy": 3.301265239715576,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-05",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.3321869038909753
+            },
+            {
+              "entropy": 3.1885619163513184,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-05",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0934175563310995
+            },
+            {
+              "entropy": 3.1708366870880127,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-02",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0902277456933587
+            },
+            {
+              "entropy": 3.132425546646118,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.083315323711717
+            },
+            {
+              "entropy": 3.081324577331543,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0545114124674086
+            },
+            {
+              "entropy": 3.171726942062378,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-03",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0532362521062724
+            },
+            {
+              "entropy": 3.148909330368042,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0491300225377156
+            },
+            {
+              "entropy": 3.1083812713623047,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-02",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0465599893020625
+            },
+            {
+              "entropy": 3.107656478881836,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-01",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0464295565313486
+            },
+            {
+              "entropy": 3.1071414947509766,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-03",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.046336880615315
+            },
+            {
+              "entropy": 3.1065120697021484,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-05",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0462236100512738
+            },
+            {
+              "entropy": 3.1058125495910645,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-05",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0413743784367182
+            }
+          ],
+          "dataset_sha256": "4ab73ebc02dc9b88646683fb0a690e4cc586c80074fc53519af0b9291f51859d",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-02",
+            "text-pool-repair-03",
+            "text-pool-boundary-01",
+            "text-pool-sequence-04",
+            "text-pool-boundary-05",
+            "text-pool-boundary-04",
+            "text-pool-boundary-03",
+            "text-pool-sequence-03",
+            "text-pool-repair-05",
+            "text-pool-sequence-02",
+            "text-pool-sequence-01",
+            "text-pool-sequence-05",
+            "text-pool-school-05",
+            "text-pool-school-02",
+            "text-pool-school-04",
+            "text-pool-repair-04",
+            "text-pool-history-03",
+            "text-pool-history-04",
+            "text-pool-fable-02",
+            "text-pool-fable-01",
+            "text-pool-fable-03",
+            "text-pool-fable-05",
+            "text-pool-history-05"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.21944444444444444,
+                "cross_entropy": 3.0301890055338543,
+                "matches": 79,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 14,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "71e002b3087fb1139569d0fe2dc2cb19525738631a42c0ec1b0896949736f88f"
+          }
+        }
+      ],
+      "usage": {
+        "validation": {
+          "queries": 15,
+          "native_generated_tokens": 360,
+          "completion_bytes": 1745,
+          "eligible_at_cap": 360,
+          "below_cap": 0
+        },
+        "pool": {
+          "queries": 36,
+          "native_generated_tokens": 816,
+          "completion_bytes": 3453,
+          "eligible_at_cap": 864,
+          "below_cap": 0
+        }
+      },
+      "response_and_event_hash": "cdf3ccb495f8592bb195256bdf8420fc9b2ade6edf40cece5c78114a60931cff",
+      "journal_actions": [
+        "created",
+        "run_started",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "validation_frozen",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped",
+        "run_started",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped"
+      ],
+      "best_sha256": "71e002b3087fb1139569d0fe2dc2cb19525738631a42c0ec1b0896949736f88f",
+      "best_round": 3,
+      "best_candidate": "byte-gru",
+      "commands": [
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "/home/dev/rephix/examples/session_prompt_plan.py",
+            "--mode",
+            "text",
+            "--seed",
+            "17",
+            "--device",
+            "cuda",
+            "--learning-rate",
+            "0.003",
+            "--updates",
+            "48",
+            "--policy",
+            "active",
+            "--output",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/spec.json",
+            "--architecture",
+            "gru"
+          ],
+          "status": 0,
+          "seconds": 0.02623097300011068,
+          "peak_rss_kib": 28532
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "create",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/session",
+            "--spec",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/spec.json"
+          ],
+          "status": 0,
+          "seconds": 0.5920605420001266,
+          "peak_rss_kib": 921172
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/target.json",
+            "--max-rounds",
+            "1",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 9.071449168000072,
+          "peak_rss_kib": 3877756
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/short-only-17/target.json",
+            "--max-rounds",
+            "3",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 7.975537142000121,
+          "peak_rss_kib": 4482544
+        }
+      ],
+      "spec_sha256": "dd86026b2f47d71e310b87d04697293241203db27e0e6bd27acb8fdcb50ce586"
+    },
+    "joint-17": {
+      "settings": {
+        "acquire": 12,
+        "byte_cap": 24,
+        "policy": "active",
+        "replay": "cumulative",
+        "seed": 17,
+        "updates": 48
+      },
+      "priors": {
+        "candidate_codec": "UTF-8 bytes; target token IDs unused",
+        "candidate_initialization": "random",
+        "selection_data": "validation only",
+        "supplied": {
+          "model_identity": "withheld by the target integration",
+          "plan": "synthetic held-out-family text and sandbox tasks v1",
+          "plan_seed": 20261106
+        },
+        "target_internals_used_for_fitting": false
+      },
+      "candidates": {
+        "byte-gru": {
+          "architecture": "gru",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.001,
+          "seed": 17,
+          "width": 64
+        }
+      },
+      "active_queries": 51,
+      "epoch_events": [
+        {
+          "epoch": "text-reference-1",
+          "request_id": "92ceb4bc6b9547eeba356f06f5548557-1",
+          "source": "active"
+        }
+      ],
+      "checkpoints": [
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.3128161520003232,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 4.8769933978716535,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.026528463999966334,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 3.2218851447105408,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.25603631000012683,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 3.211539775133133,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.025120365000020684,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 2.9864304463068643,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025958663999972487,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 2.7003478407859802,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025252114000068104,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 2.6622111399968467,
+          "updates": 24
+        }
+      ],
+      "rounds": [
+        {
+          "number": 1,
+          "selected": [
+            {
+              "id": "text-pool-comparison-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-comparison-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-01",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "868b0e8f167b3c85f52fc5d1e028a36f7a7642d10959ce2a4c5f4e9613451a76",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.1638888888888889,
+                "cross_entropy": 3.413501654730903,
+                "matches": 59,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "fb12feeaf2235991d12d36b849f76dd8d74ac3cc826a6f8208e5984dfd4dbcd2"
+          }
+        },
+        {
+          "number": 2,
+          "selected": [
+            {
+              "entropy": 3.4637885093688965,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-01",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6625548414380595
+            },
+            {
+              "entropy": 3.434243679046631,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-03",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.657237989810797
+            },
+            {
+              "entropy": 3.4193670749664307,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-02",
+              "novelty": 0.7058823529411764,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6545608142863755
+            },
+            {
+              "entropy": 3.5735421180725098,
+              "failure_similarity": 0.21052631578947367,
+              "id": "text-pool-sequence-04",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6313943742803017
+            },
+            {
+              "entropy": 3.4652631282806396,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-01",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6236045257842293
+            },
+            {
+              "entropy": 3.428041696548462,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-04",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.6169062023308323
+            },
+            {
+              "entropy": 3.4215152263641357,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-05",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.615731706717173
+            },
+            {
+              "entropy": 3.4368700981140137,
+              "failure_similarity": 0.2631578947368421,
+              "id": "text-pool-boundary-03",
+              "novelty": 0.7222222222222222,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.603875067667123
+            },
+            {
+              "entropy": 3.598888635635376,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-03",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5920960535414996
+            },
+            {
+              "entropy": 3.5462646484375,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-01",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5826259049938802
+            },
+            {
+              "entropy": 3.528095245361328,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-02",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5793561613785603
+            },
+            {
+              "entropy": 3.427119731903076,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-05",
+              "novelty": 0.625,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5750736200311555
+            }
+          ],
+          "dataset_sha256": "36885abf8b85a9a796686a08cd263748a43a0061c4b52cd8806e27b1018d5568",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-03",
+            "text-pool-repair-02",
+            "text-pool-sequence-04",
+            "text-pool-boundary-01",
+            "text-pool-boundary-04",
+            "text-pool-boundary-05",
+            "text-pool-boundary-03",
+            "text-pool-sequence-03",
+            "text-pool-sequence-01",
+            "text-pool-sequence-02",
+            "text-pool-repair-05"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.19166666666666668,
+                "cross_entropy": 3.191142357720269,
+                "matches": 69,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "fa0b3c8f1ce170e5838f98bd191ee7a0af0c4ebfc16b35b9cd63d38765808fae"
+          }
+        },
+        {
+          "number": 3,
+          "selected": [
+            {
+              "entropy": 3.7020375728607178,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-05",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.4043094041186623
+            },
+            {
+              "entropy": 3.628997325897217,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-05",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1726777754085262
+            },
+            {
+              "entropy": 3.6083765029907227,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-02",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1689668772706796
+            },
+            {
+              "entropy": 3.5816636085510254,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1641596573705686
+            },
+            {
+              "entropy": 3.7412939071655273,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1557348284125815
+            },
+            {
+              "entropy": 3.679410934448242,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-01",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1493217909532172
+            },
+            {
+              "entropy": 3.6757652759552,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-02",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1486657226976291
+            },
+            {
+              "entropy": 3.6756319999694824,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-03",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1486417385138037
+            },
+            {
+              "entropy": 3.6753199100494385,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-05",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1485855751924667
+            },
+            {
+              "entropy": 3.577131748199463,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.143736266172218
+            },
+            {
+              "entropy": 3.6278624534606934,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-05",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1353218423627411
+            },
+            {
+              "entropy": 3.6229634284973145,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-03",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1344402198059544
+            }
+          ],
+          "dataset_sha256": "5c545c62d0524180826e401860cd86302f7041bf4e39f69b1c97cdf83f24a47d",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-repair-01",
+            "text-pool-repair-03",
+            "text-pool-repair-02",
+            "text-pool-sequence-04",
+            "text-pool-boundary-01",
+            "text-pool-boundary-04",
+            "text-pool-boundary-05",
+            "text-pool-boundary-03",
+            "text-pool-sequence-03",
+            "text-pool-sequence-01",
+            "text-pool-sequence-02",
+            "text-pool-repair-05",
+            "text-pool-sequence-05",
+            "text-pool-school-05",
+            "text-pool-school-02",
+            "text-pool-school-04",
+            "text-pool-history-04",
+            "text-pool-fable-01",
+            "text-pool-fable-02",
+            "text-pool-fable-03",
+            "text-pool-fable-05",
+            "text-pool-repair-04",
+            "text-pool-history-05",
+            "text-pool-history-03"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.21944444444444444,
+                "cross_entropy": 3.0797893948025172,
+                "matches": 79,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 7,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "429070f77be1abe055a59d468ecf2e4b658e39c289c5082e6abe391127eaf330"
+          }
+        }
+      ],
+      "usage": {
+        "validation": {
+          "queries": 15,
+          "native_generated_tokens": 360,
+          "completion_bytes": 1745,
+          "eligible_at_cap": 360,
+          "below_cap": 0
+        },
+        "pool": {
+          "queries": 36,
+          "native_generated_tokens": 816,
+          "completion_bytes": 3453,
+          "eligible_at_cap": 864,
+          "below_cap": 0
+        }
+      },
+      "response_and_event_hash": "cdf3ccb495f8592bb195256bdf8420fc9b2ade6edf40cece5c78114a60931cff",
+      "journal_actions": [
+        "created",
+        "run_started",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "validation_frozen",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped",
+        "run_started",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped"
+      ],
+      "best_sha256": "429070f77be1abe055a59d468ecf2e4b658e39c289c5082e6abe391127eaf330",
+      "best_round": 3,
+      "best_candidate": "byte-gru",
+      "commands": [
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "/home/dev/rephix/examples/session_prompt_plan.py",
+            "--mode",
+            "text",
+            "--seed",
+            "17",
+            "--device",
+            "cuda",
+            "--learning-rate",
+            "0.001",
+            "--updates",
+            "48",
+            "--policy",
+            "active",
+            "--output",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/spec.json",
+            "--architecture",
+            "gru"
+          ],
+          "status": 0,
+          "seconds": 0.025677442999949562,
+          "peak_rss_kib": 28660
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "create",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/session",
+            "--spec",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/spec.json"
+          ],
+          "status": 0,
+          "seconds": 0.5911508579997644,
+          "peak_rss_kib": 920956
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/target.json",
+            "--max-rounds",
+            "1",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 8.961547251999946,
+          "peak_rss_kib": 3879016
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-17/target.json",
+            "--max-rounds",
+            "3",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 7.988023159000022,
+          "peak_rss_kib": 4482108
+        }
+      ],
+      "spec_sha256": "b59194c379fce1999c400f9190abdf0286877ec6d6dc38a2fde4ccf53408439d"
+    },
+    "joint-42": {
+      "settings": {
+        "acquire": 12,
+        "byte_cap": 24,
+        "policy": "active",
+        "replay": "cumulative",
+        "seed": 42,
+        "updates": 48
+      },
+      "priors": {
+        "candidate_codec": "UTF-8 bytes; target token IDs unused",
+        "candidate_initialization": "random",
+        "selection_data": "validation only",
+        "supplied": {
+          "model_identity": "withheld by the target integration",
+          "plan": "synthetic held-out-family text and sandbox tasks v1",
+          "plan_seed": 20261106
+        },
+        "target_internals_used_for_fitting": false
+      },
+      "candidates": {
+        "byte-gru": {
+          "architecture": "gru",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.001,
+          "seed": 42,
+          "width": 64
+        }
+      },
+      "active_queries": 51,
+      "epoch_events": [
+        {
+          "epoch": "text-reference-1",
+          "request_id": "c6e546b2d14b44ddb6ffb5a75fb45248-1",
+          "source": "active"
+        }
+      ],
+      "checkpoints": [
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.31307158500021615,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 5.215403656164805,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.02529865399992559,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 3.7344612379868827,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.2554771029999756,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 3.0979339381059012,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.02573519399993529,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 2.865513970454534,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.02659616399978404,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 2.8431516786416373,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.02477493499964112,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 2.667923013369242,
+          "updates": 24
+        }
+      ],
+      "rounds": [
+        {
+          "number": 1,
+          "selected": [
+            {
+              "id": "text-pool-boundary-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-sequence-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-05",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "85053af09b5103d1491aad321457abc8572c9ef39da90b0ad5f2bcb1fd7f2320",
+          "member_prompt_ids": [
+            "text-pool-boundary-03",
+            "text-pool-descriptive-04",
+            "text-pool-school-05",
+            "text-pool-sequence-04",
+            "text-pool-code-05",
+            "text-pool-fable-05",
+            "text-pool-diet-04",
+            "text-pool-school-03",
+            "text-pool-travel-03",
+            "text-pool-translation-01",
+            "text-pool-code-02",
+            "text-pool-translation-05"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.14722222222222223,
+                "cross_entropy": 3.3959648980034722,
+                "matches": 53,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "b5fc7aa45d503c22a262a42da5b553761f9eec0284759ef8dff0cb329c498031"
+          }
+        },
+        {
+          "number": 2,
+          "selected": [
+            {
+              "entropy": 3.6312203407287598,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-05",
+              "novelty": 0.7647058823529411,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7515091989950908
+            },
+            {
+              "entropy": 3.619466781616211,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-01",
+              "novelty": 0.7647058823529411,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.74939404283369
+            },
+            {
+              "entropy": 3.6318626403808594,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-01",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7471528222327466
+            },
+            {
+              "entropy": 3.619777202606201,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-04",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7449779415921243
+            },
+            {
+              "entropy": 3.588954448699951,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-04",
+              "novelty": 0.7647058823529411,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.743903080619731
+            },
+            {
+              "entropy": 3.5777428150177,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-02",
+              "novelty": 0.7647058823529411,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7418854486977489
+            },
+            {
+              "entropy": 3.575913190841675,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-repair-03",
+              "novelty": 0.7647058823529411,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7415561917627294
+            },
+            {
+              "entropy": 3.589597225189209,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-02",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7395467896684202
+            },
+            {
+              "entropy": 3.578557252883911,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-05",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.7375600497184491
+            },
+            {
+              "entropy": 3.5763559341430664,
+              "failure_similarity": 0.3157894736842105,
+              "id": "text-pool-history-03",
+              "novelty": 0.7777777777777778,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.737163903082922
+            },
+            {
+              "entropy": 3.5735080242156982,
+              "failure_similarity": 0.21052631578947367,
+              "id": "text-pool-comparison-04",
+              "novelty": 0.736842105263158,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5904525662767963
+            },
+            {
+              "entropy": 3.573429584503174,
+              "failure_similarity": 0.21052631578947367,
+              "id": "text-pool-comparison-01",
+              "novelty": 0.736842105263158,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.5904384503618079
+            }
+          ],
+          "dataset_sha256": "8ab9333014f206b08016fc85787ee53f9d9f349981b1f3c1b16e057ec3b6de06",
+          "member_prompt_ids": [
+            "text-pool-boundary-03",
+            "text-pool-descriptive-04",
+            "text-pool-school-05",
+            "text-pool-sequence-04",
+            "text-pool-code-05",
+            "text-pool-fable-05",
+            "text-pool-diet-04",
+            "text-pool-school-03",
+            "text-pool-travel-03",
+            "text-pool-translation-01",
+            "text-pool-code-02",
+            "text-pool-translation-05",
+            "text-pool-repair-05",
+            "text-pool-repair-01",
+            "text-pool-history-01",
+            "text-pool-history-04",
+            "text-pool-repair-04",
+            "text-pool-repair-02",
+            "text-pool-repair-03",
+            "text-pool-history-02",
+            "text-pool-history-05",
+            "text-pool-history-03",
+            "text-pool-comparison-04",
+            "text-pool-comparison-01"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.15833333333333333,
+                "cross_entropy": 3.1933299594455296,
+                "matches": 57,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "5d11b3146e76df46944675b1b08521b50e27d85ff9d00c1ffef718d39ef6080d"
+          }
+        },
+        {
+          "number": 3,
+          "selected": [
+            {
+              "entropy": 3.544388771057129,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-02",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.3759391180394178
+            },
+            {
+              "entropy": 3.506042957305908,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-03",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.3690384521693473
+            },
+            {
+              "entropy": 3.4885120391845703,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-01",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.3658836095277025
+            },
+            {
+              "entropy": 3.366966485977173,
+              "failure_similarity": 0.16666666666666666,
+              "id": "text-pool-sequence-05",
+              "novelty": 0.5714285714285714,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.3440104200286156
+            },
+            {
+              "entropy": 3.372016429901123,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-01",
+              "novelty": 0.2666666666666667,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1512684081266684
+            },
+            {
+              "entropy": 3.3506507873535156,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-05",
+              "novelty": 0.2666666666666667,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1474234731547066
+            },
+            {
+              "entropy": 3.350203037261963,
+              "failure_similarity": 0.2777777777777778,
+              "id": "text-pool-boundary-04",
+              "novelty": 0.2666666666666667,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1473428965943775
+            },
+            {
+              "entropy": 3.309751033782959,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-01",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1152266020827464
+            },
+            {
+              "entropy": 3.306288242340088,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-02",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1146034423584534
+            },
+            {
+              "entropy": 3.2864532470703125,
+              "failure_similarity": 0.35294117647058826,
+              "id": "text-pool-school-04",
+              "novelty": 0.16666666666666663,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.1110339608035917
+            },
+            {
+              "entropy": 3.3796510696411133,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-01",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0953773713169097
+            },
+            {
+              "entropy": 3.379546642303467,
+              "failure_similarity": 0.3333333333333333,
+              "id": "text-pool-fable-02",
+              "novelty": 0.15384615384615385,
+              "reason": "entropy_novelty_and_validation_failure",
+              "score": 1.0953585787006028
+            }
+          ],
+          "dataset_sha256": "2810042ef355f87daff5ec6206a9132a67a1104a52bbd06d58c86b26cc02e752",
+          "member_prompt_ids": [
+            "text-pool-boundary-03",
+            "text-pool-descriptive-04",
+            "text-pool-school-05",
+            "text-pool-sequence-04",
+            "text-pool-code-05",
+            "text-pool-fable-05",
+            "text-pool-diet-04",
+            "text-pool-school-03",
+            "text-pool-travel-03",
+            "text-pool-translation-01",
+            "text-pool-code-02",
+            "text-pool-translation-05",
+            "text-pool-repair-05",
+            "text-pool-repair-01",
+            "text-pool-history-01",
+            "text-pool-history-04",
+            "text-pool-repair-04",
+            "text-pool-repair-02",
+            "text-pool-repair-03",
+            "text-pool-history-02",
+            "text-pool-history-05",
+            "text-pool-history-03",
+            "text-pool-comparison-04",
+            "text-pool-comparison-01",
+            "text-pool-sequence-02",
+            "text-pool-sequence-03",
+            "text-pool-sequence-01",
+            "text-pool-sequence-05",
+            "text-pool-boundary-01",
+            "text-pool-boundary-05",
+            "text-pool-boundary-04",
+            "text-pool-school-01",
+            "text-pool-school-02",
+            "text-pool-school-04",
+            "text-pool-fable-01",
+            "text-pool-fable-02"
+          ],
+          "validation": {
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.19444444444444445,
+                "cross_entropy": 3.1083277384440104,
+                "matches": 70,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-gru": "ff065be0bc485f93f8e969b9ac5420f7533196573b63ab2326bcf415ccaffb60"
+          }
+        }
+      ],
+      "usage": {
+        "validation": {
+          "queries": 15,
+          "native_generated_tokens": 360,
+          "completion_bytes": 1745,
+          "eligible_at_cap": 360,
+          "below_cap": 0
+        },
+        "pool": {
+          "queries": 36,
+          "native_generated_tokens": 814,
+          "completion_bytes": 3496,
+          "eligible_at_cap": 864,
+          "below_cap": 0
+        }
+      },
+      "response_and_event_hash": "194e8d728ef8dc9ad29c9fd22474597d12382ba7226a9c847d6dda141497cb3f",
+      "journal_actions": [
+        "created",
+        "run_started",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "validation_frozen",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped",
+        "run_started",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "round_completed",
+        "stopped"
+      ],
+      "best_sha256": "ff065be0bc485f93f8e969b9ac5420f7533196573b63ab2326bcf415ccaffb60",
+      "best_round": 3,
+      "best_candidate": "byte-gru",
+      "commands": [
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "/home/dev/rephix/examples/session_prompt_plan.py",
+            "--mode",
+            "text",
+            "--seed",
+            "42",
+            "--device",
+            "cuda",
+            "--learning-rate",
+            "0.001",
+            "--updates",
+            "48",
+            "--policy",
+            "active",
+            "--output",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/spec.json",
+            "--architecture",
+            "gru"
+          ],
+          "status": 0,
+          "seconds": 0.026125443000182713,
+          "peak_rss_kib": 28660
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "create",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/session",
+            "--spec",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/spec.json"
+          ],
+          "status": 0,
+          "seconds": 0.5948394880001615,
+          "peak_rss_kib": 921028
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/target.json",
+            "--max-rounds",
+            "1",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 8.72917419300029,
+          "peak_rss_kib": 3878764
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/joint-42/target.json",
+            "--max-rounds",
+            "3",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 8.07616169999983,
+          "peak_rss_kib": 4482384
+        }
+      ],
+      "spec_sha256": "fc4a597eff80334b37bc071ad680ef19adacac2dda27d0c79b77b68fd61c0661"
+    },
+    "architecture-17": {
+      "settings": {
+        "acquire": 12,
+        "byte_cap": 24,
+        "policy": "random",
+        "replay": "cumulative",
+        "seed": 17,
+        "updates": 48
+      },
+      "priors": {
+        "candidate_codec": "UTF-8 bytes; target token IDs unused",
+        "candidate_initialization": "random",
+        "selection_data": "validation only",
+        "supplied": {
+          "model_identity": "withheld by the target integration",
+          "plan": "synthetic held-out-family text and sandbox tasks v1",
+          "plan_seed": 20261106
+        },
+        "target_internals_used_for_fitting": false
+      },
+      "candidates": {
+        "byte-conv": {
+          "architecture": "conv",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.001,
+          "seed": 17,
+          "width": 64
+        },
+        "byte-gru": {
+          "architecture": "gru",
+          "batch": 64,
+          "context": 128,
+          "device": "cuda",
+          "learning_rate": 0.001,
+          "seed": 17,
+          "width": 64
+        }
+      },
+      "active_queries": 51,
+      "epoch_events": [
+        {
+          "epoch": "text-reference-1",
+          "request_id": "2cfe23c192e04bdaa47953ffb1eeff80-1",
+          "source": "active"
+        }
+      ],
+      "checkpoints": [
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 1,
+          "seconds": 1.5626771269999153,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 3.3497666915257773,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 1,
+          "seconds": 0.034112285999981395,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 1.2754925986131032,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.06700448400033565,
+          "step": 24,
+          "supervised_positions": 1536,
+          "training_loss": 4.8769933978716535,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 288,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 1,
+          "seconds": 0.024559645000408636,
+          "step": 48,
+          "supervised_positions": 1536,
+          "training_loss": 3.2218851447105408,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 2,
+          "seconds": 0.37723149500016007,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 1.368306132654349,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 2,
+          "seconds": 0.03379412599997522,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 0.7064775836964449,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.06595440399996733,
+          "step": 72,
+          "supervised_positions": 1536,
+          "training_loss": 3.0448638101418815,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 576,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 2,
+          "seconds": 0.025897343999986333,
+          "step": 96,
+          "supervised_positions": 1536,
+          "training_loss": 2.8876215318838754,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 3,
+          "seconds": 0.034736873999918316,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 0.7341081351041794,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-conv",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2089322496,
+          "round": 3,
+          "seconds": 0.03503871500015521,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 0.37498879184325534,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.025073064000025624,
+          "step": 120,
+          "supervised_positions": 1536,
+          "training_loss": 2.778803755839666,
+          "updates": 24
+        },
+        {
+          "candidate": "byte-gru",
+          "eligible_positions": 864,
+          "peak_cuda_allocated_bytes": 2121660416,
+          "round": 3,
+          "seconds": 0.024725925999973697,
+          "step": 144,
+          "supervised_positions": 1536,
+          "training_loss": 2.682489891846975,
+          "updates": 24
+        }
+      ],
+      "rounds": [
+        {
+          "number": 1,
+          "selected": [
+            {
+              "id": "text-pool-comparison-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-comparison-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-01",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "69852587d185a70b50ba98a04301579540a841ff1aaf5aeeddc8eb527535fc8c",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01"
+          ],
+          "validation": {
+            "byte-conv": {
+              "teacher_forced": {
+                "agreement": 0.175,
+                "cross_entropy": 3.9959090338812935,
+                "matches": 63,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            },
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.1638888888888889,
+                "cross_entropy": 3.413501654730903,
+                "matches": 59,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-conv": "3a45b6fdf3007ae8f26020c0a2f3a88f7ebafdc30272a77a8585d331bda1b6c7",
+            "byte-gru": "fb12feeaf2235991d12d36b849f76dd8d74ac3cc826a6f8208e5984dfd4dbcd2"
+          }
+        },
+        {
+          "number": 2,
+          "selected": [
+            {
+              "id": "text-pool-translation-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-boundary-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-school-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-history-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-travel-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-sequence-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-comparison-01",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "0e2e46876011044691c6d19f724384fba7fa9a52b6fc382b377b316fd0dcd24c",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-translation-05",
+            "text-pool-boundary-03",
+            "text-pool-school-04",
+            "text-pool-code-04",
+            "text-pool-school-02",
+            "text-pool-descriptive-02",
+            "text-pool-history-04",
+            "text-pool-fable-03",
+            "text-pool-travel-02",
+            "text-pool-diet-04",
+            "text-pool-sequence-03",
+            "text-pool-comparison-01"
+          ],
+          "validation": {
+            "byte-conv": {
+              "teacher_forced": {
+                "agreement": 0.16666666666666666,
+                "cross_entropy": 4.238041432698568,
+                "matches": 60,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            },
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.18888888888888888,
+                "cross_entropy": 3.2123541937934026,
+                "matches": 68,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-conv": "fc94a82c6718485240ee6c9a7ae14c1e185530cdf62f33fcfcc09e56c5671e56",
+            "byte-gru": "f1d58f5cdd0f220c97d43faf089bb9d4168eb514a29cccd91296535a1a272119"
+          }
+        },
+        {
+          "number": 3,
+          "selected": [
+            {
+              "id": "text-pool-descriptive-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-fable-02",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-repair-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-descriptive-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-boundary-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-diet-03",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-sequence-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-boundary-04",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-boundary-05",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-code-01",
+              "reason": "seeded_random"
+            },
+            {
+              "id": "text-pool-translation-02",
+              "reason": "seeded_random"
+            }
+          ],
+          "dataset_sha256": "5c4ba8b1fa2819a170bc251b73fb5f0f2cad92fa586166f693831aa71bdb06b7",
+          "member_prompt_ids": [
+            "text-pool-comparison-02",
+            "text-pool-code-03",
+            "text-pool-school-03",
+            "text-pool-fable-04",
+            "text-pool-diet-02",
+            "text-pool-descriptive-01",
+            "text-pool-comparison-03",
+            "text-pool-history-02",
+            "text-pool-school-01",
+            "text-pool-translation-03",
+            "text-pool-travel-05",
+            "text-pool-history-01",
+            "text-pool-translation-05",
+            "text-pool-boundary-03",
+            "text-pool-school-04",
+            "text-pool-code-04",
+            "text-pool-school-02",
+            "text-pool-descriptive-02",
+            "text-pool-history-04",
+            "text-pool-fable-03",
+            "text-pool-travel-02",
+            "text-pool-diet-04",
+            "text-pool-sequence-03",
+            "text-pool-comparison-01",
+            "text-pool-descriptive-03",
+            "text-pool-fable-02",
+            "text-pool-code-05",
+            "text-pool-repair-01",
+            "text-pool-descriptive-04",
+            "text-pool-boundary-01",
+            "text-pool-diet-03",
+            "text-pool-sequence-05",
+            "text-pool-boundary-04",
+            "text-pool-boundary-05",
+            "text-pool-code-01",
+            "text-pool-translation-02"
+          ],
+          "validation": {
+            "byte-conv": {
+              "teacher_forced": {
+                "agreement": 0.15,
+                "cross_entropy": 4.786447991265191,
+                "matches": 54,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            },
+            "byte-gru": {
+              "teacher_forced": {
+                "agreement": 0.19166666666666668,
+                "cross_entropy": 3.091186099582248,
+                "matches": 69,
+                "positions": 360
+              },
+              "free_running": {
+                "censored_target_visible_prefix": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "completion_exact": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "completion_exact_at_common_byte_cap": {
+                  "compared": 15,
+                  "matches": 0,
+                  "rate": 0.0
+                },
+                "generation_byte_cap": 24,
+                "matched_prefix_bytes": 0,
+                "recorded_context_only": 0,
+                "target_completion_bytes": 1745,
+                "target_errors": 0
+              },
+              "task_success": {
+                "candidate": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                },
+                "target": {
+                  "compared": 0,
+                  "matches": 0,
+                  "rate": null
+                }
+              }
+            }
+          },
+          "checkpoint_sha256": {
+            "byte-conv": "8fb3930ccd277a0b51e4744bdda91e89f1698217f5327352ca67a6dd03074df9",
+            "byte-gru": "2b455927e88f9a3cac285293ac0748ac8cdd018ab1c6b84f961395be20f835ea"
+          }
+        }
+      ],
+      "usage": {
+        "validation": {
+          "queries": 15,
+          "native_generated_tokens": 360,
+          "completion_bytes": 1745,
+          "eligible_at_cap": 360,
+          "below_cap": 0
+        },
+        "pool": {
+          "queries": 36,
+          "native_generated_tokens": 807,
+          "completion_bytes": 3394,
+          "eligible_at_cap": 864,
+          "below_cap": 0
+        }
+      },
+      "response_and_event_hash": "74b247096d554e3f16d3456e80c2918ed69f930e852d5e7b0665626cd988972a",
+      "journal_actions": [
+        "created",
+        "run_started",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "validation_frozen",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "candidate_validated",
+        "round_completed",
+        "stopped",
+        "run_started",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "candidate_validated",
+        "round_completed",
+        "round_planned",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "request_reserved",
+        "observation_committed",
+        "dataset_sealed",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_checkpoint",
+        "training_completed",
+        "candidate_validated",
+        "candidate_validated",
+        "round_completed",
+        "stopped"
+      ],
+      "best_sha256": "2b455927e88f9a3cac285293ac0748ac8cdd018ab1c6b84f961395be20f835ea",
+      "best_round": 3,
+      "best_candidate": "byte-gru",
+      "commands": [
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "/home/dev/rephix/examples/session_prompt_plan.py",
+            "--mode",
+            "text",
+            "--seed",
+            "17",
+            "--device",
+            "cuda",
+            "--learning-rate",
+            "0.001",
+            "--updates",
+            "48",
+            "--policy",
+            "random",
+            "--output",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/spec.json",
+            "--architecture",
+            "gru",
+            "--architecture",
+            "conv"
+          ],
+          "status": 0,
+          "seconds": 0.026202253000064957,
+          "peak_rss_kib": 28788
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "create",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/session",
+            "--spec",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/spec.json"
+          ],
+          "status": 0,
+          "seconds": 0.5934234249998553,
+          "peak_rss_kib": 920628
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/target.json",
+            "--max-rounds",
+            "1",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 10.28149544400003,
+          "peak_rss_kib": 3877364
+        },
+        {
+          "argv": [
+            "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+            "-m",
+            "rephix",
+            "--threads",
+            "2",
+            "session",
+            "resume",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/session",
+            "--target",
+            "/home/dev/.local/share/rephix-sessions/text-followup-v1/architecture-17/target.json",
+            "--max-rounds",
+            "3",
+            "--max-queries",
+            "51",
+            "--checkpoint-updates",
+            "24"
+          ],
+          "status": 0,
+          "seconds": 8.124778423999942,
+          "peak_rss_kib": 3879064
+        }
+      ],
+      "spec_sha256": "6897cc273fb593e774a17bba692a586a02fd277ea42c25bf23ea07360898537d"
+    }
+  },
+  "final": {
+    "metrics": {
+      "teacher_forced": {
+        "agreement": 0.3333333333333333,
+        "cross_entropy": 2.743707953559028,
+        "matches": 120,
+        "positions": 360
+      },
+      "free_running": {
+        "censored_target_visible_prefix": {
+          "compared": 0,
+          "matches": 0,
+          "rate": null
+        },
+        "completion_exact": {
+          "compared": 15,
+          "matches": 0,
+          "rate": 0.0
+        },
+        "completion_exact_at_common_byte_cap": {
+          "compared": 15,
+          "matches": 0,
+          "rate": 0.0
+        },
+        "generation_byte_cap": 24,
+        "matched_prefix_bytes": 16,
+        "recorded_context_only": 0,
+        "target_completion_bytes": 1547,
+        "target_errors": 0
+      },
+      "task_success": {
+        "candidate": {
+          "compared": 0,
+          "matches": 0,
+          "rate": null
+        },
+        "target": {
+          "compared": 0,
+          "matches": 0,
+          "rate": null
+        }
+      }
+    },
+    "examples": [
+      {
+        "candidate_completion": "The pa the a the a the a",
+        "completion_exact": false,
+        "completion_exact_at_common_byte_cap": false,
+        "evaluation_mode": "free_running_text",
+        "matched_prefix_bytes": 1,
+        "prompt_id": "fresh-coordinate-movement-0",
+        "target_completion": "To find the new position after moving 3 east and 2 south from the point (1, 4), we",
+        "target_completion_bytes": 82,
+        "target_finish_reason": "length",
+        "target_status": "ok"
+      },
+      {
+        "candidate_completion": "The a the a the a the a ",
+        "completion_exact": false,
+        "completion_exact_at_common_byte_cap": false,
+        "evaluation_mode": "free_running_text",
+        "matched_prefix_bytes": 1,
+        "prompt_id": "fresh-coordinate-movement-1",
+        "target_completion": "To determine the endpoint of the path you took on a grid starting at (2, 5) and traveling north ",
+        "target_completion_bytes": 96,
+        "target_finish_reason": "length",
+        "target_status": "ok"
+      },
+      {
+        "candidate_completion": "The a the a the a the a ",
+        "completion_exact": false,
+        "completion_exact_at_common_byte_cap": false,
+        "evaluation_mode": "free_running_text",
+        "matched_prefix_bytes": 1,
+        "prompt_id": "fresh-coordinate-movement-2",
+        "target_completion": "To determine the resulting coordinates of the rover after traveling west 3 units and then north 5 units, we can follow",
+        "target_completion_bytes": 118,
+        "target_finish_reason": "length",
+        "target_status": "ok"
+      }
+    ],
+    "manifest_sha256": "c72312ade44d501d5f0ee761801510e5b2b16598a4324df9f37bfcb484bae082",
+    "locked_sha256": "28b1d2f16c93a255bafd90eaead93844ccf552573f8dcf654d29e1fc94599683",
+    "evidence_sha256": "8b37098e9b1e66895137ec7fcd846adc9f58540f154a26e4306ffffb6089586a",
+    "command": {
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "evaluate",
+        "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/text-followup-v1/lr-only-17/target.json",
+        "--max-queries",
+        "66"
+      ],
+      "status": 0,
+      "seconds": 6.052504149000015,
+      "peak_rss_kib": 3879468
+    },
+    "selection_lock": {
+      "arm": "lr-only-17",
+      "validation_byte_ce": 2.969911872016059,
+      "checkpoint_sha256": "28b1d2f16c93a255bafd90eaead93844ccf552573f8dcf654d29e1fc94599683",
+      "prompt_sha256": "e2e536de01223f5aa1049c3bdd98209e1ed1d720400ad82ea3f84c656fa160fc"
+    }
+  }
+}

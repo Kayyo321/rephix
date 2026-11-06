@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "text_reproduction_argv": [
+    "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+    "examples/run_text_sessions.py",
+    "--output",
+    "/home/dev/.local/share/rephix-sessions/text-sessions-reproduction",
+    "--qwen",
+    "/home/dev/.local/share/rephix-local-20261106/qwen",
+    "--smol",
+    "/home/dev/.local/share/rephix-sessions/models/smollm2-135m-instruct",
+    "--gpt2",
+    "/home/dev/.local/share/rephix-sessions/models/gpt2"
+  ],
+  "all_text_arms": {
+    "qwen-active-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "qwen-uninterrupted-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "qwen-random-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "qwen-active-42": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "qwen-random-42": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "qwen-recent-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "smol-active-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    },
+    "gpt2-active-17": {
+      "response_and_event_hash_equal": true,
+      "best_checkpoint_sha256_equal": true,
+      "all_round_checkpoints_equal": true,
+      "validation_equal": true,
+      "final_metrics_equal": true
+    }
+  },
+  "forced_training_commit_test_argv": [
+    "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+    "examples/run_text_sessions.py",
+    "--resume-only",
+    "--output",
+    "/home/dev/.local/share/rephix-sessions/training-midcommit-proof",
+    "--qwen",
+    "/home/dev/.local/share/rephix-local-20261106/qwen",
+    "--smol",
+    "/home/dev/.local/share/rephix-sessions/models/smollm2-135m-instruct",
+    "--gpt2",
+    "/home/dev/.local/share/rephix-sessions/models/gpt2"
+  ],
+  "forced_crashes": [
+    {
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "/home/dev/rephix/examples/run_text_sessions.py",
+        "_crash",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/session",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/target.json",
+        "after_submit"
+      ],
+      "status": -9,
+      "seconds": 2.5376503389998106,
+      "peak_rss_kib": 3860316
+    },
+    {
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "/home/dev/rephix/examples/run_text_sessions.py",
+        "_crash",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/session",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/target.json",
+        "after_snapshot"
+      ],
+      "status": -9,
+      "seconds": 8.012630372999865,
+      "peak_rss_kib": 3860264
+    },
+    {
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "/home/dev/rephix/examples/run_text_sessions.py",
+        "_crash",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/session",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/target.json",
+        "after_checkpoint"
+      ],
+      "status": -9,
+      "seconds": 1.5096691110002212,
+      "peak_rss_kib": 1778424
+    },
+    {
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "/home/dev/rephix/examples/run_text_sessions.py",
+        "_crash",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/session",
+        "/home/dev/.local/share/rephix-sessions/training-midcommit-proof/qwen-active-17/target.json",
+        "before_checkpoint_commit"
+      ],
+      "status": -9,
+      "seconds": 1.5513452919999509,
+      "peak_rss_kib": 1838076
+    }
+  ],
+  "forced_crash_comparison": {
+    "per_round_checkpoint_bytes": true,
+    "per_round_validation": true,
+    "acquired_prompt_order": true,
+    "all_recovered_checkpoint_sha256": true
+  },
+  "best_sha256": "8a94d8dea7a91db7815def0711add31e7ab8fa3751afecb15a3621f3d687df7c"
+}

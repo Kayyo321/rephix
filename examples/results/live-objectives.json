@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "argv": [
+    "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+    "examples/ablate_live_objective.py",
+    "--session",
+    "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+    "--output",
+    "/home/dev/.local/share/rephix-sessions/live-objectives-v1.json"
+  ],
+  "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cu128",
+  "validation_evidence_sha256": "d1ec94681998408556bebc42f5327a7a10bbabf23d725caee16831782780fc29",
+  "round_dataset_sha256": [
+    "4d514fd0ecb406d3f84dd68847e539bfd12c931b8a2b31c3023b4de7abfbf893",
+    "747f5c7fee09431b126b463220a7e547380292e703e152ecdcafcbc2f84bc35d"
+  ],
+  "new_target_queries": 0,
+  "candidate": {
+    "architecture": "gru",
+    "batch": 16,
+    "context": 1024,
+    "device": "cpu",
+    "learning_rate": 0.003,
+    "seed": 17,
+    "width": 32
+  },
+  "arms": {
+    "byte_ce": [
+      {
+        "round": 1,
+        "training": {
+          "updates": 64,
+          "supervised_positions": 1024,
+          "eligible_positions": 1646,
+          "training_loss": 4.115851890295744
+        },
+        "seconds_including_validation": 9.545159716999933,
+        "checkpoint_sha256": "e1126840a96f5a8ad534b892c80448298b44bb82b1908d36b8dba040529fe862",
+        "validation": {
+          "teacher_forced": {
+            "positions": 1173,
+            "matches": 310,
+            "agreement": 0.26427962489343565,
+            "cross_entropy": 2.8490669009833893
+          },
+          "free_running": {
+            "generation_byte_cap": 64,
+            "completion_exact": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "completion_exact_at_common_byte_cap": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "censored_target_visible_prefix": {
+              "matches": 0,
+              "compared": 0,
+              "rate": null
+            },
+            "matched_prefix_bytes": 0,
+            "target_completion_bytes": 108,
+            "recorded_context_only": 0,
+            "target_errors": 0
+          },
+          "tools": {
+            "selection": {
+              "matches": 9,
+              "compared": 24,
+              "rate": 0.375
+            },
+            "arguments": {
+              "matches": 17,
+              "compared": 24,
+              "rate": 0.7083333333333334
+            },
+            "action_trace_exact": {
+              "matches": 3,
+              "compared": 12,
+              "rate": 0.25
+            },
+            "tool_results_exact": {
+              "matches": 3,
+              "compared": 12,
+              "rate": 0.25
+            },
+            "multi_step_tool_exact": {
+              "matches": 3,
+              "compared": 12,
+              "rate": 0.25
+            }
+          },
+          "task_success": {
+            "candidate": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "target": {
+              "matches": 7,
+              "compared": 12,
+              "rate": 0.5833333333333334
+            }
+          },
+          "failed_prompt_ids": [
+            "tool-validation-01-01",
+            "tool-validation-01-02",
+            "tool-validation-01-03",
+            "tool-validation-01-04",
+            "tool-validation-02-01",
+            "tool-validation-02-02",
+            "tool-validation-02-03",
+            "tool-validation-02-04",
+            "tool-validation-03-01",
+            "tool-validation-03-02",
+            "tool-validation-03-03",
+            "tool-validation-03-04"
+          ]
+        }
+      },
+      {
+        "round": 2,
+        "training": {
+          "updates": 64,
+          "supervised_positions": 1024,
+          "eligible_positions": 3952,
+          "training_loss": 3.1300766207277775
+        },
+        "seconds_including_validation": 9.40404480999996,
+        "checkpoint_sha256": "314c92c57f2ffed7818991523e14a61bb15bb9381e4204723b4ffc87e1b30d6c",
+        "validation": {
+          "teacher_forced": {
+            "positions": 1173,
+            "matches": 584,
+            "agreement": 0.4978687127024723,
+            "cross_entropy": 2.369926485157582
+          },
+          "free_running": {
+            "generation_byte_cap": 64,
+            "completion_exact": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "completion_exact_at_common_byte_cap": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "censored_target_visible_prefix": {
+              "matches": 0,
+              "compared": 0,
+              "rate": null
+            },
+            "matched_prefix_bytes": 6,
+            "target_completion_bytes": 108,
+            "recorded_context_only": 0,
+            "target_errors": 0
+          },
+          "tools": {
+            "selection": {
+              "matches": 9,
+              "compared": 24,
+              "rate": 0.375
+            },
+            "arguments": {
+              "matches": 17,
+              "compared": 24,
+              "rate": 0.7083333333333334
+            },
+            "action_trace_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            },
+            "tool_results_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            },
+            "multi_step_tool_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            }
+          },
+          "task_success": {
+            "candidate": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "target": {
+              "matches": 7,
+              "compared": 12,
+              "rate": 0.5833333333333334
+            }
+          },
+          "failed_prompt_ids": [
+            "tool-validation-01-01",
+            "tool-validation-01-02",
+            "tool-validation-01-03",
+            "tool-validation-01-04",
+            "tool-validation-02-01",
+            "tool-validation-02-02",
+            "tool-validation-02-03",
+            "tool-validation-02-04",
+            "tool-validation-03-01",
+            "tool-validation-03-02",
+            "tool-validation-03-03",
+            "tool-validation-03-04"
+          ]
+        }
+      }
+    ],
+    "segment_balanced_ce": [
+      {
+        "round": 1,
+        "training": {
+          "updates": 64,
+          "supervised_positions": 1024,
+          "eligible_positions": 1646,
+          "training_loss": 4.095616653561592
+        },
+        "seconds_including_validation": 9.409028546999707,
+        "checkpoint_sha256": "676059e76c83ed0b437bdfa7791d0008896d14aae781513dd5c5d83b07458148",
+        "validation": {
+          "teacher_forced": {
+            "positions": 1173,
+            "matches": 299,
+            "agreement": 0.2549019607843137,
+            "cross_entropy": 3.010174633393609
+          },
+          "free_running": {
+            "generation_byte_cap": 64,
+            "completion_exact": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "completion_exact_at_common_byte_cap": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "censored_target_visible_prefix": {
+              "matches": 0,
+              "compared": 0,
+              "rate": null
+            },
+            "matched_prefix_bytes": 0,
+            "target_completion_bytes": 108,
+            "recorded_context_only": 0,
+            "target_errors": 0
+          },
+          "tools": {
+            "selection": {
+              "matches": 9,
+              "compared": 24,
+              "rate": 0.375
+            },
+            "arguments": {
+              "matches": 17,
+              "compared": 24,
+              "rate": 0.7083333333333334
+            },
+            "action_trace_exact": {
+              "matches": 1,
+              "compared": 12,
+              "rate": 0.08333333333333333
+            },
+            "tool_results_exact": {
+              "matches": 1,
+              "compared": 12,
+              "rate": 0.08333333333333333
+            },
+            "multi_step_tool_exact": {
+              "matches": 1,
+              "compared": 12,
+              "rate": 0.08333333333333333
+            }
+          },
+          "task_success": {
+            "candidate": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "target": {
+              "matches": 7,
+              "compared": 12,
+              "rate": 0.5833333333333334
+            }
+          },
+          "failed_prompt_ids": [
+            "tool-validation-01-01",
+            "tool-validation-01-02",
+            "tool-validation-01-03",
+            "tool-validation-01-04",
+            "tool-validation-02-01",
+            "tool-validation-02-02",
+            "tool-validation-02-03",
+            "tool-validation-02-04",
+            "tool-validation-03-01",
+            "tool-validation-03-02",
+            "tool-validation-03-03",
+            "tool-validation-03-04"
+          ]
+        }
+      },
+      {
+        "round": 2,
+        "training": {
+          "updates": 64,
+          "supervised_positions": 1024,
+          "eligible_positions": 3952,
+          "training_loss": 3.0980140641331673
+        },
+        "seconds_including_validation": 5.269111179999982,
+        "checkpoint_sha256": "7b58addcb9337764450048013f9ec8988a56c96772c55025c6f6f0c6e9620313",
+        "validation": {
+          "teacher_forced": {
+            "positions": 1173,
+            "matches": 520,
+            "agreement": 0.443307757885763,
+            "cross_entropy": 2.3804948811640827
+          },
+          "free_running": {
+            "generation_byte_cap": 64,
+            "completion_exact": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "completion_exact_at_common_byte_cap": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "censored_target_visible_prefix": {
+              "matches": 0,
+              "compared": 0,
+              "rate": null
+            },
+            "matched_prefix_bytes": 4,
+            "target_completion_bytes": 108,
+            "recorded_context_only": 0,
+            "target_errors": 0
+          },
+          "tools": {
+            "selection": {
+              "matches": 9,
+              "compared": 24,
+              "rate": 0.375
+            },
+            "arguments": {
+              "matches": 17,
+              "compared": 24,
+              "rate": 0.7083333333333334
+            },
+            "action_trace_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            },
+            "tool_results_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            },
+            "multi_step_tool_exact": {
+              "matches": 2,
+              "compared": 12,
+              "rate": 0.16666666666666666
+            }
+          },
+          "task_success": {
+            "candidate": {
+              "matches": 0,
+              "compared": 12,
+              "rate": 0.0
+            },
+            "target": {
+              "matches": 7,
+              "compared": 12,
+              "rate": 0.5833333333333334
+            }
+          },
+          "failed_prompt_ids": [
+            "tool-validation-01-01",
+            "tool-validation-01-02",
+            "tool-validation-01-03",
+            "tool-validation-01-04",
+            "tool-validation-02-01",
+            "tool-validation-02-02",
+            "tool-validation-02-03",
+            "tool-validation-02-04",
+            "tool-validation-03-01",
+            "tool-validation-03-02",
+            "tool-validation-03-03",
+            "tool-validation-03-04"
+          ]
+        }
+      }
+    ]
+  },
+  "peak_process_rss_kib": 1142696
+}

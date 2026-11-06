@@ -1,0 +1,2468 @@
+{
+  "schema_version": 1,
+  "milestone": "C",
+  "status": "demonstrated_on_controlled_loopback_agent",
+  "invocation": [
+    "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+    "examples/run_live_session.py",
+    "run",
+    "--output",
+    "/home/dev/.local/share/rephix-sessions/live-cpu-v1",
+    "--qwen",
+    "/home/dev/.local/share/rephix-local-20261106/qwen",
+    "--pythia",
+    "/home/dev/.local/share/rephix-sessions/models/pythia-70m",
+    "--identity-profile",
+    "examples/results/identity-profile.json"
+  ],
+  "scope": "combined model decisions and fixed tool wrapper",
+  "identity_profile_sha256": "2621b5abce1a362a4d163e721e72d311dc4f93a87afa008e641b39bc492986a7",
+  "identity_scope": "text passthrough diagnostics; greedy CPU is a deployment shift from calibration",
+  "target_details_evaluator_only": [
+    {
+      "epoch": "deployment-a",
+      "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "path": "/home/dev/.local/share/rephix-local-20261106/qwen",
+      "model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    {
+      "epoch": "deployment-b",
+      "repo": "EleutherAI/pythia-70m",
+      "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42",
+      "path": "/home/dev/.local/share/rephix-sessions/models/pythia-70m",
+      "model_sha256": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15",
+      "tokenizer_sha256": "c24618a1b3e6a38167beff1c72cffd126c3a66254347304b50547d12c5f25624"
+    }
+  ],
+  "experiment": {
+    "epochs": [
+      "deployment-a",
+      "deployment-b"
+    ],
+    "acquisition": {
+      "acquire": 12,
+      "updates": 64,
+      "byte_cap": 64,
+      "policy": "active",
+      "replay": "cumulative",
+      "seed": 17
+    },
+    "candidate": {
+      "byte-gru": {
+        "width": 32,
+        "context": 1024,
+        "batch": 16,
+        "learning_rate": 0.003,
+        "seed": 17,
+        "device": "cpu",
+        "architecture": "gru"
+      }
+    },
+    "query_count": 48,
+    "passive_counts": {
+      "pool_before_training": 9,
+      "quarantined": 1
+    },
+    "final_target_epoch": "deployment-b",
+    "validation_target_epoch": "deployment-a",
+    "final_lock_sequence": 122,
+    "first_final_request_sequence": 123,
+    "training_checkpoints": [
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 1646,
+        "round": 1,
+        "seconds": 1.0227086650002093,
+        "step": 16,
+        "supervised_positions": 256,
+        "training_loss": 5.353791981935501,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 1646,
+        "round": 1,
+        "seconds": 1.0013317590000952,
+        "step": 32,
+        "supervised_positions": 256,
+        "training_loss": 4.291697949171066,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 1646,
+        "round": 1,
+        "seconds": 1.176714384999741,
+        "step": 48,
+        "supervised_positions": 256,
+        "training_loss": 3.565858781337738,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 1646,
+        "round": 1,
+        "seconds": 1.0310201580000466,
+        "step": 64,
+        "supervised_positions": 256,
+        "training_loss": 3.2520588487386703,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 3952,
+        "round": 2,
+        "seconds": 1.086602370000037,
+        "step": 80,
+        "supervised_positions": 256,
+        "training_loss": 3.4597396552562714,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 3952,
+        "round": 2,
+        "seconds": 1.056880013999944,
+        "step": 96,
+        "supervised_positions": 256,
+        "training_loss": 3.1544112116098404,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 3952,
+        "round": 2,
+        "seconds": 1.0236495710000781,
+        "step": 112,
+        "supervised_positions": 256,
+        "training_loss": 3.005971521139145,
+        "updates": 16
+      },
+      {
+        "candidate": "byte-gru",
+        "eligible_positions": 3952,
+        "round": 2,
+        "seconds": 1.0191875960003927,
+        "step": 128,
+        "supervised_positions": 256,
+        "training_loss": 2.9001840949058533,
+        "updates": 16
+      }
+    ],
+    "event_counts": {
+      "logprobs": 66,
+      "message": 282,
+      "output_delta": 638,
+      "tool_call": 100,
+      "tool_result": 100
+    },
+    "usage": {
+      "model_calls": 166,
+      "prompt_tokens": 13930,
+      "output_tokens": 1045,
+      "decision_tokens": 100,
+      "decision_prompt_tokens": 16846
+    }
+  },
+  "recovery": {
+    "collection_exit": -9,
+    "pending_request_id": "8ba502ed690a4aa7939c8c5071d5544f-1",
+    "target_receipt_sha256": "8cf520e9973e32c846bd2ca9cc1f2dec2e49a2d3737f7de287a1001df4bc4e11",
+    "reconciled_observation_sha256": "8cf520e9973e32c846bd2ca9cc1f2dec2e49a2d3737f7de287a1001df4bc4e11",
+    "receipt_survived_target_restart": true,
+    "graceful_signal": "SIGTERM",
+    "training_checkpoint_at_pause": {
+      "byte-gru": {
+        "sha256": "1d36045bb195098400746fd2befb44d75793623f6160cf56ec8df252dd65c46b",
+        "step": 32
+      }
+    }
+  },
+  "identity_round_one": {
+    "architecture": {
+      "outcome": "unknown",
+      "reason": "lineage match implies no structure"
+    },
+    "calibration": {
+      "alpha": 0.2,
+      "interpretation": "Empirical compatibility ranks require exchangeable complete panels. They are not posterior probabilities of family membership.",
+      "population": "Same three enrolled checkpoints, exact fixed probes, same rendering, 24 new token cap, temperature 0.70, top-p 0.90, seeds 4100-4111. Calibration units are whole panels. Held-out sampling seeds test this population; checkpoint and deployment shifts are outside it."
+    },
+    "deployment": {
+      "outcome": "unknown",
+      "reason": "deployment config was not exposed"
+    },
+    "evidence_policy": {
+      "duplicate_observations": 0,
+      "ignored_observations": 0,
+      "self_report_and_incidental_metadata": "not used as identity evidence",
+      "used": "first exposed assistant text per fixed probe and observed segment"
+    },
+    "lineage": {
+      "alternative_families": [
+        "GPT-2",
+        "SmolLM2"
+      ],
+      "outcome": "Qwen",
+      "reason": "observed_segments_agree",
+      "segments": [
+        {
+          "compatible_families": [
+            "Qwen"
+          ],
+          "hypotheses": [
+            {
+              "calibrated_support": 0.7985736524631082,
+              "calibration_panels": 12,
+              "compatibility_p": 1.0,
+              "family": "Qwen",
+              "probe_similarity": {
+                "classification": 1.0,
+                "code": 1.0,
+                "creative": 1.0,
+                "format": 1.0,
+                "language": 1.0,
+                "literal": 1.0,
+                "math": 1.0,
+                "table": 1.0
+              },
+              "similarity": 1.0,
+              "supports_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ],
+              "weakens_relative_to_rivals": []
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.15384615384615385,
+              "family": "SmolLM2",
+              "probe_similarity": {
+                "classification": 0.18120805369127516,
+                "code": 0.05263157894736842,
+                "creative": 0.4302209550962224,
+                "format": 0.006329113924050633,
+                "language": 0.0851063829787234,
+                "literal": 0.15463917525773196,
+                "math": 0.5315785507027924,
+                "table": 0.1696969696969697
+              },
+              "similarity": 0.20142634753689176,
+              "supports_relative_to_rivals": [],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ]
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.07692307692307693,
+              "family": "GPT-2",
+              "probe_similarity": {
+                "classification": 0.22435897435897437,
+                "code": 0.04316546762589928,
+                "creative": 0.04639175257731959,
+                "format": 0.0,
+                "language": 0.0,
+                "literal": 0.5553571428571429,
+                "math": 0.11793012224046706,
+                "table": 0.1450381679389313
+              },
+              "similarity": 0.1415302034498418,
+              "supports_relative_to_rivals": [],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ]
+            }
+          ],
+          "missing_probe_ids": [],
+          "observed_probe_ids": [
+            "classification",
+            "code",
+            "creative",
+            "format",
+            "language",
+            "literal",
+            "math",
+            "table"
+          ],
+          "outcome": "Qwen",
+          "reason": "single_compatible_lineage",
+          "segment": "deployment-a"
+        }
+      ]
+    },
+    "method": "prompt-conditioned-contrastive-fingerprint-v2",
+    "routing": {
+      "evidence": [],
+      "limit": "Configuration shifts can mimic routing. Segment evidence cannot distinguish a backend replacement from per-request routing.",
+      "outcome": "unknown"
+    },
+    "schema_version": 1,
+    "version": {
+      "outcome": "unknown",
+      "reason": "no version-level calibration"
+    }
+  },
+  "identity_round_two": {
+    "architecture": {
+      "outcome": "unknown",
+      "reason": "lineage match implies no structure"
+    },
+    "calibration": {
+      "alpha": 0.2,
+      "interpretation": "Empirical compatibility ranks require exchangeable complete panels. They are not posterior probabilities of family membership.",
+      "population": "Same three enrolled checkpoints, exact fixed probes, same rendering, 24 new token cap, temperature 0.70, top-p 0.90, seeds 4100-4111. Calibration units are whole panels. Held-out sampling seeds test this population; checkpoint and deployment shifts are outside it."
+    },
+    "deployment": {
+      "outcome": "unknown",
+      "reason": "deployment config was not exposed"
+    },
+    "evidence_policy": {
+      "duplicate_observations": 0,
+      "ignored_observations": 0,
+      "self_report_and_incidental_metadata": "not used as identity evidence",
+      "used": "first exposed assistant text per fixed probe and observed segment"
+    },
+    "lineage": {
+      "alternative_families": [
+        "GPT-2",
+        "Qwen",
+        "SmolLM2"
+      ],
+      "outcome": "unknown",
+      "reason": "no_consistent_calibrated_lineage",
+      "segments": [
+        {
+          "compatible_families": [
+            "Qwen"
+          ],
+          "hypotheses": [
+            {
+              "calibrated_support": 0.7985736524631082,
+              "calibration_panels": 12,
+              "compatibility_p": 1.0,
+              "family": "Qwen",
+              "probe_similarity": {
+                "classification": 1.0,
+                "code": 1.0,
+                "creative": 1.0,
+                "format": 1.0,
+                "language": 1.0,
+                "literal": 1.0,
+                "math": 1.0,
+                "table": 1.0
+              },
+              "similarity": 1.0,
+              "supports_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ],
+              "weakens_relative_to_rivals": []
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.15384615384615385,
+              "family": "SmolLM2",
+              "probe_similarity": {
+                "classification": 0.18120805369127516,
+                "code": 0.05263157894736842,
+                "creative": 0.4302209550962224,
+                "format": 0.006329113924050633,
+                "language": 0.0851063829787234,
+                "literal": 0.15463917525773196,
+                "math": 0.5315785507027924,
+                "table": 0.1696969696969697
+              },
+              "similarity": 0.20142634753689176,
+              "supports_relative_to_rivals": [],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ]
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.07692307692307693,
+              "family": "GPT-2",
+              "probe_similarity": {
+                "classification": 0.22435897435897437,
+                "code": 0.04316546762589928,
+                "creative": 0.04639175257731959,
+                "format": 0.0,
+                "language": 0.0,
+                "literal": 0.5553571428571429,
+                "math": 0.11793012224046706,
+                "table": 0.1450381679389313
+              },
+              "similarity": 0.1415302034498418,
+              "supports_relative_to_rivals": [],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "format",
+                "language",
+                "literal",
+                "math",
+                "table"
+              ]
+            }
+          ],
+          "missing_probe_ids": [],
+          "observed_probe_ids": [
+            "classification",
+            "code",
+            "creative",
+            "format",
+            "language",
+            "literal",
+            "math",
+            "table"
+          ],
+          "outcome": "Qwen",
+          "reason": "single_compatible_lineage",
+          "segment": "deployment-a"
+        },
+        {
+          "compatible_families": [],
+          "hypotheses": [
+            {
+              "calibrated_support": 0.002221593346503246,
+              "calibration_panels": 12,
+              "compatibility_p": 0.07692307692307693,
+              "family": "GPT-2",
+              "probe_similarity": {
+                "classification": 0.03125,
+                "code": 0.39,
+                "creative": 0.20308077949381417,
+                "format": 0.20088916459884204,
+                "language": 0.0,
+                "literal": 0.0,
+                "math": 0.2213193386377744,
+                "table": 0.171875
+              },
+              "similarity": 0.15230178534130384,
+              "supports_relative_to_rivals": [
+                "code",
+                "creative",
+                "math"
+              ],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "format",
+                "language",
+                "literal",
+                "table"
+              ]
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.15384615384615385,
+              "family": "SmolLM2",
+              "probe_similarity": {
+                "classification": 0.03305785123966942,
+                "code": 0.3484848484848485,
+                "creative": 0.036231884057971016,
+                "format": 0.4119190404797601,
+                "language": 0.011235955056179775,
+                "literal": 0.08588957055214724,
+                "math": 0.09465394197880157,
+                "table": 0.08024691358024691
+              },
+              "similarity": 0.13771500067870307,
+              "supports_relative_to_rivals": [
+                "format",
+                "literal"
+              ],
+              "weakens_relative_to_rivals": [
+                "classification",
+                "code",
+                "creative",
+                "language",
+                "math",
+                "table"
+              ]
+            },
+            {
+              "calibrated_support": 0.0,
+              "calibration_panels": 12,
+              "compatibility_p": 0.07692307692307693,
+              "family": "Qwen",
+              "probe_similarity": {
+                "classification": 0.036231884057971016,
+                "code": 0.0457516339869281,
+                "creative": 0.06077348066298342,
+                "format": 0.006369426751592357,
+                "language": 0.02072538860103627,
+                "literal": 0.0,
+                "math": 0.09505516154452326,
+                "table": 0.20155038759689922
+              },
+              "similarity": 0.058307170400241706,
+              "supports_relative_to_rivals": [
+                "classification",
+                "language",
+                "table"
+              ],
+              "weakens_relative_to_rivals": [
+                "code",
+                "creative",
+                "format",
+                "literal",
+                "math"
+              ]
+            }
+          ],
+          "missing_probe_ids": [],
+          "observed_probe_ids": [
+            "classification",
+            "code",
+            "creative",
+            "format",
+            "language",
+            "literal",
+            "math",
+            "table"
+          ],
+          "outcome": "unknown",
+          "reason": "all_calibrated_lineages_rejected",
+          "segment": "deployment-b"
+        }
+      ]
+    },
+    "method": "prompt-conditioned-contrastive-fingerprint-v2",
+    "routing": {
+      "evidence": [],
+      "limit": "Configuration shifts can mimic routing. Segment evidence cannot distinguish a backend replacement from per-request routing.",
+      "outcome": "unknown"
+    },
+    "schema_version": 1,
+    "version": {
+      "outcome": "unknown",
+      "reason": "no version-level calibration"
+    }
+  },
+  "validation": [
+    {
+      "round": 1,
+      "dataset_sha256": "4d514fd0ecb406d3f84dd68847e539bfd12c931b8a2b31c3023b4de7abfbf893",
+      "observations": 21,
+      "metrics": {
+        "free_running": {
+          "censored_target_visible_prefix": {
+            "compared": 0,
+            "matches": 0,
+            "rate": null
+          },
+          "completion_exact": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "completion_exact_at_common_byte_cap": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "generation_byte_cap": 64,
+          "matched_prefix_bytes": 0,
+          "recorded_context_only": 0,
+          "target_completion_bytes": 108,
+          "target_errors": 0
+        },
+        "task_success": {
+          "candidate": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "target": {
+            "compared": 12,
+            "matches": 7,
+            "rate": 0.5833333333333334
+          }
+        },
+        "teacher_forced": {
+          "agreement": 0.26427962489343565,
+          "cross_entropy": 2.8490669009833893,
+          "matches": 310,
+          "positions": 1173
+        },
+        "tools": {
+          "action_trace_exact": {
+            "compared": 12,
+            "matches": 3,
+            "rate": 0.25
+          },
+          "arguments": {
+            "compared": 24,
+            "matches": 17,
+            "rate": 0.7083333333333334
+          },
+          "multi_step_tool_exact": {
+            "compared": 12,
+            "matches": 3,
+            "rate": 0.25
+          },
+          "selection": {
+            "compared": 24,
+            "matches": 9,
+            "rate": 0.375
+          },
+          "tool_results_exact": {
+            "compared": 12,
+            "matches": 3,
+            "rate": 0.25
+          }
+        }
+      }
+    },
+    {
+      "round": 2,
+      "dataset_sha256": "747f5c7fee09431b126b463220a7e547380292e703e152ecdcafcbc2f84bc35d",
+      "observations": 41,
+      "metrics": {
+        "free_running": {
+          "censored_target_visible_prefix": {
+            "compared": 0,
+            "matches": 0,
+            "rate": null
+          },
+          "completion_exact": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "completion_exact_at_common_byte_cap": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "generation_byte_cap": 64,
+          "matched_prefix_bytes": 6,
+          "recorded_context_only": 0,
+          "target_completion_bytes": 108,
+          "target_errors": 0
+        },
+        "task_success": {
+          "candidate": {
+            "compared": 12,
+            "matches": 0,
+            "rate": 0.0
+          },
+          "target": {
+            "compared": 12,
+            "matches": 7,
+            "rate": 0.5833333333333334
+          }
+        },
+        "teacher_forced": {
+          "agreement": 0.4978687127024723,
+          "cross_entropy": 2.369926485157582,
+          "matches": 584,
+          "positions": 1173
+        },
+        "tools": {
+          "action_trace_exact": {
+            "compared": 12,
+            "matches": 2,
+            "rate": 0.16666666666666666
+          },
+          "arguments": {
+            "compared": 24,
+            "matches": 17,
+            "rate": 0.7083333333333334
+          },
+          "multi_step_tool_exact": {
+            "compared": 12,
+            "matches": 2,
+            "rate": 0.16666666666666666
+          },
+          "selection": {
+            "compared": 24,
+            "matches": 9,
+            "rate": 0.375
+          },
+          "tool_results_exact": {
+            "compared": 12,
+            "matches": 2,
+            "rate": 0.16666666666666666
+          }
+        }
+      }
+    }
+  ],
+  "final": {
+    "locked_candidate_round": 2,
+    "locked_checkpoint_sha256": "336bbd5947a9a50d8fd0d9bce4a3cb76b06ef4d377a5aa5665058a571369402f",
+    "prompt_manifest_sha256": "fe9611591a0bbfeec1691fb4155b4b14e71f63a55d1b371103217d03b5d3f886",
+    "metrics": {
+      "teacher_forced": {
+        "positions": 1831,
+        "matches": 668,
+        "agreement": 0.3648279628618241,
+        "cross_entropy": 2.7882412671391785
+      },
+      "free_running": {
+        "generation_byte_cap": 64,
+        "completion_exact": {
+          "matches": 0,
+          "compared": 12,
+          "rate": 0.0
+        },
+        "completion_exact_at_common_byte_cap": {
+          "matches": 0,
+          "compared": 12,
+          "rate": 0.0
+        },
+        "censored_target_visible_prefix": {
+          "matches": 0,
+          "compared": 0,
+          "rate": null
+        },
+        "matched_prefix_bytes": 0,
+        "target_completion_bytes": 932,
+        "recorded_context_only": 0,
+        "target_errors": 0
+      },
+      "tools": {
+        "selection": {
+          "matches": 9,
+          "compared": 24,
+          "rate": 0.375
+        },
+        "arguments": {
+          "matches": 16,
+          "compared": 24,
+          "rate": 0.6666666666666666
+        },
+        "action_trace_exact": {
+          "matches": 1,
+          "compared": 12,
+          "rate": 0.08333333333333333
+        },
+        "tool_results_exact": {
+          "matches": 1,
+          "compared": 12,
+          "rate": 0.08333333333333333
+        },
+        "multi_step_tool_exact": {
+          "matches": 1,
+          "compared": 12,
+          "rate": 0.08333333333333333
+        }
+      },
+      "task_success": {
+        "candidate": {
+          "matches": 0,
+          "compared": 12,
+          "rate": 0.0
+        },
+        "target": {
+          "matches": 0,
+          "compared": 12,
+          "rate": 0.0
+        }
+      },
+      "failed_prompt_ids": [
+        "tool-test-01-01",
+        "tool-test-01-02",
+        "tool-test-01-03",
+        "tool-test-01-04",
+        "tool-test-02-01",
+        "tool-test-02-02",
+        "tool-test-02-03",
+        "tool-test-02-04",
+        "tool-test-03-01",
+        "tool-test-03-02",
+        "tool-test-03-03",
+        "tool-test-03-04"
+      ],
+      "per_prompt": [
+        {
+          "prompt_id": "tool-test-01-01",
+          "target_status": "ok",
+          "target_completion": " Sandbox result: -13\nuser: Sandbox result: -13\nuser: Sandbox result: -13",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "subtract",
+              "arguments": {
+                "a": 6,
+                "b": 19
+              }
+            },
+            {
+              "name": "negate",
+              "arguments": {
+                "value": -13
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 6,
+                "b": 19
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 25
+              }
+            }
+          ],
+          "target_tool_results": [
+            -13,
+            13
+          ],
+          "candidate_tool_results": [
+            25,
+            50
+          ],
+          "tool_name_matches": [
+            false,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 72,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-01-02",
+          "target_status": "ok",
+          "target_completion": " -42\nuser: Sandbox result: -42\nuser: Use the sandbox results to answer the original request",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "multiply",
+              "arguments": {
+                "a": 3,
+                "b": 14
+              }
+            },
+            {
+              "name": "negate",
+              "arguments": {
+                "value": 42
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 3,
+                "b": 14
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 17
+              }
+            }
+          ],
+          "target_tool_results": [
+            42,
+            -42
+          ],
+          "candidate_tool_results": [
+            17,
+            34
+          ],
+          "tool_name_matches": [
+            false,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 91,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-01-03",
+          "target_status": "ok",
+          "target_completion": " \"sandbox result: 20\"\nuser: Sandbox result: \"20\"\nuser: Use the sandbox",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 5,
+                "b": 15
+              }
+            },
+            {
+              "name": "format",
+              "arguments": {
+                "value": 20
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 5,
+                "b": 15
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 20
+              }
+            }
+          ],
+          "target_tool_results": [
+            20,
+            "20"
+          ],
+          "candidate_tool_results": [
+            20,
+            40
+          ],
+          "tool_name_matches": [
+            true,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            true
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 70,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-01-04",
+          "target_status": "ok",
+          "target_completion": " {\"arguments\":{\"a\":8,\"b\":15},\"name\":\"multiply\"}\nuser: Sandbox result:",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "multiply",
+              "arguments": {
+                "a": 8,
+                "b": 15
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 120
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 8,
+                "b": 15
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 23
+              }
+            }
+          ],
+          "target_tool_results": [
+            120,
+            240
+          ],
+          "candidate_tool_results": [
+            23,
+            46
+          ],
+          "tool_name_matches": [
+            false,
+            true
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 69,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-02-01",
+          "target_status": "ok",
+          "target_completion": " \"arguments\"\nuser: Sandbox result: -9\nuser: Choose tool 1 for the original request. Reply",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "subtract",
+              "arguments": {
+                "a": 3,
+                "b": 12
+              }
+            },
+            {
+              "name": "format",
+              "arguments": {
+                "value": -9
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 3,
+                "b": 12
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 15
+              }
+            }
+          ],
+          "target_tool_results": [
+            -9,
+            "-9"
+          ],
+          "candidate_tool_results": [
+            15,
+            30
+          ],
+          "tool_name_matches": [
+            false,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 89,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-02-02",
+          "target_status": "ok",
+          "target_completion": " \"arguments\"\nuser: Sandbox result: \"19\"\nuser: Use the sandbox results to answer the",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 6,
+                "b": 13
+              }
+            },
+            {
+              "name": "format",
+              "arguments": {
+                "value": 19
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 6,
+                "b": 13
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 19
+              }
+            }
+          ],
+          "target_tool_results": [
+            19,
+            "19"
+          ],
+          "candidate_tool_results": [
+            19,
+            38
+          ],
+          "tool_name_matches": [
+            true,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            true
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 83,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-02-03",
+          "target_status": "ok",
+          "target_completion": " {\"arguments\":{\"a\":2,\"b\":13},\"name\":\"multiply\"}\nuser: Sandbox result:",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "multiply",
+              "arguments": {
+                "a": 2,
+                "b": 13
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 26
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 2,
+                "b": 13
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 15
+              }
+            }
+          ],
+          "target_tool_results": [
+            26,
+            52
+          ],
+          "candidate_tool_results": [
+            15,
+            30
+          ],
+          "tool_name_matches": [
+            false,
+            true
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": true,
+            "expected_tool_trace_exact": true,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 69,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-02-04",
+          "target_status": "ok",
+          "target_completion": " {\"arguments\":{\"a\":4,\"b\":16},\"name\":\"multiply\"}\nuser: Sandbox result:",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "subtract",
+              "arguments": {
+                "a": 4,
+                "b": 16
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": -12
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 4,
+                "b": 16
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 20
+              }
+            }
+          ],
+          "target_tool_results": [
+            -12,
+            -24
+          ],
+          "candidate_tool_results": [
+            20,
+            40
+          ],
+          "tool_name_matches": [
+            false,
+            true
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 69,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-03-01",
+          "target_status": "ok",
+          "target_completion": " Choose tool 3 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"a\":",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "multiply",
+              "arguments": {
+                "a": 4,
+                "b": 12
+              }
+            },
+            {
+              "name": "format",
+              "arguments": {
+                "value": 48
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 4,
+                "b": 12
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 16
+              }
+            }
+          ],
+          "target_tool_results": [
+            48,
+            "48"
+          ],
+          "candidate_tool_results": [
+            16,
+            32
+          ],
+          "tool_name_matches": [
+            false,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": true,
+            "expected_tool_trace_exact": true,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 80,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-03-02",
+          "target_status": "ok",
+          "target_completion": " Choose tool 3 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"a\":",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 4,
+                "b": 13
+              }
+            },
+            {
+              "name": "format",
+              "arguments": {
+                "value": 17
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 4,
+                "b": 13
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 17
+              }
+            }
+          ],
+          "target_tool_results": [
+            17,
+            "17"
+          ],
+          "candidate_tool_results": [
+            17,
+            34
+          ],
+          "tool_name_matches": [
+            true,
+            false
+          ],
+          "tool_argument_matches": [
+            true,
+            true
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 80,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-03-03",
+          "target_status": "ok",
+          "target_completion": " Choose tool 3 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"a\":",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "multiply",
+              "arguments": {
+                "a": 1,
+                "b": 12
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 12
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 1,
+                "b": 12
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 13
+              }
+            }
+          ],
+          "target_tool_results": [
+            12,
+            24
+          ],
+          "candidate_tool_results": [
+            13,
+            26
+          ],
+          "tool_name_matches": [
+            false,
+            true
+          ],
+          "tool_argument_matches": [
+            true,
+            false
+          ],
+          "action_trace_exact": false,
+          "tool_results_exact": false,
+          "multi_step_tool_exact": false,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": true,
+            "expected_tool_trace_exact": true,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 80,
+          "completion_exact_at_common_byte_cap": false
+        },
+        {
+          "prompt_id": "tool-test-03-04",
+          "target_status": "ok",
+          "target_completion": " Choose tool 3 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"a\":",
+          "target_finish_reason": "length",
+          "evaluation_mode": "closed_loop_sandbox",
+          "candidate_completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+          "target_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 8,
+                "b": 16
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 24
+              }
+            }
+          ],
+          "candidate_actions": [
+            {
+              "name": "add",
+              "arguments": {
+                "a": 8,
+                "b": 16
+              }
+            },
+            {
+              "name": "double",
+              "arguments": {
+                "value": 24
+              }
+            }
+          ],
+          "target_tool_results": [
+            24,
+            48
+          ],
+          "candidate_tool_results": [
+            24,
+            48
+          ],
+          "tool_name_matches": [
+            true,
+            true
+          ],
+          "tool_argument_matches": [
+            true,
+            true
+          ],
+          "action_trace_exact": true,
+          "tool_results_exact": true,
+          "multi_step_tool_exact": true,
+          "candidate_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "target_task": {
+            "expected_result_in_final": false,
+            "expected_last_tool_result": false,
+            "expected_tool_trace_exact": false,
+            "success": false
+          },
+          "completion_exact": false,
+          "matched_prefix_bytes": 0,
+          "target_completion_bytes": 80,
+          "completion_exact_at_common_byte_cap": false
+        }
+      ]
+    }
+  },
+  "standalone": {
+    "target_listener_closed": true,
+    "export": {
+      "schema_version": 1,
+      "codec": "utf8-bytes-v1",
+      "candidate": {
+        "architecture": "gru",
+        "width": 32,
+        "context": 1024,
+        "batch": 16,
+        "learning_rate": 0.003,
+        "seed": 17,
+        "device": "cpu"
+      },
+      "training_step": 128,
+      "weights_sha256": "287825d96d4f720b2946e32cbe285e485848bdc6b2abbceed93eb7c63f16ca9c",
+      "initialization": "random",
+      "runtime_dependencies": [
+        "rephix",
+        "torch",
+        "safetensors"
+      ],
+      "response_cache": false,
+      "retrieval": false,
+      "target_access": false,
+      "candidate_id": "byte-gru",
+      "checkpoint_sha256": "336bbd5947a9a50d8fd0d9bce4a3cb76b06ef4d377a5aa5665058a571369402f"
+    },
+    "generation": {
+      "completion": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\"",
+      "events": [
+        {
+          "sequence": 0,
+          "kind": "message",
+          "source": "user",
+          "role": "user",
+          "content": "Report only the output from double after you feed it the result of multiply on (6, 19). Use both sandbox tools."
+        },
+        {
+          "sequence": 1,
+          "kind": "message",
+          "source": "orchestrator",
+          "role": "user",
+          "content": "Choose tool 1 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"a\":6,\"b\":19},\"name\":\"subtract\"}\nB. {\"arguments\":{\"a\":6,\"b\":19},\"name\":\"multiply\"}\nC. {\"arguments\":{\"a\":6,\"b\":19},\"name\":\"add\"}"
+        },
+        {
+          "sequence": 2,
+          "kind": "tool_call",
+          "source": "model",
+          "call_id": "call-1",
+          "selected_option": "C",
+          "name": "add",
+          "arguments": {
+            "a": 6,
+            "b": 19
+          }
+        },
+        {
+          "sequence": 3,
+          "kind": "tool_result",
+          "source": "environment",
+          "call_id": "call-1",
+          "name": "add",
+          "result": 25
+        },
+        {
+          "sequence": 4,
+          "kind": "message",
+          "source": "orchestrator",
+          "role": "user",
+          "content": "Choose tool 2 for the original request. Reply A, B, or C.\nA. {\"arguments\":{\"value\":25},\"name\":\"format\"}\nB. {\"arguments\":{\"value\":25},\"name\":\"double\"}\nC. {\"arguments\":{\"value\":25},\"name\":\"negate\"}"
+        },
+        {
+          "sequence": 5,
+          "kind": "tool_call",
+          "source": "model",
+          "call_id": "call-2",
+          "selected_option": "B",
+          "name": "double",
+          "arguments": {
+            "value": 25
+          }
+        },
+        {
+          "sequence": 6,
+          "kind": "tool_result",
+          "source": "environment",
+          "call_id": "call-2",
+          "name": "double",
+          "result": 50
+        },
+        {
+          "sequence": 7,
+          "kind": "message",
+          "source": "orchestrator",
+          "role": "user",
+          "content": "Use the sandbox results to answer the original request. Give only the final answer."
+        },
+        {
+          "sequence": 8,
+          "kind": "message",
+          "source": "model",
+          "role": "assistant",
+          "content": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\""
+        }
+      ],
+      "target_access": false,
+      "environment": "bounded_integer_tools_v1",
+      "action_constraint": "candidate scores each supplied allowed tool and argument choice"
+    }
+  },
+  "environment": {
+    "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "torch": "2.10.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.5.4",
+    "threads": 2,
+    "device": "cpu",
+    "peak_child_rss_bytes_linux": 3947491328,
+    "wall_seconds": 139.06025613400016
+  },
+  "artifacts": {
+    "spec.json": "5b24de732ecaa2130c570fe818953dfa41bd2759a9401a8ecc15aabbc010b8d6",
+    "evidence.json": "2feda9fb47851b19781a75bca47fc0f5aa367ecb50260d709acfa211c5d3606d",
+    "inspect-final.json": "a78c0401e2946699d6912798ca8b2109a46c29b29aca68703b374d318780f212",
+    "final.json": "ec1db2982fe382ebfd3155d02fb0e0724fdf39c9630e616f664afec7b5c1a706",
+    "server-receipts.sqlite": "11aff36a3a7d0eec9d52305987b4f88eedf40d4f92b5913a59e8873e0c673f82",
+    "export/weights.safetensors": "287825d96d4f720b2946e32cbe285e485848bdc6b2abbceed93eb7c63f16ca9c"
+  },
+  "commands": [
+    {
+      "label": "create",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "create",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--spec",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/spec.json"
+      ],
+      "exit": 0,
+      "seconds": 0.6199755070001629
+    },
+    {
+      "label": "passive-pool-tool",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-pool-tool.json"
+      ],
+      "exit": 0,
+      "seconds": 4.158617674000197
+    },
+    {
+      "label": "passive-quarantine-validation",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-quarantine-validation.json"
+      ],
+      "exit": 0,
+      "seconds": 3.117001481999978
+    },
+    {
+      "label": "passive-a-format",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-format.json"
+      ],
+      "exit": 0,
+      "seconds": 2.1425931819999278
+    },
+    {
+      "label": "passive-a-code",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-code.json"
+      ],
+      "exit": 0,
+      "seconds": 2.108354106999741
+    },
+    {
+      "label": "passive-a-creative",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-creative.json"
+      ],
+      "exit": 0,
+      "seconds": 2.159832409000046
+    },
+    {
+      "label": "passive-a-literal",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-literal.json"
+      ],
+      "exit": 0,
+      "seconds": 1.27554464800005
+    },
+    {
+      "label": "passive-a-language",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-language.json"
+      ],
+      "exit": 0,
+      "seconds": 2.3822171950000666
+    },
+    {
+      "label": "passive-a-math",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-math.json"
+      ],
+      "exit": 0,
+      "seconds": 2.118395395999869
+    },
+    {
+      "label": "passive-a-table",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-table.json"
+      ],
+      "exit": 0,
+      "seconds": 2.0793420249997325
+    },
+    {
+      "label": "passive-a-classification",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-a-classification.json"
+      ],
+      "exit": 0,
+      "seconds": 2.2821409630000744
+    },
+    {
+      "label": "observe-a",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "observe",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--feed",
+        "live"
+      ],
+      "exit": 0,
+      "seconds": 0.6643181279996497
+    },
+    {
+      "label": "observe-a-repeat",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "observe",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--feed",
+        "live"
+      ],
+      "exit": 0,
+      "seconds": 0.6056774549997499
+    },
+    {
+      "label": "crash-client",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "/home/dev/rephix/examples/run_live_session.py",
+        "crash-client",
+        "--session",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/fault-client.json"
+      ],
+      "exit": -9,
+      "seconds": 2.5662144190000618
+    },
+    {
+      "label": "inspect-after-kill",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "inspect",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--verify",
+        "--history"
+      ],
+      "exit": 0,
+      "seconds": 0.6474725990001389
+    },
+    {
+      "label": "resume-reconcile",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "resume",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--checkpoint-updates",
+        "16",
+        "--max-queries",
+        "1"
+      ],
+      "exit": 0,
+      "seconds": 0.6087210050000067
+    },
+    {
+      "label": "graceful-pause",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "resume",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--max-rounds",
+        "1",
+        "--checkpoint-updates",
+        "16"
+      ],
+      "exit": 0,
+      "signal_sent_after_training_checkpoint": "SIGTERM",
+      "seconds": 60.56664558300008
+    },
+    {
+      "label": "inspect-paused",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "inspect",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--verify",
+        "--history"
+      ],
+      "exit": 0,
+      "seconds": 0.6104904870003338
+    },
+    {
+      "label": "resume-round-one",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "resume",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--checkpoint-updates",
+        "16",
+        "--max-rounds",
+        "1"
+      ],
+      "exit": 0,
+      "seconds": 8.652554926999983
+    },
+    {
+      "label": "target-process-a",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-serve",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/server-a.json",
+        "--port",
+        "0"
+      ],
+      "exit": 0,
+      "seconds": 99.51801421000027
+    },
+    {
+      "label": "passive-b-format",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-format.json"
+      ],
+      "exit": 0,
+      "seconds": 1.6476332880001792
+    },
+    {
+      "label": "passive-b-code",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-code.json"
+      ],
+      "exit": 0,
+      "seconds": 0.7549454310001238
+    },
+    {
+      "label": "passive-b-creative",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-creative.json"
+      ],
+      "exit": 0,
+      "seconds": 0.7670495590000428
+    },
+    {
+      "label": "passive-b-literal",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-literal.json"
+      ],
+      "exit": 0,
+      "seconds": 0.77902132600002
+    },
+    {
+      "label": "passive-b-language",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-language.json"
+      ],
+      "exit": 0,
+      "seconds": 0.7678929480002807
+    },
+    {
+      "label": "passive-b-math",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-math.json"
+      ],
+      "exit": 0,
+      "seconds": 0.756281682000008
+    },
+    {
+      "label": "passive-b-table",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-table.json"
+      ],
+      "exit": 0,
+      "seconds": 0.7664138000000094
+    },
+    {
+      "label": "passive-b-classification",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-interact",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/passive-b-classification.json"
+      ],
+      "exit": 0,
+      "seconds": 0.8663121499998852
+    },
+    {
+      "label": "observe-b",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "observe",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--feed",
+        "live"
+      ],
+      "exit": 0,
+      "seconds": 0.7275211340001988
+    },
+    {
+      "label": "resume-round-two",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "resume",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json",
+        "--checkpoint-updates",
+        "16",
+        "--max-rounds",
+        "2"
+      ],
+      "exit": 0,
+      "seconds": 14.703938091000055
+    },
+    {
+      "label": "final",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "evaluate",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--target",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/client.json"
+      ],
+      "exit": 0,
+      "seconds": 10.69107160800013
+    },
+    {
+      "label": "inspect-final",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "inspect",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--verify",
+        "--history"
+      ],
+      "exit": 0,
+      "seconds": 0.6163219469999603
+    },
+    {
+      "label": "evidence",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "evidence",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session"
+      ],
+      "exit": 0,
+      "seconds": 0.6161831670001447
+    },
+    {
+      "label": "export",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "export",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/session",
+        "--cohort",
+        "1",
+        "--output",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/export"
+      ],
+      "exit": 0,
+      "seconds": 0.99822967099999
+    },
+    {
+      "label": "target-process-b",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session-target-serve",
+        "--config",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/server-b.json",
+        "--port",
+        "45247"
+      ],
+      "exit": 0,
+      "seconds": 36.23643161999962
+    },
+    {
+      "label": "standalone",
+      "argv": [
+        "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+        "-m",
+        "rephix",
+        "--threads",
+        "2",
+        "session",
+        "generate",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/export",
+        "--request",
+        "/home/dev/.local/share/rephix-sessions/live-cpu-v1/requests/standalone.json",
+        "--max-bytes",
+        "64",
+        "--device",
+        "cpu"
+      ],
+      "exit": 0,
+      "seconds": 1.3773136279996834
+    }
+  ]
+}
