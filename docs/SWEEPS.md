@@ -32,6 +32,7 @@ Both `defaults` and `grid` accept:
 | `gradient_accumulation_steps` | `1` | Microbatches per optimizer step |
 | `eval_every` | `10` | Validation/checkpoint selection interval |
 | `save_every` | `10` | Latest-state save interval |
+| `selection_metric` | `"reconstruction_objective"` | Use `"continuation_cross_entropy"` for a common checkpoint rule across objectives |
 
 Remote teacher references require an immutable 40-character hexadecimal commit in `revision`. A remote `student_config` requires its own immutable `student_revision`; a teacher commit cannot pin a different repository. The sweep fingerprints local source configuration, tokenizer, and weight files. Local paths must exist before the sweep starts.
 

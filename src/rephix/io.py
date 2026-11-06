@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 
-def atomic_write_text(path: str | Path, text: str) -> None:
+def atomic_write_text(path: str | Path, text: str, *, newline: str | None = None) -> None:
     """Replace a file only after its complete new contents are safely written.
 
     The temporary lives beside its destination, so replacement remains atomic
@@ -22,6 +22,7 @@ def atomic_write_text(path: str | Path, text: str) -> None:
         with tempfile.NamedTemporaryFile(
             mode="w",
             encoding="utf-8",
+            newline=newline,
             dir=destination.parent,
             prefix=f".{destination.name}.",
             suffix=".tmp",

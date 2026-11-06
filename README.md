@@ -50,7 +50,7 @@ Two candidate priors are explicit:
 
 Collection and fitting both support `--resume`. Training keeps the latest optimizer state separate from the best validation checkpoint, verifies unchanged evidence and settings, and treats `--steps` as the total target. Hardware and library constraints on exact resumption are described in the guide.
 
-[Cloud trial results](docs/CLOUD_RESULTS.md) and [validation details](docs/VALIDATION.md) record what has actually been run. Neither model weights nor a guaranteed reconstruction accuracy are bundled.
+[Local CUDA results](docs/LOCAL_RESULTS.md) compare token-only and top-k supervision on a larger family-split corpus. [Cloud trial results](docs/CLOUD_RESULTS.md) and [validation details](docs/VALIDATION.md) document earlier checks.
 
 ## Commands and measurements
 
@@ -92,6 +92,7 @@ Repeated prompts and shared `metadata.group_id` values stay together during spli
 ## Guides
 
 - [Experiments and local Qwen setup](docs/EXPERIMENTS.md)
+- [Local CUDA experiments and reproduction](docs/LOCAL_RESULTS.md)
 - [Complete offline trial](docs/OFFLINE_TRIAL.md)
 - [Sweeps, resumption, and reports](docs/SWEEPS.md)
 - [Query selection and reserved-set exclusions](docs/QUERY_SELECTION.md)

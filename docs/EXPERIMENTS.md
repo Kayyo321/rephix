@@ -81,6 +81,8 @@ rephix --threads 2 collect --prompts examples/prompts.jsonl \
 
 Resume requires the companion `.collection.json` journal and unchanged prompt evidence, settings, and source. Completed observations are retained; collection continues from the next one. Existing outputs are rejected without explicit `--resume`. Do not repurpose one collection output for a changed reference or generation budget.
 
+New journals also verify the output checksum and execution environment on resume. The journal records both valid checksums around each atomic evidence replacement so either side of an interrupted commit can be recovered. Older journals can resume after the existing provenance checks, at which point their current output gets its first checksum. Use one writer per collection output.
+
 Visible reasoning may be part of the raw completion. A separate `thinking` field is an annotation, not access to hidden activations. Imported records with separately readable reasoning and answer fields need the exact serialized completion in paired token-ID arrays or `metadata.completion_text`. Extra context conditions the model only when included in its actual prompt.
 
 ## 5. Isolate training, validation, and test groups
@@ -181,10 +183,11 @@ rephix --threads 2 evaluate --data data/splits/test.jsonl --model runs/qwen-stud
 | Recorded-token agreement | Candidate argmax matches the recorded next token under the same prefix | A sampled recorded token need not be the teacher argmax |
 | Observed top-token agreement | Candidate argmax matches the highest-probability observed token | Available only where probability evidence exists |
 | Free-running exact match | Greedy generation reproduces the complete recorded token sequence | Depends on generation budget, decoding, and error accumulation |
+| Free-running first-token agreement and prefix fraction | Agreement on the first generated token and the share of recorded tokens before the first divergence | Later matches after a divergence do not contribute |
 | Reconstruction objective | The selected token/top-k loss mixture | Values across different objective mixtures are not directly comparable |
 | Parameter relative L2 and cosine | Tensor distance in compatible coordinates | Does not resolve general model symmetries |
 
-The legacy `teacher_token_agreement` field aliases recorded-token agreement. Evaluation uses the saved training run's `topk_weight` for its reconstruction objective by default; `evaluate --topk-weight VALUE` overrides it explicitly. Without a training-run report, the default weight is one. Reports identify which source supplied that objective weight. Report examples, supervised token counts, truncation, and generation-budget coverage alongside each result. For cross-objective model selection, use a common validation metric such as continuation cross entropy rather than comparing different objective definitions.
+The legacy `teacher_token_agreement` field aliases recorded-token agreement. Evaluation uses the saved training run's `topk_weight` for its reconstruction objective by default. Use `evaluate --topk-weight VALUE` to set it explicitly. Without a training-run report, the default weight is one. Reports identify which source supplied that objective weight. Report examples, supervised token counts, truncation, and generation-budget coverage alongside each result. For cross-objective comparisons, use `fit --selection-metric continuation_cross_entropy` to pick every arm's checkpoint using the same validation metric. The default remains the configured reconstruction objective.
 
 Direct checkpoint comparison is available only for compatible parameter names and shapes:
 

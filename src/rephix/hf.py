@@ -7,6 +7,7 @@ procedure for uniquely recovering a transformer's original parameters.
 from __future__ import annotations
 
 import hashlib
+import inspect
 import json
 import math
 import os
@@ -17,8 +18,8 @@ import uuid
 from pathlib import Path
 
 from . import __version__
-from .evidence import Observation, read_observations, write_observations
-from .io import write_json
+from .evidence import Observation, read_observations, validate_observation
+from .io import atomic_write_text, write_json
 
 
 def _deps():
@@ -144,6 +145,26 @@ def _positive(value, label):
         raise ValueError(f"{label} must be positive")
 
 
+def _completion_logits(torch, model, prefix, completion, device):
+    if "logits_to_keep" in inspect.signature(model.forward).parameters:
+        # The last observed token is a target, so the final input position
+        # needed is the one immediately before it. Skip projecting the prefix.
+        tokens = torch.tensor([(prefix + completion)[:-1]], device=device)
+        logits = model(
+            input_ids=tokens, attention_mask=torch.ones_like(tokens), logits_to_keep=len(completion)
+        ).logits[0]
+    else:
+        tokens = torch.tensor([prefix + completion], device=device)
+        all_logits = model(input_ids=tokens, attention_mask=torch.ones_like(tokens)).logits[0]
+        start = len(prefix) - 1
+        logits = all_logits[start : start + len(completion)]
+    return logits.float()
+
+
+def _collection_digest(payload):
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
 def collect(args):
     """Collect raw greedy continuations and optional teacher-forced top-k evidence."""
     _positive(args.max_new_tokens, "max-new-tokens")
@@ -181,14 +202,38 @@ def collect(args):
         "seed": args.seed,
     }
     settings_fingerprint = hashlib.sha256(json.dumps(settings, sort_keys=True).encode()).hexdigest()
+    environment = {
+        "execution_device": device,
+        "model_dtype": str(next(model.parameters()).dtype),
+        "torch_num_threads": torch.get_num_threads(),
+        "torch": str(torch.__version__),
+        "transformers": __import__("transformers").__version__,
+        "logits_to_keep": "logits_to_keep" in inspect.signature(model.forward).parameters,
+    }
     records = []
+    payload = ""
     if resume:
         existing = json.loads(journal.read_text(encoding="utf-8"))
         if existing.get("settings") != settings:
             raise ValueError(
                 "Collection resume settings, source weights, or prompt evidence changed"
             )
-        records = read_observations(output) if output.is_file() else []
+        checksummed = "environment" in existing or "evidence_sha256" in existing
+        if checksummed:
+            if existing.get("environment") != environment:
+                raise ValueError("Collection resume execution environment changed")
+        if output.is_file():
+            payload = output.read_bytes().decode("utf-8")
+            records = read_observations(output)
+        if checksummed:
+            count = existing.get("completed_observations")
+            digest = existing.get("evidence_sha256")
+            if type(count) is not int or count < 0 or not isinstance(digest, str):
+                raise ValueError("Invalid collection checksum manifest")
+            pending = existing.get("pending_evidence_sha256")
+            actual = (len(records), _collection_digest(payload))
+            if actual != (count, digest) and actual != (count + 1, pending):
+                raise ValueError("Collection evidence checksum does not match the resume manifest")
         if len(records) > len(prompts):
             raise ValueError("Collection output contains more observations than the prompt source")
         for observed, prompt in zip(records, prompts):
@@ -196,10 +241,21 @@ def collect(args):
                 raise ValueError("Collection output is not a prefix of the original prompt source")
             if observed.metadata.get("collection_fingerprint") != settings_fingerprint:
                 raise ValueError("Collection output provenance does not match the resume manifest")
-    _write_report(
-        journal,
-        {"settings": settings, "completed_observations": len(records), "status": "collecting"},
-    )
+
+    def write_journal(count, digest, *, pending=None, status="collecting"):
+        report = {
+            "settings": settings,
+            "environment": environment,
+            "completed_observations": count,
+            "evidence_sha256": digest,
+            "status": status,
+        }
+        if pending is not None:
+            report["pending_evidence_sha256"] = pending
+        _write_report(journal, report)
+
+    digest = _collection_digest(payload)
+    write_journal(len(records), digest)
     for record in prompts[len(records) :]:
         prefix = _render_prompt(tokenizer, record.prompt)
         if not prefix:
@@ -218,14 +274,7 @@ def collect(args):
             completion = generated[0, len(prefix) :].tolist()
             top_rows = None
             if args.top_k and completion:
-                # Token j was predicted at prefix_length + j - 1.
-                full = torch.tensor([prefix + completion], device=device)
-                logits = model(input_ids=full, attention_mask=torch.ones_like(full)).logits[0]
-                logp = (
-                    logits[len(prefix) - 1 : len(prefix) + len(completion) - 1]
-                    .float()
-                    .log_softmax(-1)
-                )
+                logp = _completion_logits(torch, model, prefix, completion, device).log_softmax(-1)
                 values, indices = logp.topk(min(args.top_k, logp.shape[-1]), dim=-1)
                 top_rows = [
                     [
@@ -264,28 +313,26 @@ def collect(args):
             }
         )
         metadata.pop("completion_text", None)
-        records.append(
-            Observation(
-                id=record.id,
-                prompt=record.prompt,
-                output=tokenizer.decode(completion, skip_special_tokens=False),
-                metadata=metadata,
-                prompt_token_ids=prefix,
-                completion_token_ids=completion,
-                top_logprobs=top_rows,
-            )
+        observed = Observation(
+            id=record.id,
+            prompt=record.prompt,
+            output=tokenizer.decode(completion, skip_special_tokens=False),
+            metadata=metadata,
+            prompt_token_ids=prefix,
+            completion_token_ids=completion,
+            top_logprobs=top_rows,
         )
-        # Every completed observation is a durable prefix; an interrupted next
-        # query can be retried without losing or duplicating earlier evidence.
-        write_observations(output, records)
-        _write_report(
-            journal,
-            {"settings": settings, "completed_observations": len(records), "status": "collecting"},
-        )
-    _write_report(
-        journal,
-        {"settings": settings, "completed_observations": len(records), "status": "complete"},
-    )
+        validate_observation(observed)
+        separator = "\n" if payload and not payload.endswith("\n") else ""
+        next_payload = payload + separator + json.dumps(observed.to_dict(), allow_nan=False) + "\n"
+        next_digest = _collection_digest(next_payload)
+        # Publish both valid checksums before replacing the output. Resume can
+        # recognize either side of the atomic replacement.
+        write_journal(len(records), digest, pending=next_digest)
+        atomic_write_text(output, next_payload, newline="")
+        records.append(observed)
+        payload, digest = next_payload, next_digest
+    write_journal(len(records), digest, status="complete")
     return {
         "observations": len(records),
         "resumed": resume,
@@ -294,6 +341,7 @@ def collect(args):
         "model": str(args.model),
         "tokenizer_fingerprint": fingerprint,
         "top_k": args.top_k,
+        "evidence_sha256": digest,
         "completion_tokens": sum(len(r.completion_token_ids) for r in records),
     }
 
@@ -369,44 +417,50 @@ def _bucketed_loss(logits, rows):
 
     if len(rows) != logits.shape[0]:
         raise ValueError("Top-logprob rows do not align with logits")
-    losses = []
-    for step, row in zip(logits.float(), rows):
+    if not rows:
+        raise ValueError("No top-logprob rows")
+    vocab_size = logits.shape[-1]
+    width = max(map(len, rows))
+    token_ids, weights, tails, mask_ids = [], [], [], []
+    for row in rows:
         if not row:
             raise ValueError("Top-logprob rows must be nonempty")
         ids = [entry["token_id"] for entry in row]
         values = [entry["logprob"] for entry in row]
-        if len(set(ids)) != len(ids) or any(i < 0 or i >= step.shape[-1] for i in ids):
+        if len(set(ids)) != len(ids) or any(i < 0 or i >= vocab_size for i in ids):
             raise ValueError("Top-logprob ids must be unique and in vocabulary")
         if any(not math.isfinite(v) or v > 0 for v in values):
             raise ValueError("Top-logprobs must be finite and nonpositive")
-        indices = torch.tensor(ids, device=step.device)
-        probabilities = torch.tensor(values, device=step.device).exp()
-        mass = probabilities.sum()
-        if mass.item() > 1.00001:
+        probabilities = [math.exp(value) for value in values]
+        mass = math.fsum(probabilities)
+        if mass > 1.00001:
             raise ValueError("Top-logprob mass exceeds one")
-        if len(ids) == step.shape[-1] and abs(mass.item() - 1) > 1e-5:
+        if len(ids) == vocab_size and abs(mass - 1) > 1e-5:
             raise ValueError("Full-vocabulary top-logprob mass must sum to one")
-        # Account for float32 rounding when a full-vocabulary row sums just above one.
-        probabilities = probabilities / mass.clamp(min=1.0)
-        tail_probability = (1 - probabilities.sum()).clamp(min=0)
-        normalizer = torch.logsumexp(step, dim=-1)
-        loss = -(probabilities * (step[indices] - normalizer)).sum()
-        if len(ids) < step.shape[-1] and tail_probability.item() > 0:
-            tail_logits = step.clone()
-            tail_logits[indices] = -torch.inf
-            loss = loss - tail_probability * (torch.logsumexp(tail_logits, dim=-1) - normalizer)
-        losses.append(loss)
-    if not losses:
-        raise ValueError("No top-logprob rows")
-    return torch.stack(losses).mean()
+        probabilities = [probability / max(mass, 1.0) for probability in probabilities]
+        tail = max(1 - mass, 0.0) if len(ids) < vocab_size else 0.0
+        padding = width - len(ids)
+        token_ids.append(ids + [0] * padding)
+        weights.append(probabilities + [0.0] * padding)
+        tails.append(tail)
+        mask_ids.append(ids + [vocab_size] * padding if tail else [vocab_size] * width)
+    logits = logits.float()
+    indices = torch.tensor(token_ids, device=logits.device)
+    probabilities = logits.new_tensor(weights)
+    normalizer = logits.logsumexp(dim=-1)
+    losses = -(probabilities * (logits.gather(1, indices) - normalizer[:, None])).sum(dim=-1)
+    if any(tails):
+        # Ragged padding scatters into an extra column that never enters the
+        # tail. Rows with no teacher tail keep finite logits for backward.
+        tail_logits = torch.nn.functional.pad(logits, (0, 1))
+        tail_logits.scatter_(1, torch.tensor(mask_ids, device=logits.device), -torch.inf)
+        tail_logp = tail_logits[:, :-1].logsumexp(dim=-1) - normalizer
+        losses = losses - logits.new_tensor(tails) * tail_logp
+    return losses.mean()
 
 
 def _forward(torch, model, record, device):
-    sequence = record["prefix"] + record["completion"]
-    tokens = torch.tensor([sequence], device=device)
-    logits = model(input_ids=tokens, attention_mask=torch.ones_like(tokens)).logits[0]
-    start = len(record["prefix"]) - 1
-    logits = logits[start : start + len(record["completion"])].float()
+    logits = _completion_logits(torch, model, record["prefix"], record["completion"], device)
     targets = torch.tensor(record["completion"], device=device)
     return logits, targets
 
@@ -660,6 +714,9 @@ def fit(args):
     validation, validation_truncated = _prepare(
         validation_records, tokenizer, args.max_seq_length, config.vocab_size
     )
+    selection_key = getattr(args, "selection_metric", "reconstruction_objective")
+    if selection_key not in {"reconstruction_objective", "continuation_cross_entropy"}:
+        raise ValueError("Unsupported checkpoint selection metric")
     versions = {
         "rephix": __version__,
         "torch": str(torch.__version__),
@@ -697,6 +754,8 @@ def fit(args):
         "validation_sha256": _dataset_hash(args.validation),
         "seen_evidence_keys": _evidence_keys(train_records + validation_records),
     }
+    if selection_key != "reconstruction_objective":
+        run_config["selection_metric"] = selection_key
     state = None
     if resume:
         try:
@@ -732,7 +791,6 @@ def fit(args):
     model.config.use_cache = False
     optimizer = torch.optim.AdamW(parameters, lr=args.learning_rate)
     output.mkdir(parents=True, exist_ok=True)
-    selection_key = "reconstruction_objective"
     if state is None:
         baseline = _metrics(torch, model, validation, device, args.topk_weight)
         best, best_step = dict(baseline), 0
@@ -851,6 +909,9 @@ def fit(args):
 
 def evaluate(args):
     """Score held-out continuations; generation is an additional optional metric."""
+    generation_details = getattr(args, "generation_details", False)
+    if generation_details and not args.generate:
+        raise ValueError("generation-details requires generate")
     records = read_observations(args.data)
     if not records:
         raise ValueError("Evaluation dataset is empty")
@@ -908,7 +969,9 @@ def evaluate(args):
     if args.generate:
         _positive(args.max_new_tokens, "max-new-tokens")
         exact = 0
+        first_token_correct = matched_prefix_tokens = reference_tokens = 0
         covered = 0
+        details = []
         context_limit = getattr(model.config, "max_position_embeddings", None)
         generation_config = _generation_config(model, tokenizer, args.max_new_tokens)
         with torch.no_grad():
@@ -922,12 +985,38 @@ def evaluate(args):
                     generation_config=generation_config,
                 )
                 continuation = generated[0, len(record["prefix"]) :].tolist()
-                exact += continuation == record["full_completion"]
-                covered += len(record["full_completion"]) <= args.max_new_tokens
+                reference = record["full_completion"]
+                exact += continuation == reference
+                covered += len(reference) <= args.max_new_tokens
+                first_token_correct += continuation[:1] == reference[:1]
+                reference_tokens += len(reference)
+                prefix_match = 0
+                for generated_token, reference_token in zip(continuation, reference):
+                    if generated_token != reference_token:
+                        break
+                    prefix_match += 1
+                matched_prefix_tokens += prefix_match
+                if generation_details:
+                    details.append(
+                        {
+                            "id": record["id"],
+                            "candidate_token_ids": continuation,
+                            "candidate_text": tokenizer.decode(
+                                continuation, skip_special_tokens=False
+                            ),
+                            "matched_prefix_tokens": prefix_match,
+                            "reference_tokens": len(reference),
+                            "exact_match": continuation == reference,
+                        }
+                    )
         report["generation_exact_match"] = exact / len(prepared)
+        report["generation_first_token_agreement"] = first_token_correct / len(prepared)
+        report["generation_reference_prefix_fraction"] = matched_prefix_tokens / reference_tokens
         report["generation_budget_covers_examples"] = covered
         report["generation_max_new_tokens"] = args.max_new_tokens
         report["effective_generation_config"] = generation_config.to_dict()
+        if generation_details:
+            report["generation_details"] = details
     return _write_report(args.output, report)
 
 
@@ -1025,6 +1114,12 @@ def add_subcommands(subparsers):
     )
     parser.add_argument("--eval-every", type=int, default=10)
     parser.add_argument(
+        "--selection-metric",
+        choices=["reconstruction_objective", "continuation_cross_entropy"],
+        default="reconstruction_objective",
+        help="Validation score used to select the best checkpoint",
+    )
+    parser.add_argument(
         "--save-every",
         type=int,
         default=10,
@@ -1061,6 +1156,11 @@ def add_subcommands(subparsers):
     parser.add_argument("--output")
     parser.add_argument("--max-seq-length", type=int, default=256)
     parser.add_argument("--generate", action="store_true")
+    parser.add_argument(
+        "--generation-details",
+        action="store_true",
+        help="Include per-prompt generated continuations",
+    )
     parser.add_argument("--max-new-tokens", type=int, default=32)
     parser.add_argument(
         "--topk-weight",

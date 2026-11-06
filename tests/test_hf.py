@@ -255,9 +255,74 @@ class LocalQwenIntegrationTests(unittest.TestCase):
         self.assertTrue(report["resumed"])
         manifest = Path(report["collection_manifest"])
         self.assertEqual(json.loads(manifest.read_text())["status"], "complete")
+        legacy = json.loads(manifest.read_text())
+        del legacy["evidence_sha256"], legacy["environment"]
+        manifest.write_text(json.dumps(legacy), encoding="utf-8")
+        # Adopt the exact bytes of a legacy artifact, including its line endings.
+        output.write_bytes(
+            output.read_bytes().replace(b"\r\n", b"\n").rstrip(b"\n").replace(b"\n", b"\r\n")
+        )
+        upgraded = hf.collect(args)
+        self.assertEqual(upgraded["evidence_sha256"], hf._dataset_hash(output))
+        self.assertEqual(hf.collect(args)["observations"], 3)
+        records = read_observations(output)
+        write_observations(output, [replace(records[0], output="altered"), *records[1:]])
+        with self.assertRaisesRegex(ValueError, "checksum"):
+            hf.collect(args)
         args.top_k += 1
         with self.assertRaisesRegex(ValueError, "settings"):
             hf.collect(args)
+
+    def test_collection_resume_handles_both_sides_of_output_replace(self):
+        from transformers import Qwen2ForCausalLM
+
+        prompts = self.root / "prompts.jsonl"
+        write_observations(prompts, [Observation(id="red", prompt="red", output="")])
+        for output_committed in (False, True):
+            with self.subTest(output_committed=output_committed):
+                output = self.root / f"observations-{output_committed}.jsonl"
+                args = Namespace(
+                    prompts=str(prompts),
+                    model=str(self.teacher),
+                    revision=None,
+                    output=str(output),
+                    device="cpu",
+                    max_new_tokens=4,
+                    top_k=3,
+                    seed=42,
+                    resume=False,
+                )
+                write = hf.atomic_write_text
+
+                def fail_on_output(path, payload, **kwargs):
+                    if output_committed:
+                        write(path, payload, **kwargs)
+                    raise OSError("interrupted output commit")
+
+                with patch.object(hf, "atomic_write_text", side_effect=fail_on_output):
+                    with self.assertRaisesRegex(OSError, "interrupted"):
+                        hf.collect(args)
+                self.assertEqual(output.is_file(), output_committed)
+                args.resume = True
+                if output_committed:
+                    with patch.object(Qwen2ForCausalLM, "generate", side_effect=AssertionError):
+                        report = hf.collect(args)
+                else:
+                    report = hf.collect(args)
+                self.assertEqual(report["observations"], 1)
+                self.assertEqual(report["evidence_sha256"], hf._dataset_hash(output))
+
+    def test_projected_continuation_matches_full_causal_logits(self):
+        import torch
+        from transformers import Qwen2ForCausalLM
+
+        model = Qwen2ForCausalLM.from_pretrained(self.teacher).eval()
+        prefix, completion = [4, 5, 6], [7, 8]
+        sequence = torch.tensor([prefix + completion])
+        with torch.no_grad():
+            full = model(input_ids=sequence).logits[0, 2:4]
+            observed = hf._completion_logits(torch, model, prefix, completion, "cpu")
+        torch.testing.assert_close(observed, full)
 
     def test_exact_ids_preserve_separately_recorded_reasoning_targets(self):
         from transformers import AutoTokenizer

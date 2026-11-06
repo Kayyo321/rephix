@@ -140,6 +140,8 @@ class ResumeTests(unittest.TestCase):
         hf.fit(self.args("strict", steps=1))
         with self.assertRaisesRegex(ValueError, "learning_rate"):
             hf.fit(self.args("strict", resume=True, learning_rate=0.002))
+        with self.assertRaisesRegex(ValueError, "selection_metric"):
+            hf.fit(self.args("strict", resume=True, selection_metric="continuation_cross_entropy"))
         with self.assertRaisesRegex(ValueError, "less than"):
             hf.fit(self.args("strict", resume=True, steps=0.5))
         write_observations(

@@ -36,6 +36,7 @@ _DEFAULTS = {
     "eval_every": 10,
     "save_every": 10,
 }
+_PARAMETERS = set(_DEFAULTS) | {"selection_metric"}
 _TOP_LEVEL = {
     "schema_version",
     "teacher",
@@ -133,6 +134,11 @@ def _validate_parameters(parameters):
         raise ValueError("learning_rate must be positive")
     if not 0 <= parameters["topk_weight"] <= 1:
         raise ValueError("topk_weight must be between zero and one")
+    if parameters.get("selection_metric", "reconstruction_objective") not in (
+        "reconstruction_objective",
+        "continuation_cross_entropy",
+    ):
+        raise ValueError("Unsupported checkpoint selection metric")
     if not isinstance(parameters["init"], str) or parameters["init"] not in {
         "random",
         "pretrained",
@@ -165,8 +171,8 @@ def load_sweep_config(path):
             raise ValueError(f"Missing sweep key: {required}")
     defaults = config.get("defaults", {})
     grid = config.get("grid", {})
-    _unknown_keys(defaults, _DEFAULTS, "defaults")
-    _unknown_keys(grid, _DEFAULTS, "grid")
+    _unknown_keys(defaults, _PARAMETERS, "defaults")
+    _unknown_keys(grid, _PARAMETERS, "grid")
     if not isinstance(config.get("device", "auto"), str) or config.get("device", "auto") not in {
         "auto",
         "cpu",

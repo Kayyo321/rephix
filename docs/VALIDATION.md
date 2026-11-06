@@ -19,7 +19,7 @@ The controlled affine baseline used 192 training and 64 test samples, recovering
 
 A real pretrained Qwen2.5-0.5B cloud experiment also ran. See [CLOUD_RESULTS.md](CLOUD_RESULTS.md) for both the accurate restricted component recovery and the limited smaller-student smoke result. Model weights are excluded from the repository and release artifacts.
 
-CI runs core checks on Linux, Windows, and macOS with Python 3.10 and 3.12; runs the offline model workflow on Linux; builds wheel/source distributions; and checks installation from the wheel. Its current status is visible in [GitHub Actions](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml). CUDA and MPS execution, long training budgets, and performance on the owner's hardware remain hardware-specific checks.
+CI runs core checks on Linux, Windows, and macOS with Python 3.10 and 3.12. It also runs the offline model workflow on Linux, builds wheel and source distributions, and checks installation from the wheel. See [GitHub Actions](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml). The [local CUDA results](LOCAL_RESULTS.md) record the RTX 5080 experiments and exact resumption observed on that workstation. MPS execution remains unmeasured.
 
 In a sandbox with a read-only home directory, set `MPLCONFIGDIR` to a writable directory before plotting. This changes only Matplotlib's cache location.
 
