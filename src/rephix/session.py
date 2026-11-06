@@ -233,6 +233,10 @@ class Session:
         }
         summary["pause_requested"] = self.journal.pause_requested()
         summary["storage_bytes"] = self.journal.size_bytes()
+        limit = self.state.get("limits", {}).get("max_queries")
+        summary["remaining_active_queries"] = (
+            None if limit is None else max(0, limit - self.state["query_count"])
+        )
         if verify:
             summary["integrity_verified"] = True
         if history:
@@ -806,6 +810,7 @@ class Session:
         stop_after_checkpoint=False,
         refit=False,
         max_storage_mib=None,
+        reset_limits=False,
         hook=None,
     ):
         hook = hook or (lambda _: None)
@@ -817,10 +822,30 @@ class Session:
                 raise ValueError("time and validation targets must be positive and finite")
         with self.journal.runner():
             self._reload()
+            prior_limits = {} if reset_limits else self.state.get("limits", {})
+            supplied = {
+                "max_queries": max_queries,
+                "max_rounds": max_rounds,
+                "max_seconds": max_seconds,
+                "validation_ce": validation_ce,
+                "plateau": plateau,
+                "max_storage_mib": max_storage_mib,
+            }
+            limits = prior_limits | {
+                key: value for key, value in supplied.items() if value is not None
+            }
+            self.state["limits"] = limits
+            max_queries = limits.get("max_queries")
+            max_seconds = limits.get("max_seconds")
+            validation_ce = limits.get("validation_ce")
+            plateau = limits.get("plateau")
+            max_storage_mib = limits.get("max_storage_mib")
             if refit:
                 if self.state["phase"] != "selection" or self.state["pending"]:
                     raise ValueError("finish the current stage before starting a refit")
                 max_rounds = min(max_rounds or math.inf, self.state["round"] + 1)
+            else:
+                max_rounds = limits.get("max_rounds")
             if self.state["pending"] and self.state["pending"]["partition"] == "test":
                 raise ValueError("a final request is pending; resume it with session evaluate")
             self.journal.pause(False)
@@ -837,6 +862,7 @@ class Session:
                     "stop_after_checkpoint": stop_after_checkpoint,
                     "refit": refit,
                     "max_storage_mib": max_storage_mib,
+                    "reset_limits": reset_limits,
                 },
             )
             deadline = time.monotonic() + max_seconds if max_seconds is not None else math.inf
@@ -912,6 +938,12 @@ class Session:
             final = self.state["finals"][key]
             if "metrics" in final:
                 return final
+            limits = self.state.setdefault("limits", {})
+            if max_queries is None:
+                max_queries = limits.get("max_queries")
+            elif max_queries != limits.get("max_queries"):
+                limits["max_queries"] = max_queries
+                self._save("final_query_budget_updated", {"max_queries": max_queries})
             self.journal.pause(False)
             if self.state["pending"] and not self._finish_pending(target, hook):
                 return self._stop("uncertain_request")
@@ -1037,6 +1069,7 @@ def _cli(args):
             stop_after_checkpoint=args.stop_after_checkpoint,
             refit=args.refit,
             max_storage_mib=args.max_storage_mib,
+            reset_limits=args.reset_limits,
         )
 
 
@@ -1078,6 +1111,11 @@ def add_subcommands(commands):
             )
             command.add_argument("--checkpoint-updates", type=int, default=16)
             command.add_argument("--stop-after-checkpoint", action="store_true")
+            command.add_argument(
+                "--reset-limits",
+                action="store_true",
+                help="clear saved ceilings before applying new limits",
+            )
             command.add_argument(
                 "--refit", action="store_true", help="one replay round without new queries"
             )

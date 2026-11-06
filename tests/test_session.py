@@ -67,6 +67,22 @@ class UnknownRemote:
 
 
 class SessionJournalTests(unittest.TestCase):
+    def test_query_ceiling_survives_restart_without_flags(self):
+        with tempfile.TemporaryDirectory() as root:
+            folder = Path(root)
+            path = folder / "session"
+            spec = _spec()
+            spec["prompts"].append(_row("val2", "val-2", "validation", "Why now?"))
+            target = Echo(receipts=folder / "receipts.sqlite", epoch="x")
+            with Session(path, spec) as session:
+                report = session.run(target, max_queries=1)
+                self.assertEqual(report["remaining_active_queries"], 0)
+            with Session(path) as session:
+                report = session.run(target)
+                self.assertEqual((report["query_count"], report["stop"]), (1, "query_budget"))
+                report = session.run(target, max_queries=2)
+                self.assertEqual((report["query_count"], report["stop"]), (2, "query_budget"))
+
     def test_validation_and_test_groups_reserved_and_passive_held_out_quarantined(self):
         with tempfile.TemporaryDirectory() as root:
             folder = Path(root)

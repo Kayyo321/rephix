@@ -114,7 +114,7 @@ class Harness:
                     }
                 )
 
-    def pause_at_checkpoint(self, directory, client):
+    def pause_at_checkpoint(self, directory, client, query_limit):
         command = self.cli(
             "session",
             "resume",
@@ -123,6 +123,8 @@ class Harness:
             client,
             "--max-rounds",
             1,
+            "--max-queries",
+            query_limit,
             "--checkpoint-updates",
             CHECKPOINT_UPDATES,
         )
@@ -342,12 +344,12 @@ def scenario(args):
         crashed = inspect("inspect-after-kill")
         pending = crashed["pending"]["request"]
         saved, saved_sha = receipt(receipt_db, pending)
-        reconciled = resume("resume-reconcile", "--max-queries", 1)
+        reconciled = resume("resume-reconcile")
         if reconciled["pending"] is not None or reconciled["query_count"] != 1:
             raise RuntimeError("the first request did not reconcile within its existing budget")
         if (saved, saved_sha) != receipt(receipt_db, pending):
             raise RuntimeError("the original receipt changed after reconciliation")
-        paused = harness.pause_at_checkpoint(session_dir, client)
+        paused = harness.pause_at_checkpoint(session_dir, client, len(validation) + args.acquire)
         before = inspect("inspect-paused")
         if before["recovery"] != paused["recovery"]:
             raise RuntimeError("the graceful checkpoint changed after process shutdown")
@@ -359,8 +361,25 @@ def scenario(args):
         for row in probes:
             passive(row, f"passive-b-{row['probe_id']}")
         observe("observe-b")
-        second = resume("resume-round-two", "--max-rounds", 2)
-        final = execute("final", use_cli("session", "evaluate", session_dir, "--target", client))
+        second = resume(
+            "resume-round-two",
+            "--max-rounds",
+            2,
+            "--max-queries",
+            len(validation) + 2 * args.acquire,
+        )
+        final = execute(
+            "final",
+            use_cli(
+                "session",
+                "evaluate",
+                session_dir,
+                "--target",
+                client,
+                "--max-queries",
+                second["query_count"] + len(final_rows),
+            ),
+        )
         inspected = inspect("inspect-final")
         evidence = execute("evidence", use_cli("session", "evidence", session_dir))["evidence"]
         export = execute(
