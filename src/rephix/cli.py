@@ -169,6 +169,7 @@ def build_parser():
         session,
         session_targets,
         tiny,
+        trace_recovery,
     )
 
     for module in (
@@ -183,6 +184,7 @@ def build_parser():
         tiny,
         session,
         session_targets,
+        trace_recovery,
     ):
         module.add_subcommands(commands)
     return parser

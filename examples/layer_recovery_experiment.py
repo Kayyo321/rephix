@@ -26,7 +26,7 @@ _NORMS = re.compile(
 )
 
 
-def _capture(model, tokenizer, texts, device):
+def _capture(model, tokenizer, texts, device, *, logit_dtype=None):
     import torch
 
     tokenizer.padding_side = "left"
@@ -42,7 +42,7 @@ def _capture(model, tokenizer, texts, device):
             ids.extend(inputs.input_ids[mask.bool()].tolist())
             position_ids = (mask.cumsum(dim=-1) - 1).clamp(min=0)
             output = model(**inputs, position_ids=position_ids, use_cache=False, **last_logits)
-            rows.append(output.logits[:, -1].float().cpu())
+            rows.append(output.logits[:, -1].to(dtype=logit_dtype or torch.float32).cpu())
         selected = tokenizer(texts[::4], padding=True, return_tensors="pt").to(device)
         config = _generation_config(model, tokenizer, 8)
         completion = model.generate(**selected, generation_config=config)

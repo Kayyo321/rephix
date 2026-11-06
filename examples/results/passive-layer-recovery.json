@@ -1,0 +1,2136 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "llama": {
+      "schema_version": 1,
+      "model_id": "HuggingFaceTB/SmolLM2-135M",
+      "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+      "reference_sha256": {
+        "config.json": "1d556eab73b69c7f11f64c557a2f9c6f440bd4c6b89bb2584a6b498c92603843",
+        "generation_config.json": "2056c988e990b0d13670f63f2f3b87b3b6d07edaf7a3416998ba27dab2d8a059",
+        "merges.txt": "0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510",
+        "model.safetensors": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+        "special_tokens_map.json": "e786b595b9a23148bf1630df78d9037a048ea671e48bfd3549a1e3c233742bb3",
+        "tokenizer.json": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+        "tokenizer_config.json": "4bb9af56a342753d39374f4016a16574cab299fe088e896f425ce3c433f61424",
+        "vocab.json": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+      },
+      "candidate_sha256": {
+        "config.json": "d902a35e7658106acba4613aa0c4bb2efe95dcf7e445286060ade2a6bbd05e35",
+        "generation_config.json": "43d1f83d871a388f486b86713426772920fbe4bd59e2d16013b65ebc91760b4c",
+        "merges.txt": "0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510",
+        "model.safetensors": "91b67f6c141e6143b36c13e0b8abee14505edd4b52205fe37d85023d5255712c",
+        "special_tokens_map.json": "e786b595b9a23148bf1630df78d9037a048ea671e48bfd3549a1e3c233742bb3",
+        "tokenizer.json": "7d27c493c729a66ecefc837280b05d948b1ed50d130eebdbf911b1b36cf38ed7",
+        "tokenizer_config.json": "dc56f9ca2dd808c574d331a145e4e78b911eb1b53e2f7d95be284f2107ab8f70",
+        "trace-recovery.json": "436ac80e9dacfef804e66bfbe7db4781d8b2071043a09f2c6009e073bceaebb0",
+        "vocab.json": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "contexts_sha256": {
+        "train": "a1b9e8a2852de7bc12c69a3e3aa04092f9b7fc7fa0b6ba3a59f6c1f948c94dc1",
+        "validation": "cc842570b23a3b5fd087120ba4ab339fb809600e36f55dca9813e3944d76cd68"
+      },
+      "trace_bytes": 4433895168,
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "llama",
+        "config_sha256": "1d556eab73b69c7f11f64c557a2f9c6f440bd4c6b89bb2584a6b498c92603843",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 3072,
+        "train_input_tokens": 49152,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "llama",
+        "dtype": "float64",
+        "max_validation_rmse": 1e-05,
+        "unique_parameter_elements_recovered": 134515008,
+        "summary": {
+          "operator_count": 272,
+          "full_design_rank_count": 271,
+          "rank_checked_count": 271,
+          "embedding_tables": [
+            {
+              "path": "model.embed_tokens",
+              "kind": "embedding",
+              "weight_shape": [
+                49152,
+                576
+              ],
+              "has_bias": false,
+              "observed_token_ids": 49152,
+              "observed_rows": 49152
+            }
+          ],
+          "worst_condition": {
+            "path": "model.layers.18.self_attn.o_proj",
+            "kind": "linear",
+            "weight_shape": [
+              576,
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 162690.49183478946,
+            "relative_rank_tolerance": 2.5579538487363607e-13,
+            "validation_rmse": 1.4428895349379633e-14,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 1152,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.445744484281049e-14
+          },
+          "worst_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 55.49172312264877,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.246984479194741e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.2469844791947404e-07
+          },
+          "worst_runtime_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 55.49172312264877,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.246984479194741e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.2469844791947404e-07
+          }
+        }
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 272,
+        "candidate_tensors": 272,
+        "compared_tensors": 272,
+        "reference_elements": 134515008,
+        "candidate_elements": 134515008,
+        "compared_elements": 134515008,
+        "coverage": 1.0,
+        "exactly_equal_elements": 28964141,
+        "fraction_exactly_equal": 0.21532274673767257,
+        "within_tolerance_elements": 134515008,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 5.876015744572291e-10,
+        "zero_filled_relative_l2": 5.876015744572291e-10,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.embed_tokens.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.norm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 1.7335270510178072e-06,
+        "logit_max_abs_error": 9.577840852870168e-06,
+        "mean_kl_nats": 9.93110235509707e-14,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "evaluation_seconds": 8.174038956000004,
+      "recovery_seconds": 42,
+      "estimator_config_files": [
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "mistral": {
+      "schema_version": 1,
+      "model_id": "OuteAI/Lite-Mistral-150M-v2-Instruct",
+      "revision": "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e",
+      "reference_sha256": {
+        "config.json": "714f8cf063588022499e8223cc3a487c500ffcd4cfd8a7bd3c2fc8354678c086",
+        "generation_config.json": "e7837bdba54a36255e4328e034076648ed8a8ca617d7a979a29158191cce6318",
+        "model.safetensors": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "bdc45dc7f18a5c55e0dcb36f4f187a7c429d6aaa1693a17d20422b85081642d9",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "0eafab4ad5551c3078011ff19b5e0c8a48d4d29b9d96c78e2c8d090530b6b655"
+      },
+      "candidate_sha256": {
+        "chat_template.jinja": "da877606ea461c2dec8ec532808d1f53d838456fd8a1f188480e5511fa1c3062",
+        "config.json": "58038ad8bb4a6bd55668b7f685db4dbc60ae6ae5f1492d11d47f77edd3a99d25",
+        "generation_config.json": "cd22f08997eb2353c809a1d9b523c42c924247eb8619aa3e408bba3448f6e270",
+        "model.safetensors": "35bf315d697072002dd67fb6adc3bba98030522dc8c9df793c9eed409949e900",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "a2699839c243202a04a90537576fc719283f638e90fe80feb469888275289575",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "1ae2704549ca41b376d0be6c42ecdff43b505f87d022f075a1abf80aeb6605d4",
+        "trace-recovery.json": "8a0ec003ac0b92884087ed545ea3d9db96ce77713e33f1270eb3438b8fef7f78"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "contexts_sha256": {
+        "train": "49c4698bc18f7a7a3b6eca80fbbe37c091f8f3e374235825a83049246f16b8cc",
+        "validation": "60e19e0d2910f8c025411a2517edd59e5040c637dc0fc2c348e8ab0c86b5c1fa"
+      },
+      "trace_bytes": 5104557312,
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "mistral",
+        "config_sha256": "714f8cf063588022499e8223cc3a487c500ffcd4cfd8a7bd3c2fc8354678c086",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 2048,
+        "train_input_tokens": 32768,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "mistral",
+        "dtype": "float64",
+        "max_validation_rmse": 1e-05,
+        "unique_parameter_elements_recovered": 156519168,
+        "summary": {
+          "operator_count": 111,
+          "full_design_rank_count": 110,
+          "rank_checked_count": 110,
+          "embedding_tables": [
+            {
+              "path": "model.embed_tokens",
+              "kind": "embedding",
+              "weight_shape": [
+                32768,
+                768
+              ],
+              "has_bias": false,
+              "observed_token_ids": 32768,
+              "observed_rows": 32768
+            }
+          ],
+          "worst_condition": {
+            "path": "model.layers.0.self_attn.q_proj",
+            "kind": "linear",
+            "weight_shape": [
+              768,
+              768
+            ],
+            "has_bias": false,
+            "design_rank": 768,
+            "design_width": 768,
+            "condition_number": 209221.65045242253,
+            "relative_rank_tolerance": 3.410605131648481e-13,
+            "validation_rmse": 1.2977494523569856e-15,
+            "max_validation_rmse": 1e-05,
+            "features": 768,
+            "outputs": 768,
+            "training_samples": 1536,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.3103238484598071e-15
+          },
+          "worst_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              768
+            ],
+            "has_bias": false,
+            "design_rank": 768,
+            "design_width": 768,
+            "condition_number": 22.54421428661092,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.5265989578361915e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 768,
+            "outputs": 768,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.5265989578361917e-07
+          },
+          "worst_runtime_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              768
+            ],
+            "has_bias": false,
+            "design_rank": 768,
+            "design_width": 768,
+            "condition_number": 22.54421428661092,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.5265989578361915e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 768,
+            "outputs": 768,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.5265989578361917e-07
+          }
+        }
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 111,
+        "candidate_tensors": 111,
+        "compared_tensors": 111,
+        "reference_elements": 156519168,
+        "candidate_elements": 156519168,
+        "compared_elements": 156519168,
+        "coverage": 1.0,
+        "exactly_equal_elements": 25997511,
+        "fraction_exactly_equal": 0.1660979376021217,
+        "within_tolerance_elements": 156519168,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 4.4749160949663e-09,
+        "zero_filled_relative_l2": 4.4749160949663e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "lm_head.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.embed_tokens.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.down_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.gate_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.up_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 7.333753135713243e-07,
+        "logit_max_abs_error": 3.908513706463168e-06,
+        "mean_kl_nats": 1.5939497137335137e-13,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "evaluation_seconds": 8.79147195800033,
+      "recovery_seconds": 60,
+      "estimator_config_files": [
+        "config.json",
+        "generation_config.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer.model",
+        "tokenizer_config.json"
+      ]
+    },
+    "pythia_rank_control": {
+      "model_id": "EleutherAI/pythia-70m",
+      "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42",
+      "model_safetensors_sha256": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15",
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "gpt_neox",
+        "config_sha256": "002050231a9b1ec3ac77aa6b9b3bbdc4d923f4068a7dd33b8da72a9bd6ad9a43",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 3144,
+        "train_input_tokens": 50304,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "contexts_sha256": {
+        "train": "dad54c10083842413b3bc4aee316c99c86e7d6980b402db5966e72d14e6616b7",
+        "validation": "ca5c6dfaa0c1a1703df9c048add7fe6b3f7d44ba42ef67834acd14af32125659"
+      },
+      "published_checkpoint": false,
+      "estimator_error": "rephix: gpt_neox.layers.0.attention.query_key_value: training design is rank deficient: rank 512 of 513",
+      "null_direction": {
+        "module": "gpt_neox.layers.0.attention.query_key_value",
+        "weight_step_l2": 0.9999999999999999,
+        "original_row_l2": 0.3505627292490582,
+        "bias_step": -1.5477458004592501,
+        "observed_and_off_hyperplane": {
+          "train": {
+            "max_absolute_output_change": 1.7763568394002505e-15,
+            "rows": 1026
+          },
+          "validation": {
+            "max_absolute_output_change": 1.5543122344752192e-15,
+            "rows": 128
+          },
+          "off_hyperplane_validation": {
+            "rmse_output_change": 1.0
+          }
+        }
+      }
+    }
+  }
+}
