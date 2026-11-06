@@ -15,6 +15,8 @@ from typing import Any
 
 import numpy as np
 
+from .io import atomic_save_npz
+
 
 def _matrix(value: Any, name: str) -> np.ndarray:
     try:
@@ -52,13 +54,12 @@ class RecoveryResult:
 
     def save(self, path: str | Path) -> None:
         """Save arrays plus JSON diagnostics to a pickle-free NumPy archive."""
-        with Path(path).open("wb") as stream:
-            np.savez_compressed(
-                stream,
-                weights=self.weights,
-                bias=self.bias,
-                diagnostics=np.array(json.dumps(self.diagnostics, allow_nan=False)),
-            )
+        atomic_save_npz(
+            path,
+            weights=self.weights,
+            bias=self.bias,
+            diagnostics=np.array(json.dumps(self.diagnostics, allow_nan=False)),
+        )
 
 
 def recover(

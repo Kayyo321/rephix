@@ -10,12 +10,11 @@ from pathlib import Path
 
 from . import __version__
 from .evidence import leakage_groups, read_observations, split_observations, write_observations
+from .io import write_json
 
 
 def _write_json(path, data):
-    destination = Path(path)
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(data, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    write_json(path, data)
 
 
 def _demo(args):
@@ -34,7 +33,10 @@ def _recover(args):
 
     from .linear import recover
 
-    with np.load(args.input, allow_pickle=False) as data:
+    data = np.load(args.input, allow_pickle=False)
+    if not isinstance(data, np.lib.npyio.NpzFile):
+        raise ValueError("input must be an NPZ archive with features and observations arrays")
+    with data:
         if not {"features", "observations"}.issubset(data.files):
             raise ValueError("input NPZ must contain features and observations arrays")
         result = recover(data["features"], data["observations"], kind=args.kind, ridge=args.ridge)
@@ -96,6 +98,7 @@ def build_parser():
         prog="rephix", description="Experimental weight recovery and behavioral reconstruction"
     )
     parser.add_argument("--version", action="version", version=__version__)
+    parser.add_argument("--threads", type=int, help="bound Torch CPU threads for model experiments")
     commands = parser.add_subparsers(dest="command", required=True)
 
     demo = commands.add_parser(
@@ -133,9 +136,10 @@ def build_parser():
     split.add_argument("--seed", type=int, default=42)
     split.set_defaults(func=_split)
 
-    from .hf import add_subcommands
+    from . import alignment, doctor, experiments, hf, projection, query, tiny
 
-    add_subcommands(commands)
+    for module in (hf, projection, alignment, query, experiments, doctor, tiny):
+        module.add_subcommands(commands)
     return parser
 
 
@@ -143,6 +147,15 @@ def main(argv=None):
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.threads is not None:
+            if args.threads < 1:
+                raise ValueError("threads must be a positive integer")
+            import importlib.util
+
+            if importlib.util.find_spec("torch") is not None:
+                import torch
+
+                torch.set_num_threads(args.threads)
         result = args.func(args)
         if result is not None:
             print(json.dumps(result, indent=2, allow_nan=False))

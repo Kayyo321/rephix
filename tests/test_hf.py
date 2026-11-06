@@ -12,6 +12,7 @@ import unittest
 from argparse import Namespace
 from dataclasses import replace
 from pathlib import Path
+from unittest.mock import patch
 
 from rephix import hf
 from rephix.evidence import Observation, read_observations, write_observations
@@ -199,6 +200,65 @@ class LocalQwenIntegrationTests(unittest.TestCase):
             self.assertIn("raw teacher-forced", record.metadata["logprob_semantics"])
         return records
 
+    def test_interrupted_collection_resumes_without_duplicate_queries(self):
+        from transformers import Qwen2ForCausalLM
+
+        prompts = self.root / "prompts.jsonl"
+        output = self.root / "resumable-observations.jsonl"
+        write_observations(
+            prompts,
+            [
+                Observation(id="red", prompt="red", output=""),
+                Observation(id="blue", prompt="blue", output=""),
+                Observation(id="green", prompt="green", output=""),
+            ],
+        )
+        args = Namespace(
+            prompts=str(prompts),
+            model=str(self.teacher),
+            revision=None,
+            output=str(output),
+            device="cpu",
+            max_new_tokens=4,
+            top_k=3,
+            seed=42,
+            resume=False,
+        )
+        original = Qwen2ForCausalLM.generate
+        queried = []
+
+        def interrupt_second(model, *values, **kwargs):
+            queried.append(kwargs["input_ids"].tolist())
+            if len(queried) == 2:
+                raise OSError("simulated interruption")
+            return original(model, *values, **kwargs)
+
+        with patch.object(Qwen2ForCausalLM, "generate", new=interrupt_second):
+            with self.assertRaisesRegex(OSError, "interruption"):
+                hf.collect(args)
+        self.assertEqual(len(read_observations(output)), 1)
+        with self.assertRaisesRegex(ValueError, "exists"):
+            hf.collect(args)
+        args.resume = True
+        queried.clear()
+
+        def track_remaining(model, *values, **kwargs):
+            queried.append(kwargs["input_ids"].tolist())
+            return original(model, *values, **kwargs)
+
+        with patch.object(Qwen2ForCausalLM, "generate", new=track_remaining):
+            report = hf.collect(args)
+        self.assertEqual(len(queried), 2)
+        self.assertEqual(
+            [record.id for record in read_observations(output)], ["red", "blue", "green"]
+        )
+        self.assertTrue(report["resumed"])
+        manifest = Path(report["collection_manifest"])
+        self.assertEqual(json.loads(manifest.read_text())["status"], "complete")
+        args.top_k += 1
+        with self.assertRaisesRegex(ValueError, "settings"):
+            hf.collect(args)
+
     def test_exact_ids_preserve_separately_recorded_reasoning_targets(self):
         from transformers import AutoTokenizer
 
@@ -303,6 +363,78 @@ class LocalQwenIntegrationTests(unittest.TestCase):
                     max_new_tokens=4,
                 )
             )
+
+    def test_evaluation_inherits_mixed_training_objective_with_explicit_override(self):
+        records = self.collect_fixture()
+        train = self.root / "train.jsonl"
+        validation = self.root / "validation.jsonl"
+        heldout = self.root / "heldout.jsonl"
+        output = self.root / "mixed-candidate"
+        write_observations(train, records[:1])
+        write_observations(validation, records[1:2])
+        write_observations(heldout, records[2:])
+        hf.fit(
+            Namespace(
+                train=str(train),
+                validation=str(validation),
+                teacher=str(self.teacher),
+                revision=None,
+                init="random",
+                output=str(output),
+                steps=1,
+                learning_rate=0.001,
+                max_seq_length=64,
+                device="cpu",
+                seed=42,
+                topk_weight=0.35,
+                eval_every=1,
+            )
+        )
+        args = Namespace(
+            data=str(heldout),
+            model=str(output),
+            revision=None,
+            output=None,
+            max_seq_length=64,
+            device="cpu",
+            generate=False,
+            max_new_tokens=4,
+        )
+        report = hf.evaluate(args)
+        self.assertEqual(report["objective_topk_weight"], 0.35)
+        self.assertEqual(report["objective_topk_weight_source"], "training_run")
+        expected = (
+            0.65 * report["continuation_cross_entropy"] + 0.35 * report["bucketed_cross_entropy"]
+        )
+        self.assertAlmostEqual(report["reconstruction_objective"], expected)
+        args.topk_weight = 0.0
+        overridden = hf.evaluate(args)
+        self.assertEqual(overridden["objective_topk_weight_source"], "explicit")
+        self.assertAlmostEqual(
+            overridden["reconstruction_objective"], overridden["continuation_cross_entropy"]
+        )
+        args.topk_weight = float("nan")
+        with self.assertRaisesRegex(ValueError, "topk-weight"):
+            hf.evaluate(args)
+
+    def test_qwen_tokenizer_loader_preserves_regex_without_changing_fingerprint(self):
+        from transformers import AutoTokenizer
+
+        plain = AutoTokenizer.from_pretrained(self.teacher)
+        with patch.object(
+            AutoTokenizer, "from_pretrained", wraps=AutoTokenizer.from_pretrained
+        ) as loader:
+            preserved = hf._load_tokenizer(AutoTokenizer, str(self.teacher))
+        self.assertIs(loader.call_args.kwargs["fix_mistral_regex"], False)
+        self.assertEqual(hf._tokenizer_fingerprint(plain), hf._tokenizer_fingerprint(preserved))
+        for text in ["red blue", "Hello! 123", "é中文\n"]:
+            self.assertEqual(plain.encode(text), preserved.encode(text))
+        config = json.loads((self.teacher / "config.json").read_text())
+        config["model_type"] = "mistral"
+        (self.teacher / "config.json").write_text(json.dumps(config))
+        with patch.object(AutoTokenizer, "from_pretrained", return_value=object()) as loader:
+            hf._load_tokenizer(AutoTokenizer, str(self.teacher))
+        self.assertNotIn("fix_mistral_regex", loader.call_args.kwargs)
 
     def test_stored_token_fingerprint_mismatch_is_rejected(self):
         records = self.collect_fixture()

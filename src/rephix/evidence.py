@@ -14,6 +14,8 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+from .io import atomic_write_text
+
 
 @dataclass
 class Observation:
@@ -138,7 +140,7 @@ def write_observations(path: str | Path, records: Iterable[Observation]) -> None
     destination.parent.mkdir(parents=True, exist_ok=True)
     # Construct first, so validation/serialization failures cannot truncate the destination.
     payload = "".join(json.dumps(record.to_dict(), allow_nan=False) + "\n" for record in records)
-    destination.write_text(payload, encoding="utf-8")
+    atomic_write_text(destination, payload)
 
 
 def normalized_prompt(prompt: str) -> str:

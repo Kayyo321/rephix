@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "teacher": "../models/qwen2.5-0.5b-instruct",
+  "train": "../data/splits/train.jsonl",
+  "validation": "../data/splits/validation.jsonl",
+  "device": "cpu",
+  "defaults": {
+    "init": "random",
+    "trainable": "all",
+    "steps": 10,
+    "max_seq_length": 128,
+    "learning_rate": 0.00005,
+    "eval_every": 5,
+    "gradient_accumulation_steps": 1
+  },
+  "grid": {
+    "seed": [42, 43],
+    "topk_weight": [0.0, 1.0]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "interpretation": "Validation comparisons only; no winner or test-set result is inferred.",
+  "runs": [
+    {
+      "run_id": "run-866fb1a604bea2b1",
+      "run_path": "/workspace/rephix/runs/offline-v0.2/sweep/run-866fb1a604bea2b1",
+      "sweep_fingerprint": "7f9a7637a4a3f48d9f9be1f90cab0ae530de70f80e50c92274f4e6877dd9af07",
+      "initialization": "random",
+      "trainable": "all",
+      "seed": 42,
+      "steps": 64,
+      "best_step": 64,
+      "learning_rate": 0.003,
+      "topk_weight": 0.0,
+      "max_seq_length": 64,
+      "checkpoint_selection_metric": "reconstruction_objective",
+      "baseline_validation_cross_entropy": 4.136363077163696,
+      "best_validation_cross_entropy": 0.7106116563081741,
+      "best_validation_token_agreement": 0.85,
+      "best_validation_selection_score": 0.7106116563081741,
+      "train_examples": 28,
+      "observed_completion_tokens": 112,
+      "top_logprob_tokens": 112,
+      "elapsed_seconds": 0.5569543900001008,
+      "device": "cpu"
+    },
+    {
+      "run_id": "run-ee711bca75f68fa9",
+      "run_path": "/workspace/rephix/runs/offline-v0.2/sweep/run-ee711bca75f68fa9",
+      "sweep_fingerprint": "7f9a7637a4a3f48d9f9be1f90cab0ae530de70f80e50c92274f4e6877dd9af07",
+      "initialization": "random",
+      "trainable": "all",
+      "seed": 42,
+      "steps": 64,
+      "best_step": 48,
+      "learning_rate": 0.003,
+      "topk_weight": 1.0,
+      "max_seq_length": 64,
+      "checkpoint_selection_metric": "reconstruction_objective",
+      "baseline_validation_cross_entropy": 4.136363077163696,
+      "best_validation_cross_entropy": 3.905349683761597,
+      "best_validation_token_agreement": 0.475,
+      "best_validation_selection_score": 0.7334431946277619,
+      "train_examples": 28,
+      "observed_completion_tokens": 112,
+      "top_logprob_tokens": 112,
+      "elapsed_seconds": 0.6069472589999805,
+      "device": "cpu"
+    }
+  ],
+  "plot": {
+    "status": "created",
+    "path": "/workspace/rephix/runs/offline-v0.2/comparison/learning-curves.svg"
+  }
+}

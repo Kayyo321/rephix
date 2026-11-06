@@ -1,11 +1,14 @@
 name: tests
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   core:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python: ['3.10', '3.12']
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -13,6 +16,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python -m pip install -e '.[dev]'
       - run: ruff check .
+      - run: ruff format --check .
       - run: python -m unittest discover -s tests -v
       - run: rephix demo
   hf-offline:
@@ -23,8 +27,39 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pip install -e '.[dev,hf]'
+      - run: python -m pip install -e '.[dev,hf,analysis]'
       - run: python -m unittest discover -s tests -v
         env:
           HF_HUB_OFFLINE: '1'
           TRANSFORMERS_OFFLINE: '1'
+          MPLCONFIGDIR: /tmp/rephix-mpl
+      - run: rephix offline-trial --output runs/ci-offline --steps 2
+        env:
+          HF_HUB_OFFLINE: '1'
+          TRANSFORMERS_OFFLINE: '1'
+          MPLCONFIGDIR: /tmp/rephix-mpl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: offline-research-report
+          path: |
+            runs/ci-offline/trial.json
+            runs/ci-offline/trial.md
+            runs/ci-offline/test.json
+            runs/ci-offline/comparison/
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build
+      - run: python -m build
+      - run: python -m venv /tmp/rephix-wheel
+      - run: /tmp/rephix-wheel/bin/pip install dist/*.whl
+      - run: cd /tmp && /tmp/rephix-wheel/bin/rephix demo
+      - run: cd /tmp && /tmp/rephix-wheel/bin/rephix doctor
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: dist/

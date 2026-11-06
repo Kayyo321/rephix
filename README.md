@@ -1,88 +1,113 @@
 # rephix
 
-An experimental engine for reconstructing model parameters and behavior from observed inputs and outputs.
+[![tests](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml/badge.svg)](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml)
 
-The starting idea is simple: record the prompt, response, any reasoning text the model actually exposes, and useful surrounding evidence; fit a candidate; measure how closely it reproduces an open-weight reference; repeat. A small Qwen model can serve as the reference when you are ready to run local trials.
+An experimental engine for reconstructing model behavior and identifiable parameters from observed evidence: prompts, responses, visible reasoning, token probabilities, and explicitly available model internals.
 
-This repository separates two questions:
+Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. It also tests actual parameter recovery on controlled affine models and selected open-model components. Matching a finite set of responses does not establish matching weights; high-accuracy recovery of an entire language model remains a research question.
 
-- **Parameter recovery:** did we recover the reference weights, under stated assumptions?
-- **Behavioral reconstruction:** does a candidate predict the reference model’s outputs on held-out inputs?
+## Start with a controlled experiment
 
-Matching responses does not establish matching weights. Many different parameter settings can produce the same observed outputs, and finite text examples usually do not determine a unique neural network.
-
-## Start here
-
-Requires Python 3.10 or later. The core experiment needs only NumPy.
+Requires Python 3.10 or later. Core commands need only NumPy.
 
 ```bash
+git clone https://github.com/Kayyo321/rephix.git
+cd rephix
 python -m venv .venv
 source .venv/bin/activate
-pip install -e '.[dev]'
-rephix demo --seed 42 --output runs/demo.json
-python -m unittest discover -s tests -v
+pip install -e .
+rephix doctor
+rephix demo --seed 42 --output runs/affine.json
+rephix symmetry-demo --seed 42 --output runs/symmetry.json
 ```
 
-The demo generates a known affine model, observes its outputs, solves for its weights, and reports held-out error and recovery diagnostics. It proves the recovery machinery on a controlled, identifiable problem. It does not recover an entire language model from text.
+On Windows PowerShell, activate the environment with `.venv\Scripts\Activate.ps1`.
+
+The affine demo recovers a planted layer and tests it on unseen features. The symmetry demo shows how different neuron coordinates can represent the same function. These establish small, measurable baselines before scaling to language models.
+
+## Run the complete pipeline without downloads
+
+Install the optional model and plotting libraries, then create and exercise a tiny local Qwen2 model:
 
 ```bash
-rephix --help
-rephix recover-linear --help
-rephix validate examples/prompts.jsonl
+pip install -e '.[hf,analysis]'
+rephix doctor --require-hf
+rephix offline-trial --output runs/offline-check --steps 32 --threads 2
 ```
 
-For your own affine observations, save a NumPy `.npz` file with `features` shaped `(samples, features)` and `observations` shaped `(samples, classes)`, then run:
+The trial generates its own untrained model, tokenizer, and prompt corpus. It collects evidence, compares token-only and top-k objectives, selects a candidate using validation data, evaluates that candidate on a separate test split, recovers a restricted projection, selects new queries, and writes reports. It uses no pretrained checkpoint or network access. See [the offline trial guide](docs/OFFLINE_TRIAL.md) for artifacts and interpretation.
+
+For a standalone reusable fixture, run `rephix init-tiny --output models/tiny-fixture`. For CPU-only PyTorch installation, see [the experiment guide](docs/EXPERIMENTS.md).
+
+## Trial an open-weight Qwen reference
+
+The [experiment guide](docs/EXPERIMENTS.md) covers downloading `Qwen/Qwen2.5-0.5B-Instruct`, collection, grouped splitting, fitting, resumption, and evaluation. Begin with a small random student architecture to limit memory. Full-parameter optimization of a 0.5B reference architecture is substantially more expensive than inference.
+
+Two candidate priors are explicit:
+
+- `--init random` uses the supplied architecture and tokenizer without initializing from reference weights. `--student-config` can supply a smaller architecture with the same vocabulary and special token IDs.
+- `--init pretrained` starts from the reference weights. With `--trainable head`, the backbone remains frozen and the output head is optimized. Tied embeddings are untied so input embeddings stay frozen. This retains a substantial pretrained prior and is a distinct experiment from reconstruction using observations alone.
+
+Collection and fitting both support `--resume`. Training keeps the latest optimizer state separate from the best validation checkpoint, verifies unchanged evidence and settings, and treats `--steps` as the total target. Hardware and library constraints on exact resumption are described in the guide.
+
+[Cloud trial results](docs/CLOUD_RESULTS.md) and [validation details](docs/VALIDATION.md) record what has actually been run. Neither model weights nor a guaranteed reconstruction accuracy are bundled.
+
+## Commands and measurements
+
+| Command | Purpose | What the result establishes |
+| --- | --- | --- |
+| `doctor` | Inspect local libraries, devices, and model resource estimates | Available capabilities; no model downloads |
+| `demo`, `recover-linear` | Recover an affine layer from known features | Parameter recovery when the reported design has sufficient rank |
+| `symmetry-demo` | Align supported tiny-network permutations, scales, or signs | A restricted symmetry-aware comparison, not transformer alignment |
+| `init-tiny`, `offline-trial` | Build a local fixture and run the experiment pipeline | Download-free pipeline verification |
+| `collect`, `validate`, `split` | Record and isolate prompt evidence | Token provenance, signal availability, and split integrity |
+| `fit`, `evaluate` | Fit candidates and measure held-out continuations | Behavioral reconstruction, separately from parameter recovery |
+| `compare-weights` | Compare compatible checkpoint tensors | Coordinate distance without general symmetry alignment |
+| `recover-projection` | Fit selected output weights using observed head inputs | White-box component recovery under an extra access assumption |
+| `sweep`, `report` | Compare bounded settings and export tables or plots | Reproducible validation comparisons with a separate final test |
+| `select-queries` | Rank new prompts by randomness, entropy, or disagreement | A query heuristic, not a recovery-accuracy measurement |
+
+For custom affine evidence, store `features` shaped `(samples, features)` and `observations` shaped `(samples, classes)` in a NumPy archive:
 
 ```bash
-rephix recover-linear data/linear.npz --kind logits \
-  --output runs/linear/recovered.npz
+rephix recover-linear data/linear.npz --kind logits --output runs/linear/recovered.npz
 ```
 
-Use `--kind probabilities` for full class probabilities or `--kind log_probs` for full log probabilities. See `--help` for regularization options.
-
-## Local Qwen trials
-
-Install the optional language-model dependencies when ready:
-
-```bash
-pip install -e '.[hf]'
-rephix collect --help
-rephix fit --help
-rephix evaluate --help
-rephix compare-weights --help
-```
-
-The workflow collects continuations from a local reference, optionally saves top-token log probabilities, fits a candidate, and evaluates it on separate prompts. The default reconstruction starts from random weights with the reference architecture and tokenizer. Starting from pretrained weights is an explicit prior and should be reported as a separate experiment.
-
-[`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md) describes the Qwen workflow and how to interpret its measurements. [`docs/ROADMAP.md`](docs/ROADMAP.md) lists the next research steps.
-
-[`docs/VALIDATION.md`](docs/VALIDATION.md) records the initial checks: 28 passing tests, including an offline tiny-Qwen pipeline. No pretrained Qwen model is bundled.
-
-A model such as `Qwen/Qwen2.5-0.5B-Instruct` is small by language-model standards but still expensive to train. Full-parameter optimization can require several gigabytes of memory beyond the model itself. A short CPU smoke run checks the pipeline; it is not evidence that text-only recovery of 0.5 billion parameters is feasible.
+`--kind probabilities` and `--kind log_probs` accept complete normalized distributions and report class-centered parameters because softmax hides a common logit shift. Top-k evidence belongs in the language-model workflow; its loss includes one residual-probability bucket instead of inventing missing token probabilities.
 
 ## Evidence format
 
-Evidence uses JSON Lines, one observation per line:
+Evidence is JSON Lines, with one observation per line:
 
 ```json
-{"id":"example-001","prompt":"What is 6 times 7?","output":"42","thinking":null,"metadata":{"source":"manual"}}
+{"id":"example-001","prompt":"What is 6 times 7?","output":"42","thinking":null,"metadata":{"source":"manual","group_id":"multiplication"}}
 ```
 
-Optional `prompt_token_ids`, `completion_token_ids`, and `top_logprobs` preserve token-level evidence. Each `top_logprobs` position contains entries such as `{"token_id": 17, "logprob": -0.8}`. Collector-produced token IDs preserve the actual chat prefix and completion, avoiding ambiguity from decoding and retokenizing text.
+`output` may be empty before querying a reference. `thinking` stores text supplied or actually exposed by a model; it does not provide hidden reasoning or activations. If reasoning and the final answer are stored separately, supply the exact serialized completion in paired token-ID arrays or `metadata.completion_text`. The engine does not guess its formatting.
 
-`thinking` means reasoning text that was supplied or actually emitted. It is not access to hidden reasoning or internal activations. A separate annotation is not silently inserted into a training target: preserve the exact visible completion in collected token IDs or `metadata.completion_text`. Extra context is preserved in `metadata`; it conditions the model only when it is included in the actual prompt or captured token sequence.
+Optional paired `prompt_token_ids` and `completion_token_ids` preserve the actual chat prefix and completion. `top_logprobs` contains one list per completion token, with entries such as `{"token_id":17,"logprob":-0.8}`. Collector metadata binds cached tokens to their tokenizer and records source, decoding, and numerical provenance. Extra context is preserved in metadata; include it in the actual prompt when it should condition the model.
 
-Start with [`examples/prompts.jsonl`](examples/prompts.jsonl), then add varied prompts before attempting meaningful training. Keep all observations of the same prompt in one split to prevent leakage.
+Repeated prompts and shared `metadata.group_id` values stay together during splitting. Assign related paraphrases a shared group id; automatic grouping cannot recognize every semantic overlap. Reserve test groups before selecting queries or tuning settings.
 
-## What this version measures
+## Guides
 
-| Experiment | Available evidence | Meaningful result |
-| --- | --- | --- |
-| Affine recovery | Known input features and full logits | Recover weights and bias when the design has full rank |
-| Probability recovery | Known features and full class probabilities | Recover parameters after fixing the softmax common-shift ambiguity |
-| Qwen reconstruction | Prompts, continuations, optional top-token probabilities | Measure continuation prediction and held-out output agreement |
-| Checkpoint comparison | Both compatible checkpoints | Measure direct parameter distance, without resolving neural-network symmetries |
+- [Experiments and local Qwen setup](docs/EXPERIMENTS.md)
+- [Complete offline trial](docs/OFFLINE_TRIAL.md)
+- [Sweeps, resumption, and reports](docs/SWEEPS.md)
+- [Query selection and reserved-set exclusions](docs/QUERY_SELECTION.md)
+- [White-box component recovery](docs/COMPONENT_RECOVERY.md)
+- [Identifiability and supported symmetries](docs/IDENTIFIABILITY.md)
+- [Completion goal](docs/GOAL.md), [validation](docs/VALIDATION.md), and [cloud results](docs/CLOUD_RESULTS.md)
 
-Top-token probabilities constrain only part of the distribution. The training objective groups the remaining vocabulary into one residual bucket; it does not invent the missing probabilities.
+## Development
 
-The repository does not include model weights or claim high reconstruction accuracy. The useful next result is a reproducible baseline showing what can be recovered from a stated amount and kind of evidence.
+```bash
+pip install -e '.[dev,hf,analysis]'
+python -m unittest discover -s tests -v
+ruff check .
+ruff format --check .
+```
+
+Tests construct local model fixtures and need no pretrained downloads. Installing only `.[dev]` runs core coverage and skips tests requiring optional model libraries. CI checks supported Python versions and the offline model path.
+
+Licensed under [Apache License 2.0](LICENSE).

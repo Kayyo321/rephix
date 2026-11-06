@@ -1,0 +1,45 @@
+{
+  "experiment": "bounded_pretrained_qwen_smaller_random_student_smoke",
+  "rephix_version": "0.2.0",
+  "reference_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "reference_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "reference_weights_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+  "files": {
+    "fit.json": "71d57c5bba5a6ba92b7470e411e5b6e899c3261e021a337fae4e46b4e9385de0",
+    "observations.jsonl": "7a0a8d31aa655ac3e55ce2a754c0d6d4bb309242bd71d699d87f900ce47194f6",
+    "student-config.json": "065e3c77d49c3ba8d7e4c3ae27544ce7b266fc2c50fcb7cc06431fa7eaf5830d",
+    "test.json": "f0767c261338a108524d78d4c9cb1d7f8ff7675cc9eca3a6dbb5757eccbefaea",
+    "test.jsonl": "cac3900721280ff6c25edc8dcb952d0c9c603fc9383531f6a969fe501c904a81",
+    "train.jsonl": "bd148b8760d25fd13654c6489c572e6c7bb1a7d4e4431816655af3f9d43c1039",
+    "validation.jsonl": "e630f5afa8653612fee20411a35628558ab46f024ff342abe296cd5d7731d3df"
+  },
+  "design": {
+    "prompt_groups": 10,
+    "collected_prompts": 12,
+    "collected_completion_tokens": 80,
+    "train_prompts": 8,
+    "train_completion_tokens": 48,
+    "validation_prompts": 2,
+    "validation_completion_tokens": 16,
+    "test_prompts": 2,
+    "test_completion_tokens": 16,
+    "seed": 42,
+    "student_parameters": 9798208,
+    "student_initialization": "random",
+    "teacher_weights_used_as_initialization": false,
+    "steps": 32,
+    "learning_rate": 0.0005,
+    "topk_weight": 0.5,
+    "max_new_tokens": 8,
+    "device": "cpu",
+    "threads": 2
+  },
+  "results": {
+    "baseline_validation_ce": 11.932987689971924,
+    "best_validation_ce": 11.656181812286377,
+    "heldout_ce": 11.605527400970459,
+    "heldout_recorded_token_agreement": 0.0,
+    "heldout_generation_exact_match": 0.0
+  },
+  "interpretation": "A pipeline and resource smoke test. The very small evidence/compute budget does not establish general reconstruction accuracy. No reference weights initialized the candidate. Raw reports retain original execution paths for provenance."
+}

@@ -9,10 +9,16 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import random
+import shutil
+import tempfile
+import uuid
 from pathlib import Path
 
+from . import __version__
 from .evidence import Observation, read_observations, write_observations
+from .io import write_json
 
 
 def _deps():
@@ -22,6 +28,23 @@ def _deps():
     except ImportError as exc:
         raise RuntimeError('Install optional dependencies with: pip install -e ".[hf]"') from exc
     return torch, AutoConfig, AutoModelForCausalLM, AutoTokenizer
+
+
+def _load_tokenizer(AutoTokenizer, source, *, model_config=None, **options):
+    """Preserve Qwen tokenization when Transformers misidentifies a local tokenizer.
+
+    Transformers 4.57.3–4.57.x considers local configs saved by those versions
+    Mistral-like even when model_type is qwen2. Explicit False only for a known
+    Qwen architecture avoids that warning and never changes its stored regex.
+    Other architectures retain the library's normal behavior.
+    """
+    model_type = getattr(model_config, "model_type", None)
+    config_file = Path(source) / "config.json"
+    if model_type is None and config_file.is_file():
+        model_type = json.loads(config_file.read_text(encoding="utf-8")).get("model_type")
+    if model_type in {"qwen2", "qwen2_moe", "qwen3", "qwen3_moe"}:
+        options.setdefault("fix_mistral_regex", False)
+    return AutoTokenizer.from_pretrained(source, **options)
 
 
 def _device(torch, name):
@@ -112,9 +135,7 @@ def _check_disjoint(*datasets):
 
 def _write_report(path, report):
     if path:
-        target = Path(path)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        write_json(path, report)
     return report
 
 
@@ -129,19 +150,57 @@ def collect(args):
     if args.top_k < 0:
         raise ValueError("top-k must be nonnegative")
     prompts = read_observations(args.prompts)
-    if not prompts:
-        raise ValueError("Prompt dataset is empty")
+    output = Path(args.output)
+    journal = output.with_suffix(output.suffix + ".collection.json")
+    resume = getattr(args, "resume", False)
+    if not resume and (output.exists() or journal.exists()):
+        raise ValueError("Collection output exists; choose a new output or use --resume")
+    if resume and not journal.is_file():
+        raise ValueError("Cannot resume collection without its .collection.json manifest")
     torch, _, AutoModel, AutoTokenizer = _deps()
     _seed(torch, args.seed)
     device = _device(torch, args.device)
     options = {"revision": args.revision, "trust_remote_code": False}
-    tokenizer = AutoTokenizer.from_pretrained(args.model, **options)
-    model = AutoModel.from_pretrained(args.model, **options).to(device).eval()
+    model_source = _resolve_model_path(args.model)
+    tokenizer = _load_tokenizer(AutoTokenizer, model_source, **options)
+    model = AutoModel.from_pretrained(model_source, **options).to(device).eval()
     fingerprint = _tokenizer_fingerprint(tokenizer)
     generation_config = _generation_config(model, tokenizer, args.max_new_tokens)
     context_limit = getattr(model.config, "max_position_embeddings", None)
+    settings = {
+        "schema_version": 1,
+        "prompts_sha256": _dataset_hash(args.prompts),
+        "source_model": str(args.model),
+        "source_revision": args.revision,
+        "source_commit": getattr(model.config, "_commit_hash", None),
+        "source_weights_sha256": _source_weights_fingerprint(model_source),
+        "source_config_sha256": _config_fingerprint(model.config),
+        "tokenizer_fingerprint": fingerprint,
+        "generation_config": generation_config.to_dict(),
+        "top_k": args.top_k,
+        "seed": args.seed,
+    }
+    settings_fingerprint = hashlib.sha256(json.dumps(settings, sort_keys=True).encode()).hexdigest()
     records = []
-    for record in prompts:
+    if resume:
+        existing = json.loads(journal.read_text(encoding="utf-8"))
+        if existing.get("settings") != settings:
+            raise ValueError(
+                "Collection resume settings, source weights, or prompt evidence changed"
+            )
+        records = read_observations(output) if output.is_file() else []
+        if len(records) > len(prompts):
+            raise ValueError("Collection output contains more observations than the prompt source")
+        for observed, prompt in zip(records, prompts):
+            if observed.id != prompt.id or observed.prompt != prompt.prompt:
+                raise ValueError("Collection output is not a prefix of the original prompt source")
+            if observed.metadata.get("collection_fingerprint") != settings_fingerprint:
+                raise ValueError("Collection output provenance does not match the resume manifest")
+    _write_report(
+        journal,
+        {"settings": settings, "completed_observations": len(records), "status": "collecting"},
+    )
+    for record in prompts[len(records) :]:
         prefix = _render_prompt(tokenizer, record.prompt)
         if not prefix:
             raise ValueError(f"{record.id}: prompt encoded to no tokens")
@@ -180,6 +239,7 @@ def collect(args):
             {
                 "source_model": str(args.model),
                 "source_revision": args.revision,
+                "collection_fingerprint": settings_fingerprint,
                 "source_commit": getattr(model.config, "_commit_hash", None),
                 "tokenizer_fingerprint": fingerprint,
                 "generation": {
@@ -197,6 +257,7 @@ def collect(args):
                     model.config.to_json_string(use_diff=False).encode()
                 ).hexdigest(),
                 "library_versions": {
+                    "rephix": __version__,
                     "torch": torch.__version__,
                     "transformers": __import__("transformers").__version__,
                 },
@@ -214,9 +275,21 @@ def collect(args):
                 top_logprobs=top_rows,
             )
         )
-    write_observations(args.output, records)
+        # Every completed observation is a durable prefix; an interrupted next
+        # query can be retried without losing or duplicating earlier evidence.
+        write_observations(output, records)
+        _write_report(
+            journal,
+            {"settings": settings, "completed_observations": len(records), "status": "collecting"},
+        )
+    _write_report(
+        journal,
+        {"settings": settings, "completed_observations": len(records), "status": "complete"},
+    )
     return {
         "observations": len(records),
+        "resumed": resume,
+        "collection_manifest": str(journal),
         "output": str(args.output),
         "model": str(args.model),
         "tokenizer_fingerprint": fingerprint,
@@ -338,32 +411,54 @@ def _forward(torch, model, record, device):
     return logits, targets
 
 
-def _metrics(torch, model, records, device):
+def _metrics(torch, model, records, device, topk_weight=1.0):
+    """Token-weighted completion metrics; recorded tokens need not be teacher argmax."""
     model.eval()
-    total_loss = 0.0
-    correct = 0
-    count = 0
+    total_loss = objective_loss = 0.0
+    correct = count = bucket_tokens = observed_top_correct = 0
     bucket_loss = 0.0
-    bucket_tokens = 0
     with torch.no_grad():
         for record in records:
             logits, targets = _forward(torch, model, record, device)
+            if not torch.isfinite(logits).all():
+                raise RuntimeError("Model produced nonfinite evaluation logits")
             n = len(targets)
-            total_loss += torch.nn.functional.cross_entropy(logits, targets, reduction="sum").item()
+            ce = torch.nn.functional.cross_entropy(logits, targets, reduction="sum").item()
+            total_loss += ce
             correct += (logits.argmax(dim=-1) == targets).sum().item()
             count += n
+            objective = ce
             if record["top_logprobs"] is not None:
-                bucket_loss += _bucketed_loss(logits, record["top_logprobs"]).item() * n
+                bucket = _bucketed_loss(logits, record["top_logprobs"]).item() * n
+                bucket_loss += bucket
                 bucket_tokens += n
+                observed = torch.tensor(
+                    [
+                        max(row, key=lambda item: item["logprob"])["token_id"]
+                        for row in record["top_logprobs"]
+                    ],
+                    device=logits.device,
+                )
+                observed_top_correct += (logits.argmax(dim=-1) == observed).sum().item()
+                objective = (1 - topk_weight) * ce + topk_weight * bucket
+            objective_loss += objective
+    if not count:
+        raise ValueError("No supervised continuation tokens")
     report = {
         "continuation_cross_entropy": total_loss / count,
+        "recorded_token_agreement": correct / count,
+        # Backward-compatible alias. For sampled external observations this is
+        # agreement with the sampled token, not necessarily teacher argmax.
         "teacher_token_agreement": correct / count,
+        "reconstruction_objective": objective_loss / count,
+        "objective_topk_weight": topk_weight,
         "evaluated_tokens": count,
         "examples": len(records),
     }
     if bucket_tokens:
         report["bucketed_cross_entropy"] = bucket_loss / bucket_tokens
         report["bucketed_tokens"] = bucket_tokens
+        report["observed_top_token_agreement"] = observed_top_correct / bucket_tokens
     return report
 
 
@@ -385,117 +480,373 @@ def _evidence_keys(records):
     return sorted(keys)
 
 
+def _config_fingerprint(config):
+    payload = config.to_dict()
+    # Name and incidental loading metadata do not alter the architecture.
+    payload.pop("_name_or_path", None)
+    payload.pop("transformers_version", None)
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, default=str).encode()).hexdigest()
+
+
+def _source_weights_fingerprint(source):
+    """Detect changed local pretrained priors without reading weights for random init."""
+    root = Path(source)
+    if not root.is_dir():
+        return None
+    files = sorted([*root.glob("*.safetensors"), *root.glob("*.bin")])
+    digest = hashlib.sha256()
+    for file in files:
+        digest.update(file.name.encode())
+        with file.open("rb") as stream:
+            while chunk := stream.read(1024 * 1024):
+                digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _atomic_torch_save(torch, payload, path):
+    path = Path(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            dir=path.parent, prefix=f".{path.name}.", delete=False
+        ) as stream:
+            temporary = Path(stream.name)
+            torch.save(payload, stream)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def _save_best(model, tokenizer, output, step):
+    """An immutable directory is complete before any manifest points to it."""
+    checkpoints = output / ".checkpoints"
+    checkpoints.mkdir(exist_ok=True)
+    name = f"best-{step:08d}-{uuid.uuid4().hex[:12]}"
+    staging = checkpoints / f".{name}.tmp"
+    destination = checkpoints / name
+    try:
+        model.save_pretrained(staging, safe_serialization=True)
+        tokenizer.save_pretrained(staging)
+        os.replace(staging, destination)
+    finally:
+        if staging.exists():
+            shutil.rmtree(staging)
+    return str(destination.relative_to(output))
+
+
+def _publish_best(output, relative_path):
+    """Publish a pointer atomically; root files preserve ordinary HF compatibility."""
+    checkpoint = output / relative_path
+    if not checkpoint.is_dir():
+        raise ValueError("The durable best checkpoint is missing")
+    _write_report(output / "best_checkpoint.json", {"path": relative_path})
+    for source in checkpoint.iterdir():
+        if not source.is_file():
+            continue
+        destination = output / source.name
+        temporary = output / f".{source.name}.{uuid.uuid4().hex}.tmp"
+        try:
+            shutil.copyfile(source, temporary)
+            os.replace(temporary, destination)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+
+def _resolve_model_path(source):
+    """Resolve a Rephix best-checkpoint manifest, otherwise use a normal model path/id."""
+    root = Path(source)
+    manifest = root / "best_checkpoint.json"
+    if not manifest.is_file():
+        return str(source)
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    relative = Path(data["path"])
+    if relative.is_absolute() or ".." in relative.parts:
+        raise ValueError("Invalid best-checkpoint manifest path")
+    checkpoint = root / relative
+    if not checkpoint.is_dir():
+        raise ValueError("The best-checkpoint manifest points to a missing directory")
+    return str(checkpoint)
+
+
+def _set_trainable(torch, model, mode):
+    untied = False
+    if mode == "head":
+        head = model.get_output_embeddings()
+        inputs = model.get_input_embeddings()
+        if head is None:
+            raise ValueError("This architecture has no trainable output head")
+        # Tied embeddings would otherwise update the supposedly frozen backbone.
+        if inputs is not None and getattr(head, "weight", None) is getattr(inputs, "weight", None):
+            head.weight = torch.nn.Parameter(head.weight.detach().clone())
+            model.config.tie_word_embeddings = False
+            untied = True
+        for parameter in model.parameters():
+            parameter.requires_grad_(False)
+        for parameter in head.parameters():
+            parameter.requires_grad_(True)
+    elif mode != "all":
+        raise ValueError("trainable must be all or head")
+    trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    if not trainable:
+        raise ValueError("No trainable parameters")
+    return trainable, untied
+
+
 def fit(args):
-    """Fit a candidate; teacher weights are read only for explicit pretrained init."""
+    """Fit or resume a candidate, persisting latest optimizer state separately from best weights.
+
+    ``steps`` is the total desired optimizer-step count, including completed steps.
+    A crash can lose work after the last durable save, but cannot partially replace it.
+    """
     _positive(args.steps, "steps")
     _positive(args.eval_every, "eval-every")
+    accumulation = getattr(args, "gradient_accumulation_steps", 1)
+    save_every = getattr(args, "save_every", 10)
+    _positive(accumulation, "gradient-accumulation-steps")
+    _positive(save_every, "save-every")
+    resume = getattr(args, "resume", False)
+    trainable_mode = getattr(args, "trainable", "all")
+    student_source = getattr(args, "student_config", None)
+    student_revision = getattr(args, "student_revision", None)
+    if student_revision and not student_source:
+        raise ValueError("student-revision requires student-config")
+    if student_source and args.init != "random":
+        raise ValueError("student-config requires random initialization")
     if not math.isfinite(args.learning_rate) or args.learning_rate <= 0:
         raise ValueError("learning-rate must be finite and positive")
-    if not 0 <= args.topk_weight <= 1:
+    if not math.isfinite(args.topk_weight) or not 0 <= args.topk_weight <= 1:
         raise ValueError("topk-weight must be between zero and one")
-    train_records, validation_records = (
-        read_observations(args.train),
-        read_observations(args.validation),
-    )
-    if not train_records or not validation_records:
-        raise ValueError("Training and validation datasets must both be nonempty")
+    train_records = read_observations(args.train)
+    validation_records = read_observations(args.validation)
     _check_disjoint(train_records, validation_records)
     output = Path(args.output)
-    if output.exists() and any(output.iterdir()):
-        raise ValueError("Output directory must be absent or empty; choose a new run directory")
+    state_file = output / "training_state.pt"
+    if resume:
+        if not state_file.is_file():
+            raise ValueError("Cannot resume: output/training_state.pt does not exist")
+    elif output.exists() and any(output.iterdir()):
+        raise ValueError(
+            "Output directory must be absent or empty; use --resume for an existing run"
+        )
     torch, AutoConfig, AutoModel, AutoTokenizer = _deps()
     _seed(torch, args.seed)
     device = _device(torch, args.device)
     options = {"revision": args.revision, "trust_remote_code": False}
-    tokenizer = AutoTokenizer.from_pretrained(args.teacher, **options)
-    config = AutoConfig.from_pretrained(args.teacher, **options)
+    tokenizer = _load_tokenizer(AutoTokenizer, args.teacher, **options)
+    reference_config = AutoConfig.from_pretrained(args.teacher, **options)
+    config = (
+        AutoConfig.from_pretrained(
+            student_source, revision=student_revision, trust_remote_code=False
+        )
+        if student_source
+        else reference_config
+    )
+    if config.vocab_size != reference_config.vocab_size:
+        raise ValueError(
+            "Student vocabulary size must match the reference model/tokenizer vocabulary"
+        )
+    for name in ("bos_token_id", "eos_token_id", "pad_token_id"):
+        if getattr(config, name, None) != getattr(reference_config, name, None):
+            raise ValueError(f"Student {name} must match the reference model")
     context_limit = getattr(config, "max_position_embeddings", None)
     if context_limit and args.max_seq_length > context_limit:
-        raise ValueError(f"max-seq-length exceeds model context limit {context_limit}")
+        raise ValueError(f"max-seq-length exceeds student context limit {context_limit}")
     train, train_truncated = _prepare(
         train_records, tokenizer, args.max_seq_length, config.vocab_size
     )
     validation, validation_truncated = _prepare(
         validation_records, tokenizer, args.max_seq_length, config.vocab_size
     )
-    if args.init == "random":
-        model = AutoModel.from_config(config, trust_remote_code=False)
-    elif args.init == "pretrained":
-        model = AutoModel.from_pretrained(args.teacher, **options)
-    else:
-        raise ValueError("init must be random or pretrained")
-    model = model.to(device)
-    model.config.use_cache = False
-    output.mkdir(parents=True, exist_ok=True)
-    tokenizer.save_pretrained(output)
-    baseline = _metrics(torch, model, validation, device)
-    best = dict(baseline)
-    best_step = 0
-    model.save_pretrained(output, safe_serialization=True)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
-    history = []
-    order = list(range(len(train)))
-    selection_key = (
-        "bucketed_cross_entropy"
-        if all(r["top_logprobs"] is not None for r in validation) and args.topk_weight == 1
-        else "continuation_cross_entropy"
-    )
-    for step in range(1, args.steps + 1):
-        if (step - 1) % len(order) == 0:
-            random.shuffle(order)
-        record = train[order[(step - 1) % len(order)]]
-        model.train()
-        optimizer.zero_grad(set_to_none=True)
-        logits, targets = _forward(torch, model, record, device)
-        ce = torch.nn.functional.cross_entropy(logits, targets)
-        loss = ce
-        if record["top_logprobs"] is not None and args.topk_weight:
-            loss = (1 - args.topk_weight) * ce + args.topk_weight * _bucketed_loss(
-                logits, record["top_logprobs"]
-            )
-        if not torch.isfinite(loss):
-            raise RuntimeError("Training loss became nonfinite")
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-        optimizer.step()
-        if step % args.eval_every == 0 or step == args.steps:
-            metrics = _metrics(torch, model, validation, device)
-            history.append({"step": step, "training_loss": loss.item(), "validation": metrics})
-            if metrics[selection_key] < best[selection_key]:
-                best, best_step = metrics, step
-                model.save_pretrained(output, safe_serialization=True)
-    report = {
-        "initialization": args.init,
-        "teacher_weights_used_as_initialization": args.init == "pretrained",
+    versions = {
+        "rephix": __version__,
+        "torch": str(torch.__version__),
+        "transformers": __import__("transformers").__version__,
+    }
+    run_config = {
+        "schema_version": 1,
         "source_model": str(args.teacher),
         "source_revision": args.revision,
-        "execution_device": device,
-        "model_dtype": str(next(model.parameters()).dtype),
-        "library_versions": {
-            "torch": torch.__version__,
-            "transformers": __import__("transformers").__version__,
-        },
+        "source_commit": getattr(reference_config, "_commit_hash", None),
+        "source_config_sha256": _config_fingerprint(reference_config),
+        "source_weights_sha256": _source_weights_fingerprint(args.teacher)
+        if args.init == "pretrained"
+        else None,
+        "student_config": str(student_source) if student_source else None,
+        "student_revision": student_revision,
+        "student_commit": getattr(config, "_commit_hash", None),
+        "student_config_sha256": _config_fingerprint(config),
+        "initialization": args.init,
+        "trainable": trainable_mode,
         "tokenizer_fingerprint": _tokenizer_fingerprint(tokenizer),
         "seed": args.seed,
-        "steps": args.steps,
         "learning_rate": args.learning_rate,
         "topk_weight": args.topk_weight,
         "max_seq_length": args.max_seq_length,
-        "checkpoint_selection_metric": selection_key,
-        "best_step": best_step,
-        "baseline_validation": baseline,
-        "best_validation": best,
-        "history": history,
+        "eval_every": args.eval_every,
+        "gradient_accumulation_steps": accumulation,
+        "execution_device": device,
+        "torch_num_threads": torch.get_num_threads(),
+        "torch_num_interop_threads": torch.get_num_interop_threads(),
+        "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
+        "float32_matmul_precision": torch.get_float32_matmul_precision(),
+        "library_versions": versions,
         "train_sha256": _dataset_hash(args.train),
         "validation_sha256": _dataset_hash(args.validation),
-        "train_examples": len(train),
         "seen_evidence_keys": _evidence_keys(train_records + validation_records),
-        "validation_examples": len(validation),
-        "truncated_train_examples": train_truncated,
-        "truncated_validation_examples": validation_truncated,
-        "interpretation": "Behavioral reconstruction; prompt/output evidence does not identify unique original weights.",
     }
-    return _write_report(output / "metrics.json", report)
+    state = None
+    if resume:
+        try:
+            state = torch.load(state_file, map_location="cpu", weights_only=True)
+        except Exception as exc:
+            raise ValueError("Cannot safely load the durable training state") from exc
+        if not isinstance(state, dict) or state.get("schema_version") != 1:
+            raise ValueError("Unsupported training-state schema")
+        if state.get("run_config") != run_config:
+            previous = state.get("run_config", {})
+            changed = sorted(
+                key
+                for key in set(previous) | set(run_config)
+                if previous.get(key) != run_config.get(key)
+            )
+            raise ValueError(
+                f"Resume configuration differs from the original run: {', '.join(changed)}"
+            )
+        if args.steps < state["completed_steps"]:
+            raise ValueError("steps cannot be less than the number of completed steps")
+    if args.init == "random" or resume:
+        model = AutoModel.from_config(config, trust_remote_code=False)
+    elif args.init == "pretrained":
+        weight_options = dict(options)
+        if getattr(reference_config, "_commit_hash", None):
+            weight_options["revision"] = reference_config._commit_hash
+        model = AutoModel.from_pretrained(args.teacher, **weight_options)
+    else:
+        raise ValueError("init must be random or pretrained")
+    _, untied = _set_trainable(torch, model, trainable_mode)
+    model = model.to(device)
+    parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    model.config.use_cache = False
+    optimizer = torch.optim.AdamW(parameters, lr=args.learning_rate)
+    output.mkdir(parents=True, exist_ok=True)
+    selection_key = "reconstruction_objective"
+    if state is None:
+        baseline = _metrics(torch, model, validation, device, args.topk_weight)
+        best, best_step = dict(baseline), 0
+        history, order, sample_index, completed = [], list(range(len(train))), 0, 0
+        best_checkpoint = _save_best(model, tokenizer, output, 0)
+    else:
+        model.load_state_dict(state["model"], strict=True)
+        optimizer.load_state_dict(state["optimizer"])
+        baseline, best = state["baseline_validation"], state["best_validation"]
+        best_step, best_checkpoint = state["best_step"], state["best_checkpoint"]
+        history, order = state["history"], state["order"]
+        sample_index, completed = state["sample_index"], state["completed_steps"]
+        random.setstate(state["python_rng"])
+        torch.set_rng_state(state["torch_rng"])
+        if device == "cuda" and state.get("cuda_rng") is not None:
+            torch.cuda.set_rng_state_all(state["cuda_rng"])
+        if device == "mps" and state.get("mps_rng") is not None:
+            torch.mps.set_rng_state(state["mps_rng"])
+        del state
+
+    def report():
+        return {
+            **run_config,
+            "teacher_weights_used_as_initialization": args.init == "pretrained",
+            "frozen_backbone_uses_pretrained_prior": trainable_mode == "head"
+            and args.init == "pretrained",
+            "untied_output_embeddings": untied,
+            "trainable_parameters": sum(parameter.numel() for parameter in parameters),
+            "total_parameters": sum(parameter.numel() for parameter in model.parameters()),
+            "model_dtype": str(next(model.parameters()).dtype),
+            "steps": args.steps,
+            "completed_steps": completed,
+            "save_every": save_every,
+            "resumed": resume,
+            "checkpoint_selection_metric": selection_key,
+            "best_step": best_step,
+            "best_checkpoint": str(output / best_checkpoint),
+            "best_checkpoint_relative": best_checkpoint,
+            "latest_training_state": str(state_file),
+            "baseline_validation": baseline,
+            "best_validation": best,
+            "history": history,
+            "train_examples": len(train),
+            "validation_examples": len(validation),
+            "truncated_train_examples": train_truncated,
+            "truncated_validation_examples": validation_truncated,
+            "supervised_train_tokens": sum(len(record["completion"]) for record in train),
+            "interpretation": "Behavioral reconstruction; prompt/output evidence does not identify unique original weights.",
+        }
+
+    def persist():
+        payload = {
+            "schema_version": 1,
+            "run_config": run_config,
+            "completed_steps": completed,
+            "sample_index": sample_index,
+            "order": order,
+            "model": model.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "python_rng": random.getstate(),
+            "torch_rng": torch.get_rng_state(),
+            "cuda_rng": torch.cuda.get_rng_state_all() if device == "cuda" else None,
+            "mps_rng": torch.mps.get_rng_state() if device == "mps" else None,
+            "baseline_validation": baseline,
+            "best_validation": best,
+            "best_step": best_step,
+            "best_checkpoint": best_checkpoint,
+            "history": history,
+        }
+        _atomic_torch_save(torch, payload, state_file)
+        _write_report(output / "training_config.json", run_config)
+        _write_report(output / "metrics.json", report())
+        # The prior checkpoint is retained until the atomic state commit succeeds.
+        _publish_best(output, best_checkpoint)
+        for checkpoint in (output / ".checkpoints").glob("best-*"):
+            if str(checkpoint.relative_to(output)) != best_checkpoint:
+                shutil.rmtree(checkpoint)
+
+    persist()
+    for step in range(completed + 1, args.steps + 1):
+        model.train()
+        optimizer.zero_grad(set_to_none=True)
+        training_loss = 0.0
+        for _ in range(accumulation):
+            if sample_index % len(order) == 0:
+                random.shuffle(order)
+            record = train[order[sample_index % len(order)]]
+            sample_index += 1
+            logits, targets = _forward(torch, model, record, device)
+            ce = torch.nn.functional.cross_entropy(logits, targets)
+            loss = ce
+            if record["top_logprobs"] is not None and args.topk_weight:
+                loss = (1 - args.topk_weight) * ce + args.topk_weight * _bucketed_loss(
+                    logits, record["top_logprobs"]
+                )
+            if not torch.isfinite(loss):
+                raise RuntimeError(
+                    "Training loss became nonfinite; resume from the last durable state"
+                )
+            training_loss += loss.item() / accumulation
+            (loss / accumulation).backward()
+        torch.nn.utils.clip_grad_norm_(parameters, 1.0, error_if_nonfinite=True)
+        optimizer.step()
+        completed = step
+        evaluated = step % args.eval_every == 0 or step == args.steps
+        if evaluated:
+            metrics = _metrics(torch, model, validation, device, args.topk_weight)
+            history.append({"step": step, "training_loss": training_loss, "validation": metrics})
+            if metrics[selection_key] < best[selection_key]:
+                best, best_step = metrics, step
+                best_checkpoint = _save_best(model, tokenizer, output, step)
+        if evaluated or step % save_every == 0:
+            persist()
+    return report()
 
 
 def evaluate(args):
@@ -506,14 +857,16 @@ def evaluate(args):
     torch, _, AutoModel, AutoTokenizer = _deps()
     device = _device(torch, args.device)
     options = {"revision": args.revision, "trust_remote_code": False}
-    tokenizer = AutoTokenizer.from_pretrained(args.model, **options)
-    model = AutoModel.from_pretrained(args.model, **options).to(device).eval()
+    model_source = _resolve_model_path(args.model)
+    tokenizer = _load_tokenizer(AutoTokenizer, model_source, **options)
+    model = AutoModel.from_pretrained(model_source, **options).to(device).eval()
     if getattr(model.config, "max_position_embeddings", args.max_seq_length) < args.max_seq_length:
         raise ValueError("max-seq-length exceeds model context limit")
     prepared, truncated = _prepare(records, tokenizer, args.max_seq_length, model.config.vocab_size)
     # Candidate reports retain split keys so reformatted files cannot disguise
     # reuse of training or checkpoint-selection examples as held-out evaluation.
     run_file = Path(args.model) / "metrics.json"
+    run = {}
     if run_file.is_file():
         run = json.loads(run_file.read_text(encoding="utf-8"))
         if _dataset_hash(args.data) in {run.get("train_sha256"), run.get("validation_sha256")}:
@@ -524,7 +877,24 @@ def evaluate(args):
             raise ValueError(
                 "Evaluation prompt/id/group overlaps training or validation; provide a held-out test split"
             )
-    report = _metrics(torch, model, prepared, device)
+    explicit_weight = getattr(args, "topk_weight", None)
+    objective_weight = (
+        explicit_weight if explicit_weight is not None else run.get("topk_weight", 1.0)
+    )
+    if (
+        not isinstance(objective_weight, (float, int))
+        or not math.isfinite(objective_weight)
+        or not 0 <= objective_weight <= 1
+    ):
+        raise ValueError("Evaluation topk-weight must be finite and between zero and one")
+    report = _metrics(torch, model, prepared, device, objective_weight)
+    report["objective_topk_weight_source"] = (
+        "explicit"
+        if explicit_weight is not None
+        else "training_run"
+        if "topk_weight" in run
+        else "default"
+    )
     report.update(
         {
             "model": str(args.model),
@@ -566,10 +936,14 @@ def compare_weights(args):
     torch, _, AutoModel, _ = _deps()
     device = _device(torch, args.device)
     # Models are loaded separately: CPU copies are kept for the truth reference.
-    truth_model = AutoModel.from_pretrained(args.truth, trust_remote_code=False)
+    truth_model = AutoModel.from_pretrained(
+        _resolve_model_path(args.truth), trust_remote_code=False
+    )
     truth = {name: value.detach().cpu() for name, value in truth_model.named_parameters()}
     del truth_model
-    candidate = AutoModel.from_pretrained(args.candidate, trust_remote_code=False).to(device)
+    candidate = AutoModel.from_pretrained(
+        _resolve_model_path(args.candidate), trust_remote_code=False
+    ).to(device)
     parameters = dict(candidate.named_parameters())
     if set(truth) != set(parameters) or any(
         truth[name].shape != parameters[name].shape for name in truth
@@ -618,6 +992,11 @@ def add_subcommands(subparsers):
     parser.add_argument("--max-new-tokens", type=int, default=32)
     parser.add_argument("--top-k", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Continue a durable partial collection with unchanged settings",
+    )
     device(parser)
     parser.set_defaults(func=collect)
 
@@ -645,6 +1024,31 @@ def add_subcommands(subparsers):
         help="Mix bucketed distillation with token CE (0..1)",
     )
     parser.add_argument("--eval-every", type=int, default=10)
+    parser.add_argument(
+        "--save-every",
+        type=int,
+        default=10,
+        help="Durable latest-state interval; validation checkpoints are always saved",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Continue this output directory to the total --steps target",
+    )
+    parser.add_argument(
+        "--trainable",
+        choices=["all", "head"],
+        default="all",
+        help="Optimize all parameters or only an untied output head",
+    )
+    parser.add_argument(
+        "--student-config",
+        help="Optional smaller architecture config for random initialization; vocabulary/special IDs must match",
+    )
+    parser.add_argument(
+        "--student-revision", help="Revision for a separate student-config repository"
+    )
+    parser.add_argument("--gradient-accumulation-steps", type=int, default=1)
     device(parser)
     parser.set_defaults(func=fit)
 
@@ -658,6 +1062,11 @@ def add_subcommands(subparsers):
     parser.add_argument("--max-seq-length", type=int, default=256)
     parser.add_argument("--generate", action="store_true")
     parser.add_argument("--max-new-tokens", type=int, default=32)
+    parser.add_argument(
+        "--topk-weight",
+        type=float,
+        help="Evaluation objective mixture; defaults to saved training value, otherwise 1",
+    )
     device(parser)
     parser.set_defaults(func=evaluate)
 
