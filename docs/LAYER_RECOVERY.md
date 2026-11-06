@@ -22,6 +22,13 @@ The implemented decoder probes cover standard dense Llama, Mistral, Qwen, GPT-2,
 
 OPT's position lookup accepts signed logical indices to expose its two reserved rows. The Gemma 3 text adapter calls the native unscaled embedding lookup before the model's fixed output multiplier. Gemma offset RMSNorm exposes the FP32 gain `1 + weight.float()`. When adjacent stored weights produce the same gain, Rephix reports the ambiguous coordinates and writes a representative with that gain. OLMo 2 and 3 multiply by the stored weight directly. Their RMS probes use a constant input whose normalized value is one, with an output dtype that can represent the stored scale exactly.
 
+### Sparse decoder probes
+
+- GraniteMoE, GraniteMoE Shared, and JetMoE expose their packed affine banks by assigning all probe rows to a chosen expert. DBRX and dense GPT-OSS expose intermediate native matrix products with a controlled expert ID and an independently chosen input for the down projection.
+- DeepSeek V2, DeepSeek V3, and GLM4-MoE expose router logits before top-k selection. DeepSeek V3 and GLM4-MoE also expose the persistent routing correction by adding it to zero scores. The native logit computation casts to FP32, so FP64 router coordinates are reported as ambiguous.
+- GPT-OSS sink logits are observed before attention softmax. This adapter takes dense floating-point checkpoints. Packed MXFP4 archives have a separate weight representation.
+- Qwen3-MoE uses directly callable expert and router layers. Jamba combines sparse layers with the [native recurrent state probes](SSM_RECOVERY.md).
+
 The default FP32 probes reduce rounding loss in biased layers. For a large BF16 checkpoint use `--dtype auto` to preserve its runtime dtype and reduce RAM and VRAM needs. By default the source lives on the requested device and the candidate stays in CPU memory. Use `--stage-layers` to keep the source on the host and move each probe's dependencies to the accelerator in turn. `--batch-size` trades call overhead for temporary memory. In these experiments the oracle returned one scalar per unique parameter. An instrumented runtime needs access roughly as revealing as a weight dump. Checkpoints that require SentencePiece tokenizer conversion may need `pip install sentencepiece protobuf` and the source's tokenizer model. Use `--without-tokenizer` when exporting an offline model fixture consumed via token IDs. [Layer staging and memory measurements](LAYER_STAGING.md)
 
 `audit-weights` streams local safetensors files or standard indexed shard directories. A reference element matches when its candidate has the same name and shape and `abs(candidate - reference) <= atol + rtol * abs(reference)`. Defaults are `atol=1e-8` and `rtol=1e-5`. Exact agreement counts equal numeric values, even across differing storage dtypes. Coverage and both agreement fractions use all stored reference elements, including buffers. Raw relative L2 is `||candidate - reference||₂ / ||reference||₂` and requires full name and shape coverage. The separate zero-filled score substitutes zeros for unavailable coordinates. Extra candidate tensors are reported and excluded from the scores. The audit does not remap names, align equivalent parameters, or infer tied aliases. Use the existing `compare-weights` command when comparing the loaded model's named parameters and cosine similarity.
@@ -92,6 +99,22 @@ These runs used staged CUDA probes on the same RTX 5080 with `--dtype auto --bat
 | [Phi-3 Mini 4K Instruct, BF16](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct/tree/f39ac1d28e925b323eae81227eaba4464caced4e) | 3,821,079,552 | 100% | 100% | 0 | 6/6 · 6/6 |
 
 OPT's relative L2 error was `6.40e-5`. Its low-precision affine and LayerNorm responses round before the estimator can subtract the bias. The other trials used biasless affine maps. All measured coordinates in the Gemma offset norms had a unique BF16 representative.
+
+### Sparse checkpoints
+
+All five trials used staged CUDA probes on an RTX 5080 with the source dtype and full original tensor coverage. Independent reloads evaluated full-vocabulary next-token logits and cached greedy continuations on six prompts. [Checkpoint hashes and measurements](../examples/results/sparse-native-recovery.json)
+
+| Reference | Stored values | Exact agreement | Largest logit difference | Top-1 / greedy |
+| --- | ---: | ---: | ---: | ---: |
+| [Granite 3.1 1B A400M Instruct, BF16](https://huggingface.co/ibm-granite/granite-3.1-1b-a400m-instruct/tree/0da7a48b0276d500ce5922fd2b33944091fc6c09) | 1,334,628,352 | 100% | 0, deterministic CUDA | 6/6 · 6/6 |
+| [Tiny DeepSeek V2, FP32, trained on TinyStories](https://huggingface.co/shibatch/tinydeepseekv2-3m/tree/d093b936c9fbbb8479ba8678bff3de86a5e0f94b/hf) | 2,928,392 | 100% | 0 | 6/6 · 6/6 |
+| [Tiny DeepSeek V3, FP32, trained on TinyStories](https://huggingface.co/shibatch/tinydeepseekv3-3m/tree/27745bb10de15c81da728e71eca3c3a7197242ed/hf) | 2,803,288 | 100% | 0 | 6/6 · 6/6 |
+| [Tiny random Qwen3-MoE, BF16](https://huggingface.co/tiny-random/qwen3-moe/tree/10a349dcb488b10c27aa4a3c1dbefb74c41565c3) | 9,970,624 | 100% | 0 | 6/6 · 6/6 |
+| [Tiny random GPT-OSS, dense BF16](https://huggingface.co/tiny-random/gpt-oss/tree/02ba5c61f879b5a38a8b1f7a8e0409b8e1bb8f38) | 6,853,156 | 99.9891% | 0.0009765625 | 6/6 · 6/6 |
+
+Granite's original and exported safetensors files had the same SHA-256. The first default CUDA comparison nevertheless matched only four continuations, and two independent comparisons of the original with itself showed maximum logit differences of `0.65625` and `0.59375`. This is consistent with nondeterministic CUDA accumulation when Granite combines contributions from several experts per token with `index_add`. The original and export matched every logit and continuation on both deterministic CUDA and CPU. The staged experiment evaluator accepts `--deterministic` to repeat that control. [PyTorch deterministic operations](https://docs.pytorch.org/docs/2.10/generated/torch.use_deterministic_algorithms.html)
+
+GPT-OSS matched all 405,572 expert, router, and attention sink values. Its 746 differences were confined to standard biased Q, K, V, and output projection weights. For the TinyStories fixtures, only the tokenizer class and special-token-list field names were adapted from Transformers 5 to 4.57.6 in the trial directory. Their original weights and tokenizer definitions were unchanged. A separate random DeepSeek fixture was rejected because all 256 entries in its stored routing correction contained NaNs. [Rejected DeepSeek fixture](https://huggingface.co/yujiepan/deepseek-v3-tiny-random/tree/cc35c93ec8328de7650c3d86a2a316d1d58cde02)
 
 ## Dense log probabilities on Llama and Mistral
 

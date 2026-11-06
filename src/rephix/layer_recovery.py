@@ -9,8 +9,36 @@ import tempfile
 from contextlib import nullcontext
 from pathlib import Path
 
+from .dbrx_experts import (
+    DBRX_EXPERT_GLU,
+    observe_dbrx_experts,
+    recover_dbrx_experts,
+    validate_dbrx_experts,
+)
+from .deepseek_experts import (
+    CORRECTED_ROUTER_MODULES,
+    ROUTER_CORRECTION_BUFFER,
+    ROUTER_MODULES,
+    observe_router,
+    recover_router_correction,
+    recover_router_weight,
+)
 from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
+from .fused_expert_recovery import (
+    GROUPED_EXPERT_BANKS,
+    GROUPED_EXPERT_BIASES,
+    GROUPED_EXPERT_RMS_NORMS,
+    observe_grouped_experts,
+    recover_grouped_experts,
+    validate_grouped_experts,
+)
 from .gemma_recovery import GEMMA3_SCALED_EMBEDDING, GEMMA_OFFSET_RMS_NORMS, recover_gemma_rms
+from .gptoss_recovery import (
+    GPTOSS_OPERATORS,
+    observe_gptoss_operator,
+    recover_gptoss_operator,
+    validate_gptoss_operator,
+)
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .layer_staging import LayerStager
@@ -26,14 +54,19 @@ _HF_RMS_NORMS = {
     "transformers.models.qwen3.modeling_qwen3.Qwen3RMSNorm",
 }
 _DIRECT_HF_RMS_NORMS = {
+    "transformers.models.deepseek_v2.modeling_deepseek_v2.DeepseekV2RMSNorm",
+    "transformers.models.deepseek_v3.modeling_deepseek_v3.DeepseekV3RMSNorm",
     "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaRMSNorm",
+    "transformers.models.glm4_moe.modeling_glm4_moe.Glm4MoeRMSNorm",
+    "transformers.models.jamba.modeling_jamba.JambaRMSNorm",
     "transformers.models.mamba.modeling_mamba.MambaRMSNorm",
     "transformers.models.mt5.modeling_mt5.MT5LayerNorm",
     "transformers.models.olmoe.modeling_olmoe.OlmoeRMSNorm",
     "transformers.models.t5.modeling_t5.T5LayerNorm",
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
-}
-_OLMO_RMS_NORMS = {
+} | GROUPED_EXPERT_RMS_NORMS
+_POST_MULTIPLY_RMS_NORMS = {
+    "transformers.models.gpt_oss.modeling_gpt_oss.GptOssRMSNorm",
     "transformers.models.olmo2.modeling_olmo2.Olmo2RMSNorm",
     "transformers.models.olmo3.modeling_olmo3.Olmo3RMSNorm",
 }
@@ -49,6 +82,8 @@ _VISION_EMBEDDINGS = {
 }
 _PROBE_PLAN_VERSION = 1
 _JOURNAL_FILENAME = "observations.sqlite3"
+_BUFFER_KINDS = {"bart_logits_bias", "router_correction"}
+_GPTOSS_KINDS = frozenset(GPTOSS_OPERATORS.values())
 
 
 def _qualified_name(module):
@@ -63,6 +98,16 @@ def _operator(torch, module, *, direct):
         return "linear"
     if direct and qualified_name in SSM_MIXERS:
         return "ssm_mixer"
+    if direct and qualified_name in GROUPED_EXPERT_BANKS:
+        return "grouped_expert_bank"
+    if direct and qualified_name in GROUPED_EXPERT_BIASES:
+        return "grouped_expert_bias"
+    if direct and qualified_name in ROUTER_MODULES:
+        return "native_router"
+    if direct and qualified_name in GPTOSS_OPERATORS:
+        return GPTOSS_OPERATORS[qualified_name]
+    if direct and qualified_name == DBRX_EXPERT_GLU:
+        return "dbrx_expert_glu"
     if direct and qualified_name == _DEBERTA_MLM_HEAD:
         return "deberta_mlm_bias"
     if direct and cls is torch.nn.Conv1d:
@@ -95,8 +140,8 @@ def _operator(torch, module, *, direct):
         return "hf_rms_norm"
     if direct and qualified_name in GEMMA_OFFSET_RMS_NORMS:
         return "gemma_rms_norm"
-    if direct and qualified_name in _OLMO_RMS_NORMS:
-        return "olmo_rms_norm"
+    if direct and qualified_name in _POST_MULTIPLY_RMS_NORMS:
+        return "post_multiply_rms_norm"
     if cls is getattr(torch.nn, "RMSNorm", None):
         return "rms_norm"
     if qualified_name in _VISION_EMBEDDINGS and getattr(module, "mask_token", None) is None:
@@ -108,6 +153,21 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
     names = {name for name, _ in model.named_parameters(remove_duplicate=False)}
     buffers = model.state_dict().keys() - names
     bart_bias = direct and _qualified_name(model) == _BART + "BartForConditionalGeneration"
+    correction_probes = []
+    for path, module in model.named_modules() if direct else ():
+        if _qualified_name(module) in CORRECTED_ROUTER_MODULES:
+            name = f"{path}.{ROUTER_CORRECTION_BUFFER}" if path else ROUTER_CORRECTION_BUFFER
+            correction = getattr(module, ROUTER_CORRECTION_BUFFER)
+            if (
+                name not in buffers
+                or correction.shape != (module.weight.shape[0],)
+                or not correction.is_floating_point()
+                or correction.device.type != "cpu"
+                or correction.layout != torch.strided
+            ):
+                raise ValueError(f"{path}: invalid persistent router correction")
+            buffers.remove(name)
+            correction_probes.append((path, module, {"bias": correction}, "router_correction"))
     unknown_buffers = sorted(buffers - ({"final_logits_bias"} if bart_bias else set()))
     if unknown_buffers:
         raise ValueError(f"persistent state has no layer probe: {', '.join(unknown_buffers[:5])}")
@@ -149,6 +209,19 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = {"bias"}
             if pending.keys() != allowed or pending["bias"].ndim != 1:
                 raise ValueError(f"{path}: invalid standalone MLM bias")
+        elif kind in {"grouped_expert_bank", "grouped_expert_bias"}:
+            validate_grouped_experts(module, pending, kind)
+            allowed = pending.keys()
+        elif kind == "native_router":
+            allowed = {"weight"}
+            if pending.keys() != allowed or pending["weight"].ndim != 2:
+                raise ValueError(f"{path}: invalid native router weight")
+        elif kind in _GPTOSS_KINDS:
+            validate_gptoss_operator(module, pending, kind)
+            allowed = pending.keys()
+        elif kind == "dbrx_expert_glu":
+            validate_dbrx_experts(module, pending)
+            allowed = pending.keys()
         else:
             allowed = {"weight", "bias"}
         if not pending.keys() <= allowed:
@@ -174,6 +247,7 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
         ):
             raise ValueError("invalid BART final logit bias destination")
         plan.append(("final_logits_bias", model, {"bias": bias}, "bart_logits_bias"))
+    plan.extend(correction_probes)
     return plan
 
 
@@ -286,6 +360,15 @@ def recover_from_layer_calls(
     OPT position probes also take signed logical positions. The Gemma3 lookup
     uses unscaled rows. Gemma-family offset RMSNorm uses FP32 input/output.
     OLMo 2 and 3 RMSNorm probes use at least FP32 input/output.
+    Grouped expert banks use paths ending in :expert_<index> for the
+    corresponding affine map. Native router paths ending in :router_logits
+    expose FP32 logits. :router_correction probes expose the additive
+    correction at zero scores in the persistent buffer's dtype.
+    Dense GPT-OSS exposes native affine products and biases at virtual
+    :router_weight, :router_bias, :gate_up_weight/<index>,
+    :gate_up_bias/<index>, :down_weight/<index> and :down_bias/<index>
+    paths. :attention_sinks returns the sink logits before softmax.
+    DBRX exposes expert products at :w1/<index>, :v1/<index>, and :w2/<index>.
     Whisper position probes take absolute row IDs, as for token embeddings.
     A standalone DeBERTa MLM bias probe returns logits at zero input to its
     tied vocabulary projection.
@@ -301,42 +384,45 @@ def recover_from_layer_calls(
 
     _validate_probe_options(batch_size, relative_bias_mode)
     plan = _plan(torch, model, direct=True, relative_bias_mode=relative_bias_mode)
-    calls = rows = scalars = recovered = recovered_buffers = 0
+    calls = rows = scalars = recovered = recovered_buffers = buffer_probes = 0
     gauges = []
     relative_bias_gauges = []
     ssm_decays = []
     ssm_log_elements = 0
     gemma_rms_rounding = []
+    router_rounding = []
 
     with torch.no_grad():
         for path, module, pending, kind in plan:
-            if kind == "bart_logits_bias":
-                recovered_buffers += module.final_logits_bias.numel()
+            if kind in _BUFFER_KINDS:
+                recovered_buffers += pending["bias"].numel()
+                buffer_probes += 1
             else:
                 recovered += sum(parameter.numel() for parameter in pending.values())
             dtype = torch.float64 if kind == "ssm_mixer" else next(iter(pending.values())).dtype
-            if kind == "gemma_rms_norm":
+            if kind in {"gemma_rms_norm", "native_router"}:
                 dtype = torch.float32
-            elif kind == "olmo_rms_norm" and dtype != torch.float64:
+            elif kind == "post_multiply_rms_norm" and dtype != torch.float64:
                 dtype = torch.float32
 
-            def read(inputs, shape):
+            def read(inputs, shape, operation=None):
                 nonlocal calls, rows, scalars
+                probe_path = path if operation is None else f"{path}:{operation}"
                 if _journal is not None:
-                    values = _journal.observe(path, inputs, shape, dtype, oracle=call_layer)
+                    values = _journal.observe(probe_path, inputs, shape, dtype, oracle=call_layer)
                 else:
-                    result = call_layer(path, inputs)
+                    result = call_layer(probe_path, inputs)
                     if (
                         not isinstance(result, torch.Tensor)
                         or result.shape != shape
                         or result.dtype != dtype
                     ):
                         raise ValueError(
-                            f"{path}: oracle output shape or dtype disagrees with skeleton"
+                            f"{probe_path}: oracle output shape or dtype disagrees with skeleton"
                         )
                     values = result.to("cpu")
                     if not torch.isfinite(values).all():
-                        raise ValueError(f"{path}: non-finite oracle output")
+                        raise ValueError(f"{probe_path}: non-finite oracle output")
                 calls += 1
                 rows += inputs.shape[0]
                 scalars += values.numel()
@@ -344,6 +430,20 @@ def recover_from_layer_calls(
 
             if kind in {"linear", "conv1d"}:
                 _affine(torch, module, pending, kind, read, batch_size)
+            elif kind in {"grouped_expert_bank", "grouped_expert_bias"}:
+                recover_grouped_experts(torch, module, read, batch_size, kind)
+            elif kind == "native_router":
+                ambiguous = recover_router_weight(torch, module, read, batch_size)
+                if ambiguous:
+                    router_rounding.append(
+                        {"module": path, "ambiguous_parameter_elements": ambiguous}
+                    )
+            elif kind == "router_correction":
+                recover_router_correction(module, read)
+            elif kind in _GPTOSS_KINDS:
+                recover_gptoss_operator(torch, module, pending, kind, read, batch_size)
+            elif kind == "dbrx_expert_glu":
+                recover_dbrx_experts(torch, module, pending, read, batch_size)
             elif kind == "ssm_mixer":
                 decay = recover_ssm_mixer(torch, module, pending, read, rate_device=ssm_rate_device)
                 ssm_decays.append({"module": path, **decay})
@@ -392,7 +492,7 @@ def recover_from_layer_calls(
                             "ambiguous_parameter_elements": ambiguous,
                         }
                     )
-            elif kind == "olmo_rms_norm":
+            elif kind == "post_multiply_rms_norm":
                 weight = pending["weight"]
                 shape = (1, *weight.shape)
                 amplitude = unit_float32_rms_amplitude(module.variance_epsilon, weight.numel())
@@ -403,18 +503,21 @@ def recover_from_layer_calls(
 
     return {
         "observation_mode": "chosen_inputs_to_individual_layers",
-        "parameterized_modules_probed": len(plan) - int(recovered_buffers > 0),
+        "parameterized_modules_probed": len(plan) - buffer_probes,
         "unique_parameter_elements_recovered": recovered,
         "persistent_buffer_elements_recovered": recovered_buffers,
         "individually_identified_parameter_elements": recovered
         - sum(gauge["affected_stored_elements"] for gauge in gauges + relative_bias_gauges)
         - ssm_log_elements
-        - sum(entry["ambiguous_parameter_elements"] for entry in gemma_rms_rounding),
+        - sum(
+            entry["ambiguous_parameter_elements"] for entry in gemma_rms_rounding + router_rounding
+        ),
         "embedding_gauges": gauges,
         "relative_bias_mode": relative_bias_mode,
         "relative_bias_gauges": relative_bias_gauges,
         "state_space_decays": ssm_decays,
         "gemma_rms_rounding": gemma_rms_rounding,
+        "router_rounding": router_rounding,
         "layer_calls": calls,
         "probe_input_rows": rows,
         "observed_output_scalars": scalars,
@@ -675,6 +778,7 @@ def export_recovered_model(
 
     def observe(path, inputs):
         nonlocal host_layer_calls
+        path, _, operation = path.partition(":")
         if path == "final_logits_bias" and config.model_type == "bart":
             if stager is not None:
                 # The virtual bias probe needs a full forward. Leave it on
@@ -685,6 +789,11 @@ def export_recovered_model(
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
         name = _qualified_name(module)
+        if name == DBRX_EXPERT_GLU:
+            parent = target.get_submodule(path.rpartition(".")[0])
+            if stager is not None:
+                (parent,) = stager.get(parent)
+            return observe_dbrx_experts(torch, parent, inputs.to(device), operation)
         if name == _DEBERTA_MLM_HEAD:
             embeddings = target.get_input_embeddings()
             if stager is not None:
@@ -698,6 +807,12 @@ def export_recovered_model(
                 handle.remove()
         if stager is not None:
             (module,) = stager.get(module)
+        if name in ROUTER_MODULES:
+            return observe_router(torch, module, inputs.to(device), operation)
+        if name in GROUPED_EXPERT_BANKS or name in GROUPED_EXPERT_BIASES:
+            return observe_grouped_experts(torch, module, inputs.to(device), operation)
+        if name in GPTOSS_OPERATORS:
+            return observe_gptoss_operator(torch, module, inputs.to(device), operation)
         if name in SSM_MIXERS:
             return observe_ssm_mixer(torch, module, inputs.to(device))
         if name == _BART + "BartLearnedPositionalEmbedding":
@@ -802,7 +917,7 @@ def replay_layer_evidence(evidence_dir, output):
             "mt5",
             "umt5",
         }
-        if uses_bucket_backend or config.model_type in {"mamba", "falcon_mamba"}:
+        if uses_bucket_backend or config.model_type in {"mamba", "falcon_mamba", "jamba"}:
             _device(torch, device)
         report = recover_from_layer_calls(
             candidate,

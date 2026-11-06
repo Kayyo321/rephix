@@ -1,6 +1,6 @@
 # Recover Mamba state-space models
 
-`recover-layers` supports native Transformers Mamba and FalconMamba causal language models. The projection, embedding, normalization, and depthwise convolution weights use the standard layer probes. The remaining mixer parameters are the skip coefficients `D` and the log-decay coordinates `A_log`.
+`recover-layers` supports native Transformers Mamba and FalconMamba causal language models and the Mamba layers inside hybrid Jamba checkpoints. The projection, embedding, normalization, and depthwise convolution weights use the standard layer probes. The remaining mixer parameters are the skip coefficients `D` and the log-decay coordinates `A_log`.
 
 ```sh
 rephix recover-layers --model /path/to/local-mamba --output /path/to/recovered \
@@ -25,7 +25,7 @@ Both checkpoints ran on an RTX 5080 with Transformers 4.57.6 using the native ea
 
 All raw values outside tolerance were `A_log` coordinates. The maximum absolute raw log error was `1.34e-7`. Independently transforming the stored logs on CPU produced rates within tolerance for every coordinate, with exact equality for 550,751 and 1,476,934 rates respectively. Each model matched all logits on 168 held-out forward positions and 36 recurrent decode positions. The exports also preserved the tokenizer IDs and masks.
 
-The offline tests cover a native FalconMamba fixture, cached generation after the source directory is moved, and an explicit rounding ambiguity. Changing one stored `A_log` from `-2e-8` to `2e-8` preserved the native rate, logits, and cached states even though the two stored values differ beyond the audit tolerance.
+The offline tests cover native FalconMamba and Jamba fixtures, cached generation after the source directory is removed, and an explicit rounding ambiguity. The hybrid Jamba fixture recovered 97.288% of stored values exactly and 100% within tolerance. Its source-free replay matched the first export exactly and preserved the original recurrent cache outputs within floating-point tolerance. Changing one stored `A_log` from `-2e-8` to `2e-8` preserved the native rate, logits, and cached states even though the two stored values differ beyond the audit tolerance.
 
 ```sh
 python examples/mamba_recovery_experiment.py \

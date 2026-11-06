@@ -1,13 +1,15 @@
-"""Recover Mamba's skip gain and effective state transition from controlled steps."""
+"""Recover native Mamba skip gains and effective state transitions."""
 
 from __future__ import annotations
 
 from contextlib import ExitStack
 from unittest.mock import patch
 
+_JAMBA_MIXER = "transformers.models.jamba.modeling_jamba.JambaMambaMixer"
 SSM_MIXERS = {
     "transformers.models.mamba.modeling_mamba.MambaMixer",
     "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaMixer",
+    _JAMBA_MIXER,
 }
 _INITIAL_EXPONENTS = (-32, -16, 0, 16, 32)
 _FULL_EXPONENTS = range(-128, 153, 8)
@@ -16,7 +18,7 @@ _FULL_EXPONENTS = range(-128, 153, 8)
 def validate_ssm_mixer(module):
     cls = type(module)
     if f"{cls.__module__}.{cls.__name__}" not in SSM_MIXERS:
-        raise ValueError("state probes require a native Mamba or FalconMamba mixer")
+        raise ValueError("state probes require a supported native Mamba mixer")
     if module.A_log.shape != (
         module.intermediate_size,
         module.ssm_state_size,
@@ -35,6 +37,18 @@ class _ProbeCache:
         self.ssm_states[layer_idx].copy_(new_ssm_state)
 
 
+def _jamba_probe_cache(layer_idx, state):
+    from transformers.models.jamba.modeling_jamba import HybridMambaAttentionDynamicCache
+
+    # The native forward checks the cache type. Allocate only the mixer slot
+    # rather than constructing cache tensors for the whole hybrid model.
+    cache = object.__new__(HybridMambaAttentionDynamicCache)
+    cache.ssm_states = {layer_idx: state}
+    cache.conv_states = {}
+    cache.has_previous_state = False
+    return cache
+
+
 def _inverse_softplus(steps):
     return steps + (-(-steps).expm1()).log()
 
@@ -51,8 +65,9 @@ def observe_ssm_mixer(torch, module, steps):
     projected = steps.new_ones((batch, 1, 2 * inner))
     selection = steps.new_zeros((batch, 1, module.time_step_rank + 2 * state_size))
     times = _inverse_softplus(steps)[:, None, None].expand(batch, 1, inner)
-    cache = _ProbeCache(module.layer_idx, steps.new_ones((batch, inner, state_size)))
-    cache_position = torch.arange(module.conv_kernel_size, device=steps.device)
+    cls = type(module)
+    is_jamba = f"{cls.__module__}.{cls.__name__}" == _JAMBA_MIXER
+    state = steps.new_ones((batch, inner, state_size))
     inputs = steps.new_zeros((batch, 1, module.hidden_size))
 
     # Unit scan input and gate expose D at the output projection input. Zero
@@ -68,7 +83,15 @@ def observe_ssm_mixer(torch, module, steps):
             (module.out_proj, lambda values: values),
         ):
             stack.enter_context(patch.object(child, "forward", forward))
-        skip = module.slow_forward(inputs, cache_params=cache, cache_position=cache_position)
+        if is_jamba:
+            cache = _jamba_probe_cache(module.layer_idx, state)
+            for norm in (module.dt_layernorm, module.b_layernorm, module.c_layernorm):
+                stack.enter_context(patch.object(norm, "forward", lambda values: values))
+            skip = module.slow_forward(inputs, cache_params=cache)
+        else:
+            cache = _ProbeCache(module.layer_idx, state)
+            cache_position = torch.arange(module.conv_kernel_size, device=steps.device)
+            skip = module.slow_forward(inputs, cache_params=cache, cache_position=cache_position)
     return torch.cat((skip, cache.ssm_states[module.layer_idx].transpose(1, 2)), dim=1)
 
 

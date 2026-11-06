@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import inspect
 import json
+import os
 import platform
 import time
 from collections import defaultdict
@@ -253,10 +254,14 @@ def _behavior(torch, baseline, recovered, max_new_tokens):
 
 
 def _evaluate(args):
+    if args.deterministic and args.device == "cuda":
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
     import torch
     import transformers
 
     torch.set_num_threads(args.threads)
+    if args.deterministic:
+        torch.use_deterministic_algorithms(True)
     device = _device(torch, args.device)
     dtype = args.dtype if args.dtype == "auto" else getattr(torch, args.dtype)
     started = time.monotonic()
@@ -295,6 +300,7 @@ def _evaluate(args):
             "transformers": transformers.__version__,
             "device": device,
             "gpu": torch.cuda.get_device_name() if device == "cuda" else None,
+            "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
             "reference_sha256": reference_hashes,
             "held_out_prompts": list(_PROMPTS),
             "reference_prompt_token_ids": baseline[2],
@@ -331,6 +337,9 @@ def main():
     evaluate.add_argument("--model-id", required=True)
     evaluate.add_argument("--revision", required=True)
     evaluate.add_argument("--max-new-tokens", type=_positive_int, default=4)
+    evaluate.add_argument(
+        "--deterministic", action="store_true", help="use deterministic PyTorch inference kernels"
+    )
     evaluate.set_defaults(func=_evaluate)
 
     for command in (recover, evaluate):
