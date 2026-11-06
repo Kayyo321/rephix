@@ -1,6 +1,6 @@
-# Recover ViT and DeiT image classifiers
+# Recover image classifiers
 
-`recover-layers` can export an ordinary Hugging Face ViT or DeiT classifier from chosen inputs to its parameterized layers. This includes the two classifier heads in distilled DeiT. It uses the model configuration and layer outputs in their native coordinates. The local adapter loads the source checkpoint to serve the layer calls. An instrumented external runtime can instead supply the callback to `recover_from_layer_calls`.
+`recover-layers` can export Hugging Face ViT, DeiT, and ConvNeXT V1 and V2 classifiers from chosen inputs to their parameterized layers. This includes the two classifier heads in distilled DeiT. It uses the model configuration and layer outputs in their native coordinates. The local adapter loads the source checkpoint to serve the layer calls. An instrumented external runtime can instead supply the callback to `recover_from_layer_calls`.
 
 ```bash
 rephix --threads 4 recover-layers --model models/vit --output runs/vit-recovered \
@@ -31,3 +31,16 @@ The raw audit used `1e-8 + 1e-5 * abs(reference)`. The separate aligned audit mo
 Each independent evaluation used eight native synthetic images, eight rectangular images with positional interpolation, and two real images processed through the saved processor. The two processors produced exactly equal tensors for the real images. Across the three checkpoints, the largest logit difference was `2.14e-14`. Shifting the reference special tokens and position rows in opposite directions preserved all 54 predictions, including the rectangular inputs. These checks measure agreement with the reference classifier. [Pinned revisions, image digests, and audits](../examples/results/vision-layer-recovery.json)
 
 To reproduce an audit, pass the local source and exported checkpoint to `examples/vision_recovery_experiment.py`. Pass one `--image` per real fixture. The runs used Matplotlib's `grace_hopper.jpg` sample and the [Hugging Face parrots image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/parrots.png).
+
+## ConvNeXT channel scales
+
+ConvNeXT uses the same grouped convolution probes for its depthwise kernels. Its LayerNorm probes respect both native channel orders. In V1, a zero residual and a unit response from the last pointwise projection expose the LayerScale vector through the native block. In V2, zero input to global response normalization exposes its bias. A separate observation captures the weighted response for equal channel magnitudes before the native bias and residual additions. This avoids cancellation when the learned scales are small.
+
+| Reference | Stored values | Exact agreement | Within tolerance | Held-out top-1 |
+| --- | ---: | ---: | ---: | ---: |
+| [ConvNeXT V1 Tiny](https://huggingface.co/facebook/convnext-tiny-224/tree/6166b7613034066690a621d8bf25ffdf181a34f0) | 28,589,128 | 99.999895% | 100% | 17 / 17 |
+| [ConvNeXT V2 Atto](https://huggingface.co/facebook/convnextv2-atto-1k-224/tree/c7eab08296c3bca2631738322afc3d05373acc8f) | 3,708,400 | 99.999380% | 100% | 17 / 17 |
+
+The trials ran on CPU with FP64 probes and independently reloaded the exports. The largest held-out logit error across both runs was `3.56e-15`. The published V1 checkpoint was loaded with `torch.load(weights_only=True)` and converted to safetensors with exact agreement across all stored tensors. The evaluation reused the synthetic image panels and Matplotlib's sample image. Both exported processors produced the same input pixels as their references. [Raw audits, revisions, and hashes](../examples/results/convnext-layer-recovery.json)
+
+For the V2 run, adding `--evidence-dir` captured 151 responses. A source-free `replay-layers` invocation reused all 151, made zero new calls, and reproduced the weights, config, and processor files byte for byte.

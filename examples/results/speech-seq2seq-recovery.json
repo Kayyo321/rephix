@@ -1,0 +1,4611 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "moonshine-ai/moonshine-tiny",
+      "revision": "390624ed33d594443aa4aa221f5b9f283b545b5a",
+      "dataset_revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+      "dataset_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "dtype": "float64"
+      },
+      "max_new_tokens": 128,
+      "reference_sha256": {
+        "config.json": "47a43777a14e17b1ffd5f533e021d4d18c3c475cbb96de0947ce409e16444ded",
+        "generation_config.json": "a8e1437432c3ba7d0fca84ced5b3a254bf0c42b8e75fc336497cdcb56675e303",
+        "model.safetensors": "867cd2215804859c55aa972d740bd5002be149b4e7526328c895d2408848c736",
+        "preprocessor_config.json": "99272fe8ccfab114b68b478681ea47ee3a1ce62bb788cb92dd6e4f69fb1f1da2",
+        "tokenizer.json": "6579793438bc4fbafffacf699169ff53e3769c5a0a0f5e71cdee8853e8130deb"
+      },
+      "candidate_sha256": {
+        "config.json": "8d91e7def33047e4533ba9d2aba325a7ba9a34f8d7fc2f6b923d58c312b88e14",
+        "generation_config.json": "5e02d86c641c4b591381eb5deeae2412a9efa4f018dc64f28d691f663d9a5a80",
+        "model.safetensors": "1d3d54e9b69454a14f645f8002b6c6359ffcd7dbc100f97859971f24e3142f20",
+        "preprocessor_config.json": "99272fe8ccfab114b68b478681ea47ee3a1ce62bb788cb92dd6e4f69fb1f1da2",
+        "special_tokens_map.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "tokenizer.json": "ad3a2ceb0e84e4da57451d86fa337f8116dcff5f5d106434f8aa0b0de89718b9",
+        "tokenizer_config.json": "3945ba2614fbbe67806fe6be82973aa06465b6bd396bf570cb1dbaf7311acee2"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 133,
+        "unique_parameter_elements_recovered": 27092736,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 27092736,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 253,
+        "probe_input_rows": 74715,
+        "observed_output_scalars": 27093312,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 253,
+        "model_type": "moonshine",
+        "architecture": "MoonshineForConditionalGeneration",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "staged",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "audio_feature_extractor_exported": true,
+        "oracle_staged_groups": 133,
+        "oracle_peak_staged_state_bytes": 75497472,
+        "oracle_host_layer_calls": 0
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 160,
+        "candidate_tensors": 160,
+        "compared_tensors": 160,
+        "reference_elements": 27092736,
+        "candidate_elements": 27092736,
+        "compared_elements": 27092736,
+        "coverage": 1.0,
+        "exactly_equal_elements": 27085711,
+        "fraction_exactly_equal": 0.999740705405316,
+        "within_tolerance_elements": 27092736,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 1.1219707475250385e-17,
+        "zero_filled_relative_l2": 1.1219707475250385e-17,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.decoder.embed_tokens.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.final_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv3.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv3.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.groupnorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.groupnorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.input_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.mlp.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.mlp.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.mlp.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.mlp.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.post_attention_layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.o_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "clips": 5,
+        "exact_processor_outputs": 5,
+        "exact_greedy_generations": 5,
+        "teacher_forced_positions": 285,
+        "teacher_forced_top_1_matches": 285,
+        "teacher_forced_logit_coordinates": 9338880,
+        "teacher_forced_exact_logit_coordinates": 620458,
+        "teacher_forced_max_abs_error": 6.217248937900877e-14,
+        "teacher_forced_rmse": 7.131510943754854e-15
+      },
+      "reference_observations": [
+        {
+          "clip": {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                26239
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a0a3ae1ea5878c213df639296e9f4c3fb8a4d6525fdd50a013cb87f515bb6a46"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                26239
+              ],
+              "dtype": "torch.int32",
+              "sha256": "09eb28db648f3eae80c710e4e94c17d3e8c1639ad1092a02b908dfdd36ef85c8"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            6093,
+            323,
+            29956,
+            3919,
+            29059
+          ],
+          "teacher_forced_logits_sha256": "4f6ca9a8c81f477556cdcbd5a7c9839f021b779850ef37df3b127931062d81be",
+          "greedy_ids": [
+            1,
+            450,
+            10081,
+            269,
+            636,
+            2
+          ],
+          "greedy_text": "The twenty s.."
+        },
+        {
+          "clip": {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                65440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c3efc40f43f49369970a59c02d168cf458db911e18519e921276562dbd1cd60e"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                65440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "3039df0dfa6ae1e632dcd000d39508d8dafed99f779f6eb1fb3289ddb246d124"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            306,
+            14445,
+            6156,
+            438,
+            28483,
+            3352,
+            7495,
+            379,
+            6670,
+            29925,
+            612,
+            22970,
+            350,
+            1672,
+            29911,
+            4448,
+            7495,
+            382,
+            7187,
+            3301,
+            29923,
+            350,
+            2692,
+            17714,
+            399,
+            27269,
+            10249,
+            6058,
+            21947
+          ],
+          "teacher_forced_logits_sha256": "dfeaf4ff92a48102b215c55a70cf84cdd304e3b3e07fff4e47a8cefca18be7c1",
+          "greedy_ids": [
+            1,
+            306,
+            884,
+            12520,
+            304,
+            1371,
+            596,
+            8099,
+            304,
+            10169,
+            29892,
+            541,
+            540,
+            723,
+            451,
+            748,
+            29889,
+            2
+          ],
+          "greedy_text": "I also offered to help your brother to escape, but he would not go."
+        },
+        {
+          "clip": {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                92960
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2b6c790624a15b550e64d7268cc6fa5bd29a5ddd09ddfb545de2a08c079f10b4"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                92960
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8fec5d87028f740389364a7aa9c1af3e9ea550cd39fdbbed549a707797116690"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            319,
+            341,
+            1177,
+            26027,
+            8519,
+            6058,
+            319,
+            478,
+            24422,
+            365,
+            1718,
+            1692,
+            22986,
+            3289,
+            11499,
+            8079,
+            323,
+            8890,
+            5300,
+            379,
+            3235,
+            350,
+            13668,
+            29979,
+            14693,
+            29923,
+            2287,
+            29928,
+            382,
+            5348,
+            29979,
+            383,
+            4717,
+            9838,
+            8079,
+            13315
+          ],
+          "teacher_forced_logits_sha256": "a49616461117611e7c360dfba67fbabf8eb0ea95a6b89ef7f40c2b419cf3bd99",
+          "greedy_ids": [
+            1,
+            319,
+            11015,
+            338,
+            451,
+            263,
+            1407,
+            599,
+            15064,
+            293,
+            5645,
+            310,
+            931,
+            29892,
+            322,
+            670,
+            3573,
+            4312,
+            1432,
+            15958,
+            310,
+            372,
+            29889,
+            2
+          ],
+          "greedy_text": "A minute is not a very allergic measure of time, and his body needed every fraction of it."
+        },
+        {
+          "clip": {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                113600
+              ],
+              "dtype": "torch.float32",
+              "sha256": "39c0300ca38da3a5ba1feb242b23cd95476c506cd5c958ad63c0eabb1bdf0588"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                113600
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4783d7d40833775b033cdb650db016c8ccd55559a114f89cdd78576ad422d4c1"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            341,
+            9047,
+            1001,
+            660,
+            3120,
+            29931,
+            4945,
+            379,
+            3289,
+            341,
+            3235,
+            1660,
+            29928,
+            379,
+            3235,
+            5868,
+            23219,
+            15842,
+            17714,
+            379,
+            3289,
+            13515,
+            29902,
+            20566,
+            382,
+            29963,
+            1430,
+            7495,
+            14861,
+            6059,
+            379,
+            7833,
+            1660,
+            29931,
+            29943,
+            6093,
+            323,
+            4897,
+            13171,
+            8079,
+            17687,
+            10192,
+            4214
+          ],
+          "teacher_forced_logits_sha256": "ddc04353213d98ff8d1301269acb24c56226e059ff5dc27ccd181772f41b0fdb",
+          "greedy_ids": [
+            1,
+            3237,
+            29889,
+            751,
+            309,
+            357,
+            756,
+            13726,
+            670,
+            8825,
+            29892,
+            363,
+            540,
+            756,
+            5229,
+            1584,
+            304,
+            1207,
+            3654,
+            278,
+            5291,
+            2496,
+            310,
+            20413,
+            29889,
+            2
+          ],
+          "greedy_text": "Mr. Quilter has missed his chance, for he has failed even to make himself the tupper of painting."
+        },
+        {
+          "clip": {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                470400
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e2541b266cded4dba5b12fb2f9c1daed25cb3082ccbec932cff3c72da71e3b40"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                470400
+              ],
+              "dtype": "torch.int32",
+              "sha256": "62351320a8f1ed42d8184d006fee7520da1d54603e89fcd4e23cdfc0f1bc6e1a"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            21724,
+            8186,
+            2208,
+            29915,
+            29903,
+            349,
+            29902,
+            1783,
+            11499,
+            29903,
+            319,
+            1525,
+            319,
+            317,
+            8476,
+            8079,
+            11901,
+            402,
+            29965,
+            1718,
+            8452,
+            5300,
+            15531,
+            27295,
+            17687,
+            10192,
+            4214,
+            29903,
+            5300,
+            14861,
+            3094,
+            29915,
+            29903,
+            8528,
+            29984,
+            3120,
+            29903,
+            9094,
+            3553,
+            29979,
+            2208,
+            29903,
+            319,
+            1525,
+            3339,
+            405,
+            8098,
+            1964,
+            3339,
+            319,
+            435,
+            4214,
+            29949,
+            21521,
+            12665,
+            341,
+            9047,
+            1001,
+            350,
+            8193,
+            29968,
+            2544,
+            383,
+            3718,
+            1001,
+            29915,
+            29903,
+            365,
+            9468,
+            7187,
+            3301,
+            2890,
+            317,
+            10403,
+            1307,
+            15531,
+            6732,
+            29923,
+            341,
+            29965,
+            3210,
+            2672,
+            6093,
+            16698,
+            2303,
+            399,
+            29909,
+            29979,
+            3446,
+            1299,
+            341,
+            9047,
+            1001,
+            315,
+            1718,
+            29968,
+            1001,
+            501,
+            1660,
+            29928,
+            7495,
+            383,
+            29931,
+            24943,
+            379,
+            3235,
+            17067,
+            2544,
+            29950,
+            5300,
+            341,
+            9047,
+            1001,
+            435,
+            23170,
+            29940,
+            4810,
+            2208,
+            29902,
+            1001,
+            402,
+            5667,
+            2890,
+            379,
+            3235,
+            317,
+            1806,
+            4945,
+            319,
+            5868,
+            29923,
+            1001,
+            29943,
+            13309,
+            27146,
+            3301,
+            6732,
+            6093,
+            350,
+            11375,
+            20700,
+            5800,
+            1525,
+            17714,
+            16698,
+            21554,
+            22962,
+            319,
+            317,
+            15715,
+            3580,
+            29949,
+            29949,
+            1001,
+            2672,
+            319,
+            323,
+            4574,
+            29968,
+            3235,
+            29950,
+            350,
+            7534,
+            405,
+            12194,
+            341,
+            2190
+          ],
+          "teacher_forced_logits_sha256": "251a71483b1a27f52677b35af0b6d146bd20ee51159b4b7b7817efe4d55e29a7",
+          "greedy_ids": [
+            1,
+            4342,
+            1379,
+            29915,
+            14956,
+            526,
+            263,
+            2656,
+            310,
+            701,
+            29899,
+            2543,
+            3163,
+            322,
+            11783,
+            10675,
+            886,
+            29892,
+            322,
+            28095,
+            29915,
+            29879,
+            429,
+            7680,
+            568,
+            1178,
+            3775,
+            526,
+            408,
+            4797,
+            408,
+            263,
+            432,
+            20191,
+            26576,
+            29889,
+            3237,
+            29889,
+            6640,
+            446,
+            9926,
+            414,
+            2982,
+            1557,
+            11603,
+            29892,
+            1560,
+            6504,
+            472,
+            697,
+            1568,
+            297,
+            278,
+            1021,
+            982,
+            393,
+            3237,
+            29889,
+            1704,
+            2616,
+            1304,
+            304,
+            11013,
+            670,
+            25287,
+            29889,
+            1126,
+            3237,
+            29889,
+            2259,
+            1530,
+            4926,
+            4076,
+            670,
+            269,
+            5171,
+            263,
+            22794,
+            1319,
+            269,
+            6984,
+            297,
+            278,
+            1250,
+            29892,
+            1434,
+            540,
+            4083,
+            29892,
+            763,
+            263,
+            528,
+            314,
+            1129,
+            29877,
+            470,
+            385,
+            1098,
+            272,
+            29883,
+            4063,
+            27683,
+            29892,
+            2446,
+            767,
+            29892,
+            2
+          ],
+          "greedy_text": "Linels' pictures are a sort of up-guards and Adam paintings, and Mason's exquisite idols are as national as a jingo poem. Mr. Burke fosters landscapes, smiling at one much in the same way that Mr. Carcor used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampoo or an attorcaged bath, next man,"
+        }
+      ],
+      "candidate_observations": [
+        {
+          "clip": {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                26239
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a0a3ae1ea5878c213df639296e9f4c3fb8a4d6525fdd50a013cb87f515bb6a46"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                26239
+              ],
+              "dtype": "torch.int32",
+              "sha256": "09eb28db648f3eae80c710e4e94c17d3e8c1639ad1092a02b908dfdd36ef85c8"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            6093,
+            323,
+            29956,
+            3919,
+            29059
+          ],
+          "teacher_forced_logits_sha256": "395fece52ebe575a46401454aad789a1e3ab0dfbc8ed9b7877c733db2d18e98d",
+          "greedy_ids": [
+            1,
+            450,
+            10081,
+            269,
+            636,
+            2
+          ],
+          "greedy_text": "The twenty s.."
+        },
+        {
+          "clip": {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                65440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c3efc40f43f49369970a59c02d168cf458db911e18519e921276562dbd1cd60e"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                65440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "3039df0dfa6ae1e632dcd000d39508d8dafed99f779f6eb1fb3289ddb246d124"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            306,
+            14445,
+            6156,
+            438,
+            28483,
+            3352,
+            7495,
+            379,
+            6670,
+            29925,
+            612,
+            22970,
+            350,
+            1672,
+            29911,
+            4448,
+            7495,
+            382,
+            7187,
+            3301,
+            29923,
+            350,
+            2692,
+            17714,
+            399,
+            27269,
+            10249,
+            6058,
+            21947
+          ],
+          "teacher_forced_logits_sha256": "809787d71453dd71b1f35154286e65bfba66df3d72ae4202a389e212a165ceda",
+          "greedy_ids": [
+            1,
+            306,
+            884,
+            12520,
+            304,
+            1371,
+            596,
+            8099,
+            304,
+            10169,
+            29892,
+            541,
+            540,
+            723,
+            451,
+            748,
+            29889,
+            2
+          ],
+          "greedy_text": "I also offered to help your brother to escape, but he would not go."
+        },
+        {
+          "clip": {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                92960
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2b6c790624a15b550e64d7268cc6fa5bd29a5ddd09ddfb545de2a08c079f10b4"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                92960
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8fec5d87028f740389364a7aa9c1af3e9ea550cd39fdbbed549a707797116690"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            319,
+            341,
+            1177,
+            26027,
+            8519,
+            6058,
+            319,
+            478,
+            24422,
+            365,
+            1718,
+            1692,
+            22986,
+            3289,
+            11499,
+            8079,
+            323,
+            8890,
+            5300,
+            379,
+            3235,
+            350,
+            13668,
+            29979,
+            14693,
+            29923,
+            2287,
+            29928,
+            382,
+            5348,
+            29979,
+            383,
+            4717,
+            9838,
+            8079,
+            13315
+          ],
+          "teacher_forced_logits_sha256": "15948dcd1b3a804dd30b5b6e096d7acb9afc416e7ba5731b607eae8cfa76a258",
+          "greedy_ids": [
+            1,
+            319,
+            11015,
+            338,
+            451,
+            263,
+            1407,
+            599,
+            15064,
+            293,
+            5645,
+            310,
+            931,
+            29892,
+            322,
+            670,
+            3573,
+            4312,
+            1432,
+            15958,
+            310,
+            372,
+            29889,
+            2
+          ],
+          "greedy_text": "A minute is not a very allergic measure of time, and his body needed every fraction of it."
+        },
+        {
+          "clip": {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                113600
+              ],
+              "dtype": "torch.float32",
+              "sha256": "39c0300ca38da3a5ba1feb242b23cd95476c506cd5c958ad63c0eabb1bdf0588"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                113600
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4783d7d40833775b033cdb650db016c8ccd55559a114f89cdd78576ad422d4c1"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            341,
+            9047,
+            1001,
+            660,
+            3120,
+            29931,
+            4945,
+            379,
+            3289,
+            341,
+            3235,
+            1660,
+            29928,
+            379,
+            3235,
+            5868,
+            23219,
+            15842,
+            17714,
+            379,
+            3289,
+            13515,
+            29902,
+            20566,
+            382,
+            29963,
+            1430,
+            7495,
+            14861,
+            6059,
+            379,
+            7833,
+            1660,
+            29931,
+            29943,
+            6093,
+            323,
+            4897,
+            13171,
+            8079,
+            17687,
+            10192,
+            4214
+          ],
+          "teacher_forced_logits_sha256": "f02c07cb2f86ea662a9eb1d7c04a2bef722e4d7c3640cba2336947e57474b442",
+          "greedy_ids": [
+            1,
+            3237,
+            29889,
+            751,
+            309,
+            357,
+            756,
+            13726,
+            670,
+            8825,
+            29892,
+            363,
+            540,
+            756,
+            5229,
+            1584,
+            304,
+            1207,
+            3654,
+            278,
+            5291,
+            2496,
+            310,
+            20413,
+            29889,
+            2
+          ],
+          "greedy_text": "Mr. Quilter has missed his chance, for he has failed even to make himself the tupper of painting."
+        },
+        {
+          "clip": {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404"
+          },
+          "processor_outputs": {
+            "input_values": {
+              "shape": [
+                1,
+                470400
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e2541b266cded4dba5b12fb2f9c1daed25cb3082ccbec932cff3c72da71e3b40"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                470400
+              ],
+              "dtype": "torch.int32",
+              "sha256": "62351320a8f1ed42d8184d006fee7520da1d54603e89fcd4e23cdfc0f1bc6e1a"
+            }
+          },
+          "decoder_input_ids": [
+            1,
+            21724,
+            8186,
+            2208,
+            29915,
+            29903,
+            349,
+            29902,
+            1783,
+            11499,
+            29903,
+            319,
+            1525,
+            319,
+            317,
+            8476,
+            8079,
+            11901,
+            402,
+            29965,
+            1718,
+            8452,
+            5300,
+            15531,
+            27295,
+            17687,
+            10192,
+            4214,
+            29903,
+            5300,
+            14861,
+            3094,
+            29915,
+            29903,
+            8528,
+            29984,
+            3120,
+            29903,
+            9094,
+            3553,
+            29979,
+            2208,
+            29903,
+            319,
+            1525,
+            3339,
+            405,
+            8098,
+            1964,
+            3339,
+            319,
+            435,
+            4214,
+            29949,
+            21521,
+            12665,
+            341,
+            9047,
+            1001,
+            350,
+            8193,
+            29968,
+            2544,
+            383,
+            3718,
+            1001,
+            29915,
+            29903,
+            365,
+            9468,
+            7187,
+            3301,
+            2890,
+            317,
+            10403,
+            1307,
+            15531,
+            6732,
+            29923,
+            341,
+            29965,
+            3210,
+            2672,
+            6093,
+            16698,
+            2303,
+            399,
+            29909,
+            29979,
+            3446,
+            1299,
+            341,
+            9047,
+            1001,
+            315,
+            1718,
+            29968,
+            1001,
+            501,
+            1660,
+            29928,
+            7495,
+            383,
+            29931,
+            24943,
+            379,
+            3235,
+            17067,
+            2544,
+            29950,
+            5300,
+            341,
+            9047,
+            1001,
+            435,
+            23170,
+            29940,
+            4810,
+            2208,
+            29902,
+            1001,
+            402,
+            5667,
+            2890,
+            379,
+            3235,
+            317,
+            1806,
+            4945,
+            319,
+            5868,
+            29923,
+            1001,
+            29943,
+            13309,
+            27146,
+            3301,
+            6732,
+            6093,
+            350,
+            11375,
+            20700,
+            5800,
+            1525,
+            17714,
+            16698,
+            21554,
+            22962,
+            319,
+            317,
+            15715,
+            3580,
+            29949,
+            29949,
+            1001,
+            2672,
+            319,
+            323,
+            4574,
+            29968,
+            3235,
+            29950,
+            350,
+            7534,
+            405,
+            12194,
+            341,
+            2190
+          ],
+          "teacher_forced_logits_sha256": "6078c79b89262f7a935af48893fa70045d2275dad1fb05bfebe1a9cffbaa5c35",
+          "greedy_ids": [
+            1,
+            4342,
+            1379,
+            29915,
+            14956,
+            526,
+            263,
+            2656,
+            310,
+            701,
+            29899,
+            2543,
+            3163,
+            322,
+            11783,
+            10675,
+            886,
+            29892,
+            322,
+            28095,
+            29915,
+            29879,
+            429,
+            7680,
+            568,
+            1178,
+            3775,
+            526,
+            408,
+            4797,
+            408,
+            263,
+            432,
+            20191,
+            26576,
+            29889,
+            3237,
+            29889,
+            6640,
+            446,
+            9926,
+            414,
+            2982,
+            1557,
+            11603,
+            29892,
+            1560,
+            6504,
+            472,
+            697,
+            1568,
+            297,
+            278,
+            1021,
+            982,
+            393,
+            3237,
+            29889,
+            1704,
+            2616,
+            1304,
+            304,
+            11013,
+            670,
+            25287,
+            29889,
+            1126,
+            3237,
+            29889,
+            2259,
+            1530,
+            4926,
+            4076,
+            670,
+            269,
+            5171,
+            263,
+            22794,
+            1319,
+            269,
+            6984,
+            297,
+            278,
+            1250,
+            29892,
+            1434,
+            540,
+            4083,
+            29892,
+            763,
+            263,
+            528,
+            314,
+            1129,
+            29877,
+            470,
+            385,
+            1098,
+            272,
+            29883,
+            4063,
+            27683,
+            29892,
+            2446,
+            767,
+            29892,
+            2
+          ],
+          "greedy_text": "Linels' pictures are a sort of up-guards and Adam paintings, and Mason's exquisite idols are as national as a jingo poem. Mr. Burke fosters landscapes, smiling at one much in the same way that Mr. Carcor used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampoo or an attorcaged bath, next man,"
+        }
+      ],
+      "source_free_replay": {
+        "original_source_path_absent": true,
+        "observations_replayed": 253,
+        "new_observations": 0,
+        "files_matching_sha256": 7
+      }
+    },
+    {
+      "schema_version": 1,
+      "model_id": "facebook/s2t-small-librispeech-asr",
+      "revision": "256e91a603c013ae09aa1e4c09cfc3f8acdf8d19",
+      "dataset_revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+      "dataset_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "dtype": "float32"
+      },
+      "max_new_tokens": 128,
+      "reference_sha256": {
+        "config.json": "908bc8e3f28d83ed24ffd1fd83fb113d18b388820699f1b08318b62d0729dd77",
+        "generation_config.json": "aed76366507333ddbb8bd49960f23c82fe6446b3319a46a54befdb45324ccf61",
+        "model.safetensors": "7d2b5fd0d9072cf00d3599363653a91f725d24e50a6b9ece8e4cb0837ba1969f",
+        "preprocessor_config.json": "6cd3ccc0cd0741e4e9fcdbb11ad634ff6b773710e9dfdb6d7a0e09a755a12836",
+        "sentencepiece.bpe.model": "052a168787a9160b4b2ba54e4995e9600298812c34191ca3f70cea51cd4f5c1e",
+        "special_tokens_map.json": "bb7068de1150661a10b55f9e4b12a0e77af8bf91f5e45e1b58afaf1d0e17f675",
+        "tokenizer_config.json": "81db5f6f936011645eec56e0656748b95ef993c031dfa7230efd7a990bbe4b3b",
+        "vocab.json": "d101b11eba9f37e488b6f41a48b3bdac8a6112e8bac86ea4b437a40dd344ccf1"
+      },
+      "candidate_sha256": {
+        "config.json": "e0ff5f5faaba350d07f2fec0e9382ce4f841311ddacc609f478cdc1295950fc8",
+        "generation_config.json": "8a2b290f1d6ec327beb25e842921ac203bc20e7cb386cfd2f24a582a0ace5e0a",
+        "model.safetensors": "63dc6fbd8b9f3eadabae585f1a9e6b473a85486acc635c05f607690d43fb0050",
+        "preprocessor_config.json": "6cd3ccc0cd0741e4e9fcdbb11ad634ff6b773710e9dfdb6d7a0e09a755a12836",
+        "sentencepiece.bpe.model": "052a168787a9160b4b2ba54e4995e9600298812c34191ca3f70cea51cd4f5c1e",
+        "special_tokens_map.json": "9046da57c270c8e74d0f38832b4adce269c9d914ef21d2a0925e7772152dd793",
+        "tokenizer_config.json": "53fe78b848035eb933fafb574ac7d9d40588dced9562795462207ff4ca01b23e",
+        "vocab.json": "d101b11eba9f37e488b6f41a48b3bdac8a6112e8bac86ea4b437a40dd344ccf1"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 179,
+        "unique_parameter_elements_recovered": 29536256,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 29536256,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 434,
+        "probe_input_rows": 79230,
+        "observed_output_scalars": 32979968,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 434,
+        "model_type": "speech_to_text",
+        "architecture": "Speech2TextForConditionalGeneration",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "staged",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "audio_feature_extractor_exported": true,
+        "oracle_staged_groups": 179,
+        "oracle_peak_staged_state_bytes": 20480000,
+        "oracle_host_layer_calls": 0
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 357,
+        "candidate_tensors": 357,
+        "compared_tensors": 357,
+        "reference_elements": 29536256,
+        "candidate_elements": 29536256,
+        "compared_elements": 29536256,
+        "coverage": 1.0,
+        "exactly_equal_elements": 29528451,
+        "fraction_exactly_equal": 0.9997357484983879,
+        "within_tolerance_elements": 29536256,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 9.354056907586736e-18,
+        "zero_filled_relative_l2": 9.354056907586736e-18,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.decoder.embed_tokens.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.4.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.5.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv.conv_layers.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv.conv_layers.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv.conv_layers.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv.conv_layers.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.k_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "clips": 5,
+        "exact_processor_outputs": 5,
+        "exact_greedy_generations": 5,
+        "teacher_forced_positions": 164,
+        "teacher_forced_top_1_matches": 164,
+        "teacher_forced_logit_coordinates": 1640000,
+        "teacher_forced_exact_logit_coordinates": 1640000,
+        "teacher_forced_max_abs_error": 0.0,
+        "teacher_forced_rmse": 0.0
+      },
+      "reference_observations": [
+        {
+          "clip": {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                162,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "851f79b38081faf321809c9bd828df130abf52e5c21c42b2483eeba9d497ab4e"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                162
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1753fc89f23aa52a53533a75db036872c81bbabb43e240d5b657da959cd826b1"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            4,
+            404,
+            515,
+            959,
+            141
+          ],
+          "teacher_forced_logits_sha256": "621e578121f9cfe44bdc3c6db4f47e5711ada584d11e25930c5ae54e4d5434eb",
+          "greedy_ids": [
+            2,
+            4,
+            404,
+            515,
+            959,
+            141,
+            2
+          ],
+          "greedy_text": "the twenties"
+        },
+        {
+          "clip": {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                407,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8c086a2fc772caa858e3112c0e4b240c4af1d1e6a16bf154d8a4a6baf49f3cb8"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                407
+              ],
+              "dtype": "torch.int32",
+              "sha256": "89a7c2834e0ce06938a776a5c114e6aa561da2f8976bc9aaa07ff791e9e16c5d"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            12,
+            89,
+            278,
+            698,
+            7,
+            9,
+            359,
+            75,
+            483,
+            9,
+            939,
+            31,
+            13,
+            62,
+            32,
+            110
+          ],
+          "teacher_forced_logits_sha256": "ed5b2ae40dc7ce88652a8fcd6e277801b7245183bb924185bfade548db74051a",
+          "greedy_ids": [
+            2,
+            12,
+            89,
+            278,
+            698,
+            7,
+            9,
+            359,
+            75,
+            483,
+            9,
+            939,
+            31,
+            13,
+            62,
+            32,
+            110,
+            2
+          ],
+          "greedy_text": "i also offered to help your brother to escape but he would not go"
+        },
+        {
+          "clip": {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                579,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "36abbd35e12cf704ec629ae5bc6d9b3109917975618e9122a30b02b94a52fedb"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                579
+              ],
+              "dtype": "torch.int32",
+              "sha256": "6d45e13b84ef6d89861db85a815a5c2eacbe9307d2d7f9b1d2194cf52cda63d5"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            10,
+            972,
+            30,
+            32,
+            10,
+            80,
+            324,
+            1116,
+            8,
+            84,
+            6,
+            20,
+            431,
+            450,
+            7,
+            163,
+            9427,
+            8,
+            16
+          ],
+          "teacher_forced_logits_sha256": "96cbe40ccbc06740c55c9cdc92a6d87918776346b6545818341e859c61fa7b64",
+          "greedy_ids": [
+            2,
+            10,
+            972,
+            30,
+            32,
+            10,
+            80,
+            324,
+            1116,
+            8,
+            84,
+            6,
+            20,
+            431,
+            450,
+            7,
+            163,
+            9427,
+            8,
+            16,
+            2
+          ],
+          "greedy_text": "a minute is not a very large measure of time and his body needed every fraction of it"
+        },
+        {
+          "clip": {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                708,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "aa581069d63a399d75aa7937b1dc564b8b28c14950f0e0ffc40f18d2d03457c7"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                708
+              ],
+              "dtype": "torch.int32",
+              "sha256": "0b5cbeebaa195b89dae3576d2b02cdeff1620c8e667218b7f58dbbbf5aa4f026"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            129,
+            8053,
+            66,
+            95,
+            260,
+            7,
+            20,
+            648,
+            24,
+            13,
+            95,
+            872,
+            7,
+            152,
+            9,
+            153,
+            137,
+            4,
+            2615,
+            1123,
+            66,
+            8,
+            3920
+          ],
+          "teacher_forced_logits_sha256": "a1e0183fd96fb5a8c350c2a5ab74668027fc333780c263819344e51bd3a095a3",
+          "greedy_ids": [
+            2,
+            129,
+            5599,
+            36,
+            66,
+            95,
+            260,
+            7,
+            20,
+            648,
+            24,
+            13,
+            95,
+            872,
+            7,
+            152,
+            9,
+            153,
+            137,
+            4,
+            9,
+            1123,
+            66,
+            8,
+            3920,
+            2
+          ],
+          "greedy_text": "mister kilder has missed his chance for he has failed even to make himself the topper of painting"
+        },
+        {
+          "clip": {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                2938,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3df6dd237da3abddc11f47f1a2bbde3d7a5b1e284721b0e7bb7381b2a50761cc"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                2938
+              ],
+              "dtype": "torch.int32",
+              "sha256": "c3b4d989f3348c468e8742f1b99d99ec20e9088f79e28f9f73308f2fe48a5268"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            1201,
+            53,
+            53,
+            1878,
+            19,
+            5,
+            2571,
+            60,
+            10,
+            478,
+            8,
+            70,
+            3251,
+            6,
+            37,
+            930,
+            3920,
+            5,
+            6,
+            6448,
+            19,
+            5,
+            3873,
+            12,
+            36,
+            25,
+            156,
+            5,
+            60,
+            29,
+            2368,
+            29,
+            10,
+            3043,
+            18,
+            256,
+            2977,
+            129,
+            2961,
+            111,
+            1254,
+            35,
+            5751,
+            19,
+            5,
+            4150,
+            5,
+            452,
+            37,
+            50,
+            126,
+            11,
+            4,
+            191,
+            131,
+            14,
+            129,
+            668,
+            2741,
+            511,
+            9,
+            1573,
+            20,
+            1731,
+            6,
+            129,
+            601,
+            2662,
+            4742,
+            144,
+            5,
+            20,
+            830,
+            649,
+            10,
+            1805,
+            8345,
+            23,
+            4,
+            134,
+            106,
+            13,
+            558,
+            81,
+            10,
+            6345,
+            1171,
+            256,
+            66,
+            11,
+            10,
+            4626,
+            583,
+            1723,
+            341,
+            72
+          ],
+          "teacher_forced_logits_sha256": "05de5062c82d1c4f19d3f5403b6b37e49106434644adea1af8acdb0bd644a7a6",
+          "greedy_ids": [
+            2,
+            1086,
+            1333,
+            156,
+            19,
+            5,
+            2571,
+            60,
+            10,
+            478,
+            8,
+            70,
+            3251,
+            6,
+            1855,
+            3920,
+            5,
+            6,
+            6448,
+            19,
+            5,
+            3873,
+            16,
+            207,
+            5,
+            60,
+            29,
+            2368,
+            29,
+            10,
+            3043,
+            18,
+            256,
+            2977,
+            129,
+            2901,
+            34,
+            35,
+            5751,
+            5,
+            4150,
+            5,
+            452,
+            37,
+            50,
+            126,
+            11,
+            4,
+            191,
+            131,
+            14,
+            129,
+            5544,
+            511,
+            9,
+            1573,
+            20,
+            1731,
+            6,
+            129,
+            601,
+            178,
+            4742,
+            144,
+            5,
+            20,
+            830,
+            649,
+            10,
+            1805,
+            8345,
+            6,
+            10,
+            3776,
+            281,
+            298,
+            10,
+            3776,
+            281,
+            298,
+            8,
+            3776,
+            281,
+            5,
+            5,
+            81,
+            10,
+            2864,
+            25,
+            5,
+            6,
+            129,
+            601,
+            679,
+            156,
+            34,
+            25,
+            66,
+            144,
+            5,
+            20,
+            739,
+            2
+          ],
+          "greedy_text": "lenill's pictures are a sort of up guards and adam paintings and mason's exquisite itals are as national as a jingo poem mister brooket fosters landscapes smile at one much in the same way that mister parker used to flash his teeth and mister john calllier gives his sitter a cheerful slap and a schleg a schleg of schless like a shays and mister john colleyer gives his hat"
+        }
+      ],
+      "candidate_observations": [
+        {
+          "clip": {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                162,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "851f79b38081faf321809c9bd828df130abf52e5c21c42b2483eeba9d497ab4e"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                162
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1753fc89f23aa52a53533a75db036872c81bbabb43e240d5b657da959cd826b1"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            4,
+            404,
+            515,
+            959,
+            141
+          ],
+          "teacher_forced_logits_sha256": "621e578121f9cfe44bdc3c6db4f47e5711ada584d11e25930c5ae54e4d5434eb",
+          "greedy_ids": [
+            2,
+            4,
+            404,
+            515,
+            959,
+            141,
+            2
+          ],
+          "greedy_text": "the twenties"
+        },
+        {
+          "clip": {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                407,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8c086a2fc772caa858e3112c0e4b240c4af1d1e6a16bf154d8a4a6baf49f3cb8"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                407
+              ],
+              "dtype": "torch.int32",
+              "sha256": "89a7c2834e0ce06938a776a5c114e6aa561da2f8976bc9aaa07ff791e9e16c5d"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            12,
+            89,
+            278,
+            698,
+            7,
+            9,
+            359,
+            75,
+            483,
+            9,
+            939,
+            31,
+            13,
+            62,
+            32,
+            110
+          ],
+          "teacher_forced_logits_sha256": "ed5b2ae40dc7ce88652a8fcd6e277801b7245183bb924185bfade548db74051a",
+          "greedy_ids": [
+            2,
+            12,
+            89,
+            278,
+            698,
+            7,
+            9,
+            359,
+            75,
+            483,
+            9,
+            939,
+            31,
+            13,
+            62,
+            32,
+            110,
+            2
+          ],
+          "greedy_text": "i also offered to help your brother to escape but he would not go"
+        },
+        {
+          "clip": {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                579,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "36abbd35e12cf704ec629ae5bc6d9b3109917975618e9122a30b02b94a52fedb"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                579
+              ],
+              "dtype": "torch.int32",
+              "sha256": "6d45e13b84ef6d89861db85a815a5c2eacbe9307d2d7f9b1d2194cf52cda63d5"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            10,
+            972,
+            30,
+            32,
+            10,
+            80,
+            324,
+            1116,
+            8,
+            84,
+            6,
+            20,
+            431,
+            450,
+            7,
+            163,
+            9427,
+            8,
+            16
+          ],
+          "teacher_forced_logits_sha256": "96cbe40ccbc06740c55c9cdc92a6d87918776346b6545818341e859c61fa7b64",
+          "greedy_ids": [
+            2,
+            10,
+            972,
+            30,
+            32,
+            10,
+            80,
+            324,
+            1116,
+            8,
+            84,
+            6,
+            20,
+            431,
+            450,
+            7,
+            163,
+            9427,
+            8,
+            16,
+            2
+          ],
+          "greedy_text": "a minute is not a very large measure of time and his body needed every fraction of it"
+        },
+        {
+          "clip": {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                708,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "aa581069d63a399d75aa7937b1dc564b8b28c14950f0e0ffc40f18d2d03457c7"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                708
+              ],
+              "dtype": "torch.int32",
+              "sha256": "0b5cbeebaa195b89dae3576d2b02cdeff1620c8e667218b7f58dbbbf5aa4f026"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            129,
+            8053,
+            66,
+            95,
+            260,
+            7,
+            20,
+            648,
+            24,
+            13,
+            95,
+            872,
+            7,
+            152,
+            9,
+            153,
+            137,
+            4,
+            2615,
+            1123,
+            66,
+            8,
+            3920
+          ],
+          "teacher_forced_logits_sha256": "a1e0183fd96fb5a8c350c2a5ab74668027fc333780c263819344e51bd3a095a3",
+          "greedy_ids": [
+            2,
+            129,
+            5599,
+            36,
+            66,
+            95,
+            260,
+            7,
+            20,
+            648,
+            24,
+            13,
+            95,
+            872,
+            7,
+            152,
+            9,
+            153,
+            137,
+            4,
+            9,
+            1123,
+            66,
+            8,
+            3920,
+            2
+          ],
+          "greedy_text": "mister kilder has missed his chance for he has failed even to make himself the topper of painting"
+        },
+        {
+          "clip": {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404"
+          },
+          "processor_outputs": {
+            "input_features": {
+              "shape": [
+                1,
+                2938,
+                80
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3df6dd237da3abddc11f47f1a2bbde3d7a5b1e284721b0e7bb7381b2a50761cc"
+            },
+            "attention_mask": {
+              "shape": [
+                1,
+                2938
+              ],
+              "dtype": "torch.int32",
+              "sha256": "c3b4d989f3348c468e8742f1b99d99ec20e9088f79e28f9f73308f2fe48a5268"
+            }
+          },
+          "decoder_input_ids": [
+            2,
+            1201,
+            53,
+            53,
+            1878,
+            19,
+            5,
+            2571,
+            60,
+            10,
+            478,
+            8,
+            70,
+            3251,
+            6,
+            37,
+            930,
+            3920,
+            5,
+            6,
+            6448,
+            19,
+            5,
+            3873,
+            12,
+            36,
+            25,
+            156,
+            5,
+            60,
+            29,
+            2368,
+            29,
+            10,
+            3043,
+            18,
+            256,
+            2977,
+            129,
+            2961,
+            111,
+            1254,
+            35,
+            5751,
+            19,
+            5,
+            4150,
+            5,
+            452,
+            37,
+            50,
+            126,
+            11,
+            4,
+            191,
+            131,
+            14,
+            129,
+            668,
+            2741,
+            511,
+            9,
+            1573,
+            20,
+            1731,
+            6,
+            129,
+            601,
+            2662,
+            4742,
+            144,
+            5,
+            20,
+            830,
+            649,
+            10,
+            1805,
+            8345,
+            23,
+            4,
+            134,
+            106,
+            13,
+            558,
+            81,
+            10,
+            6345,
+            1171,
+            256,
+            66,
+            11,
+            10,
+            4626,
+            583,
+            1723,
+            341,
+            72
+          ],
+          "teacher_forced_logits_sha256": "05de5062c82d1c4f19d3f5403b6b37e49106434644adea1af8acdb0bd644a7a6",
+          "greedy_ids": [
+            2,
+            1086,
+            1333,
+            156,
+            19,
+            5,
+            2571,
+            60,
+            10,
+            478,
+            8,
+            70,
+            3251,
+            6,
+            1855,
+            3920,
+            5,
+            6,
+            6448,
+            19,
+            5,
+            3873,
+            16,
+            207,
+            5,
+            60,
+            29,
+            2368,
+            29,
+            10,
+            3043,
+            18,
+            256,
+            2977,
+            129,
+            2901,
+            34,
+            35,
+            5751,
+            5,
+            4150,
+            5,
+            452,
+            37,
+            50,
+            126,
+            11,
+            4,
+            191,
+            131,
+            14,
+            129,
+            5544,
+            511,
+            9,
+            1573,
+            20,
+            1731,
+            6,
+            129,
+            601,
+            178,
+            4742,
+            144,
+            5,
+            20,
+            830,
+            649,
+            10,
+            1805,
+            8345,
+            6,
+            10,
+            3776,
+            281,
+            298,
+            10,
+            3776,
+            281,
+            298,
+            8,
+            3776,
+            281,
+            5,
+            5,
+            81,
+            10,
+            2864,
+            25,
+            5,
+            6,
+            129,
+            601,
+            679,
+            156,
+            34,
+            25,
+            66,
+            144,
+            5,
+            20,
+            739,
+            2
+          ],
+          "greedy_text": "lenill's pictures are a sort of up guards and adam paintings and mason's exquisite itals are as national as a jingo poem mister brooket fosters landscapes smile at one much in the same way that mister parker used to flash his teeth and mister john calllier gives his sitter a cheerful slap and a schleg a schleg of schless like a shays and mister john colleyer gives his hat"
+        }
+      ],
+      "source_free_replay": {
+        "original_source_path_absent": true,
+        "observations_replayed": 434,
+        "new_observations": 0,
+        "files_matching_sha256": 8
+      }
+    }
+  ]
+}

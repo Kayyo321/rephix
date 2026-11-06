@@ -3,12 +3,26 @@
 from __future__ import annotations
 
 import copy
+import json
 import os
 import shutil
 import tempfile
 from contextlib import nullcontext
 from pathlib import Path
 
+from .convnext_recovery import (
+    CONVNEXT_GRN,
+    CONVNEXT_LAYER_NORMS,
+    CONVNEXT_LAYER_SCALE,
+    observe_convnext_grn_scale,
+    observe_convnext_scale,
+    recover_convnext_grn,
+    recover_convnext_norm,
+    recover_convnext_scale,
+    validate_convnext_grn,
+    validate_convnext_norm,
+    validate_convnext_scale,
+)
 from .dbrx_experts import (
     DBRX_EXPERT_GLU,
     observe_dbrx_experts,
@@ -45,6 +59,7 @@ from .gptoss_recovery import (
     recover_gptoss_operator,
     validate_gptoss_operator,
 )
+from .group_norm import recover_group_norm, validate_group_norm
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .layer_staging import LayerStager
@@ -76,6 +91,7 @@ _DIRECT_HF_RMS_NORMS = {
     "transformers.models.glm4_moe.modeling_glm4_moe.Glm4MoeRMSNorm",
     "transformers.models.idefics3.modeling_idefics3.Idefics3RMSNorm",
     "transformers.models.jamba.modeling_jamba.JambaRMSNorm",
+    "transformers.models.lfm2.modeling_lfm2.Lfm2RMSNorm",
     "transformers.models.mamba.modeling_mamba.MambaRMSNorm",
     "transformers.models.mt5.modeling_mt5.MT5LayerNorm",
     "transformers.models.olmoe.modeling_olmoe.OlmoeRMSNorm",
@@ -102,6 +118,8 @@ _VISION_EMBEDDINGS = {
 _VISION_LANGUAGE_TYPES = {
     "gemma3",
     "idefics3",
+    "lfm2-vl",
+    "lfm2_vl",
     "llava",
     "llava_next",
     "llava_next_video",
@@ -163,6 +181,15 @@ def _operator(torch, module, *, direct):
         return "llava_image_newline"
     if direct and qualified_name == GEMMA3_PROJECTOR:
         return "gemma3_projector"
+    if direct and qualified_name in CONVNEXT_LAYER_NORMS:
+        return "convnext_norm"
+    if direct and qualified_name == CONVNEXT_LAYER_SCALE:
+        return "convnext_layer_scale"
+    if direct and qualified_name == CONVNEXT_GRN:
+        return "convnext_grn"
+    if direct and cls is torch.nn.GroupNorm:
+        validate_group_norm(module)
+        return "group_norm"
     if direct and cls is torch.nn.Conv1d:
         from .convolution import validate_conv1d
 
@@ -275,6 +302,15 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = pending.keys()
         elif kind == "gemma3_projector":
             validate_gemma3_projector(module, pending)
+            allowed = pending.keys()
+        elif kind == "convnext_norm":
+            validate_convnext_norm(module, pending)
+            allowed = pending.keys()
+        elif kind == "convnext_layer_scale":
+            validate_convnext_scale(module, pending)
+            allowed = pending.keys()
+        elif kind == "convnext_grn":
+            validate_convnext_grn(module, pending)
             allowed = pending.keys()
         elif kind in {"grouped_expert_bank", "grouped_expert_bias"}:
             validate_grouped_experts(module, pending, kind)
@@ -430,6 +466,8 @@ def recover_from_layer_calls(
     The :clip_class probe exposes the CLIP class vector before adding its
     positional embedding. Gemma 3 projectors take chosen normalized features.
     The :image_newline probe exposes the token appended by LLaVA image packing.
+    ConvNeXT :layer_scale probes use unit pre-scale features and a zero
+    residual. :grn_scale exposes the weighted response before bias and residual.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -563,6 +601,14 @@ def recover_from_layer_calls(
                 recover_llava_image_newline(module, pending, read)
             elif kind == "gemma3_projector":
                 recover_gemma3_projector(torch, module, read, batch_size)
+            elif kind == "convnext_norm":
+                recover_convnext_norm(torch, module, pending, read)
+            elif kind == "convnext_layer_scale":
+                recover_convnext_scale(torch, module, pending, read)
+            elif kind == "convnext_grn":
+                recover_convnext_grn(torch, module, pending, read)
+            elif kind == "group_norm":
+                recover_group_norm(torch, module, pending, read)
             elif kind == "gemma_rms_norm":
                 ambiguous = recover_gemma_rms(torch, module, read)
                 if ambiguous:
@@ -620,8 +666,8 @@ def _observe_bart_logits_bias(torch, model, token):
 
 
 def _model_wrapper(config, causal, architecture=None):
-    is_vision = config.model_type in {"vit", "deit"}
-    is_speech = config.model_type == "whisper"
+    is_vision = config.model_type in {"convnext", "convnextv2", "deit", "vit"}
+    is_speech = config.model_type in {"moonshine", "speech_to_text", "whisper"}
     is_encoder = (
         config.model_type in ENCODER_MODEL_TYPES
         and not config.is_decoder
@@ -703,6 +749,8 @@ def _save_export_assets(tokenizer_class, config, source, destination, *, vision,
     if vision:
         return
     tokenizer_options = {}
+    if config.model_type == "speech_to_text":
+        tokenizer_options["use_fast"] = False
     if (
         config.model_type in {"t5", "mt5", "umt5"}
         and (source / "spiece.model").is_file()
@@ -725,11 +773,22 @@ def _save_export_assets(tokenizer_class, config, source, destination, *, vision,
             shutil.copyfile(vocab, destination / vocab.name)
 
 
+def _normalize_config_model_type(config, destination):
+    if config.model_type in {"lfm2-vl", "lfm2_vl"}:
+        # Transformers 4.57 serializes the class spelling, while AutoConfig
+        # looks up the registry spelling used by the published checkpoint.
+        path = destination / "config.json"
+        values = json.loads(path.read_text(encoding="utf-8"))
+        values["model_type"] = "lfm2_vl"
+        write_json(path, values)
+
+
 def _publish_checkpoint(candidate, output, report, write_assets):
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
         staged = Path(temporary) / "checkpoint"
         candidate.save_pretrained(staged, safe_serialization=True)
+        _normalize_config_model_type(candidate.config, staged)
         if write_assets is not None:
             write_assets(staged)
         write_json(staged / "layer-recovery.json", report)
@@ -876,6 +935,7 @@ def export_recovered_model(
             scaffold = copy.deepcopy(target.config)
             scaffold.architectures = [type(target).__name__]
             scaffold.save_pretrained(destination)
+            _normalize_config_model_type(scaffold, destination)
             if getattr(target, "generation_config", None) is not None:
                 target.generation_config.save_pretrained(destination)
             if include_tokenizer:
@@ -945,6 +1005,10 @@ def export_recovered_model(
             return observe_clip_class_embedding(torch, module, inputs.to(device))
         if name == GEMMA3_PROJECTOR:
             return observe_gemma3_projector(module, inputs.to(device))
+        if name == CONVNEXT_LAYER_SCALE:
+            return observe_convnext_scale(module, inputs.to(device))
+        if name == CONVNEXT_GRN and operation == "grn_scale":
+            return observe_convnext_grn_scale(module, inputs.to(device))
         if name in ROUTER_MODULES:
             return observe_router(torch, module, inputs.to(device), operation)
         if name in GROUPED_EXPERT_BANKS or name in GROUPED_EXPERT_BIASES:

@@ -5,6 +5,7 @@ import json
 import platform
 import tempfile
 import time
+from inspect import signature
 from pathlib import Path
 
 from rephix.io import file_sha256, write_json
@@ -16,12 +17,15 @@ def _pair(value):
 
 
 def _scores(torch, model, pixels, *, interpolated):
+    options = {}
+    if "interpolate_pos_encoding" in signature(model.forward).parameters:
+        options["interpolate_pos_encoding"] = interpolated
     with torch.inference_mode():
         return torch.cat(
             [
                 model(
                     pixel_values=batch.to(device=model.device, dtype=model.dtype),
-                    interpolate_pos_encoding=interpolated,
+                    **options,
                 )
                 .logits.cpu()
                 .double()
@@ -58,6 +62,7 @@ def evaluate(args):
     fit = json.loads((args.candidate / "layer-recovery.json").read_text(encoding="utf-8"))
     fit.pop("source")
     fit.pop("checkpoint")
+    fit.pop("evidence_dir", None)
     dtype = getattr(torch, fit["oracle_dtype"].removeprefix("torch."))
     opts = {"local_files_only": True, "trust_remote_code": False}
 
@@ -72,15 +77,20 @@ def evaluate(args):
 
     reference, candidate = load(args.reference), load(args.candidate)
     raw_audit = _audit(args.reference, args.candidate)
-    height, width = _pair(reference.config.image_size)
-    patch_h, patch_w = _pair(reference.config.patch_size)
+    height, width = _pair(getattr(reference.config, "image_size", 224))
+    patch_h, patch_w = _pair(getattr(reference.config, "patch_size", 4))
+    resized_label = (
+        "interpolated_synthetic"
+        if "interpolate_pos_encoding" in signature(reference.forward).parameters
+        else "rectangular_synthetic"
+    )
     rng = torch.Generator(device="cpu").manual_seed(7115)
     inputs = {
         "native_synthetic": (
             torch.randn((8, reference.config.num_channels, height, width), generator=rng),
             False,
         ),
-        "interpolated_synthetic": (
+        resized_label: (
             torch.randn(
                 (8, reference.config.num_channels, height + 2 * patch_h, width + patch_w),
                 generator=rng,

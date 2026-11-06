@@ -1,0 +1,2886 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "facebook/convnext-tiny-224",
+      "revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+      "reference_sha256": {
+        "config.json": "441f982e839a9ea96df7c1678422dc4e65cd5632731a6957f6aa03728195423d",
+        "model.safetensors": "cccd7740d4b807d0442d17a08c0e36ddc1911aa27625b94b65b5a3cc76c94414",
+        "preprocessor_config.json": "fd575b890da5a949493e1d1e7a70bfcb9e4b99fe444004d2dbfa253add254741"
+      },
+      "candidate_sha256": {
+        "config.json": "7ab256b234d811c834a89da32acfe495053e5f5991e1a0761f8451b60925c94d",
+        "layer-recovery.json": "442630c56d8b06315ba00d440b06b310273632335a1fa37bbfaae436314c2768",
+        "model.safetensors": "d0a61b34900295ec2aa892f946f1b0b7d70147b859d3fd1092894e0c4048721c",
+        "preprocessor_config.json": "fd575b890da5a949493e1d1e7a70bfcb9e4b99fe444004d2dbfa253add254741"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "gpu": null
+      },
+      "real_images_sha256": {
+        "grace_hopper.jpg": "a8ca6d734765703b09728ab47fe59f473d93ae3967fc24c7c0288c3c7adb7130"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 100,
+        "unique_parameter_elements_recovered": 28589128,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 28589128,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 225,
+        "probe_input_rows": 37629,
+        "observed_output_scalars": 44486728,
+        "probe_batch_size": 512,
+        "model_type": "convnext",
+        "architecture": "ConvNextForImageClassification",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 225
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 182,
+        "candidate_tensors": 182,
+        "compared_tensors": 182,
+        "reference_elements": 28589128,
+        "candidate_elements": 28589128,
+        "compared_elements": 28589128,
+        "coverage": 1.0,
+        "exactly_equal_elements": 28589098,
+        "fraction_exactly_equal": 0.9999989506500513,
+        "within_tolerance_elements": 28589128,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 8.270233092058503e-19,
+        "zero_filled_relative_l2": 8.270233092058503e-19,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.patch_embeddings.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.patch_embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 182,
+        "candidate_tensors": 182,
+        "compared_tensors": 182,
+        "reference_elements": 28589128,
+        "candidate_elements": 28589128,
+        "compared_elements": 28589128,
+        "coverage": 1.0,
+        "exactly_equal_elements": 28589098,
+        "fraction_exactly_equal": 0.9999989506500513,
+        "within_tolerance_elements": 28589128,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 8.270233092058503e-19,
+        "zero_filled_relative_l2": 8.270233092058503e-19,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.patch_embeddings.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.embeddings.patch_embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.0.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.1.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.3.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.4.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.5.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.6.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.7.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.2.layers.8.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layer_scale_parameter": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.encoder.stages.3.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnext.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.717266276112527e-16,
+          "logit_max_abs_error": 1.2212453270876722e-15,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 2.7033900084616253e-16,
+          "logit_max_abs_error": 1.4432899320127035e-15,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 6.409319615569595e-16,
+          "logit_max_abs_error": 3.552713678800501e-15,
+          "top1_matches": 1
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "evaluation_seconds": 7.770216770000843,
+      "original_checkpoint_conversion": {
+        "method": "torch.load with weights_only=True followed by a name-preserving safetensors save",
+        "pytorch_model_bin_sha256": "1fe15b2eba9e355de14c4e244e6365bf61ffef84da7d3442c0afbb2d8564f477",
+        "model_safetensors_sha256": "cccd7740d4b807d0442d17a08c0e36ddc1911aa27625b94b65b5a3cc76c94414",
+        "exact_roundtrip_tensors": 182,
+        "exact_roundtrip_values": 28589128
+      }
+    },
+    {
+      "schema_version": 1,
+      "model_id": "facebook/convnextv2-atto-1k-224",
+      "revision": "c7eab08296c3bca2631738322afc3d05373acc8f",
+      "reference_sha256": {
+        "config.json": "bd98c1c12ba585af264395c1938e94f1fa4abda1cb362d33fa529e81b583a2d2",
+        "model.safetensors": "88cf5d270e9a5f1ab51748fe2a2ca3239cf6f3797ff5431391dcc09a4377d009",
+        "preprocessor_config.json": "9ef34d18dbf7909143a91f05ad23457180fcfed05034bf94843f300e32a9b968"
+      },
+      "candidate_sha256": {
+        "config.json": "106a50f3f3f79a30d828774c0426f1287cc858ddbcab82b42d90007a23e41a98",
+        "layer-recovery.json": "325b8bac85c221032e645c600db2e3023f78475d6632b14879701b59dd22fc27",
+        "model.safetensors": "e4084b3a33ce4426b8f8830bc117b9a335b1b2a38940c0a82cee8fbe65acd805",
+        "preprocessor_config.json": "9ef34d18dbf7909143a91f05ad23457180fcfed05034bf94843f300e32a9b968"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "gpu": null
+      },
+      "real_images_sha256": {
+        "grace_hopper.jpg": "a8ca6d734765703b09728ab47fe59f473d93ae3967fc24c7c0288c3c7adb7130"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 70,
+        "unique_parameter_elements_recovered": 3708400,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 3708400,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 151,
+        "probe_input_rows": 11375,
+        "observed_output_scalars": 8124400,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 151,
+        "model_type": "convnextv2",
+        "architecture": "ConvNextV2ForImageClassification",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 151
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 140,
+        "candidate_tensors": 140,
+        "compared_tensors": 140,
+        "reference_elements": 3708400,
+        "candidate_elements": 3708400,
+        "compared_elements": 3708400,
+        "coverage": 1.0,
+        "exactly_equal_elements": 3708377,
+        "fraction_exactly_equal": 0.9999937978643081,
+        "within_tolerance_elements": 3708400,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 8.56939810655049e-18,
+        "zero_filled_relative_l2": 8.56939810655049e-18,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.patch_embeddings.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.patch_embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 140,
+        "candidate_tensors": 140,
+        "compared_tensors": 140,
+        "reference_elements": 3708400,
+        "candidate_elements": 3708400,
+        "compared_elements": 3708400,
+        "coverage": 1.0,
+        "exactly_equal_elements": 3708377,
+        "fraction_exactly_equal": 0.9999937978643081,
+        "within_tolerance_elements": 3708400,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 8.56939810655049e-18,
+        "zero_filled_relative_l2": 8.56939810655049e-18,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.patch_embeddings.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.embeddings.patch_embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.0.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.1.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.2.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.3.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.4.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.2.layers.5.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.0.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.0.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.downsampling_layer.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.0.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.dwconv.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.dwconv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.grn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.grn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.encoder.stages.3.layers.1.pwconv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "convnextv2.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 8.132099775860414e-17,
+          "logit_max_abs_error": 4.440892098500626e-16,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 7.928112970748903e-17,
+          "logit_max_abs_error": 4.440892098500626e-16,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 1.1651371955159676e-16,
+          "logit_max_abs_error": 8.881784197001252e-16,
+          "top1_matches": 1
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "evaluation_seconds": 2.671159543999238,
+      "source_free_replay": {
+        "source_absent_during_replay": true,
+        "evidence_observations_cached": 151,
+        "evidence_observations_collected": 0,
+        "byte_identical_checkpoint_sha256": {
+          "config.json": "106a50f3f3f79a30d828774c0426f1287cc858ddbcab82b42d90007a23e41a98",
+          "model.safetensors": "e4084b3a33ce4426b8f8830bc117b9a335b1b2a38940c0a82cee8fbe65acd805",
+          "preprocessor_config.json": "9ef34d18dbf7909143a91f05ad23457180fcfed05034bf94843f300e32a9b968"
+        }
+      }
+    }
+  ]
+}

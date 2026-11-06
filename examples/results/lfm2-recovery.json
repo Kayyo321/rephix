@@ -1,0 +1,2288 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "LiquidAI/LFM2-350M",
+      "revision": "f37d3f5c8c5484bc01dad379a595cf4c68c4e70e",
+      "reference_sha256": {
+        "chat_template.jinja": "5504d163d879bfb6fd4135b7fa3d56768b2e69dd718338f7b146750289f46ab0",
+        "config.json": "fd3b3fba4e50e7b9a22bd41cbab59e9b28e319b2de19668d7fd9777c8d1a9ba1",
+        "generation_config.json": "0f678f07a00ae4bdeb2b2bd5f37988a4b33a87686d9103fefe08de7a46522373",
+        "model.safetensors": "387638dc889ff1a1395c3c2ab9605211e4c7e16f2d375361dd4e423b909a254e",
+        "special_tokens_map.json": "742aefe2b7dec496e8caffdba03a75d0c1a9925d53bd3f3e0d388c96b591b6f4",
+        "tokenizer.json": "98cff83b4f6d7e9d8929bebc62b07e92cf1b3f99c80d16bafe8b84a75448f40b",
+        "tokenizer_config.json": "63ced8ee8627fa4b0638c4c057351f00fb4e332ca2327a9a00eecc5978e84835"
+      },
+      "candidate_sha256": {
+        "chat_template.jinja": "5504d163d879bfb6fd4135b7fa3d56768b2e69dd718338f7b146750289f46ab0",
+        "config.json": "63fda49b1bccc849bf1bdf5d71a0f7b8ee20c86dfcb287dd30c48420a1e3d7b9",
+        "generation_config.json": "93fae481e9e2089c83c5a23a29ce80951ddd990271ed146ae03c9895e239a8f1",
+        "layer-recovery.json": "7df0cd85037ff890add92f418b5fc36bbb730732f3b37ef1a881a516e9ed4384",
+        "model.safetensors": "387638dc889ff1a1395c3c2ab9605211e4c7e16f2d375361dd4e423b909a254e",
+        "special_tokens_map.json": "742aefe2b7dec496e8caffdba03a75d0c1a9925d53bd3f3e0d388c96b591b6f4",
+        "tokenizer.json": "98cff83b4f6d7e9d8929bebc62b07e92cf1b3f99c80d16bafe8b84a75448f40b",
+        "tokenizer_config.json": "ceffb645ed82973bdfa5fa663de6f83d2ce6f18df8bf16a6315cc62b93e7c382"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 148,
+        "unique_parameter_elements_recovered": 354483968,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 354483968,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 479,
+        "probe_input_rows": 217163,
+        "observed_output_scalars": 354606848,
+        "probe_batch_size": 512,
+        "model_type": "lfm2",
+        "architecture": "Lfm2ForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.bfloat16",
+        "oracle_placement": "staged",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "oracle_staged_groups": 148,
+        "oracle_peak_staged_state_bytes": 134217728,
+        "oracle_host_layer_calls": 0
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 148,
+        "candidate_tensors": 148,
+        "compared_tensors": 148,
+        "reference_elements": 354483968,
+        "candidate_elements": 354483968,
+        "compared_elements": 354483968,
+        "coverage": 1.0,
+        "exactly_equal_elements": 354483968,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 354483968,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries.",
+        "dtype_mismatch_counts": {}
+      },
+      "raw_checkpoint_audit_error": null,
+      "repacked_reference_audit": null,
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 0.0,
+        "logit_max_abs_error": 0.0,
+        "mean_kl_nats": 0.0,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": null,
+      "evaluation_seconds": 2.9134177129999443,
+      "probe_dtype_setting": "auto",
+      "recovery_seconds": 9.678
+    },
+    {
+      "schema_version": 1,
+      "model_id": "LiquidAI/LFM2-VL-450M",
+      "revision": "d355d88bf86e5c7054230232120e573ca2238286",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "pillow": "13.0.0",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "reference_dtype": "torch.bfloat16",
+        "candidate_dtype": "torch.bfloat16",
+        "torchvision": "0.25.0+cu128"
+      },
+      "reference_class": "Lfm2VlForConditionalGeneration",
+      "candidate_class": "Lfm2VlForConditionalGeneration",
+      "reference_sha256": {
+        "chat_template.jinja": "cf0af741b36248dfe460af825b0b3acb3c651cf7dd40a74c29447f60b75d2b9b",
+        "config.json": "c36da4a990be51f4ea659a66a6d352fe21be55e0def2aadb9f56c6d90f217085",
+        "generation_config.json": "529184b675eb21c69367bb9b96b4b6fab90e02d94a384f5a94f1004903ac2430",
+        "model.safetensors": "163cab2c6c394a8532c405d63603e7b25f9220a344df950288411d1fba0b0567",
+        "preprocessor_config.json": "66ac2edf9375105e654607f6be5fc66e9a1a552856adc464bbe767d9e34b7ef3",
+        "processor_config.json": "cbce86b74fd703dfddf28e0d1b205f2f167a0e324ffa123d258faaf7b6d889bf",
+        "special_tokens_map.json": "a33ecf36d838dc264c8f960669aa3d26369d7a683c75a65bc5acdc3c65ca5ed9",
+        "tokenizer.json": "f3910942aa907c48b0cc20ec426ee38bfa8dcda8feecf035ced981918cb30f14",
+        "tokenizer_config.json": "5d460b26aa4512b0c951d735360c6eb443812a3f7974f95abcef67638c0c0df4"
+      },
+      "candidate_sha256": {
+        "chat_template.jinja": "cf0af741b36248dfe460af825b0b3acb3c651cf7dd40a74c29447f60b75d2b9b",
+        "config.json": "a42cb0af63e3f7ec6bbb80b8a2f55d7861731cefd0ca38d3f096052241a46649",
+        "generation_config.json": "93fae481e9e2089c83c5a23a29ce80951ddd990271ed146ae03c9895e239a8f1",
+        "model.safetensors": "a9e97b66a7661e00f884fa833da2f3d2b1ec1b05f3217eb30368f46c2e1ca051",
+        "preprocessor_config.json": "66ac2edf9375105e654607f6be5fc66e9a1a552856adc464bbe767d9e34b7ef3",
+        "processor_config.json": "cbce86b74fd703dfddf28e0d1b205f2f167a0e324ffa123d258faaf7b6d889bf",
+        "special_tokens_map.json": "a33ecf36d838dc264c8f960669aa3d26369d7a683c75a65bc5acdc3c65ca5ed9",
+        "tokenizer.json": "f3910942aa907c48b0cc20ec426ee38bfa8dcda8feecf035ced981918cb30f14",
+        "tokenizer_config.json": "5d460b26aa4512b0c951d735360c6eb443812a3f7974f95abcef67638c0c0df4"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 250,
+        "unique_parameter_elements_recovered": 450822656,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 450822656,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 812,
+        "probe_input_rows": 306890,
+        "observed_output_scalars": 450945536,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 812,
+        "model_type": "lfm2_vl",
+        "architecture": "Lfm2VlForConditionalGeneration",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float32",
+        "oracle_placement": "staged",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "multimodal_processor_exported": true,
+        "oracle_staged_groups": 250,
+        "oracle_peak_staged_state_bytes": 268435456,
+        "oracle_host_layer_calls": 0
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 351,
+        "candidate_tensors": 351,
+        "compared_tensors": 351,
+        "reference_elements": 450822656,
+        "candidate_elements": 450822656,
+        "compared_elements": 450822656,
+        "coverage": 1.0,
+        "exactly_equal_elements": 450805284,
+        "fraction_exactly_equal": 0.999961466000502,
+        "within_tolerance_elements": 450822655,
+        "fraction_within_tolerance": 0.9999999977818329,
+        "relative_l2": 4.931546488402921e-08,
+        "zero_filled_relative_l2": 4.931546488402921e-08,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries.",
+        "components": {
+          "vision_encoder": {
+            "reference_elements": 85843200,
+            "compared_elements": 85843200
+          },
+          "language_and_other": {
+            "reference_elements": 354483968,
+            "compared_elements": 354483968
+          },
+          "projector": {
+            "reference_elements": 10495488,
+            "compared_elements": 10495488
+          }
+        },
+        "dtype_mismatch_counts": {
+          "reference -> candidate": 351
+        }
+      },
+      "native_reference_repack_audit": null,
+      "max_new_tokens": 8,
+      "held_out_behavior": {
+        "prompt_count": 6,
+        "exact_processor_outputs": 6,
+        "exact_prompt_token_ids": 6,
+        "next_token_top_1_matches": 6,
+        "next_token_logit_coordinates": 393216,
+        "next_token_exact_logit_coordinates": 393216,
+        "next_token_logit_max_abs_error": 0.0,
+        "next_token_logit_rmse": 0.0,
+        "exact_cached_greedy_matches": 6,
+        "same_text_different_image_logit_max_abs_change": {
+          "reference": 10.9375,
+          "candidate": 10.9375
+        }
+      },
+      "reference_observations": [
+        {
+          "label": "red_rectangle",
+          "prompt": "What color is the shape? Answer with one word.",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "98cb6a69248996d041933aac7b87959fb7c39b935fac37c3ac899de7f9ccc48a",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "5b6ea1150b78246e45c43143eddc870256cb8b6cc377cc3268213b1277b076d7"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "41799e249f5b00582b27356cb24804c58564e052881aa7a7e5160c17f43eb90d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c4e98beb0449154b041c3bd2550dde6fa14fa4550fde488b745729c5336bc453"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            3493,
+            4100,
+            856,
+            779,
+            7128,
+            540,
+            42275,
+            916,
+            1235,
+            2359,
+            523,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 16185,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "35dcd18962b09fcbdde73e2d12db092ff05c2084613b8b51fdb183a419841c8a",
+          "cached_greedy_ids": [
+            16185,
+            7
+          ],
+          "cached_greedy_text": "Red"
+        },
+        {
+          "label": "blue_rectangle",
+          "prompt": "What color is the shape? Answer with one word.",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "1a2d9ad3de660ed02151ba2ec5fba2ed5c8c91f58c40466dedb75de1fed2457f",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "5b6ea1150b78246e45c43143eddc870256cb8b6cc377cc3268213b1277b076d7"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "41799e249f5b00582b27356cb24804c58564e052881aa7a7e5160c17f43eb90d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "ae99b675d232c1348739ebd45a233c05d1681b8cb779879262f06433e6f5e4a1"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            3493,
+            4100,
+            856,
+            779,
+            7128,
+            540,
+            42275,
+            916,
+            1235,
+            2359,
+            523,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 31466,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "2a615f6be28e68fb1504a127b3fc7b408b522815ab5fb3a46d8373f88c484886",
+          "cached_greedy_ids": [
+            31466,
+            7
+          ],
+          "cached_greedy_text": "Blue"
+        },
+        {
+          "label": "green_circles",
+          "prompt": "How many green circles do you see?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "921cc5dc783ae26a1f4a5d86761e5df7c94070abec42f03c95819429779b168a",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                91
+              ],
+              "dtype": "torch.int64",
+              "sha256": "8dd3c54bca6f16efe9d7604bded4d2e827274cb0fada3318c9dd2a98324c48f2"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                91
+              ],
+              "dtype": "torch.int64",
+              "sha256": "a5053ee426a4c0c17be12414d4d5f82ad737f15bcb4555b6c79fe24eb6f10dc0"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a3531dc04fea0571ac8356f76b9ecb4ddd92242e212dbb83312a210686e5a99b"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            4023,
+            1697,
+            5253,
+            22308,
+            1112,
+            1010,
+            2130,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 528,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "414e0820c1757b9df2b220d2c80601bf72a6abf413c61bfd23c0dac22db300dc",
+          "cached_greedy_ids": [
+            528,
+            7
+          ],
+          "cached_greedy_text": "3"
+        },
+        {
+          "label": "colored_panels",
+          "prompt": "Which color is on the right?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "92692ada6e00dfc781c3b8f39372d73105d5df276cb5e1e20bbb8d93b8bccb9b",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "763b21e58c5748da25736d54ca01f5ebf8fd85d4a35bb10a848a3ad0619ed2c7"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76f882dac5aab7498fab0bd2f00b118da24d6a3574bc8b564493a20b1f603298"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            4100,
+            856,
+            884,
+            779,
+            2084,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 63974,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "c8d985631cb08fd8d79323b48a8cffcc30085413a7c720a5cb87bd3a5acbc156",
+          "cached_greedy_ids": [
+            63974,
+            1302,
+            7
+          ],
+          "cached_greedy_text": "Purple"
+        },
+        {
+          "label": "nested_shapes",
+          "prompt": "Which shape is inside the square?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "22bf44d7dda1c868111c949cdecfe234b8630c0ad91eb39f16da41a5803a5797",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "e6e981cf0de9522726672459df51a8e0670471b103935e1ccfd15c862bf63d8d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1efaa0002ddedfb4b0f84de3d2bf0346c120281baed3a83f33c986afd995170c"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            7128,
+            856,
+            5662,
+            779,
+            9054,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 54001,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "7feea0948f0e899d2f4092ad9111e42c573697ba353644b94fac641cdd623a65",
+          "cached_greedy_ids": [
+            54001,
+            7
+          ],
+          "cached_greedy_text": "circle"
+        },
+        {
+          "label": "arrow",
+          "prompt": "Which direction does the arrow point?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "7df0b1e50cb5d2a470fc28c0f8db2c433713395d5064130d81a5f13ec00a58ac",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "731cb78cf5d81628b0cd4a8ae4085e357c4fa848cb72c04f69e760776c303ec3"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1e850994ad70d26e8e941b198d8bad155f4d9eea7c7197bf9ff73fdd70e58d26"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            6585,
+            2177,
+            779,
+            28304,
+            2129,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 1098,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "e8338800cd769a57bf868ebcf120047131db2030b846ea988d53586aa4677cb9",
+          "cached_greedy_ids": [
+            1098,
+            28304,
+            797,
+            779,
+            4646,
+            4520,
+            811,
+            779
+          ],
+          "cached_greedy_text": "The arrow in the image points to the"
+        }
+      ],
+      "candidate_observations": [
+        {
+          "label": "red_rectangle",
+          "prompt": "What color is the shape? Answer with one word.",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "98cb6a69248996d041933aac7b87959fb7c39b935fac37c3ac899de7f9ccc48a",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "5b6ea1150b78246e45c43143eddc870256cb8b6cc377cc3268213b1277b076d7"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "41799e249f5b00582b27356cb24804c58564e052881aa7a7e5160c17f43eb90d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c4e98beb0449154b041c3bd2550dde6fa14fa4550fde488b745729c5336bc453"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            3493,
+            4100,
+            856,
+            779,
+            7128,
+            540,
+            42275,
+            916,
+            1235,
+            2359,
+            523,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 16185,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "35dcd18962b09fcbdde73e2d12db092ff05c2084613b8b51fdb183a419841c8a",
+          "cached_greedy_ids": [
+            16185,
+            7
+          ],
+          "cached_greedy_text": "Red"
+        },
+        {
+          "label": "blue_rectangle",
+          "prompt": "What color is the shape? Answer with one word.",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "1a2d9ad3de660ed02151ba2ec5fba2ed5c8c91f58c40466dedb75de1fed2457f",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "5b6ea1150b78246e45c43143eddc870256cb8b6cc377cc3268213b1277b076d7"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                94
+              ],
+              "dtype": "torch.int64",
+              "sha256": "41799e249f5b00582b27356cb24804c58564e052881aa7a7e5160c17f43eb90d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "ae99b675d232c1348739ebd45a233c05d1681b8cb779879262f06433e6f5e4a1"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            3493,
+            4100,
+            856,
+            779,
+            7128,
+            540,
+            42275,
+            916,
+            1235,
+            2359,
+            523,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 31466,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "2a615f6be28e68fb1504a127b3fc7b408b522815ab5fb3a46d8373f88c484886",
+          "cached_greedy_ids": [
+            31466,
+            7
+          ],
+          "cached_greedy_text": "Blue"
+        },
+        {
+          "label": "green_circles",
+          "prompt": "How many green circles do you see?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "921cc5dc783ae26a1f4a5d86761e5df7c94070abec42f03c95819429779b168a",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                91
+              ],
+              "dtype": "torch.int64",
+              "sha256": "8dd3c54bca6f16efe9d7604bded4d2e827274cb0fada3318c9dd2a98324c48f2"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                91
+              ],
+              "dtype": "torch.int64",
+              "sha256": "a5053ee426a4c0c17be12414d4d5f82ad737f15bcb4555b6c79fe24eb6f10dc0"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a3531dc04fea0571ac8356f76b9ecb4ddd92242e212dbb83312a210686e5a99b"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            4023,
+            1697,
+            5253,
+            22308,
+            1112,
+            1010,
+            2130,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 528,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "414e0820c1757b9df2b220d2c80601bf72a6abf413c61bfd23c0dac22db300dc",
+          "cached_greedy_ids": [
+            528,
+            7
+          ],
+          "cached_greedy_text": "3"
+        },
+        {
+          "label": "colored_panels",
+          "prompt": "Which color is on the right?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "92692ada6e00dfc781c3b8f39372d73105d5df276cb5e1e20bbb8d93b8bccb9b",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "763b21e58c5748da25736d54ca01f5ebf8fd85d4a35bb10a848a3ad0619ed2c7"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76f882dac5aab7498fab0bd2f00b118da24d6a3574bc8b564493a20b1f603298"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            4100,
+            856,
+            884,
+            779,
+            2084,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 63974,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "c8d985631cb08fd8d79323b48a8cffcc30085413a7c720a5cb87bd3a5acbc156",
+          "cached_greedy_ids": [
+            63974,
+            1302,
+            7
+          ],
+          "cached_greedy_text": "Purple"
+        },
+        {
+          "label": "nested_shapes",
+          "prompt": "Which shape is inside the square?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "22bf44d7dda1c868111c949cdecfe234b8630c0ad91eb39f16da41a5803a5797",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "e6e981cf0de9522726672459df51a8e0670471b103935e1ccfd15c862bf63d8d"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1efaa0002ddedfb4b0f84de3d2bf0346c120281baed3a83f33c986afd995170c"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            7128,
+            856,
+            5662,
+            779,
+            9054,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 54001,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "7feea0948f0e899d2f4092ad9111e42c573697ba353644b94fac641cdd623a65",
+          "cached_greedy_ids": [
+            54001,
+            7
+          ],
+          "cached_greedy_text": "circle"
+        },
+        {
+          "label": "arrow",
+          "prompt": "Which direction does the arrow point?",
+          "image_size": [
+            224,
+            192
+          ],
+          "image_rgb_sha256": "7df0b1e50cb5d2a470fc28c0f8db2c433713395d5064130d81a5f13ec00a58ac",
+          "processor_tensors": {
+            "attention_mask": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "7734321034af11a96f5b616b9711e4821064f452815da5f4aff30866fbbf4f67"
+            },
+            "input_ids": {
+              "shape": [
+                1,
+                90
+              ],
+              "dtype": "torch.int64",
+              "sha256": "731cb78cf5d81628b0cd4a8ae4085e357c4fa848cb72c04f69e760776c303ec3"
+            },
+            "pixel_attention_mask": {
+              "shape": [
+                1,
+                1024
+              ],
+              "dtype": "torch.int32",
+              "sha256": "112c13244889400fc3791949d8591935b31de006345e6037088abcc5cca8b158"
+            },
+            "pixel_values": {
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1e850994ad70d26e8e941b198d8bad155f4d9eea7c7197bf9ff73fdd70e58d26"
+            },
+            "spatial_shapes": {
+              "shape": [
+                1,
+                2
+              ],
+              "dtype": "torch.int64",
+              "sha256": "bd6313c97c91724123d699f54d6c531954158976c6f04614bd1aea43d5d4cf63"
+            }
+          },
+          "prompt_token_ids": [
+            1,
+            6,
+            6423,
+            708,
+            498,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            396,
+            499,
+            28828,
+            6585,
+            2177,
+            779,
+            28304,
+            2129,
+            540,
+            7,
+            708,
+            6,
+            64015,
+            708
+          ],
+          "next_token_top_1_id": 1098,
+          "next_token_logits_dtype": "torch.bfloat16",
+          "next_token_logits_sha256": "e8338800cd769a57bf868ebcf120047131db2030b846ea988d53586aa4677cb9",
+          "cached_greedy_ids": [
+            1098,
+            28304,
+            797,
+            779,
+            4646,
+            4520,
+            811,
+            779
+          ],
+          "cached_greedy_text": "The arrow in the image points to the"
+        }
+      ],
+      "elapsed_seconds": 4.903765350001777,
+      "probe_dtype_setting": "float32",
+      "recovery_seconds": 10.496,
+      "precision_check": {
+        "outside_tolerance": [
+          {
+            "tensor": "model.vision_tower.vision_model.encoder.layers.0.mlp.fc1.weight",
+            "flat_index": 71771,
+            "absolute_error": 1.4901161193847656e-08,
+            "tolerance": 1.0032931566238404e-08
+          }
+        ],
+        "bfloat16_reload_differences_by_tensor": {
+          "model.multi_modal_projector.linear_1.weight": 1,
+          "model.vision_tower.vision_model.embeddings.patch_embedding.weight": 5,
+          "model.vision_tower.vision_model.encoder.layers.0.mlp.fc1.weight": 53,
+          "model.vision_tower.vision_model.encoder.layers.0.mlp.fc2.weight": 15,
+          "model.vision_tower.vision_model.encoder.layers.0.self_attn.k_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.0.self_attn.out_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.0.self_attn.q_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.1.mlp.fc1.weight": 24,
+          "model.vision_tower.vision_model.encoder.layers.1.mlp.fc2.weight": 14,
+          "model.vision_tower.vision_model.encoder.layers.1.self_attn.k_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.1.self_attn.out_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.1.self_attn.q_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.10.mlp.fc1.weight": 54,
+          "model.vision_tower.vision_model.encoder.layers.10.mlp.fc2.weight": 13,
+          "model.vision_tower.vision_model.encoder.layers.10.self_attn.k_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.10.self_attn.out_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.10.self_attn.q_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.11.mlp.fc1.weight": 46,
+          "model.vision_tower.vision_model.encoder.layers.11.mlp.fc2.weight": 22,
+          "model.vision_tower.vision_model.encoder.layers.11.self_attn.out_proj.weight": 5,
+          "model.vision_tower.vision_model.encoder.layers.11.self_attn.q_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.11.self_attn.v_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.2.mlp.fc1.weight": 25,
+          "model.vision_tower.vision_model.encoder.layers.2.mlp.fc2.weight": 8,
+          "model.vision_tower.vision_model.encoder.layers.2.self_attn.k_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.2.self_attn.q_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.3.mlp.fc1.weight": 27,
+          "model.vision_tower.vision_model.encoder.layers.3.mlp.fc2.weight": 4,
+          "model.vision_tower.vision_model.encoder.layers.3.self_attn.k_proj.weight": 4,
+          "model.vision_tower.vision_model.encoder.layers.3.self_attn.out_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.3.self_attn.q_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.4.mlp.fc1.weight": 37,
+          "model.vision_tower.vision_model.encoder.layers.4.mlp.fc2.weight": 4,
+          "model.vision_tower.vision_model.encoder.layers.4.self_attn.k_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.4.self_attn.q_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.5.mlp.fc1.weight": 35,
+          "model.vision_tower.vision_model.encoder.layers.5.mlp.fc2.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.5.self_attn.k_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.5.self_attn.out_proj.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.5.self_attn.q_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.5.self_attn.v_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.6.mlp.fc1.weight": 29,
+          "model.vision_tower.vision_model.encoder.layers.6.mlp.fc2.weight": 3,
+          "model.vision_tower.vision_model.encoder.layers.6.self_attn.k_proj.weight": 4,
+          "model.vision_tower.vision_model.encoder.layers.6.self_attn.out_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.7.mlp.fc1.weight": 44,
+          "model.vision_tower.vision_model.encoder.layers.7.mlp.fc2.weight": 6,
+          "model.vision_tower.vision_model.encoder.layers.7.self_attn.k_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.7.self_attn.q_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.8.mlp.fc1.weight": 38,
+          "model.vision_tower.vision_model.encoder.layers.8.mlp.fc2.weight": 7,
+          "model.vision_tower.vision_model.encoder.layers.8.self_attn.k_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.8.self_attn.out_proj.weight": 1,
+          "model.vision_tower.vision_model.encoder.layers.8.self_attn.q_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.9.mlp.fc1.weight": 39,
+          "model.vision_tower.vision_model.encoder.layers.9.mlp.fc2.weight": 14,
+          "model.vision_tower.vision_model.encoder.layers.9.self_attn.k_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.9.self_attn.out_proj.weight": 2,
+          "model.vision_tower.vision_model.encoder.layers.9.self_attn.q_proj.weight": 2
+        }
+      },
+      "source_free_replay": {
+        "source_directory_absent": true,
+        "byte_identical_artifacts": true,
+        "captured_sha256": {
+          "chat_template.jinja": "cf0af741b36248dfe460af825b0b3acb3c651cf7dd40a74c29447f60b75d2b9b",
+          "config.json": "a42cb0af63e3f7ec6bbb80b8a2f55d7861731cefd0ca38d3f096052241a46649",
+          "generation_config.json": "93fae481e9e2089c83c5a23a29ce80951ddd990271ed146ae03c9895e239a8f1",
+          "model.safetensors": "a9e97b66a7661e00f884fa833da2f3d2b1ec1b05f3217eb30368f46c2e1ca051",
+          "preprocessor_config.json": "66ac2edf9375105e654607f6be5fc66e9a1a552856adc464bbe767d9e34b7ef3",
+          "processor_config.json": "cbce86b74fd703dfddf28e0d1b205f2f167a0e324ffa123d258faaf7b6d889bf",
+          "special_tokens_map.json": "a33ecf36d838dc264c8f960669aa3d26369d7a683c75a65bc5acdc3c65ca5ed9",
+          "tokenizer.json": "f3910942aa907c48b0cc20ec426ee38bfa8dcda8feecf035ced981918cb30f14",
+          "tokenizer_config.json": "5d460b26aa4512b0c951d735360c6eb443812a3f7974f95abcef67638c0c0df4"
+        },
+        "replayed_sha256": {
+          "chat_template.jinja": "cf0af741b36248dfe460af825b0b3acb3c651cf7dd40a74c29447f60b75d2b9b",
+          "config.json": "a42cb0af63e3f7ec6bbb80b8a2f55d7861731cefd0ca38d3f096052241a46649",
+          "generation_config.json": "93fae481e9e2089c83c5a23a29ce80951ddd990271ed146ae03c9895e239a8f1",
+          "model.safetensors": "a9e97b66a7661e00f884fa833da2f3d2b1ec1b05f3217eb30368f46c2e1ca051",
+          "preprocessor_config.json": "66ac2edf9375105e654607f6be5fc66e9a1a552856adc464bbe767d9e34b7ef3",
+          "processor_config.json": "cbce86b74fd703dfddf28e0d1b205f2f167a0e324ffa123d258faaf7b6d889bf",
+          "special_tokens_map.json": "a33ecf36d838dc264c8f960669aa3d26369d7a683c75a65bc5acdc3c65ca5ed9",
+          "tokenizer.json": "f3910942aa907c48b0cc20ec426ee38bfa8dcda8feecf035ced981918cb30f14",
+          "tokenizer_config.json": "5d460b26aa4512b0c951d735360c6eb443812a3f7974f95abcef67638c0c0df4"
+        },
+        "cached_observations": 812,
+        "new_observations": 0,
+        "wall_seconds": 6.453
+      }
+    }
+  ]
+}

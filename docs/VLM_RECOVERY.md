@@ -12,6 +12,8 @@ python examples/vlm_recovery_experiment.py --reference /path/to/source \
 
 The supported image-text wrappers include Idefics3, SmolVLM, Qwen2-VL, Qwen2.5-VL, Qwen3-VL, and LLaVA, plus Gemma 3, PaliGemma, and LLaVA-OneVision with headless SigLIP towers. Qwen vision patch projections use native three-dimensional convolution probes. CLIP class tokens are observed before their positional offset, and Gemma 3 projectors receive chosen features after their input normalization. LLaVA-NeXT, NeXT-Video, and OneVision newline tokens are observed through native image packing. Use the native Transformers processor dependencies for the selected family, including matching PyTorch and Torchvision builds for Qwen. The published trials used Transformers 4.57.6. Synthetic LLaVA checkpoints also exercised the older wrapper layout in Transformers 4.46.0.
 
+[LFM2-VL recovery](LFM2_RECOVERY.md) also covers its native SigLIP2 tower and short-convolution language decoder.
+
 When BF16 probes round away part of a biased affine response, `--dtype float32` can improve weight agreement. It also increases the storage and memory needed for the checkpoint. To compare native BF16 inference after FP32 recovery, pass `--dtype bfloat16` to the evaluator so it uses the same inference dtype for both checkpoints.
 
 Add `--evidence-dir /path/to/evidence` during capture to journal the observations. `replay-layers` can rebuild the checkpoint and its processor assets from a sealed bundle after the source has been removed. The FP32 SmolVLM trial reproduced all 12 checkpoint and processor files byte for byte on source-free replay, using 953 cached responses and zero new calls. [Layer evidence format](LAYER_RECOVERY.md#resume-and-replay-layer-probes)

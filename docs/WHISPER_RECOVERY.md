@@ -2,6 +2,8 @@
 
 `recover-layers` can rebuild native Whisper conditional-generation checkpoints. It recovers the encoder's two temporal convolutions and both position tables, then exports a standalone checkpoint with the decoder's token embedding and output head still tied. The export includes the tokenizer, native audio feature extractor configuration, and generation configuration. Load it locally with `AutoModelForSpeechSeq2Seq` and `AutoProcessor`.
 
+The same commands support [Moonshine and Speech2Text checkpoints](SPEECH_SEQ2SEQ_RECOVERY.md).
+
 ```sh
 rephix recover-layers --model /path/to/local-whisper --output /path/to/recovered \
   --device cuda --dtype float64 --batch-size 512
