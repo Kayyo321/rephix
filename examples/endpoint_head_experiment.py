@@ -32,9 +32,9 @@ GATE = 1e-3
 MODEL_OPTIONS = {"local_files_only": True, "trust_remote_code": False}
 
 
-def load_model(torch, auto_model, path):
+def load_model(torch, auto_model, path, precision="float32"):
     return auto_model.from_pretrained(
-        path, dtype=torch.float32, use_safetensors=True, **MODEL_OPTIONS
+        path, dtype=getattr(torch, precision), use_safetensors=True, **MODEL_OPTIONS
     ).eval()
 
 
@@ -109,7 +109,17 @@ def allocate_capture(directory, contexts, classes, *, store_logits, dtype):
     return lengths, tokens, scores, logits
 
 
-def capture(torch, model, contexts, directory, device, *, store_logits=False, precision="float32"):
+def capture(
+    torch,
+    model,
+    contexts,
+    directory,
+    device,
+    *,
+    store_logits=False,
+    precision="float32",
+    raw_scores=False,
+):
     classes = model.get_output_embeddings().out_features
     lengths, tokens, scores, logits = allocate_capture(
         directory, contexts, classes, store_logits=store_logits, dtype=np.dtype(precision)
@@ -124,7 +134,7 @@ def capture(torch, model, contexts, directory, device, *, store_logits=False, pr
                 values = model(input_ids=ids, use_cache=False, **kwargs).logits[:, -1]
                 if values.dtype != getattr(torch, precision):
                     raise ValueError(f"endpoint forward did not emit {precision} logits")
-                scores[rows] = values.log_softmax(dim=-1).cpu().numpy()
+                scores[rows] = (values if raw_scores else values.log_softmax(dim=-1)).cpu().numpy()
                 if logits is not None:
                     logits[rows] = values.cpu().numpy()
     scores.flush()
@@ -137,7 +147,7 @@ def capture(torch, model, contexts, directory, device, *, store_logits=False, pr
     }
 
 
-def plant(torch, model, directory, seed):
+def plant(torch, model, directory, args):
     head = model.get_output_embeddings()
     head_name = next(name for name, layer in model.named_modules() if layer is head)
     base_tied = head.weight is model.get_input_embeddings().weight
@@ -145,16 +155,28 @@ def plant(torch, model, directory, seed):
         head.weight = torch.nn.Parameter(head.weight.detach().clone())
     model.config.tie_word_embeddings = False
     model.save_pretrained(directory / "base_fp32", safe_serialization=True)
-    rng = torch.Generator(device="cpu").manual_seed(seed)
+    rng = torch.Generator(device="cpu").manual_seed(args.seed)
+    row_count = head.out_features
+    if args.fit_mode == "anchored":
+        changed = torch.arange(1, row_count)
+    elif args.fit_mode == "base_median" and not args.plant_common_shift:
+        chosen = torch.randperm(row_count - 1, generator=rng)[: max(1, row_count // 5) - 1]
+        changed = torch.cat((torch.zeros(1, dtype=torch.long), chosen + 1))
+    else:
+        changed = torch.arange(row_count)
     with torch.no_grad():
         for parameter in (head.weight, head.bias):
             if parameter is None:
                 continue
-            for start in range(ANCHOR + 1, len(parameter), 512):
-                block = parameter[start : start + 512]
-                block.add_(torch.randn(block.shape, generator=rng) * DELTA_STD)
+            if args.plant_common_shift:
+                parameter.add_(torch.randn(parameter.shape[1:], generator=rng) * DELTA_STD)
+                continue
+            for indices in changed.split(512):
+                parameter[indices] += (
+                    torch.randn(parameter[indices].shape, generator=rng) * DELTA_STD
+                )
     model.save_pretrained(directory / "planted_reference", safe_serialization=True)
-    return head_name, base_tied, head.bias is not None
+    return head_name, base_tied, head.bias is not None, len(changed)
 
 
 def run_estimator(args, candidate):
@@ -173,8 +195,10 @@ def run_estimator(args, candidate):
         str(args.output / "validation"),
         "--output",
         str(candidate),
-        "--anchor-id",
-        str(ANCHOR),
+        "--mode",
+        args.fit_mode,
+        "--dtype",
+        args.backbone_precision,
         "--device",
         args.device,
         "--batch-size",
@@ -182,6 +206,8 @@ def run_estimator(args, candidate):
         "--max-validation-rmse",
         str(GATE),
     ]
+    if args.fit_mode == "anchored":
+        argv.extend(("--anchor-id", str(ANCHOR)))
     env = {
         **os.environ,
         **dict.fromkeys(
@@ -272,7 +298,7 @@ def compare_heads(reference_path, baseline_path, candidate_path, names):
                     full.add(reference, other)
                     modified.add(reference[changed], other[changed])
     return {
-        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "reference_changed_definition": "reference numeric coordinate differs exactly from base",
         "atol": DEFAULT_ATOL,
         "rtol": DEFAULT_RTOL,
         "anchor_coordinates": anchor_equal,
@@ -324,7 +350,7 @@ def run(args):
             raise ValueError("experiment output must be outside source checkpoints")
     args.output.mkdir(parents=True)
     tokenizer = _load_tokenizer(AutoTokenizer, args.base, **MODEL_OPTIONS)
-    base = load_model(torch, AutoModelForCausalLM, args.base)
+    base = load_model(torch, AutoModelForCausalLM, args.base, args.backbone_precision)
     natural, contexts = make_contexts(
         tokenizer, base, args.fit_multiplier, args.validation_rows, args.seed
     )
@@ -348,7 +374,7 @@ def run(args):
             "numpy": np.__version__,
             "device": args.device,
             "gpu": torch.cuda.get_device_name() if args.device == "cuda" else None,
-            "model_dtype": "float32",
+            "model_dtype": args.backbone_precision,
             "evidence_dtype": args.endpoint_precision,
             "torch_threads": args.threads,
         },
@@ -357,7 +383,9 @@ def run(args):
             "fit_multiplier": args.fit_multiplier,
             "validation_rows": args.validation_rows,
             "batch_size": BATCH,
-            "anchor_id": ANCHOR,
+            "anchor_id": ANCHOR if args.fit_mode == "anchored" else None,
+            "fit_mode": args.fit_mode,
+            "plant_common_shift": args.plant_common_shift,
             "max_validation_contrast_rmse": GATE,
             "plant_delta_std": None if negative else DELTA_STD,
         },
@@ -372,7 +400,7 @@ def run(args):
             for item, row in zip(natural, contexts["final"])
         ):
             raise ValueError("negative control must tokenize the final prompts identically")
-        endpoint = load_model(torch, AutoModelForCausalLM, args.target)
+        endpoint = load_model(torch, AutoModelForCausalLM, args.target, args.backbone_precision)
         if (
             base.config.model_type != endpoint.config.model_type
             or base.get_output_embeddings().weight.shape
@@ -391,16 +419,18 @@ def run(args):
             args.output / "base_final",
             args.device,
             store_logits=True,
+            precision=args.backbone_precision,
         )
         base.to("cpu")
-        head_name, base_tied, has_bias = plant(torch, base, args.output, args.seed)
+        head_name, base_tied, has_bias, changed_rows = plant(torch, base, args.output, args)
         report["base_output_was_tied"] = base_tied
+        report["configuration"]["planted_changed_rows"] = changed_rows
         endpoint = base
         del base
 
     endpoint.to(args.device)
     hook = None
-    if args.endpoint_precision == "float64":
+    if args.endpoint_precision != args.backbone_precision:
         endpoint.get_output_embeddings().double()
         hook = endpoint.get_output_embeddings().register_forward_pre_hook(
             lambda module, inputs: (inputs[0].double(),)
@@ -415,6 +445,7 @@ def run(args):
                 args.device,
                 store_logits=split == "final",
                 precision=args.endpoint_precision,
+                raw_scores=args.fit_mode == "raw_logits" and split != "final",
             )
             for split, rows in contexts.items()
         }
@@ -447,7 +478,9 @@ def run(args):
             report["fit"] = json.loads(
                 (candidate / "endpoint-head.json").read_text(encoding="utf-8")
             )
-            recovered = load_model(torch, AutoModelForCausalLM, candidate).to(args.device)
+            recovered = load_model(
+                torch, AutoModelForCausalLM, candidate, args.backbone_precision
+            ).to(args.device)
             capture(
                 torch,
                 recovered,
@@ -455,6 +488,7 @@ def run(args):
                 args.output / "recovered_final",
                 args.device,
                 store_logits=True,
+                precision=args.backbone_precision,
             )
             del recovered
             reference = args.output / "planted_reference"
@@ -492,14 +526,25 @@ def main():
     parser.add_argument("--fit-multiplier", type=int, default=3)
     parser.add_argument("--validation-rows", type=int, default=128)
     parser.add_argument("--endpoint-precision", choices=("float32", "float64"), default="float32")
+    parser.add_argument("--backbone-precision", choices=("float32", "float64"), default="float32")
+    parser.add_argument(
+        "--fit-mode", choices=("anchored", "raw_logits", "base_median"), default="anchored"
+    )
+    parser.add_argument("--plant-common-shift", action="store_true")
     parser.add_argument("--expect-rank-deficient", action="store_true")
     args = parser.parse_args()
     if args.seed < 0 or min(args.threads, args.fit_multiplier, args.validation_rows) < 1:
         parser.error("seed must be nonnegative and counts must be positive")
     if args.target is not None and (
-        args.endpoint_precision != "float32" or args.expect_rank_deficient
+        args.endpoint_precision != "float32"
+        or args.fit_mode != "anchored"
+        or args.expect_rank_deficient
     ):
         parser.error("different-backbone control requires standard FP32 endpoint scores")
+    if args.backbone_precision == "float64" and args.endpoint_precision != "float64":
+        parser.error("FP64 backbone requires FP64 endpoint scores")
+    if args.plant_common_shift and (args.fit_mode != "base_median" or args.target is not None):
+        parser.error("the common-shift control requires a planted base_median trial")
     run(args)
 
 

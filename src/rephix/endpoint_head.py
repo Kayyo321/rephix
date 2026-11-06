@@ -1,4 +1,4 @@
-"""Export a private output head from endpoint scores and an unchanged public backbone."""
+"""Export a private output head from dense scores and an unchanged public backbone."""
 
 from __future__ import annotations
 
@@ -90,7 +90,8 @@ def _features(torch, model, head, evidence, device, batch_size):
         observed.append((args[0], output))
 
     hook = head.register_forward_hook(capture)
-    features = np.empty((len(evidence.lengths), head.in_features), dtype=np.float32)
+    precision = np.float64 if head.weight.dtype == torch.float64 else np.float32
+    features = np.empty((len(evidence.lengths), head.in_features), dtype=precision)
     forward_kwargs = _forward_kwargs(model)
     try:
         with torch.inference_mode():
@@ -106,28 +107,30 @@ def _features(torch, model, head, evidence, device, batch_size):
                     or output.logits.shape != raw.shape
                     or hidden.shape[:2] != raw.shape[:2]
                     or raw.shape[0] != len(rows)
-                    or not torch.equal(output.logits[:, -1].float(), raw[:, -1].float())
+                    or not torch.equal(output.logits[:, -1], raw[:, -1])
                 ):
                     raise ValueError("base model logits do not match the affine output head")
-                features[rows] = hidden[:, -1].float().cpu().numpy()
+                features[rows] = hidden[:, -1].cpu().numpy()
     finally:
         hook.remove()
     return features
 
 
-def _runtime_contrast_error(torch, model, evidence, device, batch_size, anchor_id):
+def _runtime_error(torch, model, evidence, device, batch_size, reference_id):
     squared_error = 0.0
     forward_kwargs = _forward_kwargs(model)
     with torch.inference_mode():
         for rows, inputs in _context_batches(torch, evidence, device, batch_size):
             output = model(input_ids=inputs, use_cache=False, **forward_kwargs)
-            logits = output.logits[:, -1].float().cpu().numpy().astype(np.float64)
+            logits = output.logits[:, -1].cpu().numpy().astype(np.float64)
             scores = evidence.scores[rows].astype(np.float64)
-            logits -= logits[:, anchor_id : anchor_id + 1]
-            scores -= scores[:, anchor_id : anchor_id + 1]
+            if reference_id is not None:
+                logits -= logits[:, reference_id : reference_id + 1]
+                scores -= scores[:, reference_id : reference_id + 1]
             delta = logits - scores
             squared_error += float(np.vdot(delta, delta))
-    return float(np.sqrt(squared_error / (len(evidence.lengths) * (evidence.scores.shape[1] - 1))))
+    columns = evidence.scores.shape[1] - (reference_id is not None)
+    return float(np.sqrt(squared_error / (len(evidence.lengths) * columns)))
 
 
 def recover_endpoint_head(
@@ -136,7 +139,9 @@ def recover_endpoint_head(
     validation,
     output,
     *,
-    anchor_id,
+    anchor_id=None,
+    mode="anchored",
+    dtype="float32",
     device="cpu",
     batch_size=16,
     chunk_size=512,
@@ -145,11 +150,11 @@ def recover_endpoint_head(
 ):
     """Recover the output head using known base features and endpoint scores.
 
-    The target must share the base backbone and token coordinates. The anchor
-    row and its bias are assumed to be unchanged. Endpoint probabilities alone
-    cannot verify the anchor, even when validation error is zero.
+    The target must share the base backbone and token coordinates. Raw logits
+    determine absolute head scores. For log probabilities, supply an unchanged
+    anchor row or declare that a strict majority of base rows are unchanged.
     """
-    from .head_solver import fit_anchored_head
+    from .head_solver import fit_anchored_head, fit_unanchored_head
 
     base, output = Path(base), Path(output)
     if not (base / "config.json").is_file():
@@ -158,6 +163,12 @@ def recover_endpoint_head(
         raise ValueError("output must be a new directory outside the base checkpoint")
     if type(batch_size) is not int or batch_size < 1:
         raise ValueError("batch size must be a positive integer")
+    if mode not in {"anchored", "raw_logits", "base_median"}:
+        raise ValueError("mode must be anchored, raw_logits, or base_median")
+    if mode != "anchored" and anchor_id is not None:
+        raise ValueError("anchor ID applies only to anchored mode")
+    if dtype not in {"float32", "float64"}:
+        raise ValueError("dtype must be float32 or float64")
 
     torch, AutoConfig, AutoModel, AutoTokenizer = _deps()
     device = _device(torch, device)
@@ -169,7 +180,7 @@ def recover_endpoint_head(
         base,
         config=config,
         use_safetensors=True,
-        torch_dtype=torch.float32,
+        torch_dtype=getattr(torch, dtype),
         output_loading_info=True,
         **opts,
     )
@@ -180,7 +191,9 @@ def recover_endpoint_head(
     embeddings = model.get_input_embeddings()
     if type(head) is not torch.nn.Linear or type(embeddings) is not torch.nn.Embedding:
         raise ValueError("base must have a standard Linear output head and token embedding")
-    if type(anchor_id) is not int or not 0 <= anchor_id < head.out_features:
+    if mode == "anchored" and (
+        type(anchor_id) is not int or not 0 <= anchor_id < head.out_features
+    ):
         raise ValueError("anchor ID must identify an existing output row")
     evidence_options = {
         "inputs": embeddings.num_embeddings,
@@ -193,17 +206,27 @@ def recover_endpoint_head(
 
     features = _features(torch, model, head, training, device, batch_size)
     heldout_features = _features(torch, model, head, heldout, device, batch_size)
-    weights, bias, fit = fit_anchored_head(
-        features,
-        training.scores,
-        heldout_features,
-        heldout.scores,
-        anchor_id=anchor_id,
-        anchor_weight=head.weight[anchor_id].detach().cpu().numpy(),
-        anchor_bias=None if head.bias is None else float(head.bias[anchor_id].detach()),
-        chunk_size=chunk_size,
-        max_validation_rmse=max_validation_rmse,
-    )
+    samples = (features, training.scores, heldout_features, heldout.scores)
+    solver_options = {"chunk_size": chunk_size, "max_validation_rmse": max_validation_rmse}
+    if mode == "anchored":
+        weights, bias, fit = fit_anchored_head(
+            *samples,
+            anchor_id=anchor_id,
+            anchor_weight=head.weight[anchor_id].detach().cpu().numpy(),
+            anchor_bias=None if head.bias is None else float(head.bias[anchor_id].detach()),
+            **solver_options,
+        )
+    else:
+        prior = {}
+        if mode == "base_median":
+            prior = {
+                "base_weight": head.weight.detach().cpu().numpy(),
+                "base_bias": None if head.bias is None else head.bias.detach().cpu().numpy(),
+            }
+        weights, bias, fit = fit_unanchored_head(
+            *samples, mode=mode, has_bias=head.bias is not None, **prior, **solver_options
+        )
+        del prior
     was_tied = head.weight is embeddings.weight
     if was_tied:
         head.weight = torch.nn.Parameter(torch.empty_like(head.weight))
@@ -212,22 +235,29 @@ def recover_endpoint_head(
         head.weight.copy_(torch.from_numpy(weights))
         if bias is not None:
             head.bias.copy_(torch.from_numpy(bias))
-    runtime_error = _runtime_contrast_error(torch, model, heldout, device, batch_size, anchor_id)
+    reference_id = 0 if mode == "base_median" else anchor_id
+    metric = "logit" if reference_id is None else "contrast"
+    runtime_error = _runtime_error(torch, model, heldout, device, batch_size, reference_id)
     if not np.isfinite(runtime_error) or runtime_error > max_validation_rmse:
         raise ValueError(
-            f"FP32 candidate held-out contrast RMSE {runtime_error:.6g} exceeds "
+            f"{dtype} candidate held-out {metric} RMSE {runtime_error:.6g} exceeds "
             f"max_validation_rmse {max_validation_rmse:.6g} or is nonfinite"
         )
     model.to("cpu")
 
     report = {
-        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "observation_mode": (
+            "dense_endpoint_scores_with_known_backbone_and_anchor"
+            if mode == "anchored"
+            else "dense_endpoint_scores_with_known_backbone"
+        ),
         "model_type": model.config.model_type,
+        "model_dtype": dtype,
         "base_output_was_tied": was_tied,
         "base_ignored_keys": loading["unexpected_keys"],
         "tokenizer_exported": include_tokenizer,
         "checkpoint": str(output),
-        "validation_runtime_contrast_rmse": runtime_error,
+        f"validation_runtime_{metric}_rmse": runtime_error,
         **fit,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -251,6 +281,8 @@ def _command(args):
         args.validation,
         args.output,
         anchor_id=args.anchor_id,
+        mode=args.mode,
+        dtype=args.dtype,
         device=args.device,
         batch_size=args.batch_size,
         chunk_size=args.chunk_size,
@@ -262,7 +294,7 @@ def _command(args):
 def add_subcommands(commands):
     command = commands.add_parser(
         "recover-endpoint-head",
-        help="recover a private output head with dense scores, a known backbone, and a trusted row",
+        help="recover a private output head from dense scores and a known backbone",
     )
     command.add_argument("--base", required=True, help="local Transformers base checkpoint")
     command.add_argument("--train", required=True, help="directory of fitting evidence arrays")
@@ -270,7 +302,19 @@ def add_subcommands(commands):
         "--validation", required=True, help="directory of held-out evidence arrays"
     )
     command.add_argument("--output", required=True, help="new Transformers checkpoint directory")
-    command.add_argument("--anchor-id", required=True, type=int)
+    command.add_argument("--anchor-id", type=int, help="unchanged output row for anchored mode")
+    command.add_argument(
+        "--mode",
+        choices=("anchored", "raw_logits", "base_median"),
+        default="anchored",
+        help="use a trusted row, absolute logits, or a majority of unchanged base rows",
+    )
+    command.add_argument(
+        "--dtype",
+        choices=("float32", "float64"),
+        default="float32",
+        help="known backbone and export precision, matching the endpoint backbone",
+    )
     command.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     command.add_argument("--batch-size", type=int, default=16)
     command.add_argument("--chunk-size", type=int, default=512)
