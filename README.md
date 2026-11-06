@@ -20,6 +20,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [ViT and DeiT classifier recovery](docs/VISION_RECOVERY.md)
 - [T5-family and BART encoder–decoder recovery](docs/SEQ2SEQ_RECOVERY.md)
 - [Whisper speech recognition recovery](docs/WHISPER_RECOVERY.md)
+- [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
 ## Start with a controlled experiment

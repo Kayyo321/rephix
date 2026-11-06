@@ -1,0 +1,4195 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "state-spaces/mamba-130m-hf",
+      "revision": "1e76775f628fbf1350fbe4dbb3d971ba64af25a1",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "inference_dtype": "torch.float64",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 170,
+        "unique_parameter_elements_recovered": 129135360,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 128545536,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [
+          {
+            "module": "backbone.layers.0.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.1.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.2.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.3.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.4.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.5.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.6.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.7.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.8.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.9.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.10.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.11.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.12.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.13.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.14.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.15.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.16.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.17.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.18.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.19.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.20.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.21.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.22.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.23.mixer",
+            "unidentified_parameter_elements": 24576,
+            "effective_rate_elements_recovered": 24576,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          }
+        ],
+        "layer_calls": 436,
+        "probe_input_rows": 143881,
+        "observed_output_scalars": 132748032,
+        "probe_batch_size": 512,
+        "model_type": "mamba",
+        "architecture": "MambaForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "reference_sha256": {
+        "config.json": "784825b6b6cdde47a1602278db0e66d6764169af4a8e662404701bc636a2686a",
+        "generation_config.json": "248fa733db101c19a8e3c2f311a180fdd7c769323ec2873edf7060cec9f5ee32",
+        "model.safetensors": "1a5ed29c492ef4d485df3b7c2c8109771696589855b2162ad1ba618b6067cbea",
+        "tokenizer.json": "b074ad869d4f45d1265ca5c9814f78604f3d7e187acc063b15dd232b27585fcf",
+        "tokenizer_config.json": "9d7016c33747c6309346e59bd7bf63bfc33c9d9366ecb7e514b3b84dc6b46acb"
+      },
+      "candidate_sha256": {
+        "config.json": "67836cb7385059c01a7bef14dd6b52714b743d33ac84d00ba68970e3d8f951fc",
+        "generation_config.json": "1795c4ba8a409352a1ef4e189e9ab4686fd2e0949fdccc144d4e7a86b6694834",
+        "layer-recovery.json": "c084cd8674e89ce895238bfb9fac6110dc41d1ccbe57fb41db034157feb244c1",
+        "model.safetensors": "6731b90d9fd92c00419d96f93d0eb29efa299e594ad004bbb3bca7e340620ca9",
+        "special_tokens_map.json": "aff38493227d813e29fcf8406e8e90062f1f031aa47d589325e9c31d89ac7cc3",
+        "tokenizer.json": "1175771943b5c04a7b8334ecd980acce4e3b7494a298f27738a76b96b3708a3b",
+        "tokenizer_config.json": "40241d7f1301c57605b193550089a662e5bf43665200617775befdd735f2949c"
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 242,
+        "candidate_tensors": 242,
+        "compared_tensors": 242,
+        "reference_elements": 129135360,
+        "candidate_elements": 129135360,
+        "compared_elements": 129135360,
+        "coverage": 1.0,
+        "exactly_equal_elements": 129053137,
+        "fraction_exactly_equal": 0.9993632805143379,
+        "within_tolerance_elements": 129135042,
+        "fraction_within_tolerance": 0.9999975374676618,
+        "relative_l2": 3.5687087911340133e-09,
+        "zero_filled_relative_l2": 3.5687087911340133e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "backbone.embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.norm_f.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "loaded_state_audit": {
+        "A_log": {
+          "elements": 589824,
+          "exactly_equal": 507601,
+          "within_tolerance": 589506,
+          "max_abs_error": 1.341104507446289e-07
+        },
+        "D": {
+          "elements": 36864,
+          "exactly_equal": 36864,
+          "within_tolerance": 36864,
+          "max_abs_error": 0.0
+        },
+        "effective_decay_rate": {
+          "elements": 589824,
+          "exactly_equal": 589824,
+          "within_tolerance": 589824,
+          "max_abs_error": 0.0
+        },
+        "cpu_effective_decay_rate": {
+          "elements": 589824,
+          "exactly_equal": 550751,
+          "within_tolerance": 589824,
+          "max_abs_error": 9.5367431640625e-07
+        }
+      },
+      "held_out": {
+        "prompt_sha256": "0bcec6b556eb6d4535f5cf3205ab3e1cc24bfe4497eae67823c3493b4cb2c570",
+        "token_ids_sha256": "b30c45dfe2e04d37dcb48af779044a2ca3bf81b129a3b4ccc34991f0508f7e3d",
+        "tokenizer_ids_and_masks_exact": true,
+        "forward": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "cached_forward": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "cached_decode": {
+          "positions": 36,
+          "argmax_matches": 36,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "reference_cache_consistency": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 5.245208740234375e-05,
+          "logit_rmse": 8.359226594755862e-06
+        },
+        "candidate_cache_consistency": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 5.245208740234375e-05,
+          "logit_rmse": 8.359226594755862e-06
+        },
+        "free_running": {
+          "examples": 6,
+          "max_new_tokens": 24,
+          "cached": true,
+          "exact_matches": 6,
+          "prompts": [
+            "The small town opened a public observatory on the hill. On its first night, visitors",
+            "In Python, a function that counts the vowels in a string could start like this:\n\ndef",
+            "The first three powers of two are 1, 2, and 4. The next three are",
+            "Translate into English: Le train longe la rivi\u00e8re avant d'arriver au village.\nEnglish:",
+            "The following ingredients are on the counter: potatoes, onions, oil, and salt. A simple recipe",
+            "Mira keeps a yellow notebook in the top drawer. She put a postcard between its first two pages. Later, she moved the notebook to the bottom drawer without opening it. Her brother searched the top drawer and found a pencil, a key, and an empty envelope. If he wants to read the postcard, he should first look inside"
+          ],
+          "reference": [
+            {
+              "token_ids": [
+                497,
+                25213,
+                407,
+                247,
+                1781,
+                1387,
+                273,
+                952,
+                13,
+                1690,
+                253,
+                14967,
+                13,
+                253,
+                14967,
+                434,
+                4475,
+                13,
+                285,
+                253,
+                14967,
+                434,
+                6122,
+                15
+              ],
+              "text": " were welcomed by a large group of people, including the mayor, the mayor's wife, and the mayor's daughter."
+            },
+            {
+              "token_ids": [
+                1385,
+                64,
+                87,
+                319,
+                1241,
+                9,
+                2703,
+                2262,
+                187,
+                50274,
+                2309,
+                8472,
+                9,
+                2703,
+                10,
+                2462,
+                374,
+                187,
+                187,
+                1552,
+                651,
+                320,
+                247,
+                2257
+              ],
+              "text": " count_vowels(string):\n    return len(string) % 2\n\nThis would be a lot"
+            },
+            {
+              "token_ids": [
+                495,
+                13,
+                608,
+                13,
+                285,
+                818,
+                15,
+                380,
+                1390,
+                1264,
+                9136,
+                273,
+                767,
+                403,
+                721,
+                13,
+                854,
+                13,
+                285,
+                884,
+                15,
+                187,
+                187,
+                510
+              ],
+              "text": " 3, 5, and 7. The last three powers of two are 6, 8, and 10.\n\nThe"
+            },
+            {
+              "token_ids": [
+                380,
+                6194,
+                310,
+                6108,
+                253,
+                7773,
+                1078,
+                253,
+                8281,
+                15,
+                187,
+                187,
+                14376,
+                27,
+                209,
+                187,
+                510,
+                6194,
+                310,
+                6108,
+                253,
+                7773,
+                15,
+                187
+              ],
+              "text": " The train is leaving the village before the river.\n\nEnglish: \nThe train is leaving the village.\n"
+            },
+            {
+              "token_ids": [
+                323,
+                247,
+                2969,
+                13612,
+                310,
+                281,
+                823,
+                247,
+                1652,
+                1824,
+                281,
+                253,
+                20951,
+                285,
+                27408,
+                13,
+                285,
+                840,
+                823,
+                247,
+                1652,
+                7043,
+                15,
+                187
+              ],
+              "text": " for a simple recipe is to add a little water to the potatoes and onions, and then add a little salt.\n"
+            },
+            {
+              "token_ids": [
+                253,
+                17329,
+                15,
+                187,
+                187,
+                3,
+                42,
+                1353,
+                1469,
+                281,
+                253,
+                15336,
+                937,
+                703,
+                753,
+                15,
+                187,
+                187,
+                3,
+                42,
+                1833,
+                320,
+                987,
+                896
+              ],
+              "text": " the envelope.\n\n\"I'm going to the bathroom,\" she said.\n\n\"I'll be right back"
+            }
+          ],
+          "candidate": [
+            {
+              "token_ids": [
+                497,
+                25213,
+                407,
+                247,
+                1781,
+                1387,
+                273,
+                952,
+                13,
+                1690,
+                253,
+                14967,
+                13,
+                253,
+                14967,
+                434,
+                4475,
+                13,
+                285,
+                253,
+                14967,
+                434,
+                6122,
+                15
+              ],
+              "text": " were welcomed by a large group of people, including the mayor, the mayor's wife, and the mayor's daughter."
+            },
+            {
+              "token_ids": [
+                1385,
+                64,
+                87,
+                319,
+                1241,
+                9,
+                2703,
+                2262,
+                187,
+                50274,
+                2309,
+                8472,
+                9,
+                2703,
+                10,
+                2462,
+                374,
+                187,
+                187,
+                1552,
+                651,
+                320,
+                247,
+                2257
+              ],
+              "text": " count_vowels(string):\n    return len(string) % 2\n\nThis would be a lot"
+            },
+            {
+              "token_ids": [
+                495,
+                13,
+                608,
+                13,
+                285,
+                818,
+                15,
+                380,
+                1390,
+                1264,
+                9136,
+                273,
+                767,
+                403,
+                721,
+                13,
+                854,
+                13,
+                285,
+                884,
+                15,
+                187,
+                187,
+                510
+              ],
+              "text": " 3, 5, and 7. The last three powers of two are 6, 8, and 10.\n\nThe"
+            },
+            {
+              "token_ids": [
+                380,
+                6194,
+                310,
+                6108,
+                253,
+                7773,
+                1078,
+                253,
+                8281,
+                15,
+                187,
+                187,
+                14376,
+                27,
+                209,
+                187,
+                510,
+                6194,
+                310,
+                6108,
+                253,
+                7773,
+                15,
+                187
+              ],
+              "text": " The train is leaving the village before the river.\n\nEnglish: \nThe train is leaving the village.\n"
+            },
+            {
+              "token_ids": [
+                323,
+                247,
+                2969,
+                13612,
+                310,
+                281,
+                823,
+                247,
+                1652,
+                1824,
+                281,
+                253,
+                20951,
+                285,
+                27408,
+                13,
+                285,
+                840,
+                823,
+                247,
+                1652,
+                7043,
+                15,
+                187
+              ],
+              "text": " for a simple recipe is to add a little water to the potatoes and onions, and then add a little salt.\n"
+            },
+            {
+              "token_ids": [
+                253,
+                17329,
+                15,
+                187,
+                187,
+                3,
+                42,
+                1353,
+                1469,
+                281,
+                253,
+                15336,
+                937,
+                703,
+                753,
+                15,
+                187,
+                187,
+                3,
+                42,
+                1833,
+                320,
+                987,
+                896
+              ],
+              "text": " the envelope.\n\n\"I'm going to the bathroom,\" she said.\n\n\"I'll be right back"
+            }
+          ]
+        }
+      },
+      "evaluation_seconds": 8.32883477300129
+    },
+    {
+      "schema_version": 1,
+      "model_id": "state-spaces/mamba-370m-hf",
+      "revision": "b519127f5bfaaa1c27dd938dad051ec360972b23",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "inference_dtype": "torch.float64",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 338,
+        "unique_parameter_elements_recovered": 371516416,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 369943552,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [
+          {
+            "module": "backbone.layers.0.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.1.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.2.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.3.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.4.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.5.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.6.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.7.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.8.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.9.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.10.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.11.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.12.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.13.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.14.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.15.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.16.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.17.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.18.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.19.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.20.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.21.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.22.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.23.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.24.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.25.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.26.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.27.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.28.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.29.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.30.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.31.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.32.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.33.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.6653345369377348e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.34.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.35.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.36.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.37.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.38.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.39.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.40.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.41.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.42.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.3877787807814457e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.43.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.44.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.45.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 2.220446049250313e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.46.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          },
+          {
+            "module": "backbone.layers.47.mixer",
+            "unidentified_parameter_elements": 32768,
+            "effective_rate_elements_recovered": 32768,
+            "saturated_effective_rate_elements": 0,
+            "effective_rate_max_transition_error": 1.1102230246251565e-16,
+            "representative": "nearest_log_reproducing_fp32_exp"
+          }
+        ],
+        "layer_calls": 868,
+        "probe_input_rows": 299689,
+        "observed_output_scalars": 381150208,
+        "probe_batch_size": 512,
+        "model_type": "mamba",
+        "architecture": "MambaForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "reference_sha256": {
+        "config.json": "c15aad03ce0cc27f7f550ff05bb9a0354f3c0770b3b9ef382c5f730aa8e23e62",
+        "generation_config.json": "ffc3c43cdd9c33c738da20597bdef859cd44e4cc77ff3966b6d59269a1cae8e7",
+        "model.safetensors": "8e2386de4c63e64a371cb9bc451421b04a33390103ba5e596ead4ac4c668a2b1",
+        "tokenizer.json": "b074ad869d4f45d1265ca5c9814f78604f3d7e187acc063b15dd232b27585fcf",
+        "tokenizer_config.json": "9d7016c33747c6309346e59bd7bf63bfc33c9d9366ecb7e514b3b84dc6b46acb"
+      },
+      "candidate_sha256": {
+        "config.json": "b7249671b734ec08ee3123533a130e1daa9ccfd34ebef2d607d400c99fa0be51",
+        "generation_config.json": "1795c4ba8a409352a1ef4e189e9ab4686fd2e0949fdccc144d4e7a86b6694834",
+        "layer-recovery.json": "9091d79b6930cd04ce9bc0bbc45233bac0e88746b0fa64c0eb9c7d4a95472646",
+        "model.safetensors": "3743cc94d075e017ec699210add1d815909dd291f324224e2bcae12e44539d23",
+        "special_tokens_map.json": "aff38493227d813e29fcf8406e8e90062f1f031aa47d589325e9c31d89ac7cc3",
+        "tokenizer.json": "1175771943b5c04a7b8334ecd980acce4e3b7494a298f27738a76b96b3708a3b",
+        "tokenizer_config.json": "40241d7f1301c57605b193550089a662e5bf43665200617775befdd735f2949c"
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 482,
+        "candidate_tensors": 482,
+        "compared_tensors": 482,
+        "reference_elements": 371516416,
+        "candidate_elements": 371516416,
+        "compared_elements": 371516416,
+        "coverage": 1.0,
+        "exactly_equal_elements": 371319425,
+        "fraction_exactly_equal": 0.999469765018405,
+        "within_tolerance_elements": 371515638,
+        "fraction_within_tolerance": 0.9999979058798845,
+        "relative_l2": 5.5779688589808624e-09,
+        "zero_filled_relative_l2": 5.5779688589808624e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "backbone.embeddings.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.0.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.1.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.10.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.11.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.12.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.13.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.14.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.15.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.16.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.17.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.18.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.19.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.2.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.20.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.21.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.22.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.23.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.24.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.25.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.26.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.27.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.28.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.29.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.3.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.30.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.31.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.32.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.33.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.34.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.35.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.36.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.37.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.38.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.39.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.4.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.40.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.41.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.42.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.43.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.44.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.45.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.46.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.47.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.5.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.6.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.7.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.8.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.D": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.conv1d.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.conv1d.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.dt_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.dt_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.in_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.mixer.x_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.layers.9.norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "backbone.norm_f.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "loaded_state_audit": {
+        "A_log": {
+          "elements": 1572864,
+          "exactly_equal": 1375873,
+          "within_tolerance": 1572086,
+          "max_abs_error": 1.341104507446289e-07
+        },
+        "D": {
+          "elements": 98304,
+          "exactly_equal": 98304,
+          "within_tolerance": 98304,
+          "max_abs_error": 0.0
+        },
+        "effective_decay_rate": {
+          "elements": 1572864,
+          "exactly_equal": 1572864,
+          "within_tolerance": 1572864,
+          "max_abs_error": 0.0
+        },
+        "cpu_effective_decay_rate": {
+          "elements": 1572864,
+          "exactly_equal": 1476934,
+          "within_tolerance": 1572864,
+          "max_abs_error": 9.5367431640625e-07
+        }
+      },
+      "held_out": {
+        "prompt_sha256": "0bcec6b556eb6d4535f5cf3205ab3e1cc24bfe4497eae67823c3493b4cb2c570",
+        "token_ids_sha256": "b30c45dfe2e04d37dcb48af779044a2ca3bf81b129a3b4ccc34991f0508f7e3d",
+        "tokenizer_ids_and_masks_exact": true,
+        "forward": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "cached_forward": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "cached_decode": {
+          "positions": 36,
+          "argmax_matches": 36,
+          "logit_max_abs_error": 0.0,
+          "logit_rmse": 0.0
+        },
+        "reference_cache_consistency": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 1.9073486328125e-05,
+          "logit_rmse": 2.7904036288664156e-06
+        },
+        "candidate_cache_consistency": {
+          "positions": 168,
+          "argmax_matches": 168,
+          "logit_max_abs_error": 1.9073486328125e-05,
+          "logit_rmse": 2.7904036288664156e-06
+        },
+        "free_running": {
+          "examples": 6,
+          "max_new_tokens": 24,
+          "cached": true,
+          "exact_matches": 6,
+          "prompts": [
+            "The small town opened a public observatory on the hill. On its first night, visitors",
+            "In Python, a function that counts the vowels in a string could start like this:\n\ndef",
+            "The first three powers of two are 1, 2, and 4. The next three are",
+            "Translate into English: Le train longe la rivi\u00e8re avant d'arriver au village.\nEnglish:",
+            "The following ingredients are on the counter: potatoes, onions, oil, and salt. A simple recipe",
+            "Mira keeps a yellow notebook in the top drawer. She put a postcard between its first two pages. Later, she moved the notebook to the bottom drawer without opening it. Her brother searched the top drawer and found a pencil, a key, and an empty envelope. If he wants to read the postcard, he should first look inside"
+          ],
+          "reference": [
+            {
+              "token_ids": [
+                812,
+                923,
+                253,
+                6114,
+                285,
+                253,
+                12334,
+                15,
+                380,
+                1759,
+                2473,
+                369,
+                247,
+                2323,
+                13,
+                285,
+                253,
+                3874,
+                369,
+                3517,
+                247,
+                4055,
+                273,
+                50085
+              ],
+              "text": " could see the stars and the moon. The observatory was a success, and the town was soon a center of astronomy"
+            },
+            {
+              "token_ids": [
+                30130,
+                293,
+                64,
+                5560,
+                9,
+                84,
+                2262,
+                187,
+                50274,
+                2309,
+                2020,
+                9,
+                74,
+                323,
+                891,
+                275,
+                256,
+                604,
+                891,
+                2295,
+                686,
+                66,
+                8,
+                390
+              ],
+              "text": " vowel_count(s):\n    return sum(i for i in s if i == 'a' or"
+            },
+            {
+              "token_ids": [
+                608,
+                13,
+                818,
+                13,
+                285,
+                1903,
+                15,
+                380,
+                1735,
+                1612,
+                273,
+                767,
+                310,
+                2145,
+                15,
+                380,
+                1735,
+                1612,
+                273,
+                767,
+                310,
+                1722,
+                15,
+                380
+              ],
+              "text": " 5, 7, and 11. The next power of two is 13. The next power of two is 17. The"
+            },
+            {
+              "token_ids": [
+                380,
+                6194,
+                432,
+                253,
+                8281,
+                281,
+                253,
+                7773,
+                1078,
+                20948,
+                387,
+                253,
+                7773,
+                15,
+                187,
+                187,
+                6189,
+                12579,
+                715,
+                5112,
+                27,
+                2070,
+                6194,
+                372
+              ],
+              "text": " The train from the river to the village before arriving at the village.\n\nTranslate into French: Le train de"
+            },
+            {
+              "token_ids": [
+                323,
+                247,
+                14408,
+                22462,
+                15,
+                187,
+                187,
+                424,
+                18,
+                1781,
+                21635,
+                13,
+                17513,
+                424,
+                187,
+                187,
+                424,
+                18,
+                1781,
+                14408,
+                13,
+                35003,
+                285,
+                49441
+              ],
+              "text": " for a potato salad.\n\n**1 large onion, chopped**\n\n**1 large potato, peeled and diced"
+            },
+            {
+              "token_ids": [
+                253,
+                17329,
+                15,
+                187,
+                187,
+                46,
+                8432,
+                434,
+                4929,
+                5485,
+                253,
+                17329,
+                285,
+                1119,
+                247,
+                1501,
+                9290,
+                15,
+                754,
+                5485,
+                253,
+                17329,
+                285,
+                1119
+              ],
+              "text": " the envelope.\n\nMira's brother opened the envelope and found a postcard. He opened the envelope and found"
+            }
+          ],
+          "candidate": [
+            {
+              "token_ids": [
+                812,
+                923,
+                253,
+                6114,
+                285,
+                253,
+                12334,
+                15,
+                380,
+                1759,
+                2473,
+                369,
+                247,
+                2323,
+                13,
+                285,
+                253,
+                3874,
+                369,
+                3517,
+                247,
+                4055,
+                273,
+                50085
+              ],
+              "text": " could see the stars and the moon. The observatory was a success, and the town was soon a center of astronomy"
+            },
+            {
+              "token_ids": [
+                30130,
+                293,
+                64,
+                5560,
+                9,
+                84,
+                2262,
+                187,
+                50274,
+                2309,
+                2020,
+                9,
+                74,
+                323,
+                891,
+                275,
+                256,
+                604,
+                891,
+                2295,
+                686,
+                66,
+                8,
+                390
+              ],
+              "text": " vowel_count(s):\n    return sum(i for i in s if i == 'a' or"
+            },
+            {
+              "token_ids": [
+                608,
+                13,
+                818,
+                13,
+                285,
+                1903,
+                15,
+                380,
+                1735,
+                1612,
+                273,
+                767,
+                310,
+                2145,
+                15,
+                380,
+                1735,
+                1612,
+                273,
+                767,
+                310,
+                1722,
+                15,
+                380
+              ],
+              "text": " 5, 7, and 11. The next power of two is 13. The next power of two is 17. The"
+            },
+            {
+              "token_ids": [
+                380,
+                6194,
+                432,
+                253,
+                8281,
+                281,
+                253,
+                7773,
+                1078,
+                20948,
+                387,
+                253,
+                7773,
+                15,
+                187,
+                187,
+                6189,
+                12579,
+                715,
+                5112,
+                27,
+                2070,
+                6194,
+                372
+              ],
+              "text": " The train from the river to the village before arriving at the village.\n\nTranslate into French: Le train de"
+            },
+            {
+              "token_ids": [
+                323,
+                247,
+                14408,
+                22462,
+                15,
+                187,
+                187,
+                424,
+                18,
+                1781,
+                21635,
+                13,
+                17513,
+                424,
+                187,
+                187,
+                424,
+                18,
+                1781,
+                14408,
+                13,
+                35003,
+                285,
+                49441
+              ],
+              "text": " for a potato salad.\n\n**1 large onion, chopped**\n\n**1 large potato, peeled and diced"
+            },
+            {
+              "token_ids": [
+                253,
+                17329,
+                15,
+                187,
+                187,
+                46,
+                8432,
+                434,
+                4929,
+                5485,
+                253,
+                17329,
+                285,
+                1119,
+                247,
+                1501,
+                9290,
+                15,
+                754,
+                5485,
+                253,
+                17329,
+                285,
+                1119
+              ],
+              "text": " the envelope.\n\nMira's brother opened the envelope and found a postcard. He opened the envelope and found"
+            }
+          ]
+        }
+      },
+      "evaluation_seconds": 19.60841261600035
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
+from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
 
 _HF_RMS_NORMS = {
     "transformers.models.llama.modeling_llama.LlamaRMSNorm",
@@ -17,7 +18,9 @@ _HF_RMS_NORMS = {
     "transformers.models.mixtral.modeling_mixtral.MixtralRMSNorm",
     "transformers.models.qwen2.modeling_qwen2.Qwen2RMSNorm",
 }
-_T5_RMS_NORMS = {
+_DIRECT_HF_RMS_NORMS = {
+    "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaRMSNorm",
+    "transformers.models.mamba.modeling_mamba.MambaRMSNorm",
     "transformers.models.mt5.modeling_mt5.MT5LayerNorm",
     "transformers.models.t5.modeling_t5.T5LayerNorm",
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
@@ -41,6 +44,8 @@ def _operator(torch, module, *, direct):
     qualified_name = _qualified_name(module)
     if cls is torch.nn.Linear:
         return "linear"
+    if direct and qualified_name in SSM_MIXERS:
+        return "ssm_mixer"
     if direct and cls is torch.nn.Conv1d:
         from .convolution import validate_conv1d
 
@@ -63,7 +68,7 @@ def _operator(torch, module, *, direct):
         return "offset_embedding"
     if cls is torch.nn.LayerNorm and module.weight.numel() > 1:
         return "layer_norm"
-    if qualified_name in _HF_RMS_NORMS or (direct and qualified_name in _T5_RMS_NORMS):
+    if qualified_name in _HF_RMS_NORMS or (direct and qualified_name in _DIRECT_HF_RMS_NORMS):
         return "hf_rms_norm"
     if cls is getattr(torch.nn, "RMSNorm", None):
         return "rms_norm"
@@ -100,6 +105,11 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = set(tokens) | {"position_embeddings"}
             if pending.keys() != allowed:
                 raise ValueError(f"{path}: unexpected or tied vision embedding parameters")
+        elif kind == "ssm_mixer":
+            allowed = {"A_log", "D"}
+            if pending.keys() != allowed:
+                raise ValueError(f"{path}: unexpected or tied state-space mixer parameters")
+            validate_ssm_mixer(module)
         else:
             allowed = {"weight", "bias"}
         if not pending.keys() <= allowed:
@@ -214,6 +224,7 @@ def recover_from_layer_calls(
     batch_size=128,
     relative_bias_mode="embedding",
     relative_bias_bucket_device="cpu",
+    ssm_rate_device="cpu",
 ):
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
 
@@ -229,6 +240,10 @@ def recover_from_layer_calls(
     In attention mode, T5-family bias probes take a vector of cache positions
     at the attention parent path and return its relative bias tensor. The bucket
     device selects the backend used by the oracle for position bucketing.
+    For Mamba mixers, the oracle takes float64 step sizes and returns a tensor
+    of shape (steps, 1 + state size, channels) in float64. The first row per
+    step holds skip coefficients, and the remaining rows hold cache responses.
+    The rate device selects the backend used by the oracle's float32 transform.
     """
     import torch
 
@@ -240,6 +255,8 @@ def recover_from_layer_calls(
     calls = rows = scalars = recovered = recovered_buffers = 0
     gauges = []
     relative_bias_gauges = []
+    ssm_decays = []
+    ssm_log_elements = 0
 
     with torch.no_grad():
         for path, module, pending, kind in plan:
@@ -247,7 +264,7 @@ def recover_from_layer_calls(
                 recovered_buffers += module.final_logits_bias.numel()
             else:
                 recovered += sum(parameter.numel() for parameter in pending.values())
-            dtype = next(iter(pending.values())).dtype
+            dtype = torch.float64 if kind == "ssm_mixer" else next(iter(pending.values())).dtype
 
             def read(inputs, shape):
                 nonlocal calls, rows, scalars
@@ -270,6 +287,10 @@ def recover_from_layer_calls(
 
             if kind in {"linear", "conv1d"}:
                 _affine(torch, module, pending, kind, read, batch_size)
+            elif kind == "ssm_mixer":
+                decay = recover_ssm_mixer(torch, module, pending, read, rate_device=ssm_rate_device)
+                ssm_decays.append({"module": path, **decay})
+                ssm_log_elements += decay["unidentified_parameter_elements"]
             elif kind == "spatial_conv1d":
                 from .convolution import recover_conv1d
 
@@ -310,10 +331,12 @@ def recover_from_layer_calls(
         "unique_parameter_elements_recovered": recovered,
         "persistent_buffer_elements_recovered": recovered_buffers,
         "individually_identified_parameter_elements": recovered
-        - sum(gauge["affected_stored_elements"] for gauge in gauges + relative_bias_gauges),
+        - sum(gauge["affected_stored_elements"] for gauge in gauges + relative_bias_gauges)
+        - ssm_log_elements,
         "embedding_gauges": gauges,
         "relative_bias_mode": relative_bias_mode,
         "relative_bias_gauges": relative_bias_gauges,
+        "state_space_decays": ssm_decays,
         "layer_calls": calls,
         "probe_input_rows": rows,
         "observed_output_scalars": scalars,
@@ -408,6 +431,8 @@ def export_recovered_model(
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
         name = _qualified_name(module)
+        if name in SSM_MIXERS:
+            return observe_ssm_mixer(torch, module, inputs.to(device))
         if name == _BART + "BartLearnedPositionalEmbedding":
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))[0]
         if name == _WHISPER_POSITIONS:
@@ -428,6 +453,7 @@ def export_recovered_model(
         batch_size=batch_size,
         relative_bias_mode=relative_bias_mode,
         relative_bias_bucket_device=device,
+        ssm_rate_device=device,
     )
     if not is_vision:
         candidate.generation_config = target.generation_config
