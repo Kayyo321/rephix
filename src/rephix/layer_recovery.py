@@ -11,6 +11,7 @@ from pathlib import Path
 from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
+from .layer_staging import LayerStager
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
 
 _HF_RMS_NORMS = {
@@ -18,6 +19,7 @@ _HF_RMS_NORMS = {
     "transformers.models.mistral.modeling_mistral.MistralRMSNorm",
     "transformers.models.mixtral.modeling_mixtral.MixtralRMSNorm",
     "transformers.models.qwen2.modeling_qwen2.Qwen2RMSNorm",
+    "transformers.models.qwen3.modeling_qwen3.Qwen3RMSNorm",
 }
 _DIRECT_HF_RMS_NORMS = {
     "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaRMSNorm",
@@ -390,6 +392,7 @@ def export_recovered_model(
     include_tokenizer=True,
     relative_bias_mode="embedding",
     architecture=None,
+    stage_layers=False,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
@@ -449,7 +452,10 @@ def export_recovered_model(
     )
     if any(loading[key] for key in ("missing_keys", "mismatched_keys", "error_msgs")):
         raise ValueError(f"source checkpoint did not fully load: {loading}")
-    target.eval().to(device)
+    target.eval()
+    stager = LayerStager(torch, device) if stage_layers and device != "cpu" else None
+    if not stage_layers:
+        target.to(device)
     candidate = auto_model.from_config(
         copy.deepcopy(target.config), trust_remote_code=False, torch_dtype=target.dtype
     ).eval()
@@ -461,25 +467,39 @@ def export_recovered_model(
         if parameter.dtype != oracle_dtype:
             parameter.data = parameter.detach().to(oracle_dtype)
 
+    host_layer_calls = 0
+
     def observe(path, inputs):
+        nonlocal host_layer_calls
         if path == "final_logits_bias" and config.model_type == "bart":
+            if stager is not None:
+                # The virtual bias probe needs a full forward. Leave it on
+                # CPU rather than staging the entire model for one observation.
+                stager.clear()
+                host_layer_calls += 1
+                return _observe_bart_logits_bias(torch, target, inputs)
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
         name = _qualified_name(module)
+        if name == _DEBERTA_MLM_HEAD:
+            embeddings = target.get_input_embeddings()
+            if stager is not None:
+                module, embeddings = stager.get(module, embeddings)
+            handle = module.LayerNorm.register_forward_hook(
+                lambda _layer, _args, values: torch.zeros_like(values)
+            )
+            try:
+                return module(inputs.to(device), embeddings)
+            finally:
+                handle.remove()
+        if stager is not None:
+            (module,) = stager.get(module)
         if name in SSM_MIXERS:
             return observe_ssm_mixer(torch, module, inputs.to(device))
         if name == _BART + "BartLearnedPositionalEmbedding":
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))[0]
         if name == _WHISPER_POSITIONS:
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))
-        if name == _DEBERTA_MLM_HEAD:
-            handle = module.LayerNorm.register_forward_hook(
-                lambda _layer, _args, values: torch.zeros_like(values)
-            )
-            try:
-                return module(inputs.to(device), target.get_input_embeddings())
-            finally:
-                handle.remove()
         if relative_bias_mode == "attention" and hasattr(module, "relative_attention_bias"):
             from .relative_bias import relative_bias_spec
 
@@ -490,14 +510,18 @@ def export_recovered_model(
             )
         return module(inputs.to(device))
 
-    report = recover_from_layer_calls(
-        candidate,
-        observe,
-        batch_size=batch_size,
-        relative_bias_mode=relative_bias_mode,
-        relative_bias_bucket_device=device,
-        ssm_rate_device=device,
-    )
+    try:
+        report = recover_from_layer_calls(
+            candidate,
+            observe,
+            batch_size=batch_size,
+            relative_bias_mode=relative_bias_mode,
+            relative_bias_bucket_device=device,
+            ssm_rate_device=device,
+        )
+    finally:
+        if stager is not None:
+            stager.clear()
     if not is_vision:
         candidate.generation_config = target.generation_config
     report.update(
@@ -507,6 +531,10 @@ def export_recovered_model(
         checkpoint=str(output),
         oracle_device=device,
         oracle_dtype=str(target.dtype),
+        oracle_placement="staged" if stage_layers else "resident",
+        oracle_staged_groups=stager.moves if stager is not None else 0,
+        oracle_peak_staged_state_bytes=stager.peak_state_bytes if stager is not None else 0,
+        oracle_host_layer_calls=report["layer_calls"] if device == "cpu" else host_layer_calls,
         ignored_source_keys=loading["unexpected_keys"],
     )
     report["image_processor_exported" if is_vision else "tokenizer_exported"] = include_tokenizer
@@ -565,6 +593,7 @@ def _command(args):
         include_tokenizer=not args.without_tokenizer,
         relative_bias_mode=args.relative_bias_mode,
         architecture=args.architecture,
+        stage_layers=args.stage_layers,
     )
 
 
@@ -579,6 +608,11 @@ def add_subcommands(commands):
     recover.add_argument("--batch-size", type=int, default=128)
     recover.add_argument(
         "--architecture", help="native encoder class to use instead of config.json"
+    )
+    recover.add_argument(
+        "--stage-layers",
+        action="store_true",
+        help="keep the source on CPU and stage each probe layer",
     )
     recover.add_argument(
         "--relative-bias-mode",

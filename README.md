@@ -16,6 +16,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Behavioral identification and calibration](docs/IDENTIFICATION.md)
 - [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
 - [Full checkpoint recovery with layer access and cross-family measurements](docs/LAYER_RECOVERY.md)
+- [Layer staging for checkpoints larger than available GPU memory](docs/LAYER_STAGING.md)
 - [Full checkpoint recovery from passive layer traces](docs/PASSIVE_LAYER_RECOVERY.md)
 - [ViT and DeiT classifier recovery](docs/VISION_RECOVERY.md)
 - [T5-family and BART encoder–decoder recovery](docs/SEQ2SEQ_RECOVERY.md)
