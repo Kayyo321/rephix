@@ -14,11 +14,21 @@ def validate_conv2d(module):
     _validate_convolution(module, 2)
 
 
+def validate_conv3d(module):
+    _validate_convolution(module, 3)
+
+
+def _numeric_padding(module):
+    if module.padding == "valid":
+        return (0,) * len(module.kernel_size)
+    return module.padding
+
+
 def _validate_convolution(module, rank):
     import torch
 
     operator = f"Conv{rank}d"
-    padding = module.padding
+    padding = _numeric_padding(module)
     if (
         module.padding_mode != "zeros"
         or not isinstance(padding, tuple)
@@ -76,13 +86,18 @@ def recover_conv2d(torch, module, pending, read, batch_size):
     _recover_convolution(torch, module, pending, read, batch_size)
 
 
+def recover_conv3d(torch, module, pending, read, batch_size):
+    validate_conv3d(module)
+    _recover_convolution(torch, module, pending, read, batch_size)
+
+
 def _recover_convolution(torch, module, pending, read, batch_size):
     weight = module.weight
     bias = module.bias
     probe_axes = (
         _probe_axis(padding, stride, dilation, kernel_size)
         for padding, stride, dilation, kernel_size in zip(
-            module.padding, module.stride, module.dilation, module.kernel_size
+            _numeric_padding(module), module.stride, module.dilation, module.kernel_size
         )
     )
     output_indices, field_starts, input_sizes, output_sizes = zip(*probe_axes)

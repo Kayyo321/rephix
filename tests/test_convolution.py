@@ -91,7 +91,6 @@ class Conv2dRecoveryTests(unittest.TestCase):
 
         for kwargs in (
             {"padding": "same"},
-            {"padding": "valid"},
             {"padding": -1},
             {"padding_mode": "reflect"},
         ):

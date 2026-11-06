@@ -33,6 +33,12 @@ from .fused_expert_recovery import (
     validate_grouped_experts,
 )
 from .gemma_recovery import GEMMA3_SCALED_EMBEDDING, GEMMA_OFFSET_RMS_NORMS, recover_gemma_rms
+from .gemma_vlm_recovery import (
+    GEMMA3_PROJECTOR,
+    observe_gemma3_projector,
+    recover_gemma3_projector,
+    validate_gemma3_projector,
+)
 from .gptoss_recovery import (
     GPTOSS_OPERATORS,
     observe_gptoss_operator,
@@ -42,6 +48,16 @@ from .gptoss_recovery import (
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .layer_staging import LayerStager
+from .multimodal_operators import (
+    CLIP_VISION_EMBEDDINGS,
+    LLAVA_IMAGE_NEWLINE_MODELS,
+    observe_clip_class_embedding,
+    observe_llava_image_newline,
+    recover_clip_class_embedding,
+    recover_llava_image_newline,
+    validate_clip_class_embedding,
+    validate_llava_image_newline,
+)
 from .rms_probe import unit_float32_rms_amplitude
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
 
@@ -58,10 +74,13 @@ _DIRECT_HF_RMS_NORMS = {
     "transformers.models.deepseek_v3.modeling_deepseek_v3.DeepseekV3RMSNorm",
     "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaRMSNorm",
     "transformers.models.glm4_moe.modeling_glm4_moe.Glm4MoeRMSNorm",
+    "transformers.models.idefics3.modeling_idefics3.Idefics3RMSNorm",
     "transformers.models.jamba.modeling_jamba.JambaRMSNorm",
     "transformers.models.mamba.modeling_mamba.MambaRMSNorm",
     "transformers.models.mt5.modeling_mt5.MT5LayerNorm",
     "transformers.models.olmoe.modeling_olmoe.OlmoeRMSNorm",
+    "transformers.models.qwen3_vl.modeling_qwen3_vl.Qwen3VLTextRMSNorm",
+    "transformers.models.smolvlm.modeling_smolvlm.SmolVLMRMSNorm",
     "transformers.models.t5.modeling_t5.T5LayerNorm",
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
 } | GROUPED_EXPERT_RMS_NORMS
@@ -80,6 +99,34 @@ _VISION_EMBEDDINGS = {
     "transformers.models.vit.modeling_vit.ViTEmbeddings": ("cls_token",),
     "transformers.models.deit.modeling_deit.DeiTEmbeddings": ("cls_token", "distillation_token"),
 }
+_VISION_LANGUAGE_TYPES = {
+    "gemma3",
+    "idefics3",
+    "llava",
+    "llava_next",
+    "llava_next_video",
+    "llava_onevision",
+    "paligemma",
+    "qwen2_vl",
+    "qwen2_5_vl",
+    "qwen3_vl",
+    "smolvlm",
+}
+_VISION_LANGUAGE_ASSETS = (
+    "added_tokens.json",
+    "chat_template.jinja",
+    "chat_template.json",
+    "merges.txt",
+    "preprocessor_config.json",
+    "processor_config.json",
+    "special_tokens_map.json",
+    "spiece.model",
+    "tokenizer.json",
+    "tokenizer.model",
+    "tokenizer_config.json",
+    "video_preprocessor_config.json",
+    "vocab.json",
+)
 _PROBE_PLAN_VERSION = 1
 _JOURNAL_FILENAME = "observations.sqlite3"
 _BUFFER_KINDS = {"bart_logits_bias", "router_correction"}
@@ -110,6 +157,12 @@ def _operator(torch, module, *, direct):
         return "dbrx_expert_glu"
     if direct and qualified_name == _DEBERTA_MLM_HEAD:
         return "deberta_mlm_bias"
+    if direct and qualified_name == CLIP_VISION_EMBEDDINGS:
+        return "clip_class_embedding"
+    if direct and qualified_name in LLAVA_IMAGE_NEWLINE_MODELS:
+        return "llava_image_newline"
+    if direct and qualified_name == GEMMA3_PROJECTOR:
+        return "gemma3_projector"
     if direct and cls is torch.nn.Conv1d:
         from .convolution import validate_conv1d
 
@@ -120,6 +173,11 @@ def _operator(torch, module, *, direct):
 
         validate_conv2d(module)
         return "conv2d"
+    if direct and cls is torch.nn.Conv3d:
+        from .convolution import validate_conv3d
+
+        validate_conv3d(module)
+        return "conv3d"
     if qualified_name == "transformers.pytorch_utils.Conv1D":
         return "conv1d"
     if cls is torch.nn.Embedding and module.max_norm is None:
@@ -209,6 +267,15 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = {"bias"}
             if pending.keys() != allowed or pending["bias"].ndim != 1:
                 raise ValueError(f"{path}: invalid standalone MLM bias")
+        elif kind == "clip_class_embedding":
+            validate_clip_class_embedding(module, pending)
+            allowed = pending.keys()
+        elif kind == "llava_image_newline":
+            validate_llava_image_newline(module, pending)
+            allowed = pending.keys()
+        elif kind == "gemma3_projector":
+            validate_gemma3_projector(module, pending)
+            allowed = pending.keys()
         elif kind in {"grouped_expert_bank", "grouped_expert_bias"}:
             validate_grouped_experts(module, pending, kind)
             allowed = pending.keys()
@@ -360,6 +427,9 @@ def recover_from_layer_calls(
     OPT position probes also take signed logical positions. The Gemma3 lookup
     uses unscaled rows. Gemma-family offset RMSNorm uses FP32 input/output.
     OLMo 2 and 3 RMSNorm probes use at least FP32 input/output.
+    The :clip_class probe exposes the CLIP class vector before adding its
+    positional embedding. Gemma 3 projectors take chosen normalized features.
+    The :image_newline probe exposes the token appended by LLaVA image packing.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -456,6 +526,10 @@ def recover_from_layer_calls(
                 from .convolution import recover_conv2d
 
                 recover_conv2d(torch, module, pending, read, batch_size)
+            elif kind == "conv3d":
+                from .convolution import recover_conv3d
+
+                recover_conv3d(torch, module, pending, read, batch_size)
             elif kind in {"embedding", "scaled_embedding", "offset_embedding"}:
                 weight = module.weight
                 offset = module.offset if kind == "offset_embedding" else 0
@@ -483,6 +557,12 @@ def recover_from_layer_calls(
                 bias.copy_(read(hidden, (1, bias.numel()))[0])
             elif kind == "vision_embeddings":
                 gauges.append({"module": path, **_vision_embeddings(module, read)})
+            elif kind == "clip_class_embedding":
+                recover_clip_class_embedding(module, pending, read)
+            elif kind == "llava_image_newline":
+                recover_llava_image_newline(module, pending, read)
+            elif kind == "gemma3_projector":
+                recover_gemma3_projector(torch, module, read, batch_size)
             elif kind == "gemma_rms_norm":
                 ambiguous = recover_gemma_rms(torch, module, read)
                 if ambiguous:
@@ -558,6 +638,18 @@ def _model_wrapper(config, causal, architecture=None):
         from transformers import AutoModelForSpeechSeq2Seq
 
         wrapper = AutoModelForSpeechSeq2Seq
+    elif config.model_type == "llava_next_video":
+        # Older native auto-model registries omit this wrapper.
+        from transformers import LlavaNextVideoForConditionalGeneration
+
+        wrapper = LlavaNextVideoForConditionalGeneration
+    elif config.model_type in _VISION_LANGUAGE_TYPES:
+        try:
+            from transformers import AutoModelForImageTextToText
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as AutoModelForImageTextToText
+
+        wrapper = AutoModelForImageTextToText
     elif config.is_encoder_decoder:
         from transformers import AutoModelForSeq2SeqLM
 
@@ -569,8 +661,39 @@ def _model_wrapper(config, causal, architecture=None):
     return wrapper, is_vision, is_speech, is_encoder
 
 
+def _make_layer_skeleton(wrapper, config, dtype):
+    if config.model_type == "llava_next_video":
+        # The concrete native wrapper uses the PreTrainedModel constructor.
+        return wrapper._from_config(config, torch_dtype=dtype).eval()
+    return wrapper.from_config(config, trust_remote_code=False, torch_dtype=dtype).eval()
+
+
+def _save_vision_language_assets(source, destination):
+    from transformers import AutoProcessor
+
+    processor = AutoProcessor.from_pretrained(
+        source, local_files_only=True, trust_remote_code=False
+    )
+    if (
+        getattr(processor, "image_processor", None) is None
+        or getattr(processor, "tokenizer", None) is None
+    ):
+        raise ValueError("source does not provide a native image-text processor")
+    for name in _VISION_LANGUAGE_ASSETS:
+        path = source / name
+        if path.is_file():
+            shutil.copyfile(path, destination / name)
+    for template in (source / "chat_templates").glob("*.jinja"):
+        folder = destination / "chat_templates"
+        folder.mkdir(exist_ok=True)
+        shutil.copyfile(template, folder / template.name)
+
+
 def _save_export_assets(tokenizer_class, config, source, destination, *, vision, speech, encoder):
     destination.mkdir(parents=True, exist_ok=True)
+    if config.model_type in _VISION_LANGUAGE_TYPES:
+        _save_vision_language_assets(source, destination)
+        return
     if vision or speech:
         preprocessor = source / "preprocessor_config.json"
         shutil.copyfile(preprocessor, destination / preprocessor.name)
@@ -684,8 +807,13 @@ def export_recovered_model(
     auto_model, is_vision, is_speech, is_encoder = _model_wrapper(
         config, AutoModelForCausalLM, architecture
     )
+    is_vision_language = config.model_type in _VISION_LANGUAGE_TYPES
     preprocessor = source / "preprocessor_config.json"
-    if include_tokenizer and (is_vision or is_speech) and not preprocessor.is_file():
+    if (
+        include_tokenizer
+        and (is_vision or is_speech or is_vision_language)
+        and not preprocessor.is_file()
+    ):
         raise ValueError("source has no preprocessor_config.json; use --without-preprocessor")
     target, loading = auto_model.from_pretrained(
         source,
@@ -702,9 +830,7 @@ def export_recovered_model(
     stager = LayerStager(torch, device) if stage_layers and device != "cpu" else None
     if not stage_layers:
         target.to(device)
-    candidate = auto_model.from_config(
-        copy.deepcopy(target.config), trust_remote_code=False, torch_dtype=target.dtype
-    ).eval()
+    candidate = _make_layer_skeleton(auto_model, copy.deepcopy(target.config), target.dtype)
     candidate.tie_weights()
     # Some loaders keep selected layers in float32 in half-precision checkpoints.
     # Mirror their dtype metadata while preserving the skeleton's parameter ties.
@@ -735,6 +861,8 @@ def export_recovered_model(
     }
     if is_speech:
         provenance["audio_feature_extractor_exported"] = include_tokenizer
+    if is_vision_language:
+        provenance["multimodal_processor_exported"] = include_tokenizer
     if is_encoder:
         provenance["source_architectures"] = source_architectures
 
@@ -789,6 +917,12 @@ def export_recovered_model(
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
         name = _qualified_name(module)
+        if name in LLAVA_IMAGE_NEWLINE_MODELS:
+            if stager is not None:
+                stager.clear()
+                host_layer_calls += 1
+                return observe_llava_image_newline(torch, module, inputs)
+            return observe_llava_image_newline(torch, module, inputs.to(device))
         if name == DBRX_EXPERT_GLU:
             parent = target.get_submodule(path.rpartition(".")[0])
             if stager is not None:
@@ -807,6 +941,10 @@ def export_recovered_model(
                 handle.remove()
         if stager is not None:
             (module,) = stager.get(module)
+        if name == CLIP_VISION_EMBEDDINGS:
+            return observe_clip_class_embedding(torch, module, inputs.to(device))
+        if name == GEMMA3_PROJECTOR:
+            return observe_gemma3_projector(module, inputs.to(device))
         if name in ROUTER_MODULES:
             return observe_router(torch, module, inputs.to(device), operation)
         if name in GROUPED_EXPERT_BANKS or name in GROUPED_EXPERT_BIASES:
@@ -895,9 +1033,7 @@ def replay_layer_evidence(evidence_dir, output):
             for dtype in (torch.float16, torch.bfloat16, torch.float32, torch.float64)
         }
         oracle_dtype = dtypes[provenance["oracle_dtype"]]
-        candidate = wrapper.from_config(
-            config, trust_remote_code=False, torch_dtype=oracle_dtype
-        ).eval()
+        candidate = _make_layer_skeleton(wrapper, config, oracle_dtype)
         candidate.tie_weights()
         if type(candidate).__name__ != provenance["architecture"]:
             raise ValueError("layer evidence scaffold architecture disagrees with capture")

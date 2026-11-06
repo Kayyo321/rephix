@@ -114,6 +114,87 @@ class LayerEvidenceTests(unittest.TestCase):
             error=error,
         )
 
+    @unittest.skipUnless(importlib.util.find_spec("PIL"), "needs Pillow for a native processor")
+    def test_vision_language_replay_preserves_processor_assets(self):
+        from PIL import Image
+        from tokenizers import Tokenizer
+        from tokenizers.models import WordLevel
+        from transformers import (
+            AutoProcessor,
+            CLIPImageProcessor,
+            LlavaConfig,
+            LlavaForConditionalGeneration,
+            LlavaProcessor,
+            PreTrainedTokenizerFast,
+        )
+
+        config = LlavaConfig(
+            vision_config={
+                "model_type": "clip_vision_model",
+                "hidden_size": 16,
+                "intermediate_size": 24,
+                "num_hidden_layers": 1,
+                "num_attention_heads": 2,
+                "image_size": 8,
+                "patch_size": 4,
+            },
+            text_config={
+                "model_type": "llama",
+                "vocab_size": 16,
+                "hidden_size": 16,
+                "intermediate_size": 24,
+                "num_hidden_layers": 1,
+                "num_attention_heads": 2,
+                "num_key_value_heads": 1,
+            },
+            image_token_index=3,
+        )
+        tokenizer = PreTrainedTokenizerFast(
+            tokenizer_object=Tokenizer(
+                WordLevel({"[UNK]": 0, "hello": 1, "other": 2, "<image>": 3}, "[UNK]")
+            ),
+            unk_token="[UNK]",
+            additional_special_tokens=["<image>"],
+        )
+        processor = LlavaProcessor(
+            image_processor=CLIPImageProcessor(
+                size={"shortest_edge": 8}, crop_size={"height": 8, "width": 8}
+            ),
+            tokenizer=tokenizer,
+            patch_size=4,
+            vision_feature_select_strategy="default",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, evidence, output, replay = (
+                root / name for name in ("source", "evidence", "output", "replay")
+            )
+            LlavaForConditionalGeneration(config).double().save_pretrained(source)
+            processor.save_pretrained(source)
+            template = source / "chat_templates" / "alternate.jinja"
+            template.parent.mkdir()
+            template.write_text("{{ messages[0]['content'] }}\n", encoding="utf-8")
+            inputs = {"text": "<image>", "images": Image.new("RGB", (8, 8), (16, 64, 128))}
+            reference = AutoProcessor.from_pretrained(source, local_files_only=True)(
+                **inputs, return_tensors="pt"
+            )
+            report = self._capture(source, evidence, output, batch_size=11)
+            self.assertTrue(report["multimodal_processor_exported"])
+            shutil.rmtree(source)
+            self.assertEqual(self._replay(evidence, replay)["evidence_observations_collected"], 0)
+            for checkpoint in (output, replay):
+                self.assertEqual(
+                    (checkpoint / "chat_templates" / template.name).read_bytes(),
+                    b"{{ messages[0]['content'] }}\n",
+                )
+                recovered = AutoProcessor.from_pretrained(checkpoint, local_files_only=True)(
+                    **inputs, return_tensors="pt"
+                )
+                self.assertEqual(recovered.keys(), reference.keys())
+                self.assertTrue(
+                    all(recovered[name].equal(value) for name, value in reference.items())
+                )
+
     def test_resume_skips_committed_observations_and_replays_offline(self):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
