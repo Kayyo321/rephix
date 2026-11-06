@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "milestone": "E",
+  "status": "demonstrated_under_dense_logprob_access",
+  "experiment": "examples/logit_subspace_experiment.py",
+  "environment_overrides": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "OPENBLAS_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "2"
+  },
+  "results": [
+    {
+      "schema_version": 1,
+      "track": "parameter_and_structure_recovery",
+      "method": "fixed_coordinate_logprob_affine_subspace",
+      "capture": {
+        "schema_version": 1,
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "peak_allocated_cuda_bytes": 2168411136,
+        "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "precision": "float32",
+        "seed": 7115,
+        "capture_seconds": 5.171713591999833,
+        "peak_process_rss_bytes": 3946762240,
+        "counts": {
+          "train": {
+            "queries": 1536,
+            "families": 12,
+            "input_tokens": 39551,
+            "fixed_scores": 1771008
+          },
+          "test": {
+            "queries": 192,
+            "families": 6,
+            "input_tokens": 4455,
+            "fixed_scores": 221376
+          }
+        },
+        "files": {
+          "prompts.json": "88b5c1774f893a50721d81c40370f270508cb41e999da2810e599afa716e61ca",
+          "train.npz": "ce1047ab05a92db7b68661e8cfb6a3a6b966f44a43b839bacda20fec6c295770",
+          "test.npz": "69c6277dcb5e367e15d3a9160ba32c5d2fee04d94c25b644966ae22d5a9f1860"
+        }
+      },
+      "fit": {
+        "fit_seconds": 0.8450798759999998,
+        "peak_process_rss_bytes": 217112576,
+        "relative_cutoff": 1e-06,
+        "threshold_sensitivity": [
+          0.0001,
+          1e-05,
+          1e-06,
+          1e-07,
+          1e-08
+        ],
+        "rounded_decimals": 3,
+        "training_rows_short_control": 128,
+        "training_evidence_sha256": "ce1047ab05a92db7b68661e8cfb6a3a6b966f44a43b839bacda20fec6c295770",
+        "files": {
+          "dense-fit.npz": "e13253f7a9a0cf66d5e3cd09460970c6c3fbf3a7dba1738717e9f55adc8a5888",
+          "short-fit.npz": "8677d3f3b4297fb94b37cf7d77d171cbef47106e0f899ca8f1b36a7af8612753",
+          "rounded-fit.npz": "5e31e4774ea2850975b5bcc08bd0f765eaf661ca7b804b34bbb129edb3d35152"
+        },
+        "command": [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-evidence-7115.npz",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-7115"
+        ]
+      },
+      "evaluation_seconds": 0.8812083060001896,
+      "evaluation_peak_process_rss_bytes": 3906121728,
+      "ground_truth_width_evaluator_only": 896,
+      "ground_truth_contrast_rank_evaluator_only": 896,
+      "recovered_original_weights": null,
+      "fixed_coordinates": 1153,
+      "anchor_coordinates_including_reference": 1001,
+      "held_out_target_coordinates": 152,
+      "top_k_support_control": {
+        "k": 20,
+        "train": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.166015625,
+          "max_observed_fixed_coordinates": 2
+        },
+        "test": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.010416666666666666,
+          "max_observed_fixed_coordinates": 1
+        }
+      },
+      "measurements": {
+        "dense": {
+          "estimated_rank": 896,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 884,
+            "1e-05": 895,
+            "1e-06": 896,
+            "1e-07": 896,
+            "1e-08": 1116
+          },
+          "last_retained_singular_ratio": 5.047429866058102e-06,
+          "next_singular_ratio": 6.416222709098217e-08,
+          "relative_projection_operator_error": 0.00012195537198647673,
+          "held_out_projection_log_odds_rmse": 1.969242898779736e-05,
+          "held_out_anchor_prediction_rmse": 0.0001562462500523338,
+          "held_out_mean_baseline_rmse": 2.9290538796368866,
+          "held_out_target_columns_top1": 1.0
+        },
+        "short": {
+          "estimated_rank": 127,
+          "rank_ceiling": 127,
+          "relative_rank_sensitivity": {
+            "0.0001": 127,
+            "1e-05": 127,
+            "1e-06": 127,
+            "1e-07": 127,
+            "1e-08": 127
+          },
+          "last_retained_singular_ratio": 0.0005024815664262228,
+          "next_singular_ratio": 8.198292536974772e-17,
+          "relative_projection_operator_error": 0.9264226511828713,
+          "held_out_projection_log_odds_rmse": 1.629284880708636,
+          "held_out_anchor_prediction_rmse": 1.8629644572640336,
+          "held_out_mean_baseline_rmse": 2.966510493036641,
+          "held_out_target_columns_top1": 0.3020833333333333
+        },
+        "rounded": {
+          "estimated_rank": 1151,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 884,
+            "1e-05": 895,
+            "1e-06": 1151,
+            "1e-07": 1152,
+            "1e-08": 1152
+          },
+          "last_retained_singular_ratio": 1.0253254442408374e-06,
+          "next_singular_ratio": 9.924602174853618e-07,
+          "relative_projection_operator_error": 0.5334784507624811,
+          "held_out_projection_log_odds_rmse": 9.165350691405836e-05,
+          "held_out_anchor_prediction_rmse": null,
+          "held_out_mean_baseline_rmse": 2.929056465267111,
+          "held_out_target_columns_top1": null
+        }
+      },
+      "acceptance_checks": {
+        "recovered_rank_matches_configured_width": true,
+        "normalized_projection_error_below_1e-3": true,
+        "heldout_anchor_rmse_below_1e-3_nats": true,
+        "underbudget_projection_rmse_above_0p1_nats": true
+      },
+      "commands": [
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "capture",
+          "--model",
+          "/home/dev/.local/share/rephix-local-20261106/qwen",
+          "--model-id",
+          "Qwen/Qwen2.5-0.5B-Instruct",
+          "--revision",
+          "7ae557604adf67be50417f59c2c2f167def9a775",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/seed-7115",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "32",
+          "--seed",
+          "7115"
+        ],
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-evidence-7115.npz",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-7115"
+        ],
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "test",
+          "--model",
+          "/home/dev/.local/share/rephix-local-20261106/qwen",
+          "--fit-dir",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-7115",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/seed-7115"
+        ]
+      ]
+    },
+    {
+      "schema_version": 1,
+      "track": "parameter_and_structure_recovery",
+      "method": "fixed_coordinate_logprob_affine_subspace",
+      "capture": {
+        "schema_version": 1,
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "peak_allocated_cuda_bytes": 2167569920,
+        "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "precision": "float32",
+        "seed": 9821,
+        "capture_seconds": 5.057084020000275,
+        "peak_process_rss_bytes": 3947741184,
+        "counts": {
+          "train": {
+            "queries": 1536,
+            "families": 12,
+            "input_tokens": 39575,
+            "fixed_scores": 1771008
+          },
+          "test": {
+            "queries": 192,
+            "families": 6,
+            "input_tokens": 4444,
+            "fixed_scores": 221376
+          }
+        },
+        "files": {
+          "prompts.json": "6ac73934c107378b65b6b354ac927b37a0f1abd3c0e07dade8edc5ed28f80234",
+          "train.npz": "355b4f2570370742e400d1f1e876134b6c6edac026ad7e6cbd50efc36ce00a3c",
+          "test.npz": "8d3fe325e19531b11f040235b1fb36a9ef8b33bfbd0d6b7012b131729b5c7383"
+        }
+      },
+      "fit": {
+        "fit_seconds": 0.832923282000138,
+        "peak_process_rss_bytes": 217305088,
+        "relative_cutoff": 1e-06,
+        "threshold_sensitivity": [
+          0.0001,
+          1e-05,
+          1e-06,
+          1e-07,
+          1e-08
+        ],
+        "rounded_decimals": 3,
+        "training_rows_short_control": 128,
+        "training_evidence_sha256": "355b4f2570370742e400d1f1e876134b6c6edac026ad7e6cbd50efc36ce00a3c",
+        "files": {
+          "dense-fit.npz": "d4bfabcd12c7aa1dc581237ec757960d4db5525c891e380b1d27cee829ce2667",
+          "short-fit.npz": "b17fe81528f42ae7d18d1db346dda6c736498a3752f4b0199ebddda6c3881ef2",
+          "rounded-fit.npz": "5902b94c59233715fcc13205b4221cfa38622411a07e60333902e8d7ee64cb09"
+        },
+        "command": [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-evidence-9821.npz",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-9821"
+        ]
+      },
+      "evaluation_seconds": 0.8691086829999222,
+      "evaluation_peak_process_rss_bytes": 3905892352,
+      "ground_truth_width_evaluator_only": 896,
+      "ground_truth_contrast_rank_evaluator_only": 896,
+      "recovered_original_weights": null,
+      "fixed_coordinates": 1153,
+      "anchor_coordinates_including_reference": 1001,
+      "held_out_target_coordinates": 152,
+      "top_k_support_control": {
+        "k": 20,
+        "train": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.08203125,
+          "max_observed_fixed_coordinates": 1
+        },
+        "test": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.16666666666666666,
+          "max_observed_fixed_coordinates": 1
+        }
+      },
+      "measurements": {
+        "dense": {
+          "estimated_rank": 896,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 895,
+            "1e-05": 895,
+            "1e-06": 896,
+            "1e-07": 896,
+            "1e-08": 1134
+          },
+          "last_retained_singular_ratio": 6.401687306150587e-06,
+          "next_singular_ratio": 8.513638153782718e-08,
+          "relative_projection_operator_error": 0.00013232841451653698,
+          "held_out_projection_log_odds_rmse": 2.1230885999938836e-05,
+          "held_out_anchor_prediction_rmse": 0.00017451655578333157,
+          "held_out_mean_baseline_rmse": 3.07938729516286,
+          "held_out_target_columns_top1": 1.0
+        },
+        "short": {
+          "estimated_rank": 127,
+          "rank_ceiling": 127,
+          "relative_rank_sensitivity": {
+            "0.0001": 127,
+            "1e-05": 127,
+            "1e-06": 127,
+            "1e-07": 127,
+            "1e-08": 127
+          },
+          "last_retained_singular_ratio": 0.0005245031461051086,
+          "next_singular_ratio": 1.3204973086311196e-16,
+          "relative_projection_operator_error": 0.9264226511797458,
+          "held_out_projection_log_odds_rmse": 1.6677049168598872,
+          "held_out_anchor_prediction_rmse": 1.9037932101765545,
+          "held_out_mean_baseline_rmse": 3.0879631704285386,
+          "held_out_target_columns_top1": 0.234375
+        },
+        "rounded": {
+          "estimated_rank": 1152,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 895,
+            "1e-05": 895,
+            "1e-06": 1152,
+            "1e-07": 1152,
+            "1e-08": 1152
+          },
+          "last_retained_singular_ratio": 1.2452493902287736e-06,
+          "next_singular_ratio": null,
+          "relative_projection_operator_error": 0.5345224838248488,
+          "held_out_projection_log_odds_rmse": 6.9334913200510586e-15,
+          "held_out_anchor_prediction_rmse": null,
+          "held_out_mean_baseline_rmse": 3.0793818786547766,
+          "held_out_target_columns_top1": null
+        }
+      },
+      "acceptance_checks": {
+        "recovered_rank_matches_configured_width": true,
+        "normalized_projection_error_below_1e-3": true,
+        "heldout_anchor_rmse_below_1e-3_nats": true,
+        "underbudget_projection_rmse_above_0p1_nats": true
+      },
+      "commands": [
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "capture",
+          "--model",
+          "/home/dev/.local/share/rephix-local-20261106/qwen",
+          "--model-id",
+          "Qwen/Qwen2.5-0.5B-Instruct",
+          "--revision",
+          "7ae557604adf67be50417f59c2c2f167def9a775",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/seed-9821",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "32",
+          "--seed",
+          "9821"
+        ],
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-evidence-9821.npz",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-9821"
+        ],
+        [
+          "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+          "examples/logit_subspace_experiment.py",
+          "test",
+          "--model",
+          "/home/dev/.local/share/rephix-local-20261106/qwen",
+          "--fit-dir",
+          "/home/dev/.local/share/rephix-subspace-20261106/fit-9821",
+          "--run",
+          "/home/dev/.local/share/rephix-subspace-20261106/seed-9821"
+        ]
+      ]
+    }
+  ],
+  "integrity_checks": {
+    "seed": 7115,
+    "refit_from_identical_training_evidence": {
+      "dense-fit.npz": "byte_identical",
+      "short-fit.npz": "byte_identical",
+      "rounded-fit.npz": "byte_identical"
+    },
+    "appended_bytes_to_copied_dense_fit": "evaluator_rejected_artifact"
+  }
+}
