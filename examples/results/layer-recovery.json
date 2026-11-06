@@ -1,0 +1,2866 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "llama": {
+      "schema_version": 1,
+      "model_id": "nickypro/tinyllama-15M",
+      "revision": "a97e01fa7d54c088df9dc1b53d581a863ce08cd6",
+      "reference_sha256": {
+        "config.json": "894c283ab2d3373b3dd4b88a1a868f4292c5cab5f0e75976fbdf993eccb24766",
+        "generation_config.json": "95ac031bf2524d1a09cbedff7f1b7d11ea31deb7130b1839af973eab3a20197f",
+        "model.safetensors": "b9e8d4614e24c89e99502000294af0aab73e9266029357377578e0a504b7f8d9",
+        "special_tokens_map.json": "ff3b4a612c4e447acb02d40071bddd989fe0da87eb5b7fe0dbadfc4f74de7531",
+        "tokenizer.json": "8eea70c4866c4f1320ba096fc986ac82038a8374dbe135212ba7628835b4a6f1",
+        "tokenizer_config.json": "33d29c87e41f7dd1efb0434d852730320c82970f292be452d820539bce417052"
+      },
+      "candidate_sha256": {
+        "config.json": "c4ef545b1265792add505008261237d02bd4815ae05fe1296f64e75b910df55c",
+        "generation_config.json": "cd22f08997eb2353c809a1d9b523c42c924247eb8619aa3e408bba3448f6e270",
+        "layer-recovery.json": "f9f37155f92122535ffc6aee0c59eddf5a9f9cf910f29bf5b941a2d869ab967b",
+        "model.safetensors": "2e402f579928b0114b568a69b098bf3dd7e17d76ed86dd852fddcf280e29eeb3",
+        "special_tokens_map.json": "ff3b4a612c4e447acb02d40071bddd989fe0da87eb5b7fe0dbadfc4f74de7531",
+        "tokenizer.json": "ed7c4e86a6d2b2a24cf7fb6e6d96c445a97bf9a22d682f598869afc2625bfd1f",
+        "tokenizer_config.json": "7ed446d119afea76819b6fe56a38e933e816880e91fae4f871b3c6e4cf9c74ff"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 56,
+        "unique_parameter_elements_recovered": 15191712,
+        "layer_calls": 407,
+        "probe_input_rows": 46989,
+        "observed_output_scalars": 15191712,
+        "probe_batch_size": 128,
+        "model_type": "llama",
+        "architecture": "LlamaForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float32",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 56,
+        "candidate_tensors": 56,
+        "compared_tensors": 56,
+        "reference_elements": 15191712,
+        "candidate_elements": 15191712,
+        "compared_elements": 15191712,
+        "coverage": 1.0,
+        "exactly_equal_elements": 15191712,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 15191712,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.embed_tokens.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.input_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.down_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.gate_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.up_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.post_attention_layernorm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.o_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          },
+          "model.norm.weight": {
+            "reference": "F16",
+            "candidate": "F32"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 0.0,
+        "logit_max_abs_error": 0.0,
+        "mean_kl_nats": 0.0,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": {
+        "parameter_scope": "unique loaded parameter elements, after tying",
+        "reference_elements": 15191712,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "fraction_exactly_equal": 0.0002471084233297735,
+        "fraction_within_tolerance": 0.0002471084233297735,
+        "relative_l2": 1.382309384607742,
+        "max_worst_case_tolerance_fraction_for_either_target": 0.5001235542116649,
+        "behavior": {
+          "prompt_count": 24,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "mean_kl_nats": 0.0,
+          "next_token_top1_matches": 24,
+          "exact_greedy_matches": 6,
+          "greedy_prompts": 6,
+          "max_new_tokens": 8
+        }
+      },
+      "evaluation_seconds": 1.3747249959997134,
+      "repacked_reference_audit": null,
+      "raw_checkpoint_audit_error": null
+    },
+    "mistral": {
+      "schema_version": 1,
+      "model_id": "OuteAI/Lite-Mistral-150M-v2-Instruct",
+      "revision": "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e",
+      "reference_sha256": {
+        "config.json": "714f8cf063588022499e8223cc3a487c500ffcd4cfd8a7bd3c2fc8354678c086",
+        "generation_config.json": "e7837bdba54a36255e4328e034076648ed8a8ca617d7a979a29158191cce6318",
+        "model.safetensors": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "bdc45dc7f18a5c55e0dcb36f4f187a7c429d6aaa1693a17d20422b85081642d9",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "0eafab4ad5551c3078011ff19b5e0c8a48d4d29b9d96c78e2c8d090530b6b655"
+      },
+      "candidate_sha256": {
+        "config.json": "0688a8300c6ae6025a9e7e79879e3ddbd19ddbc3e4b344ca155e50fe38e785a8",
+        "generation_config.json": "cd22f08997eb2353c809a1d9b523c42c924247eb8619aa3e408bba3448f6e270",
+        "layer-recovery.json": "937691d43e9f7690c71033fd30c879b7fbe4c6f137a63bfe9646751effc048e0",
+        "model.safetensors": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "a2699839c243202a04a90537576fc719283f638e90fe80feb469888275289575",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "1ae2704549ca41b376d0be6c42ecdff43b505f87d022f075a1abf80aeb6605d4",
+        "chat_template.jinja": "da877606ea461c2dec8ec532808d1f53d838456fd8a1f188480e5511fa1c3062"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 111,
+        "unique_parameter_elements_recovered": 156519168,
+        "layer_calls": 1007,
+        "probe_input_rows": 125721,
+        "observed_output_scalars": 156519168,
+        "probe_batch_size": 128,
+        "model_type": "mistral",
+        "architecture": "MistralForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float32",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 111,
+        "candidate_tensors": 111,
+        "compared_tensors": 111,
+        "reference_elements": 156519168,
+        "candidate_elements": 156519168,
+        "compared_elements": 156519168,
+        "coverage": 1.0,
+        "exactly_equal_elements": 156519168,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 156519168,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 0.0,
+        "logit_max_abs_error": 0.0,
+        "mean_kl_nats": 0.0,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": {
+        "parameter_scope": "unique loaded parameter elements, after tying",
+        "reference_elements": 156519168,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "fraction_exactly_equal": 0.00012266868170421146,
+        "fraction_within_tolerance": 0.00012273257164259908,
+        "relative_l2": 1.967981189332022,
+        "max_worst_case_tolerance_fraction_for_either_target": 0.5000613918417967,
+        "behavior": {
+          "prompt_count": 24,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "mean_kl_nats": 0.0,
+          "next_token_top1_matches": 24,
+          "exact_greedy_matches": 6,
+          "greedy_prompts": 6,
+          "max_new_tokens": 8
+        }
+      },
+      "evaluation_seconds": 2.42904612699931,
+      "repacked_reference_audit": null,
+      "raw_checkpoint_audit_error": null
+    },
+    "gpt2": {
+      "schema_version": 1,
+      "model_id": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+      "reference_sha256": {
+        "config.json": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4",
+        "generation_config.json": "ed0b32ac72c0f5f44a719abb2d7786ea5146c871f83717b7f2018065954de02b",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+        "tokenizer.json": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6",
+        "tokenizer_config.json": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f",
+        "vocab.json": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+      },
+      "candidate_sha256": {
+        "config.json": "7fa2a625dccd0b3397cd12f097dfffb47ae55d854de96c27153b7b8f67040be2",
+        "generation_config.json": "f0fbd59fa0ac70a180770d0b883dc916c6266aed67a1f15ddb10dc9fb636a1f7",
+        "layer-recovery.json": "947957379a59bbb0b7771c3771c4cdcc06d8bf16c162bf924b214d28c6b9d211",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "5d2c50e9e77f64b7441d779665fe7b05b52cfceba09320e0a3b5b029e1b5f755",
+        "special_tokens_map.json": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad",
+        "tokenizer.json": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e",
+        "tokenizer_config.json": "f1cb5e31899749cf30935ccea01180ab3cfd484bd2bcf3bfdc1aeb9fdf935f6f",
+        "vocab.json": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 75,
+        "unique_parameter_elements_recovered": 124439808,
+        "layer_calls": 1003,
+        "probe_input_rows": 115891,
+        "observed_output_scalars": 124439808,
+        "probe_batch_size": 128,
+        "model_type": "gpt2",
+        "architecture": "GPT2LMHeadModel",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float32",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 160,
+        "candidate_tensors": 148,
+        "compared_tensors": 0,
+        "reference_elements": 137022720,
+        "candidate_elements": 124439808,
+        "compared_elements": 0,
+        "coverage": 0.0,
+        "exactly_equal_elements": 0,
+        "fraction_exactly_equal": 0.0,
+        "within_tolerance_elements": 0,
+        "fraction_within_tolerance": 0.0,
+        "relative_l2": null,
+        "zero_filled_relative_l2": 1.0,
+        "missing_tensors": [
+          "h.0.attn.bias",
+          "h.0.attn.c_attn.bias",
+          "h.0.attn.c_attn.weight",
+          "h.0.attn.c_proj.bias",
+          "h.0.attn.c_proj.weight",
+          "h.0.ln_1.bias",
+          "h.0.ln_1.weight",
+          "h.0.ln_2.bias",
+          "h.0.ln_2.weight",
+          "h.0.mlp.c_fc.bias",
+          "h.0.mlp.c_fc.weight",
+          "h.0.mlp.c_proj.bias",
+          "h.0.mlp.c_proj.weight",
+          "h.1.attn.bias",
+          "h.1.attn.c_attn.bias",
+          "h.1.attn.c_attn.weight",
+          "h.1.attn.c_proj.bias",
+          "h.1.attn.c_proj.weight",
+          "h.1.ln_1.bias",
+          "h.1.ln_1.weight",
+          "h.1.ln_2.bias",
+          "h.1.ln_2.weight",
+          "h.1.mlp.c_fc.bias",
+          "h.1.mlp.c_fc.weight",
+          "h.1.mlp.c_proj.bias",
+          "h.1.mlp.c_proj.weight",
+          "h.10.attn.bias",
+          "h.10.attn.c_attn.bias",
+          "h.10.attn.c_attn.weight",
+          "h.10.attn.c_proj.bias",
+          "h.10.attn.c_proj.weight",
+          "h.10.ln_1.bias",
+          "h.10.ln_1.weight",
+          "h.10.ln_2.bias",
+          "h.10.ln_2.weight",
+          "h.10.mlp.c_fc.bias",
+          "h.10.mlp.c_fc.weight",
+          "h.10.mlp.c_proj.bias",
+          "h.10.mlp.c_proj.weight",
+          "h.11.attn.bias",
+          "h.11.attn.c_attn.bias",
+          "h.11.attn.c_attn.weight",
+          "h.11.attn.c_proj.bias",
+          "h.11.attn.c_proj.weight",
+          "h.11.ln_1.bias",
+          "h.11.ln_1.weight",
+          "h.11.ln_2.bias",
+          "h.11.ln_2.weight",
+          "h.11.mlp.c_fc.bias",
+          "h.11.mlp.c_fc.weight",
+          "h.11.mlp.c_proj.bias",
+          "h.11.mlp.c_proj.weight",
+          "h.2.attn.bias",
+          "h.2.attn.c_attn.bias",
+          "h.2.attn.c_attn.weight",
+          "h.2.attn.c_proj.bias",
+          "h.2.attn.c_proj.weight",
+          "h.2.ln_1.bias",
+          "h.2.ln_1.weight",
+          "h.2.ln_2.bias",
+          "h.2.ln_2.weight",
+          "h.2.mlp.c_fc.bias",
+          "h.2.mlp.c_fc.weight",
+          "h.2.mlp.c_proj.bias",
+          "h.2.mlp.c_proj.weight",
+          "h.3.attn.bias",
+          "h.3.attn.c_attn.bias",
+          "h.3.attn.c_attn.weight",
+          "h.3.attn.c_proj.bias",
+          "h.3.attn.c_proj.weight",
+          "h.3.ln_1.bias",
+          "h.3.ln_1.weight",
+          "h.3.ln_2.bias",
+          "h.3.ln_2.weight",
+          "h.3.mlp.c_fc.bias",
+          "h.3.mlp.c_fc.weight",
+          "h.3.mlp.c_proj.bias",
+          "h.3.mlp.c_proj.weight",
+          "h.4.attn.bias",
+          "h.4.attn.c_attn.bias",
+          "h.4.attn.c_attn.weight",
+          "h.4.attn.c_proj.bias",
+          "h.4.attn.c_proj.weight",
+          "h.4.ln_1.bias",
+          "h.4.ln_1.weight",
+          "h.4.ln_2.bias",
+          "h.4.ln_2.weight",
+          "h.4.mlp.c_fc.bias",
+          "h.4.mlp.c_fc.weight",
+          "h.4.mlp.c_proj.bias",
+          "h.4.mlp.c_proj.weight",
+          "h.5.attn.bias",
+          "h.5.attn.c_attn.bias",
+          "h.5.attn.c_attn.weight",
+          "h.5.attn.c_proj.bias",
+          "h.5.attn.c_proj.weight",
+          "h.5.ln_1.bias",
+          "h.5.ln_1.weight",
+          "h.5.ln_2.bias",
+          "h.5.ln_2.weight",
+          "h.5.mlp.c_fc.bias",
+          "h.5.mlp.c_fc.weight",
+          "h.5.mlp.c_proj.bias",
+          "h.5.mlp.c_proj.weight",
+          "h.6.attn.bias",
+          "h.6.attn.c_attn.bias",
+          "h.6.attn.c_attn.weight",
+          "h.6.attn.c_proj.bias",
+          "h.6.attn.c_proj.weight",
+          "h.6.ln_1.bias",
+          "h.6.ln_1.weight",
+          "h.6.ln_2.bias",
+          "h.6.ln_2.weight",
+          "h.6.mlp.c_fc.bias",
+          "h.6.mlp.c_fc.weight",
+          "h.6.mlp.c_proj.bias",
+          "h.6.mlp.c_proj.weight",
+          "h.7.attn.bias",
+          "h.7.attn.c_attn.bias",
+          "h.7.attn.c_attn.weight",
+          "h.7.attn.c_proj.bias",
+          "h.7.attn.c_proj.weight",
+          "h.7.ln_1.bias",
+          "h.7.ln_1.weight",
+          "h.7.ln_2.bias",
+          "h.7.ln_2.weight",
+          "h.7.mlp.c_fc.bias",
+          "h.7.mlp.c_fc.weight",
+          "h.7.mlp.c_proj.bias",
+          "h.7.mlp.c_proj.weight",
+          "h.8.attn.bias",
+          "h.8.attn.c_attn.bias",
+          "h.8.attn.c_attn.weight",
+          "h.8.attn.c_proj.bias",
+          "h.8.attn.c_proj.weight",
+          "h.8.ln_1.bias",
+          "h.8.ln_1.weight",
+          "h.8.ln_2.bias",
+          "h.8.ln_2.weight",
+          "h.8.mlp.c_fc.bias",
+          "h.8.mlp.c_fc.weight",
+          "h.8.mlp.c_proj.bias",
+          "h.8.mlp.c_proj.weight",
+          "h.9.attn.bias",
+          "h.9.attn.c_attn.bias",
+          "h.9.attn.c_attn.weight",
+          "h.9.attn.c_proj.bias",
+          "h.9.attn.c_proj.weight",
+          "h.9.ln_1.bias",
+          "h.9.ln_1.weight",
+          "h.9.ln_2.bias",
+          "h.9.ln_2.weight",
+          "h.9.mlp.c_fc.bias",
+          "h.9.mlp.c_fc.weight",
+          "h.9.mlp.c_proj.bias",
+          "h.9.mlp.c_proj.weight",
+          "ln_f.bias",
+          "ln_f.weight",
+          "wpe.weight",
+          "wte.weight"
+        ],
+        "extra_tensors": [
+          "transformer.h.0.attn.c_attn.bias",
+          "transformer.h.0.attn.c_attn.weight",
+          "transformer.h.0.attn.c_proj.bias",
+          "transformer.h.0.attn.c_proj.weight",
+          "transformer.h.0.ln_1.bias",
+          "transformer.h.0.ln_1.weight",
+          "transformer.h.0.ln_2.bias",
+          "transformer.h.0.ln_2.weight",
+          "transformer.h.0.mlp.c_fc.bias",
+          "transformer.h.0.mlp.c_fc.weight",
+          "transformer.h.0.mlp.c_proj.bias",
+          "transformer.h.0.mlp.c_proj.weight",
+          "transformer.h.1.attn.c_attn.bias",
+          "transformer.h.1.attn.c_attn.weight",
+          "transformer.h.1.attn.c_proj.bias",
+          "transformer.h.1.attn.c_proj.weight",
+          "transformer.h.1.ln_1.bias",
+          "transformer.h.1.ln_1.weight",
+          "transformer.h.1.ln_2.bias",
+          "transformer.h.1.ln_2.weight",
+          "transformer.h.1.mlp.c_fc.bias",
+          "transformer.h.1.mlp.c_fc.weight",
+          "transformer.h.1.mlp.c_proj.bias",
+          "transformer.h.1.mlp.c_proj.weight",
+          "transformer.h.10.attn.c_attn.bias",
+          "transformer.h.10.attn.c_attn.weight",
+          "transformer.h.10.attn.c_proj.bias",
+          "transformer.h.10.attn.c_proj.weight",
+          "transformer.h.10.ln_1.bias",
+          "transformer.h.10.ln_1.weight",
+          "transformer.h.10.ln_2.bias",
+          "transformer.h.10.ln_2.weight",
+          "transformer.h.10.mlp.c_fc.bias",
+          "transformer.h.10.mlp.c_fc.weight",
+          "transformer.h.10.mlp.c_proj.bias",
+          "transformer.h.10.mlp.c_proj.weight",
+          "transformer.h.11.attn.c_attn.bias",
+          "transformer.h.11.attn.c_attn.weight",
+          "transformer.h.11.attn.c_proj.bias",
+          "transformer.h.11.attn.c_proj.weight",
+          "transformer.h.11.ln_1.bias",
+          "transformer.h.11.ln_1.weight",
+          "transformer.h.11.ln_2.bias",
+          "transformer.h.11.ln_2.weight",
+          "transformer.h.11.mlp.c_fc.bias",
+          "transformer.h.11.mlp.c_fc.weight",
+          "transformer.h.11.mlp.c_proj.bias",
+          "transformer.h.11.mlp.c_proj.weight",
+          "transformer.h.2.attn.c_attn.bias",
+          "transformer.h.2.attn.c_attn.weight",
+          "transformer.h.2.attn.c_proj.bias",
+          "transformer.h.2.attn.c_proj.weight",
+          "transformer.h.2.ln_1.bias",
+          "transformer.h.2.ln_1.weight",
+          "transformer.h.2.ln_2.bias",
+          "transformer.h.2.ln_2.weight",
+          "transformer.h.2.mlp.c_fc.bias",
+          "transformer.h.2.mlp.c_fc.weight",
+          "transformer.h.2.mlp.c_proj.bias",
+          "transformer.h.2.mlp.c_proj.weight",
+          "transformer.h.3.attn.c_attn.bias",
+          "transformer.h.3.attn.c_attn.weight",
+          "transformer.h.3.attn.c_proj.bias",
+          "transformer.h.3.attn.c_proj.weight",
+          "transformer.h.3.ln_1.bias",
+          "transformer.h.3.ln_1.weight",
+          "transformer.h.3.ln_2.bias",
+          "transformer.h.3.ln_2.weight",
+          "transformer.h.3.mlp.c_fc.bias",
+          "transformer.h.3.mlp.c_fc.weight",
+          "transformer.h.3.mlp.c_proj.bias",
+          "transformer.h.3.mlp.c_proj.weight",
+          "transformer.h.4.attn.c_attn.bias",
+          "transformer.h.4.attn.c_attn.weight",
+          "transformer.h.4.attn.c_proj.bias",
+          "transformer.h.4.attn.c_proj.weight",
+          "transformer.h.4.ln_1.bias",
+          "transformer.h.4.ln_1.weight",
+          "transformer.h.4.ln_2.bias",
+          "transformer.h.4.ln_2.weight",
+          "transformer.h.4.mlp.c_fc.bias",
+          "transformer.h.4.mlp.c_fc.weight",
+          "transformer.h.4.mlp.c_proj.bias",
+          "transformer.h.4.mlp.c_proj.weight",
+          "transformer.h.5.attn.c_attn.bias",
+          "transformer.h.5.attn.c_attn.weight",
+          "transformer.h.5.attn.c_proj.bias",
+          "transformer.h.5.attn.c_proj.weight",
+          "transformer.h.5.ln_1.bias",
+          "transformer.h.5.ln_1.weight",
+          "transformer.h.5.ln_2.bias",
+          "transformer.h.5.ln_2.weight",
+          "transformer.h.5.mlp.c_fc.bias",
+          "transformer.h.5.mlp.c_fc.weight",
+          "transformer.h.5.mlp.c_proj.bias",
+          "transformer.h.5.mlp.c_proj.weight",
+          "transformer.h.6.attn.c_attn.bias",
+          "transformer.h.6.attn.c_attn.weight",
+          "transformer.h.6.attn.c_proj.bias",
+          "transformer.h.6.attn.c_proj.weight",
+          "transformer.h.6.ln_1.bias",
+          "transformer.h.6.ln_1.weight",
+          "transformer.h.6.ln_2.bias",
+          "transformer.h.6.ln_2.weight",
+          "transformer.h.6.mlp.c_fc.bias",
+          "transformer.h.6.mlp.c_fc.weight",
+          "transformer.h.6.mlp.c_proj.bias",
+          "transformer.h.6.mlp.c_proj.weight",
+          "transformer.h.7.attn.c_attn.bias",
+          "transformer.h.7.attn.c_attn.weight",
+          "transformer.h.7.attn.c_proj.bias",
+          "transformer.h.7.attn.c_proj.weight",
+          "transformer.h.7.ln_1.bias",
+          "transformer.h.7.ln_1.weight",
+          "transformer.h.7.ln_2.bias",
+          "transformer.h.7.ln_2.weight",
+          "transformer.h.7.mlp.c_fc.bias",
+          "transformer.h.7.mlp.c_fc.weight",
+          "transformer.h.7.mlp.c_proj.bias",
+          "transformer.h.7.mlp.c_proj.weight",
+          "transformer.h.8.attn.c_attn.bias",
+          "transformer.h.8.attn.c_attn.weight",
+          "transformer.h.8.attn.c_proj.bias",
+          "transformer.h.8.attn.c_proj.weight",
+          "transformer.h.8.ln_1.bias",
+          "transformer.h.8.ln_1.weight",
+          "transformer.h.8.ln_2.bias",
+          "transformer.h.8.ln_2.weight",
+          "transformer.h.8.mlp.c_fc.bias",
+          "transformer.h.8.mlp.c_fc.weight",
+          "transformer.h.8.mlp.c_proj.bias",
+          "transformer.h.8.mlp.c_proj.weight",
+          "transformer.h.9.attn.c_attn.bias",
+          "transformer.h.9.attn.c_attn.weight",
+          "transformer.h.9.attn.c_proj.bias",
+          "transformer.h.9.attn.c_proj.weight",
+          "transformer.h.9.ln_1.bias",
+          "transformer.h.9.ln_1.weight",
+          "transformer.h.9.ln_2.bias",
+          "transformer.h.9.ln_2.weight",
+          "transformer.h.9.mlp.c_fc.bias",
+          "transformer.h.9.mlp.c_fc.weight",
+          "transformer.h.9.mlp.c_proj.bias",
+          "transformer.h.9.mlp.c_proj.weight",
+          "transformer.ln_f.bias",
+          "transformer.ln_f.weight",
+          "transformer.wpe.weight",
+          "transformer.wte.weight"
+        ],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "repacked_reference_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 148,
+        "candidate_tensors": 148,
+        "compared_tensors": 148,
+        "reference_elements": 124439808,
+        "candidate_elements": 124439808,
+        "compared_elements": 124439808,
+        "coverage": 1.0,
+        "exactly_equal_elements": 119899677,
+        "fraction_exactly_equal": 0.9635154451540138,
+        "within_tolerance_elements": 124439808,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 8.492288819744907e-09,
+        "zero_filled_relative_l2": 8.492288819744907e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 3.0350746518180754e-05,
+        "logit_max_abs_error": 0.0001068115234375,
+        "mean_kl_nats": 3.579547057959922e-11,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": null,
+      "evaluation_seconds": 7.006787594000343,
+      "raw_checkpoint_audit_error": null
+    },
+    "qwen": {
+      "schema_version": 1,
+      "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "reference_sha256": {
+        "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+        "generation_config.json": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+        "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "candidate_sha256": {
+        "added_tokens.json": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b",
+        "config.json": "57c2bbb6c62915ad8900ca692a7c84d11ccb19f32aaf9c4150308f01b4557109",
+        "generation_config.json": "da7d43d773bb1c2606bbd062d9af2e8aa2b73de104b1f8f0a93e31bf3b1426a3",
+        "layer-recovery.json": "e35ab7c0da16dfe49f9002f0446fa3b58711aebe6ca96a42af5ae55a78d06b17",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model.safetensors": "1b170cd67b89d3f8aac5b0000e0a792b77737b2970ed4fcc7466fed7ec983677",
+        "special_tokens_map.json": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+        "tokenizer.json": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+        "tokenizer_config.json": "2d8f3b256618aa0e94698c369fabe38fa37bf9c1b7c4868a604ce4591d611cfd",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "chat_template.jinja": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 218,
+        "unique_parameter_elements_recovered": 494032768,
+        "layer_calls": 3228,
+        "probe_input_rows": 397817,
+        "observed_output_scalars": 494032768,
+        "probe_batch_size": 128,
+        "model_type": "qwen2",
+        "architecture": "Qwen2ForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float32",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 290,
+        "candidate_tensors": 290,
+        "compared_tensors": 290,
+        "reference_elements": 494032768,
+        "candidate_elements": 494032768,
+        "compared_elements": 494032768,
+        "coverage": 1.0,
+        "exactly_equal_elements": 494032529,
+        "fraction_exactly_equal": 0.9999995162264217,
+        "within_tolerance_elements": 494032715,
+        "fraction_within_tolerance": 0.9999998927196667,
+        "relative_l2": 5.194656055049145e-10,
+        "zero_filled_relative_l2": 5.194656055049145e-10,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.embed_tokens.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.0.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.1.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.10.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.11.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.12.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.13.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.14.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.15.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.16.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.17.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.18.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.19.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.2.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.20.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.21.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.22.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.23.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.3.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.4.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.5.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.6.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.7.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.8.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.k_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.q_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.v_proj.bias": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.layers.9.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          },
+          "model.norm.weight": {
+            "reference": "BF16",
+            "candidate": "F32"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "repacked_reference_audit": null,
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 4.072953584136428e-06,
+        "logit_max_abs_error": 3.7670135498046875e-05,
+        "mean_kl_nats": 5.072460709585786e-12,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": null,
+      "evaluation_seconds": 17.80699693800034,
+      "raw_checkpoint_audit_error": null
+    },
+    "pythia": {
+      "schema_version": 1,
+      "model_id": "EleutherAI/pythia-70m",
+      "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42",
+      "reference_sha256": {
+        "config.json": "002050231a9b1ec3ac77aa6b9b3bbdc4d923f4068a7dd33b8da72a9bd6ad9a43",
+        "model.safetensors": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15",
+        "special_tokens_map.json": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad",
+        "tokenizer.json": "c24618a1b3e6a38167beff1c72cffd126c3a66254347304b50547d12c5f25624",
+        "tokenizer_config.json": "70e38394e494931c6f773ba41e19460dd4436526b852207367f04341b4066d3f"
+      },
+      "candidate_sha256": {
+        "config.json": "334c700f13cb33dde4d0377f837b8454359ad543f82a0e36f3b97be00586cb05",
+        "generation_config.json": "43d1f83d871a388f486b86713426772920fbe4bd59e2d16013b65ebc91760b4c",
+        "layer-recovery.json": "945c79b0ec3572af4f3137d4053e91235bcf228bc70cfe7d5829740b3cd80213",
+        "model.safetensors": "8b8a697068a95dc8f8eeb88901f681e7ec74acd9e66f03d71ccbf6ab755a6b5c",
+        "special_tokens_map.json": "10b8c8852c1e1f70b54d9aff61728408c28971c0e97a6c5a7b2debbd1d3e9c0c",
+        "tokenizer.json": "d4c0d99d84af59e9126913fafe5210822963e9a3065ee43e6833b358b0c2f825",
+        "tokenizer_config.json": "7e7f486a2f85c693e38bb52579389d6dfecb703d030c798c16a9f45806905986"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cpu",
+      "gpu": null,
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 39,
+        "unique_parameter_elements_recovered": 70426624,
+        "layer_calls": 615,
+        "probe_input_rows": 72370,
+        "observed_output_scalars": 70426624,
+        "probe_batch_size": 128,
+        "model_type": "gpt_neox",
+        "architecture": "GPTNeoXForCausalLM",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float32",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": null,
+      "raw_checkpoint_audit_error": "Non-finite values in reference/model.safetensors tensor 'gpt_neox.layers.0.attention.masked_bias'",
+      "repacked_reference_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 76,
+        "candidate_tensors": 76,
+        "compared_tensors": 76,
+        "reference_elements": 70426624,
+        "candidate_elements": 70426624,
+        "compared_elements": 70426624,
+        "coverage": 1.0,
+        "exactly_equal_elements": 70424188,
+        "fraction_exactly_equal": 0.9999654108082762,
+        "within_tolerance_elements": 70424530,
+        "fraction_within_tolerance": 0.9999702669263261,
+        "relative_l2": 5.476341975876745e-09,
+        "zero_filled_relative_l2": 5.476341975876745e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 0.001396471252828373,
+        "logit_max_abs_error": 0.0068359375,
+        "mean_kl_nats": 1.2337088989061538e-07,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": null,
+      "evaluation_seconds": 2.039823451999837
+    },
+    "mistral-7b": {
+      "schema_version": 1,
+      "model_id": "mistralai/Mistral-7B-v0.1",
+      "revision": "27d67f1b5f57dc0953326b2601d68371d40ea8da",
+      "reference_sha256": {
+        "config.json": "cf25cdf4719f181d1d1d371973285d9afe9afde0d0c6a6fd48de857555ce1e0d",
+        "generation_config.json": "afcf2a1da583dbeb66bb367a759713901e23ce19ed83ed8f5a21b0e877addd5b",
+        "model-00001-of-00002.safetensors": "9742cb4764964155b7a5f35eefad651f590006091ddeb536863d6c5865cca1b9",
+        "model-00002-of-00002.safetensors": "9bcf56354ec0c68b5f8e97b4f3b02d16af899a65b0868d6dba5a51c1b30f01cb",
+        "model.safetensors.index.json": "c94ab46aaf5fcca44720c10bcc498c1b0d9759d47534a396e3512edc451ebd06",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "11c08db21487c885d8c792180f0be237f6a261b89a46f128a6a80a3aa4bd1720",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "ddb008229511e51607002ffe28925001c4a9ca4177dc4de3a655d085cc610b99"
+      },
+      "candidate_sha256": {
+        "config.json": "daed0efe33dadc7519206754449b580ff7286acdae4f6a65b5b467c8a040c6b0",
+        "generation_config.json": "cd22f08997eb2353c809a1d9b523c42c924247eb8619aa3e408bba3448f6e270",
+        "layer-recovery.json": "8eb226f18e140231ce7108aa553ddb56661c2af2071e7ecb730a453d3bc36687",
+        "model-00001-of-00003.safetensors": "44f4f77709e6ea00657609faff45861b800afb04f7edea3c9bc460236aab6663",
+        "model-00002-of-00003.safetensors": "3fdbb434faaa08d15234c4ec728cd05b887f510b6a5e5418a4171a47f8b906ec",
+        "model-00003-of-00003.safetensors": "9bcf56354ec0c68b5f8e97b4f3b02d16af899a65b0868d6dba5a51c1b30f01cb",
+        "model.safetensors.index.json": "cc28531c33ee0b0658d8e24086a50a20beb1703a8b7f16f44a914b176f3981de",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "835cf54bb933752267652500a9243a9002107bbb4501b99f8d2f46ccfdad2567",
+        "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+        "tokenizer_config.json": "72d53946b897d3bde65347b65bfba38e5a9266fab923c3216f1c7fa2632da4f7"
+      },
+      "python": "3.13.5",
+      "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 291,
+        "unique_parameter_elements_recovered": 7241732096,
+        "layer_calls": 5070,
+        "probe_input_rows": 1281345,
+        "observed_output_scalars": 7241732096,
+        "probe_batch_size": 256,
+        "model_type": "mistral",
+        "architecture": "MistralForCausalLM",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.bfloat16",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 291,
+        "candidate_tensors": 291,
+        "compared_tensors": 291,
+        "reference_elements": 7241732096,
+        "candidate_elements": 7241732096,
+        "compared_elements": 7241732096,
+        "coverage": 1.0,
+        "exactly_equal_elements": 7241732096,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 7241732096,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "repacked_reference_audit": null,
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 0.0,
+        "logit_max_abs_error": 0.0,
+        "mean_kl_nats": 0.0,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "function_preserving_sign_control": {
+        "parameter_scope": "unique loaded parameter elements, after tying",
+        "reference_elements": 7241732096,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "fraction_exactly_equal": 3.67646850878478e-05,
+        "fraction_within_tolerance": 0.00011849609853338601,
+        "relative_l2": 0.4224901569567862,
+        "max_worst_case_tolerance_fraction_for_either_target": 0.5000602392485964,
+        "behavior": {
+          "prompt_count": 24,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "mean_kl_nats": 0.0,
+          "next_token_top1_matches": 24,
+          "exact_greedy_matches": 6,
+          "greedy_prompts": 6,
+          "max_new_tokens": 8
+        }
+      },
+      "evaluation_seconds": 186.05730450800002,
+      "raw_checkpoint_audit_error": null,
+      "recovery_seconds": 427.687
+    }
+  }
+}

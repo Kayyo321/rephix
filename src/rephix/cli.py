@@ -57,6 +57,15 @@ def _validate(args):
     }
 
 
+def _audit_weights(args):
+    from .weight_audit import compare_checkpoints
+
+    result = compare_checkpoints(args.reference, args.candidate, atol=args.atol, rtol=args.rtol)
+    if args.output:
+        _write_json(args.output, result)
+    return result
+
+
 def _split(args):
     records = read_observations(args.input)
     output = Path(args.output_dir)
@@ -122,6 +131,18 @@ def build_parser():
     recover.add_argument("--output", required=True, help="recovered NPZ path")
     recover.set_defaults(func=_recover)
 
+    from .weight_audit import DEFAULT_ATOL, DEFAULT_RTOL
+
+    audit = commands.add_parser(
+        "audit-weights", help="measure raw coordinate agreement of local safetensors checkpoints"
+    )
+    audit.add_argument("reference", help="reference safetensors file or checkpoint directory")
+    audit.add_argument("candidate", help="candidate safetensors file or checkpoint directory")
+    audit.add_argument("--atol", type=float, default=DEFAULT_ATOL)
+    audit.add_argument("--rtol", type=float, default=DEFAULT_RTOL)
+    audit.add_argument("--output", help="also save the JSON report here")
+    audit.set_defaults(func=_audit_weights)
+
     validate = commands.add_parser(
         "validate", help="validate evidence JSONL and report available signals"
     )
@@ -141,6 +162,7 @@ def build_parser():
         doctor,
         experiments,
         hf,
+        layer_recovery,
         projection,
         query,
         session,
@@ -151,6 +173,7 @@ def build_parser():
     for module in (
         hf,
         projection,
+        layer_recovery,
         alignment,
         query,
         experiments,

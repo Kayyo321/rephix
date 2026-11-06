@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "llama": {
+      "schema_version": 1,
+      "track": "parameter_and_structure_recovery",
+      "method": "fixed_coordinate_logprob_affine_subspace",
+      "capture": {
+        "schema_version": 1,
+        "model": "nickypro/tinyllama-15M",
+        "revision": "a97e01fa7d54c088df9dc1b53d581a863ce08cd6",
+        "model_sha256": "b9e8d4614e24c89e99502000294af0aab73e9266029357377578e0a504b7f8d9",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "peak_allocated_cuda_bytes": 113170944,
+        "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "precision": "float32",
+        "seed": 7115,
+        "capture_seconds": 1.4718413099999452,
+        "peak_process_rss_bytes": 1997848576,
+        "counts": {
+          "train": {
+            "queries": 1536,
+            "families": 12,
+            "input_tokens": 49472,
+            "fixed_scores": 1771008
+          },
+          "test": {
+            "queries": 192,
+            "families": 6,
+            "input_tokens": 5578,
+            "fixed_scores": 221376
+          }
+        },
+        "files": {
+          "prompts.json": "88b5c1774f893a50721d81c40370f270508cb41e999da2810e599afa716e61ca",
+          "train.npz": "89b40af3b1f6b071d92cd833620322424b3ef5a6b798be50c321c95dce25c552",
+          "test.npz": "7f0a9bbb4ec171f086e33c5b37712999352affb2341a7a29f8e90cd625034ea8"
+        }
+      },
+      "fit": {
+        "fit_seconds": 53.514477792000434,
+        "peak_process_rss_bytes": 214839296,
+        "relative_cutoff": 1e-06,
+        "threshold_sensitivity": [
+          0.0001,
+          1e-05,
+          1e-06,
+          1e-07,
+          1e-08
+        ],
+        "rounded_decimals": 3,
+        "training_rows_short_control": 128,
+        "training_evidence_sha256": "89b40af3b1f6b071d92cd833620322424b3ef5a6b798be50c321c95dce25c552",
+        "files": {
+          "dense-fit.npz": "380d2a5cbd6730611bef854246cd114147d9c41fb399ad11a076fd0c19152989",
+          "short-fit.npz": "d4451a4f2cf0f9c761b16c2ed1e1f15e910b149e6321477f530b81898a36be48",
+          "rounded-fit.npz": "b6a6041ba759670adf53c019a590fdaed21212e72c647fe1c010cb31a3378a8e"
+        },
+        "command": [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "$SCRATCH/llama-subspace/train.npz",
+          "--run",
+          "$SCRATCH/llama-subspace-fit-final"
+        ]
+      },
+      "evaluation_seconds": 0.6615043539995895,
+      "evaluation_peak_process_rss_bytes": 1044832256,
+      "ground_truth_width_evaluator_only": 288,
+      "ground_truth_contrast_rank_evaluator_only": 288,
+      "recovered_original_weights": null,
+      "fixed_coordinates": 1153,
+      "anchor_coordinates_including_reference": 1001,
+      "held_out_target_coordinates": 152,
+      "top_k_support_control": {
+        "k": 20,
+        "train": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.6653645833333334,
+          "max_observed_fixed_coordinates": 3
+        },
+        "test": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.5416666666666666,
+          "max_observed_fixed_coordinates": 4
+        }
+      },
+      "measurements": {
+        "dense": {
+          "estimated_rank": 288,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 287,
+            "1e-05": 288,
+            "1e-06": 288,
+            "1e-07": 292,
+            "1e-08": 914
+          },
+          "last_retained_singular_ratio": 9.96639705562227e-05,
+          "next_singular_ratio": 7.074002907875134e-07,
+          "relative_projection_operator_error": 9.676759624272296e-05,
+          "held_out_projection_log_odds_rmse": 3.880155130190886e-06,
+          "held_out_anchor_prediction_rmse": 4.366813023193213e-05,
+          "held_out_mean_baseline_rmse": 1.001126348375604,
+          "held_out_target_columns_top1": 1.0
+        },
+        "short": {
+          "estimated_rank": 127,
+          "rank_ceiling": 127,
+          "relative_rank_sensitivity": {
+            "0.0001": 127,
+            "1e-05": 127,
+            "1e-06": 127,
+            "1e-07": 127,
+            "1e-08": 127
+          },
+          "last_retained_singular_ratio": 0.0002552182508316324,
+          "next_singular_ratio": 9.406336752352034e-17,
+          "relative_projection_operator_error": 0.7476816034174163,
+          "held_out_projection_log_odds_rmse": 0.21066307256184863,
+          "held_out_anchor_prediction_rmse": 0.42391314492936605,
+          "held_out_mean_baseline_rmse": 0.9964111196699447,
+          "held_out_target_columns_top1": 0.6770833333333334
+        },
+        "rounded": {
+          "estimated_rank": 1085,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 289,
+            "1e-05": 336,
+            "1e-06": 1085,
+            "1e-07": 1152,
+            "1e-08": 1152
+          },
+          "last_retained_singular_ratio": 1.0056141036608377e-06,
+          "next_singular_ratio": 9.928338640083093e-07,
+          "relative_projection_operator_error": 1.6635400997786822,
+          "held_out_projection_log_odds_rmse": 7.574915436174597e-05,
+          "held_out_anchor_prediction_rmse": null,
+          "held_out_mean_baseline_rmse": 1.0011267491717761,
+          "held_out_target_columns_top1": null
+        }
+      },
+      "acceptance_checks": {
+        "recovered_rank_matches_configured_width": true,
+        "normalized_projection_error_below_1e-3": true,
+        "heldout_anchor_rmse_below_1e-3_nats": true,
+        "underbudget_projection_rmse_above_0p1_nats": true
+      },
+      "commands": [
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "capture",
+          "--model",
+          "$SCRATCH/llama",
+          "--model-id",
+          "nickypro/tinyllama-15M",
+          "--revision",
+          "a97e01fa7d54c088df9dc1b53d581a863ce08cd6",
+          "--run",
+          "$SCRATCH/llama-subspace",
+          "--seed",
+          "7115"
+        ],
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "$SCRATCH/llama-subspace/train.npz",
+          "--run",
+          "$SCRATCH/llama-subspace-fit-final"
+        ],
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "test",
+          "--model",
+          "$SCRATCH/llama",
+          "--run",
+          "$SCRATCH/llama-subspace",
+          "--fit-dir",
+          "$SCRATCH/llama-subspace-fit-final"
+        ]
+      ]
+    },
+    "mistral": {
+      "schema_version": 1,
+      "track": "parameter_and_structure_recovery",
+      "method": "fixed_coordinate_logprob_affine_subspace",
+      "capture": {
+        "schema_version": 1,
+        "model": "OuteAI/Lite-Mistral-150M-v2-Instruct",
+        "revision": "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e",
+        "model_sha256": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "device": "cpu",
+        "gpu": null,
+        "peak_allocated_cuda_bytes": null,
+        "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "precision": "float32",
+        "seed": 7115,
+        "capture_seconds": 146.7742806189999,
+        "peak_process_rss_bytes": 1727684608,
+        "counts": {
+          "train": {
+            "queries": 1536,
+            "families": 12,
+            "input_tokens": 49933,
+            "fixed_scores": 1771008
+          },
+          "test": {
+            "queries": 192,
+            "families": 6,
+            "input_tokens": 5914,
+            "fixed_scores": 221376
+          }
+        },
+        "files": {
+          "prompts.json": "88b5c1774f893a50721d81c40370f270508cb41e999da2810e599afa716e61ca",
+          "train.npz": "863fe7aa62e29266bcd195545a13bc60ca39b9108252600b3178ca04d36a4a04",
+          "test.npz": "9f91238b34a6c9518e8afb920e9748be78bd70cc6d7ddee6d80e123410676c3f"
+        }
+      },
+      "fit": {
+        "fit_seconds": 3.1043080399995233,
+        "peak_process_rss_bytes": 213327872,
+        "relative_cutoff": 1e-06,
+        "threshold_sensitivity": [
+          0.0001,
+          1e-05,
+          1e-06,
+          1e-07,
+          1e-08
+        ],
+        "rounded_decimals": 3,
+        "training_rows_short_control": 128,
+        "training_evidence_sha256": "863fe7aa62e29266bcd195545a13bc60ca39b9108252600b3178ca04d36a4a04",
+        "files": {
+          "dense-fit.npz": "72d51b0916a47b928e25e246330e26f6bb3d8a7000472fce487ee1fb6ba0aed7",
+          "short-fit.npz": "5069b4105c0dea2bdb8765b3f7beb55d2bcae2880226e2b085f954ed4baa6641",
+          "rounded-fit.npz": "c9bd44bf45a0e929fea8301432bf974ea7f4ff7826b52ad9bedb099231e0b5c5"
+        },
+        "command": [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "$SCRATCH/mistral-subspace/train.npz",
+          "--run",
+          "$SCRATCH/mistral-subspace-fit"
+        ]
+      },
+      "evaluation_seconds": 5.615090268000131,
+      "evaluation_peak_process_rss_bytes": 1073451008,
+      "ground_truth_width_evaluator_only": 768,
+      "ground_truth_contrast_rank_evaluator_only": 768,
+      "recovered_original_weights": null,
+      "fixed_coordinates": 1153,
+      "anchor_coordinates_including_reference": 1001,
+      "held_out_target_coordinates": 152,
+      "top_k_support_control": {
+        "k": 20,
+        "train": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.939453125,
+          "max_observed_fixed_coordinates": 3
+        },
+        "test": {
+          "rows_with_reference_token": 0,
+          "rows_with_all_fixed_columns": 0,
+          "mean_observed_fixed_coordinates": 0.7291666666666666,
+          "max_observed_fixed_coordinates": 2
+        }
+      },
+      "measurements": {
+        "dense": {
+          "estimated_rank": 768,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 753,
+            "1e-05": 768,
+            "1e-06": 768,
+            "1e-07": 768,
+            "1e-08": 1074
+          },
+          "last_retained_singular_ratio": 7.13315957814465e-05,
+          "next_singular_ratio": 3.331986957329551e-08,
+          "relative_projection_operator_error": 5.623016512208511e-05,
+          "held_out_projection_log_odds_rmse": 1.7841094505239918e-05,
+          "held_out_anchor_prediction_rmse": 8.318084247384554e-05,
+          "held_out_mean_baseline_rmse": 1.9444679282836024,
+          "held_out_target_columns_top1": 1.0
+        },
+        "short": {
+          "estimated_rank": 127,
+          "rank_ceiling": 127,
+          "relative_rank_sensitivity": {
+            "0.0001": 127,
+            "1e-05": 127,
+            "1e-06": 127,
+            "1e-07": 127,
+            "1e-08": 127
+          },
+          "last_retained_singular_ratio": 0.0003803541059881636,
+          "next_singular_ratio": 8.314215249770177e-17,
+          "relative_projection_operator_error": 0.91358383130015,
+          "held_out_projection_log_odds_rmse": 1.0338176603405138,
+          "held_out_anchor_prediction_rmse": 1.2239281463619307,
+          "held_out_mean_baseline_rmse": 2.0396452580770066,
+          "held_out_target_columns_top1": 0.71875
+        },
+        "rounded": {
+          "estimated_rank": 1126,
+          "rank_ceiling": 1152,
+          "relative_rank_sensitivity": {
+            "0.0001": 753,
+            "1e-05": 768,
+            "1e-06": 1126,
+            "1e-07": 1152,
+            "1e-08": 1152
+          },
+          "last_retained_singular_ratio": 1.0003043961203088e-06,
+          "next_singular_ratio": 9.980485588872458e-07,
+          "relative_projection_operator_error": 0.6827515042587807,
+          "held_out_projection_log_odds_rmse": 0.0005991498970934766,
+          "held_out_anchor_prediction_rmse": null,
+          "held_out_mean_baseline_rmse": 1.944467558252778,
+          "held_out_target_columns_top1": null
+        }
+      },
+      "acceptance_checks": {
+        "recovered_rank_matches_configured_width": true,
+        "normalized_projection_error_below_1e-3": true,
+        "heldout_anchor_rmse_below_1e-3_nats": true,
+        "underbudget_projection_rmse_above_0p1_nats": true
+      },
+      "commands": [
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "capture",
+          "--model",
+          "$SCRATCH/mistral",
+          "--model-id",
+          "OuteAI/Lite-Mistral-150M-v2-Instruct",
+          "--revision",
+          "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e",
+          "--run",
+          "$SCRATCH/mistral-subspace",
+          "--seed",
+          "7115",
+          "--device",
+          "cpu"
+        ],
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "fit",
+          "--observations",
+          "$SCRATCH/mistral-subspace/train.npz",
+          "--run",
+          "$SCRATCH/mistral-subspace-fit"
+        ],
+        [
+          "python",
+          "examples/logit_subspace_experiment.py",
+          "test",
+          "--model",
+          "$SCRATCH/mistral",
+          "--run",
+          "$SCRATCH/mistral-subspace",
+          "--fit-dir",
+          "$SCRATCH/mistral-subspace-fit"
+        ]
+      ]
+    }
+  }
+}

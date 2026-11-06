@@ -4,7 +4,7 @@
 
 An experimental engine for reconstructing model behavior and identifiable parameters from observed evidence: prompts, responses, visible reasoning, token probabilities, and explicitly available model internals.
 
-Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. It also tests actual parameter recovery on controlled affine models and selected open-model components. Matching a finite set of responses does not establish matching weights; high-accuracy recovery of an entire language model remains a research question.
+Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. With direct access to individual layers, it can export a recovered checkpoint for supported architectures and compare the stored tensors. Endpoint observations can leave different checkpoints indistinguishable even with unlimited queries.
 
 ## Run a persistent reconstruction session
 
@@ -15,6 +15,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Live agent, passive observation, and backend change](docs/LIVE_SESSION_RESULTS.md)
 - [Behavioral identification and calibration](docs/IDENTIFICATION.md)
 - [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
+- [Full checkpoint recovery with layer access and cross-family measurements](docs/LAYER_RECOVERY.md)
 
 ## Start with a controlled experiment
 
@@ -73,6 +74,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `collect`, `validate`, `split` | Record and isolate prompt evidence | Token provenance, signal availability, and split integrity |
 | `fit`, `evaluate` | Fit candidates and measure held-out continuations | Behavioral reconstruction, separately from parameter recovery |
 | `compare-weights` | Compare compatible checkpoint tensors | Coordinate distance without general symmetry alignment |
+| `audit-weights` | Stream local safetensors and report exact agreement, tolerance agreement, and coverage | Agreement on same-name stored tensor coordinates, including buffers |
+| `recover-layers` | Reconstruct and export a supported local model from chosen inputs to its layers | Whole-model parameter recovery with known architecture and direct layer access |
 | `recover-projection` | Fit selected output weights using observed head inputs | White-box component recovery under an extra access assumption |
 | `sweep`, `report` | Compare bounded settings and export tables or plots | Reproducible validation comparisons with a separate final test |
 | `select-queries` | Rank new prompts by randomness, entropy, or disagreement | A query heuristic, not a recovery-accuracy measurement |
