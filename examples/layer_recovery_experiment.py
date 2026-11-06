@@ -35,17 +35,20 @@ def _capture(model, tokenizer, texts, device, *, logit_dtype=None):
     rows, ids = [], []
     forward = inspect.signature(model.forward).parameters
     last_logits = {"logits_to_keep": 1} if "logits_to_keep" in forward else {}
+    auxiliary = {"output_router_logits": False} if "output_router_logits" in forward else {}
     with torch.inference_mode():
         for i in range(0, len(texts), 6):
             inputs = tokenizer(texts[i : i + 6], padding=True, return_tensors="pt").to(device)
             mask = inputs.attention_mask
             ids.extend(inputs.input_ids[mask.bool()].tolist())
             position_ids = (mask.cumsum(dim=-1) - 1).clamp(min=0)
-            output = model(**inputs, position_ids=position_ids, use_cache=False, **last_logits)
+            output = model(
+                **inputs, position_ids=position_ids, use_cache=False, **last_logits, **auxiliary
+            )
             rows.append(output.logits[:, -1].to(dtype=logit_dtype or torch.float32).cpu())
         selected = tokenizer(texts[::4], padding=True, return_tensors="pt").to(device)
         config = _generation_config(model, tokenizer, 8)
-        completion = model.generate(**selected, generation_config=config)
+        completion = model.generate(**selected, generation_config=config, **auxiliary)
         continuations = completion[:, selected.input_ids.shape[1] :].tolist()
     return torch.cat(rows), continuations, ids
 

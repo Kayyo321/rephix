@@ -40,6 +40,8 @@ def _traces(
     val_y: ArrayLike,
     has_bias: bool,
     max_validation_rmse: float,
+    *,
+    allow_empty_rows: bool = False,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float, float]:
     if not isinstance(has_bias, (bool, np.bool_)):
         raise ValueError("has_bias must be a boolean")
@@ -50,8 +52,8 @@ def _traces(
     if not np.isfinite(limit) or limit < 0:
         raise ValueError("max_validation_rmse must be a finite nonnegative scalar")
 
-    x = _matrix(x, "x")
-    y = _matrix(y, "y")
+    x = _matrix(x, "x", allow_empty_rows=allow_empty_rows)
+    y = _matrix(y, "y", allow_empty_rows=allow_empty_rows)
     val_x = _matrix(val_x, "val_x")
     val_y = _matrix(val_y, "val_y")
     if x.shape[0] != y.shape[0]:
@@ -95,6 +97,8 @@ def plan_affine_calibration(
     The probes use the trace dtype and, for an affine layer, the implicit
     intercept coordinate of every row is one. A plan is accepted only when
     the rounded probes complete the training design at the fitting cutoff.
+    With no passive rows, probe each coordinate and add a zero anchor if
+    fitting an intercept.
     """
     if not isinstance(has_bias, (bool, np.bool_)):
         raise ValueError("has_bias must be a boolean")
@@ -104,22 +108,25 @@ def plan_affine_calibration(
         or max_rows < 0
     ):
         raise ValueError("max_rows must be a nonnegative integer")
-    x = _matrix(x, "x")
+    x = _matrix(x, "x", allow_empty_rows=True)
     if x.dtype.type not in (np.float32, np.float64):
         raise ValueError("calibration planning requires FP32 or FP64 inputs")
     trace_dtype = x.dtype
     x = _fp64(x, "x")
-    design = _affine_design(x, has_bias)
-    rows, width = design.shape
+    rows, features = x.shape
+    width = features + int(has_bias)
     precision = float(np.finfo(trace_dtype).eps)
-    passive_tolerance = _rank_tolerance(rows, width, precision)
-    try:
-        # Only a wide design needs a full factorization to obtain every right direction.
-        left, singular, right = np.linalg.svd(design, full_matrices=rows < width)
-    except np.linalg.LinAlgError as exc:
-        raise ValueError("training design SVD failed to converge") from exc
-    del left, design
-    passive_rank = _design_rank(singular, passive_tolerance)
+    passive_rank = 0
+    if rows:
+        design = _affine_design(x, has_bias)
+        passive_tolerance = _rank_tolerance(rows, width, precision)
+        try:
+            # Only a wide design needs a full factorization to obtain every right direction.
+            left, singular, right = np.linalg.svd(design, full_matrices=rows < width)
+        except np.linalg.LinAlgError as exc:
+            raise ValueError("training design SVD failed to converge") from exc
+        del left, design
+        passive_rank = _design_rank(singular, passive_tolerance)
     missing = width - passive_rank
     if missing > max_rows:
         raise ValueError(
@@ -134,6 +141,25 @@ def plan_affine_calibration(
         "probe_rows": missing,
         "relative_rank_tolerance": tolerance,
     }
+    if rows == 0:
+        scale = float(trace_dtype.type(np.sqrt(width) if has_bias else 1))
+        geometry = "basis_with_zero_anchor" if has_bias else "basis"
+        completed = np.array([scale])
+        if has_bias:
+            # Feature contrasts have singular value scale. The mean feature
+            # direction and intercept form this block with the extreme values.
+            # sqrt(width) balances the feature and intercept column norms.
+            completed = np.linalg.svd([[scale, np.sqrt(features)], [0, 1]], compute_uv=False)
+        if _design_rank(completed, tolerance) < completed.size:
+            raise ValueError(f"calibration could not complete rank 0 of {width} at the fit cutoff")
+        probes = np.zeros((width, features), dtype=trace_dtype)
+        np.fill_diagonal(probes[int(has_bias) :], scale)
+        diagnostics.update(
+            geometry=geometry,
+            probe_scale=scale,
+            condition_number=float(completed[0] / completed[-1]),
+        )
+        return probes, diagnostics
     if missing == 0:
         diagnostics.update(
             geometry="none", probe_scale=0.0, condition_number=float(singular[0] / singular[-1])
@@ -254,10 +280,11 @@ def fit_trace_affine(
 
     Weights are FP64 in [input, output] order. The optional intercept is a
     separate vector. Optional paired calibration rows join the training design,
-    which must have full numerical rank.
+    which must have full numerical rank. Calibration can supply the entire
+    design when both passive matrices have zero rows.
     """
     x, y, val_x, val_y, precision, limit = _traces(
-        x, y, val_x, val_y, has_bias, max_validation_rmse
+        x, y, val_x, val_y, has_bias, max_validation_rmse, allow_empty_rows=True
     )
     passive_rows, n_inputs = x.shape
     n_rows = passive_rows
@@ -273,6 +300,8 @@ def fit_trace_affine(
             raise ValueError("calibration traces must match training widths and have paired rows")
         calibration_x = _fp64(calibration_x, "calibration_x")
         n_rows += calibration_x.shape[0]
+    if n_rows == 0:
+        raise ValueError("training design is rank deficient: no passive or calibration rows")
     width = n_inputs + int(has_bias)
     if n_rows < width:
         raise ValueError("training design is rank deficient: fewer rows than parameters per output")
@@ -293,7 +322,11 @@ def fit_trace_affine(
         targets = _fp64(y[:, columns], "y")
         if n_rows > passive_rows:
             chosen_targets = _fp64(calibration_y[:, columns], "calibration_y")
-            targets = np.concatenate((targets, chosen_targets), axis=0)
+            targets = (
+                np.concatenate((targets, chosen_targets), axis=0)
+                if passive_rows
+                else chosen_targets
+            )
         heldout_targets = _fp64(val_y[:, columns], "val_y")
         with np.errstate(over="ignore", invalid="ignore"):
             coefficients = right.T @ ((left.T @ targets) / singular[:, None])

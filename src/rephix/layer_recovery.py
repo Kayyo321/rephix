@@ -13,6 +13,7 @@ from .io import write_json
 _HF_RMS_NORMS = {
     "transformers.models.llama.modeling_llama.LlamaRMSNorm",
     "transformers.models.mistral.modeling_mistral.MistralRMSNorm",
+    "transformers.models.mixtral.modeling_mixtral.MixtralRMSNorm",
     "transformers.models.qwen2.modeling_qwen2.Qwen2RMSNorm",
 }
 

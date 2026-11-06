@@ -150,6 +150,76 @@ class TraceAffineTests(unittest.TestCase):
         self.assertLess(plan["probe_scale"], 1e6)
         self.assertLess(plan["condition_number"], 1 / plan["relative_rank_tolerance"])
 
+    def test_fits_calibration_basis_without_passive_rows(self):
+        for dtype in (np.float32, np.float64):
+            for has_bias in (False, True):
+                with self.subTest(dtype=dtype, has_bias=has_bias):
+                    x = self.x[:0].astype(dtype)
+                    y = np.empty((0, self.weights.shape[1]), dtype=dtype)
+                    val_x = self.val_x.astype(dtype)
+                    width = x.shape[1] + int(has_bias)
+                    probes, plan = plan_affine_calibration(x, has_bias=has_bias, max_rows=width)
+                    self.assertEqual(probes.shape, (width, x.shape[1]))
+                    self.assertEqual(probes.dtype, dtype)
+                    self.assertEqual(plan["passive_rank"], 0)
+                    self.assertEqual(plan["design_width"], width)
+                    self.assertEqual(plan["probe_rows"], width)
+                    if has_bias:
+                        np.testing.assert_array_equal(probes[0], 0)
+                        design = np.column_stack((probes, np.ones(width)))
+                        self.assertEqual(plan["geometry"], "basis_with_zero_anchor")
+                    else:
+                        design = probes.astype(np.float64)
+                        self.assertEqual(plan["geometry"], "basis")
+                    self.assertAlmostEqual(plan["condition_number"], np.linalg.cond(design))
+                    self.assertLess(plan["condition_number"], 1 / plan["relative_rank_tolerance"])
+                    json.dumps(plan, allow_nan=False)
+                    with self.assertRaisesRegex(
+                        ValueError, f"calibration row budget exceeded: need {width} rows for rank 0"
+                    ):
+                        plan_affine_calibration(x, has_bias=has_bias, max_rows=0)
+
+                    intercept = self.bias if has_bias else 0
+                    weight, bias, fit = fit_trace_affine(
+                        x,
+                        y,
+                        val_x,
+                        val_x @ self.weights + intercept,
+                        has_bias=has_bias,
+                        calibration_x=probes,
+                        calibration_y=probes @ self.weights + intercept,
+                    )
+                    np.testing.assert_allclose(weight, self.weights, atol=5e-7, rtol=0)
+                    if has_bias:
+                        np.testing.assert_allclose(bias, self.bias, atol=5e-7, rtol=0)
+                    else:
+                        self.assertIsNone(bias)
+                    self.assertEqual(fit["design_rank"], width)
+                    self.assertEqual(fit["training_samples"], width)
+                    self.assertEqual(fit["passive_samples"], 0)
+                    self.assertEqual(fit["calibration_samples"], width)
+                    self.assertLess(fit["validation_rmse"], 1e-6)
+
+    def test_empty_passive_fit_requires_calibration_and_held_out_evidence(self):
+        x = self.x[:0]
+        y = np.empty((0, self.weights.shape[1]), dtype=x.dtype)
+        val_y = self.val_x @ self.weights
+        probes = np.eye(x.shape[1], dtype=x.dtype)
+        with self.assertRaisesRegex(ValueError, "no passive or calibration rows"):
+            fit_trace_affine(x, y, self.val_x, val_y, has_bias=False)
+        with self.assertRaisesRegex(ValueError, "no passive or calibration rows"):
+            fit_trace_affine(
+                x, y, self.val_x, val_y, has_bias=False, calibration_x=x, calibration_y=y
+            )
+        args = {"has_bias": False, "calibration_x": probes, "calibration_y": probes @ self.weights}
+        with self.assertRaisesRegex(ValueError, "same number of rows"):
+            fit_trace_affine(x, val_y, self.val_x, val_y, **args)
+        with self.assertRaisesRegex(ValueError, "val_x must be a nonempty"):
+            fit_trace_affine(x, y, self.val_x[:0], val_y[:0], **args)
+        val_y[0, -1] += 1
+        with self.assertRaisesRegex(ValueError, "held-out RMSE .* exceeds"):
+            fit_trace_affine(x, y, self.val_x, val_y, **args)
+
     def test_calibration_requires_paired_targets_and_preserves_the_held_out_check(self):
         x = self.x.copy()
         x[:, -1] = 0

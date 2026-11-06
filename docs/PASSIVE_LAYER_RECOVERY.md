@@ -72,3 +72,36 @@ Set the two budgets for your trace. The default embedding budget is zero. All op
 Pythia and GPT-2 each needed one chosen row for every rank-deficient affine operator. The learned GPT-2 position table needed IDs 16 through 1,023 because the passive contexts were 16 tokens long. SmolLM2 was the zero-probe control. Pythia and GPT-2 were compared against the parameters after loading and reserializing their legacy checkpoints. Relative L2 errors were `1.06e-9`, `2.16e-13`, and `5.88e-10`, respectively. All three independently reloaded exports matched 24/24 next-token predictions and 6/6 greedy continuations.
 
 Replacing the first Pythia probe and its output with a genuine row from that layer's passive trace kept the calibration row count and file digests valid. Its affine design still had rank 512 of 513 and the exporter refused to publish. [Calibrated runs and control](../examples/results/calibrated-layer-recovery.json)
+
+## Sparse experts
+
+Mixtral executes only selected expert projections for each token. The capture manifest records the actual rows observed by each projection, including zero. The fitter uses only that prefix of the allocated arrays. This keeps unfilled capacity out of the rank calculation.
+
+An affine expert with no fitting rows can be recovered from a complete chosen basis. If it also has no passive validation rows, `--max-validation-probes` lets calibration query a distinct held-out input. That response is saved separately and used only for validation. The default validation probe budget is zero. Both fitting and validation budgets are checked for the whole request before any chosen calls. This path requires access to the individual expert projections. Ordinary decoder outputs may contain no signal about experts that were never selected.
+
+For a Mixtral capture with a one-token validation split, the following settings reproduce the pretrained run's budgets:
+
+```bash
+python examples/passive_layer_experiment.py prepare --source models/tinymoe \
+  --work runs/tinymoe --validation-contexts 1 --validation-length 1
+rephix --threads 4 capture-layer-traces --model models/tinymoe \
+  --train runs/tinymoe/train.npy --validation runs/tinymoe/validation.npy \
+  --output runs/tinymoe/traces --device cuda --batch-size 16
+rephix --threads 4 calibrate-layer-traces --model models/tinymoe \
+  --traces runs/tinymoe/traces --output runs/tinymoe/chosen --device cuda \
+  --max-probes 8192 --max-validation-probes 180
+rephix --threads 4 recover-layer-traces --model-config runs/tinymoe/config \
+  --traces runs/tinymoe/traces --calibration runs/tinymoe/chosen \
+  --output runs/tinymoe/recovered
+```
+
+| TinyMoE trial | Chosen fitting rows | Chosen validation rows | Expert weights with zero passive fitting rows | Stored values within tolerance |
+| --- | ---: | ---: | ---: | ---: |
+| Pretrained router | 3,958 | 180 | 0 | 100% |
+| Engineered first router | 31,977 | 42 | 5,308,416 | 100% |
+
+The checkpoint was [TinyMoE-100m-2x8-retrained](https://huggingface.co/FlameF0X/TinyMoE-100m-2x8-retrained), a pretrained Mixtral with 99,817,344 stored values. A full affine basis would use 142,464 rows. Each reloaded export matched all 24 next-token predictions and six greedy continuations in the final natural-prompt panel. Whole-checkpoint relative L2 errors were `8.05e-9` and `6.99e-9` for the pretrained and engineered routers, respectively.
+
+The engineered control replaces only the first router with four nonzero rows proportional to `[2, 1, -2, -1]` and four zero rows. Across the observed contexts, experts 4–7 in that block received no fitting or validation tokens. Two more experts in later blocks received no fitting tokens. The audit covered all named and shaped tensors, including every unrouted projection. The pretrained run also verified a lower fitting budget of 2,048 rows was rejected before any chosen observations were collected. [Pinned results and per-operator probe records](../examples/results/sparse-expert-recovery.json)
+
+For the engineered control, first run `python examples/passive_layer_experiment.py engineer-router --source models/tinymoe --work models/tinymoe-control`. Use the resulting reference directory in the same pipeline, with the default 32 validation contexts, `--validation-rows 512` on capture, and calibration budgets of 32,768 fitting rows and 240 validation rows.

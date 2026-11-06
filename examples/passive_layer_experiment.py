@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import math
 import platform
 import shutil
 import tempfile
@@ -44,8 +45,40 @@ def prepare(args):
     ids = rng.permutation(classes)
     ids = np.concatenate((ids, rng.integers(classes, size=(-classes % 16)))).reshape(-1, 16)
     np.save(args.work / "train.npy", ids.astype(np.int32), allow_pickle=False)
-    validation = rng.integers(classes, size=(32, 16), dtype=np.int32)
+    validation = rng.integers(
+        classes, size=(args.validation_contexts, args.validation_length), dtype=np.int32
+    )
     np.save(args.work / "validation.npy", validation, allow_pickle=False)
+
+
+def engineer_router(args):
+    import torch
+    from transformers import AutoModelForCausalLM
+
+    args.work.mkdir(parents=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        args.source,
+        local_files_only=True,
+        trust_remote_code=False,
+        use_safetensors=True,
+        torch_dtype=torch.float32,
+    ).eval()
+    if model.config.model_type != "mixtral" or model.config.num_experts_per_tok != 2:
+        raise ValueError("the controlled router requires top-2 Mixtral")
+    gate = model.model.layers[0].block_sparse_moe.gate
+    if gate.out_features < 5 or gate.bias is not None:
+        raise ValueError("the controlled router requires at least five experts and no bias")
+    rng = torch.Generator(device="cpu").manual_seed(7115)
+    direction = torch.randn(gate.in_features, generator=rng, dtype=gate.weight.dtype)
+    multipliers = gate.weight.new_zeros(gate.out_features)
+    multipliers[:4] = gate.weight.new_tensor([2, 1, -2, -1])
+    with torch.no_grad():
+        gate.weight.copy_(multipliers[:, None] * direction)
+    model.save_pretrained(args.work, safe_serialization=True)
+    for name in _METADATA:
+        source = args.source / name
+        if source.is_file() and not (args.work / name).exists():
+            shutil.copyfile(source, args.work / name)
 
 
 def _read(path):
@@ -113,6 +146,22 @@ def evaluate(args):
         ),
     }
     report["summary"] = summary
+    experts = [i for i, op in enumerate(manifest["layout"]) if ".experts." in op["path"]]
+    if experts:
+        missing_fit = [i for i in experts if not manifest["train_counts"][i]]
+        summary["expert_traces"] = {
+            "affine_operators": len(experts),
+            "zero_passive_fit_operators": [manifest["layout"][i]["path"] for i in missing_fit],
+            "zero_passive_fit_weight_values": sum(
+                math.prod(manifest["layout"][i]["weight_shape"]) for i in missing_fit
+            ),
+            "zero_passive_validation_operators": sum(
+                not manifest["validation_counts"][i] for i in experts
+            ),
+            "chosen_validation_operators": sum(
+                op.get("validation_mode") == "chosen_holdout" for op in operators
+            ),
+        }
     manifest.pop("layout")
     manifest.pop("train_counts")
     manifest.pop("validation_counts")
@@ -148,8 +197,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     stages = parser.add_subparsers(dest="stage", required=True)
     prep = stages.add_parser("prepare")
+    control = stages.add_parser("engineer-router")
+    prep.add_argument("--validation-contexts", type=int, default=32)
+    prep.add_argument("--validation-length", type=int, default=16)
     ev = stages.add_parser("evaluate")
-    for stage in (prep, ev):
+    for stage in (prep, control, ev):
         stage.add_argument("--source", type=Path, required=True)
         stage.add_argument("--work", type=Path, required=True)
     ev.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
@@ -160,7 +212,11 @@ def main():
     ev.add_argument("--repack-reference", action="store_true")
     args = parser.parse_args()
     if args.stage == "prepare":
+        if min(args.validation_contexts, args.validation_length) < 1:
+            parser.error("validation context count and length must be positive")
         prepare(args)
+    elif args.stage == "engineer-router":
+        engineer_router(args)
     else:
         write_json(args.output, evaluate(args))
 

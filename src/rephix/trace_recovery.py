@@ -121,7 +121,7 @@ class _Capture:
     def finish(self):
         if self.seen is not None:
             np.save(self.directory / "seen.npy", self.seen, allow_pickle=False)
-        elif self.count != self.rows:
+        elif self.count != self.rows and self.operator["kind"] not in _AFFINE:
             raise ValueError(
                 f"{self.operator['path']}: expected {self.rows} traced rows, saw {self.count}"
             )
@@ -286,12 +286,21 @@ def _array(path, dtype):
     return values
 
 
-def _fit_operator(torch, module, operator, train, validation, dtype, gate, calibration=None):
+def _trace_arrays(directory, dtype, count):
+    x, y = (_array(directory / name, dtype) for name in ("x.npy", "y.npy"))
+    if x.ndim != 2 or y.ndim != 2 or len(x) != len(y) or not 0 <= count <= len(x):
+        raise ValueError(f"{directory}: trace row count or array shape is invalid")
+    return x[:count], y[:count]
+
+
+def _fit_operator(
+    torch, module, operator, train, train_count, validation, dtype, gate, calibration
+):
     from .trace_solver import fit_trace_affine, fit_trace_normalization
 
     kind = operator["kind"]
-    y = _array(train / "y.npy", dtype)
     if kind == "embedding":
+        y = _array(train / "y.npy", dtype)
         seen = _array(train / "seen.npy", np.dtype("bool"))
         if y.shape != tuple(module.weight.shape) or seen.shape != y.shape[:1]:
             raise ValueError("embedding trace shape mismatch")
@@ -307,11 +316,8 @@ def _fit_operator(torch, module, operator, train, validation, dtype, gate, calib
             raise ValueError("embedding trace contains nonfinite values")
         return y, None, {"observed_token_ids": observed_ids, "observed_rows": observed_ids}
 
-    x, val_x, val_y = (
-        _array(train / "x.npy", dtype),
-        _array(validation / "x.npy", dtype),
-        _array(validation / "y.npy", dtype),
-    )
+    x, y = _trace_arrays(train, dtype, train_count)
+    val_x, val_y = validation
     input_width, output_width = _widths(operator)
     if any(array.ndim != 2 or array.shape[1] != input_width for array in (x, val_x)) or any(
         array.ndim != 2 or array.shape[1] != output_width for array in (y, val_y)
@@ -332,9 +338,8 @@ def _fit_operator(torch, module, operator, train, validation, dtype, gate, calib
     )
 
 
-def _runtime_validation(torch, module, validation, dtype):
-    features = _array(validation / "x.npy", dtype)
-    observed = _array(validation / "y.npy", dtype)
+def _runtime_validation(torch, module, validation):
+    features, observed = validation
     squared = 0.0
     with torch.inference_mode():
         for start in range(0, len(features), 16):
@@ -358,6 +363,19 @@ def _trace_description(traces):
         raise ValueError("unsupported trace precision")
     if not isinstance(manifest.get("layout"), list) or not manifest["layout"]:
         raise ValueError("trace manifest has no operator layout")
+    layout = manifest["layout"]
+    for key in ("train_counts", "validation_counts"):
+        counts = manifest.get(key)
+        if not isinstance(counts, list) or len(counts) != len(layout):
+            raise ValueError(f"trace manifest has no valid {key}")
+        for operator, count in zip(layout, counts):
+            if not isinstance(operator, dict) or not isinstance(operator.get("kind"), str):
+                raise ValueError("trace manifest contains an invalid operator")
+            if key == "validation_counts" and operator["kind"] == "embedding":
+                if count is not None:
+                    raise ValueError("embedding operators do not have validation trace rows")
+            elif type(count) is not int or count < 0:
+                raise ValueError(f"trace manifest has an invalid entry in {key}")
     return manifest, np.dtype(_DTYPES[precision])
 
 
@@ -391,26 +409,39 @@ def recover_layer_traces(
     layout = _layout(torch, model)
     if layout != manifest.get("layout") or config.model_type != manifest.get("model_type"):
         raise ValueError("trace operator layout does not match the supplied architecture")
-    chosen = {}
+    chosen, chosen_validation = {}, {}
     calibration_summary = None
     if calibration is not None:
         from .trace_calibration import load_trace_calibration
 
-        chosen, calibration_summary = load_trace_calibration(calibration, traces, layout, dtype)
+        chosen, chosen_validation, calibration_summary = load_trace_calibration(
+            calibration, traces, layout, dtype, manifest
+        )
     modules = []
     with torch.no_grad():
         for index, operator in enumerate(layout):
             name = operator["path"]
             module = model.get_submodule(name)
             folder = f"{index:04d}"
-            validation_path = traces / "validation" / folder
             try:
+                validation = None
+                if operator["kind"] != "embedding":
+                    val_count = manifest["validation_counts"][index]
+                    if val_count:
+                        validation = _trace_arrays(traces / "validation" / folder, dtype, val_count)
+                    elif index in chosen_validation:
+                        validation = chosen_validation[index]
+                    else:
+                        raise ValueError(
+                            "no held-out trace rows; additional validation evidence is required"
+                        )
                 weight, bias, metrics = _fit_operator(
                     torch,
                     module,
                     operator,
                     traces / "train" / folder,
-                    validation_path,
+                    manifest["train_counts"][index],
+                    validation,
                     dtype,
                     max_validation_rmse,
                     chosen.get(index),
@@ -419,13 +450,15 @@ def recover_layer_traces(
                 if bias is not None:
                     module.bias.copy_(torch.from_numpy(bias))
                 if operator["kind"] != "embedding":
-                    runtime_error = _runtime_validation(torch, module, validation_path, dtype)
+                    runtime_error = _runtime_validation(torch, module, validation)
                     if not math.isfinite(runtime_error) or runtime_error > max_validation_rmse:
                         raise ValueError(
                             f"candidate held-out RMSE {runtime_error:.6g} exceeds "
                             f"{max_validation_rmse:.6g} or is nonfinite"
                         )
                     metrics["validation_runtime_rmse"] = runtime_error
+                    if index in chosen_validation:
+                        metrics["validation_mode"] = "chosen_holdout"
             except (ValueError, OSError) as exc:
                 raise ValueError(f"{name}: {exc}") from exc
             modules.append({**operator, **metrics})
