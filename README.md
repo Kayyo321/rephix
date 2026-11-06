@@ -17,6 +17,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
 - [Full checkpoint recovery with layer access and cross-family measurements](docs/LAYER_RECOVERY.md)
 - [Full checkpoint recovery from passive layer traces](docs/PASSIVE_LAYER_RECOVERY.md)
+- [ViT and DeiT classifier recovery](docs/VISION_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
 ## Start with a controlled experiment
@@ -80,7 +81,7 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |
-| `recover-layers` | Reconstruct and export a supported local model from chosen inputs to its layers | Whole-model parameter recovery with known architecture and direct layer access |
+| `recover-layers` | Reconstruct a supported local decoder or vision classifier from chosen layer inputs | Parameter recovery with known architecture and direct layer access, with explicit gauges |
 | `recover-projection` | Fit selected output weights using observed head inputs | White-box component recovery under an extra access assumption |
 | `sweep`, `report` | Compare bounded settings and export tables or plots | Reproducible validation comparisons with a separate final test |
 | `select-queries` | Rank new prompts by randomness, entropy, or disagreement | A query heuristic, not a recovery-accuracy measurement |

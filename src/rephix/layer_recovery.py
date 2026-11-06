@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import os
+import shutil
 import tempfile
 from pathlib import Path
 
@@ -16,6 +17,10 @@ _HF_RMS_NORMS = {
     "transformers.models.mixtral.modeling_mixtral.MixtralRMSNorm",
     "transformers.models.qwen2.modeling_qwen2.Qwen2RMSNorm",
 }
+_VISION_EMBEDDINGS = {
+    "transformers.models.vit.modeling_vit.ViTEmbeddings": ("cls_token",),
+    "transformers.models.deit.modeling_deit.DeiTEmbeddings": ("cls_token", "distillation_token"),
+}
 
 
 def _operator(torch, module):
@@ -23,6 +28,11 @@ def _operator(torch, module):
     qualified_name = f"{cls.__module__}.{cls.__name__}"
     if cls is torch.nn.Linear:
         return "linear"
+    if cls is torch.nn.Conv2d:
+        from .convolution import validate_conv2d
+
+        validate_conv2d(module)
+        return "conv2d"
     if qualified_name == "transformers.pytorch_utils.Conv1D":
         return "conv1d"
     if cls is torch.nn.Embedding and module.max_norm is None:
@@ -33,6 +43,8 @@ def _operator(torch, module):
         return "hf_rms_norm"
     if cls is getattr(torch.nn, "RMSNorm", None):
         return "rms_norm"
+    if qualified_name in _VISION_EMBEDDINGS and getattr(module, "mask_token", None) is None:
+        return "vision_embeddings"
     raise ValueError(f"unsupported parameterized operator {qualified_name}")
 
 
@@ -50,7 +62,15 @@ def _plan(torch, model):
         if not pending:
             continue
         kind = _operator(torch, module)
-        if not pending.keys() <= {"weight", "bias"}:
+        if kind == "vision_embeddings":
+            cls = type(module)
+            tokens = _VISION_EMBEDDINGS[f"{cls.__module__}.{cls.__name__}"]
+            allowed = set(tokens) | {"position_embeddings"}
+            if pending.keys() != allowed:
+                raise ValueError(f"{path}: unexpected or tied vision embedding parameters")
+        else:
+            allowed = {"weight", "bias"}
+        if not pending.keys() <= allowed:
             raise ValueError(f"{path}: unsupported parameters {sorted(pending.keys())}")
         for parameter in pending.values():
             if not parameter.is_floating_point() or parameter.layout != torch.strided:
@@ -61,6 +81,9 @@ def _plan(torch, model):
         seen.update(map(id, pending.values()))
     if not seen:
         raise ValueError("model has no recoverable parameters")
+    # The parent observation combines patch projection and position values.
+    # Recover the child projection before subtracting it from that observation.
+    plan.sort(key=lambda entry: entry[3] == "vision_embeddings")
     return plan
 
 
@@ -121,6 +144,29 @@ def _normalization(torch, module, pending, kind, read):
         weight.copy_((values.double() / unit)[0])
 
 
+def _vision_embeddings(module, read):
+    cls = type(module)
+    tokens = _VISION_EMBEDDINGS[f"{cls.__module__}.{cls.__name__}"]
+    positions = module.position_embeddings
+    patches = module.patch_embeddings
+    pixels = positions.new_zeros((1, patches.num_channels, *patches.image_size))
+    combined = read(pixels, tuple(positions.shape))
+    prefix = len(tokens)
+    projected = patches(pixels)
+    if projected.shape != combined[:, prefix:].shape:
+        raise ValueError("vision patch grid does not match positional embedding rows")
+    positions[:, prefix:].copy_(combined[:, prefix:] - projected)
+    positions[:, :prefix].zero_()
+    for index, token in enumerate(tokens):
+        getattr(module, token).copy_(combined[:, index : index + 1])
+    return {
+        "special_tokens": list(tokens),
+        "representative": "zero_special_position_rows",
+        "free_dimensions": prefix * positions.shape[-1],
+        "affected_stored_elements": 2 * prefix * positions.shape[-1],
+    }
+
+
 def recover_from_layer_calls(model, call_layer, *, batch_size=128):
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
 
@@ -135,10 +181,16 @@ def recover_from_layer_calls(model, call_layer, *, batch_size=128):
         raise ValueError("probe batch size must be a positive integer")
     plan = _plan(torch, model)
     calls = rows = scalars = recovered = 0
+    gauges = []
 
     with torch.no_grad():
         for path, module, pending, kind in plan:
             recovered += sum(parameter.numel() for parameter in pending.values())
+            dtype = (
+                module.position_embeddings.dtype
+                if kind == "vision_embeddings"
+                else module.weight.dtype
+            )
 
             def read(inputs, shape):
                 nonlocal calls, rows, scalars
@@ -146,7 +198,7 @@ def recover_from_layer_calls(model, call_layer, *, batch_size=128):
                 if (
                     not isinstance(result, torch.Tensor)
                     or result.shape != shape
-                    or result.dtype != module.weight.dtype
+                    or result.dtype != dtype
                 ):
                     raise ValueError(
                         f"{path}: oracle output shape or dtype disagrees with skeleton"
@@ -161,12 +213,18 @@ def recover_from_layer_calls(model, call_layer, *, batch_size=128):
 
             if kind in {"linear", "conv1d"}:
                 _affine(torch, module, pending, kind, read, batch_size)
+            elif kind == "conv2d":
+                from .convolution import recover_conv2d
+
+                recover_conv2d(torch, module, pending, read, batch_size)
             elif kind == "embedding":
                 weight = module.weight
                 for start in range(0, module.num_embeddings, batch_size):
                     end = min(start + batch_size, module.num_embeddings)
                     inputs = torch.arange(start, end, device=weight.device)
                     weight[start:end].copy_(read(inputs, (end - start, module.embedding_dim)))
+            elif kind == "vision_embeddings":
+                gauges.append({"module": path, **_vision_embeddings(module, read)})
             else:
                 _normalization(torch, module, pending, kind, read)
 
@@ -174,6 +232,9 @@ def recover_from_layer_calls(model, call_layer, *, batch_size=128):
         "observation_mode": "chosen_inputs_to_individual_layers",
         "parameterized_modules_probed": len(plan),
         "unique_parameter_elements_recovered": recovered,
+        "individually_identified_parameter_elements": recovered
+        - sum(gauge["affected_stored_elements"] for gauge in gauges),
+        "embedding_gauges": gauges,
         "layer_calls": calls,
         "probe_input_rows": rows,
         "observed_output_scalars": scalars,
@@ -198,10 +259,20 @@ def export_recovered_model(
     config = AutoConfig.from_pretrained(source, local_files_only=True, trust_remote_code=False)
     if getattr(config, "quantization_config", None) is not None:
         raise ValueError("layer recovery requires a dense, nonquantized model")
-    model_dtype = {"auto": "auto", "float32": torch.float32}.get(dtype)
+    model_dtype = {"auto": "auto", "float32": torch.float32, "float64": torch.float64}.get(dtype)
     if model_dtype is None:
-        raise ValueError("layer recovery dtype must be auto or float32")
-    target, loading = AutoModelForCausalLM.from_pretrained(
+        raise ValueError("layer recovery dtype must be auto, float32, or float64")
+    is_vision = config.model_type in {"vit", "deit"}
+    auto_model = AutoModelForCausalLM
+    if is_vision:
+        from transformers import AutoModelForImageClassification
+
+        if include_tokenizer and not (source / "preprocessor_config.json").is_file():
+            raise ValueError(
+                "vision source has no preprocessor_config.json; use --without-preprocessor"
+            )
+        auto_model = AutoModelForImageClassification
+    target, loading = auto_model.from_pretrained(
         source,
         config=config,
         local_files_only=True,
@@ -213,7 +284,7 @@ def export_recovered_model(
     if any(loading[key] for key in ("missing_keys", "mismatched_keys", "error_msgs")):
         raise ValueError(f"source checkpoint did not fully load: {loading}")
     target.eval().to(device)
-    candidate = AutoModelForCausalLM.from_config(
+    candidate = auto_model.from_config(
         copy.deepcopy(target.config), trust_remote_code=False, torch_dtype=target.dtype
     ).eval()
     candidate.tie_weights()
@@ -222,7 +293,8 @@ def export_recovered_model(
         return target.get_submodule(path)(inputs.to(device))
 
     report = recover_from_layer_calls(candidate, observe, batch_size=batch_size)
-    candidate.generation_config = target.generation_config
+    if not is_vision:
+        candidate.generation_config = target.generation_config
     report.update(
         model_type=target.config.model_type,
         architecture=type(target).__name__,
@@ -231,15 +303,19 @@ def export_recovered_model(
         oracle_device=device,
         oracle_dtype=str(target.dtype),
         ignored_source_keys=loading["unexpected_keys"],
-        tokenizer_exported=include_tokenizer,
     )
+    report["image_processor_exported" if is_vision else "tokenizer_exported"] = include_tokenizer
     target = None
 
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
         staged = Path(temporary) / "checkpoint"
         candidate.save_pretrained(staged, safe_serialization=True)
-        if include_tokenizer:
+        if include_tokenizer and is_vision:
+            shutil.copyfile(
+                source / "preprocessor_config.json", staged / "preprocessor_config.json"
+            )
+        elif include_tokenizer:
             tokenizer = _load_tokenizer(
                 AutoTokenizer,
                 source,
@@ -273,7 +349,12 @@ def add_subcommands(commands):
     recover.add_argument("--model", required=True, help="local Transformers safetensors directory")
     recover.add_argument("--output", required=True, help="new Transformers checkpoint directory")
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
-    recover.add_argument("--dtype", choices=("float32", "auto"), default="float32")
+    recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
-    recover.add_argument("--without-tokenizer", action="store_true")
+    recover.add_argument(
+        "--without-tokenizer",
+        "--without-preprocessor",
+        dest="without_tokenizer",
+        action="store_true",
+    )
     recover.set_defaults(func=_command)

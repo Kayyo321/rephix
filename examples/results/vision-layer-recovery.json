@@ -1,0 +1,5295 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "vit-tiny": {
+      "schema_version": 1,
+      "model_id": "WinKawaks/vit-tiny-patch16-224",
+      "revision": "77d1485af66b34d4ed0fe95dbb0c60c7496f950b",
+      "reference_sha256": {
+        "config.json": "7e5aeb1add0a832153071a858bb18145cafb809e54e7fea4e5dc1183c82078f5",
+        "model.safetensors": "a9146f3ee7cf6de399190132627e4aef1aeddd13692f5b333f24629dd36c37b0",
+        "preprocessor_config.json": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2"
+      },
+      "candidate_sha256": {
+        "config.json": "c77d1bd1915948fdeab434f42bda2a9afdb8ad83030f0ce909410830459242f2",
+        "layer-recovery.json": "f89d4c0deba440ffa02b4f137c5da77e4795ca232d73a8a6a0898905f6d59fc2",
+        "model.safetensors": "fa90ac6d0c2935d434ad6b8c36667162cca78f329ef05c3559e13837329d8049",
+        "preprocessor_config.json": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "real_images_sha256": {
+        "parrots.png": "d14e9adf584087f478dc9231c64caf6631d363dfd2188b10a4bd1c0a4020d082",
+        "grace_hopper.jpg": "a8ca6d734765703b09728ab47fe59f473d93ae3967fc24c7c0288c3c7adb7130"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 100,
+        "unique_parameter_elements_recovered": 5717416,
+        "individually_identified_parameter_elements": 5717032,
+        "embedding_gauges": [
+          {
+            "module": "vit.embeddings",
+            "special_tokens": [
+              "cls_token"
+            ],
+            "representative": "zero_special_position_rows",
+            "free_dimensions": 192,
+            "affected_stored_elements": 384
+          }
+        ],
+        "layer_calls": 325,
+        "probe_input_rows": 21821,
+        "observed_output_scalars": 5717224,
+        "probe_batch_size": 128,
+        "model_type": "vit",
+        "architecture": "ViTForImageClassification",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "image_processor_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 200,
+        "candidate_tensors": 200,
+        "compared_tensors": 200,
+        "reference_elements": 5717416,
+        "candidate_elements": 5717416,
+        "compared_elements": 5717416,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5716561,
+        "fraction_exactly_equal": 0.9998504569196994,
+        "within_tolerance_elements": 5717032,
+        "fraction_within_tolerance": 0.9999328367920053,
+        "relative_l2": 0.04701153642723457,
+        "zero_filled_relative_l2": 0.04701153642723457,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 200,
+        "candidate_tensors": 200,
+        "compared_tensors": 200,
+        "reference_elements": 5717416,
+        "candidate_elements": 5717416,
+        "compared_elements": 5717416,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5716945,
+        "fraction_exactly_equal": 0.999917620127694,
+        "within_tolerance_elements": 5717416,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 2.2691685432508186e-17,
+        "zero_filled_relative_l2": 2.2691685432508186e-17,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [
+        {
+          "module": "vit.embeddings",
+          "token": "cls_token",
+          "sum_max_abs_error": 0.0
+        }
+      ],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 4.975872753896577e-15,
+          "logit_max_abs_error": 2.1316282072803006e-14,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 4.634843522208451e-15,
+          "logit_max_abs_error": 1.8096635301390052e-14,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 5.021947853534821e-15,
+          "logit_max_abs_error": 2.0872192862952943e-14,
+          "top1_matches": 2
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 4.7269553408856335e-15,
+          "logit_max_abs_error": 2.2148949341271873e-14,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 4.084203078174368e-15,
+          "logit_max_abs_error": 1.6431300764452317e-14,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 4.613625960537654e-15,
+          "logit_max_abs_error": 1.5765166949677223e-14,
+          "top1_matches": 2
+        }
+      },
+      "evaluation_seconds": 2.215853061999951,
+      "recovery_seconds": 3
+    },
+    "deit": {
+      "schema_version": 1,
+      "model_id": "facebook/deit-tiny-distilled-patch16-224",
+      "revision": "488ad407f8f6bcfc79829ece3507658c46d15563",
+      "reference_sha256": {
+        "config.json": "5878d0e9e5fc0e9d77715122c6b88ded0ae13194d69c776d69e0f4f745e4825d",
+        "model.safetensors": "db6ff541a3fff7b95de524e0812b93e9ef12cbd8995691b57309816bcc9a79d0",
+        "preprocessor_config.json": "ba57cc5cce7672f1e3869d05c45de887ad8f6ef84a3b02d78bfc9900451a9f27"
+      },
+      "candidate_sha256": {
+        "config.json": "4a866b82deee1769d492fe27c87aeb2ed11714f6e04c8425293348f1566b5ca0",
+        "layer-recovery.json": "734ed1e2f145b58397df5e97954455d13219e586abb076726a819a9ec226ee02",
+        "model.safetensors": "4ffb6792fe24959d221cc008b2885b5b1c1955ba0666a8f493ff597317359c11",
+        "preprocessor_config.json": "ba57cc5cce7672f1e3869d05c45de887ad8f6ef84a3b02d78bfc9900451a9f27"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "real_images_sha256": {
+        "parrots.png": "d14e9adf584087f478dc9231c64caf6631d363dfd2188b10a4bd1c0a4020d082",
+        "grace_hopper.jpg": "a8ca6d734765703b09728ab47fe59f473d93ae3967fc24c7c0288c3c7adb7130"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 101,
+        "unique_parameter_elements_recovered": 5910800,
+        "individually_identified_parameter_elements": 5910032,
+        "embedding_gauges": [
+          {
+            "module": "deit.embeddings",
+            "special_tokens": [
+              "cls_token",
+              "distillation_token"
+            ],
+            "representative": "zero_special_position_rows",
+            "free_dimensions": 384,
+            "affected_stored_elements": 768
+          }
+        ],
+        "layer_calls": 328,
+        "probe_input_rows": 22014,
+        "observed_output_scalars": 5910416,
+        "probe_batch_size": 128,
+        "model_type": "deit",
+        "architecture": "DeiTForImageClassificationWithTeacher",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "image_processor_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 203,
+        "candidate_tensors": 203,
+        "compared_tensors": 203,
+        "reference_elements": 5910800,
+        "candidate_elements": 5910800,
+        "compared_elements": 5910800,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5909712,
+        "fraction_exactly_equal": 0.9998159301617379,
+        "within_tolerance_elements": 5910032,
+        "fraction_within_tolerance": 0.999870068349462,
+        "relative_l2": 0.0806282441790303,
+        "zero_filled_relative_l2": 0.0806282441790303,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "cls_classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "cls_classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.distillation_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "distillation_classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "distillation_classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 203,
+        "candidate_tensors": 203,
+        "compared_tensors": 203,
+        "reference_elements": 5910800,
+        "candidate_elements": 5910800,
+        "compared_elements": 5910800,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5910480,
+        "fraction_exactly_equal": 0.9999458618122758,
+        "within_tolerance_elements": 5910800,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 1.8312598206793616e-17,
+        "zero_filled_relative_l2": 1.8312598206793616e-17,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "cls_classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "cls_classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.distillation_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "deit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "distillation_classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "distillation_classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [
+        {
+          "module": "deit.embeddings",
+          "token": "cls_token",
+          "sum_max_abs_error": 0.0
+        },
+        {
+          "module": "deit.embeddings",
+          "token": "distillation_token",
+          "sum_max_abs_error": 0.0
+        }
+      ],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.7530601369431921e-15,
+          "logit_max_abs_error": 8.43769498715119e-15,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.7269925195019533e-15,
+          "logit_max_abs_error": 7.105427357601002e-15,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 2.6431736188528866e-15,
+          "logit_max_abs_error": 8.992806499463768e-15,
+          "top1_matches": 2
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.7551674583415063e-15,
+          "logit_max_abs_error": 8.881784197001252e-15,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.786915467303994e-15,
+          "logit_max_abs_error": 9.769962616701378e-15,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 2.6281346963289773e-15,
+          "logit_max_abs_error": 9.769962616701378e-15,
+          "top1_matches": 2
+        }
+      },
+      "evaluation_seconds": 1.413769709999542,
+      "recovery_seconds": 2,
+      "reference_conversion": {
+        "source_format": "official pytorch_model.bin",
+        "weights_only": true,
+        "trust_remote_code": false,
+        "source_sha256": "deb997894af550bd9e9c7f1951a564c7df613108f7687085c4de7110b041f198",
+        "converted_safetensors_sha256": "db6ff541a3fff7b95de524e0812b93e9ef12cbd8995691b57309816bcc9a79d0"
+      }
+    },
+    "vit-base": {
+      "schema_version": 1,
+      "model_id": "google/vit-base-patch16-224",
+      "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3",
+      "reference_sha256": {
+        "config.json": "abdf73cc4ce79495a83f32a8c9265daa7a1363f5a3efa4704c88a6e7f45ad19d",
+        "model.safetensors": "1cea07110a4a47edc51420b2dda6f3b8b58e7256e8f44b4ea6aa9696162ccb5d",
+        "preprocessor_config.json": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2"
+      },
+      "candidate_sha256": {
+        "config.json": "3d321965928b3f50c3a1d316249ccf68a89bd712e1675a76bb53a4abe14cf729",
+        "layer-recovery.json": "397578396f9e45a876ee566bd7a7d730f54132e5a73f5582ec86b8d4181f3bfe",
+        "model.safetensors": "e0ee8a3bf61e6ae2aaab88f7028b67436440e00e204413c4a7ee7adb9a2143d9",
+        "preprocessor_config.json": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "real_images_sha256": {
+        "parrots.png": "d14e9adf584087f478dc9231c64caf6631d363dfd2188b10a4bd1c0a4020d082",
+        "grace_hopper.jpg": "a8ca6d734765703b09728ab47fe59f473d93ae3967fc24c7c0288c3c7adb7130"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 100,
+        "unique_parameter_elements_recovered": 86567656,
+        "individually_identified_parameter_elements": 86566120,
+        "embedding_gauges": [
+          {
+            "module": "vit.embeddings",
+            "special_tokens": [
+              "cls_token"
+            ],
+            "representative": "zero_special_position_rows",
+            "free_dimensions": 768,
+            "affected_stored_elements": 1536
+          }
+        ],
+        "layer_calls": 785,
+        "probe_input_rows": 84605,
+        "observed_output_scalars": 86566888,
+        "probe_batch_size": 128,
+        "model_type": "vit",
+        "architecture": "ViTForImageClassification",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "image_processor_exported": true
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 200,
+        "candidate_tensors": 200,
+        "compared_tensors": 200,
+        "reference_elements": 86567656,
+        "candidate_elements": 86567656,
+        "compared_elements": 86567656,
+        "coverage": 1.0,
+        "exactly_equal_elements": 86564934,
+        "fraction_exactly_equal": 0.9999685563855396,
+        "within_tolerance_elements": 86566120,
+        "fraction_within_tolerance": 0.9999822566525308,
+        "relative_l2": 0.004753949686465609,
+        "zero_filled_relative_l2": 0.004753949686465609,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 200,
+        "candidate_tensors": 200,
+        "compared_tensors": 200,
+        "reference_elements": 86567656,
+        "candidate_elements": 86567656,
+        "compared_elements": 86567656,
+        "coverage": 1.0,
+        "exactly_equal_elements": 86566470,
+        "fraction_exactly_equal": 0.9999862997330088,
+        "within_tolerance_elements": 86567656,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 5.060757227017384e-18,
+        "zero_filled_relative_l2": 5.060757227017384e-18,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.cls_token": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.patch_embeddings.projection.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.embeddings.position_embeddings": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.0.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.1.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.10.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.11.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.2.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.3.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.4.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.5.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.6.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.7.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.8.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.key.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.query.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.attention.value.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.attention.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.intermediate.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_after.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.layernorm_before.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.encoder.layer.9.output.dense.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "vit.layernorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [
+        {
+          "module": "vit.embeddings",
+          "token": "cls_token",
+          "sum_max_abs_error": 0.0
+        }
+      ],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.4196040445798449e-15,
+          "logit_max_abs_error": 7.771561172376096e-15,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.4840168925281659e-15,
+          "logit_max_abs_error": 7.993605777301127e-15,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 1.1370905744972546e-15,
+          "logit_max_abs_error": 6.217248937900877e-15,
+          "top1_matches": 2
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.4451237586403661e-15,
+          "logit_max_abs_error": 7.993605777301127e-15,
+          "top1_matches": 8
+        },
+        "interpolated_synthetic": {
+          "images": 8,
+          "logit_rmse": 1.4326850626166338e-15,
+          "logit_max_abs_error": 9.325873406851315e-15,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 2,
+          "logit_rmse": 1.2516366774966974e-15,
+          "logit_max_abs_error": 7.105427357601002e-15,
+          "top1_matches": 2
+        }
+      },
+      "evaluation_seconds": 9.475034142998993,
+      "recovery_seconds": 3
+    }
+  }
+}
