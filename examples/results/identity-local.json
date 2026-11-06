@@ -1,0 +1,1064 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "qwen-instruct": {
+      "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "family": "Qwen",
+      "architecture": "qwen2"
+    },
+    "smollm2-135m-instruct": {
+      "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+      "family": "SmolLM2",
+      "architecture": "llama"
+    },
+    "gpt2": {
+      "repo": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+      "family": "GPT-2",
+      "architecture": "gpt2"
+    },
+    "qwen2.5-0.5b-base": {
+      "repo": "Qwen/Qwen2.5-0.5B",
+      "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+      "family": "Qwen",
+      "architecture": "qwen2"
+    },
+    "smollm2-135m-base": {
+      "repo": "HuggingFaceTB/SmolLM2-135M",
+      "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+      "family": "SmolLM2",
+      "architecture": "llama"
+    },
+    "distilgpt2": {
+      "repo": "distilbert/distilgpt2",
+      "revision": "2290a62682d06624634c1f46a6ad5be0f47f38aa",
+      "family": "GPT-2",
+      "architecture": "gpt2"
+    },
+    "pythia-70m": {
+      "repo": "EleutherAI/pythia-70m",
+      "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42",
+      "family": "Pythia",
+      "architecture": "gpt_neox"
+    },
+    "qwen2-0.5b-instruct": {
+      "repo": "Qwen/Qwen2-0.5B-Instruct",
+      "revision": "c540970f9e29518b1d8f06ab8b24cba66ad77b6d",
+      "family": "Qwen",
+      "architecture": "qwen2"
+    },
+    "smollm2-360m-instruct": {
+      "repo": "HuggingFaceTB/SmolLM2-360M-Instruct",
+      "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+      "family": "SmolLM2",
+      "architecture": "llama"
+    },
+    "gpt2-medium": {
+      "repo": "openai-community/gpt2-medium",
+      "revision": "6dcaa7a952f72f9298047fd5137cd6e4f05f41da",
+      "family": "GPT-2",
+      "architecture": "gpt2"
+    },
+    "gpt-neo-125m": {
+      "repo": "EleutherAI/gpt-neo-125m",
+      "revision": "21def0189f5705e2521767faed922f1f15e7d7db",
+      "family": "GPT-Neo",
+      "architecture": "gpt_neo"
+    }
+  },
+  "queries_per_phase": 816,
+  "enrollment_and_calibration_queries_per_phase": 312,
+  "max_new_tokens_per_query": 24,
+  "locked_contrastive_profile_sha256": "2621b5abce1a362a4d163e721e72d311dc4f93a87afa008e641b39bc492986a7",
+  "development_absolute": {
+    "schema_version": 1,
+    "profile_sha256": "081b59a699ea7fb4f84da68cf17cad86701fc52b29bfb218d6adfa00073297c0",
+    "cohorts": {
+      "matched_sampling": {
+        "panels": 24,
+        "accepted": 15,
+        "wrong_family": 0,
+        "compatible_truth": 19,
+        "correct": 15,
+        "abstained": 9,
+        "raw_top_family_correct": 24
+      },
+      "greedy_repeat": {
+        "panels": 3,
+        "accepted": 2,
+        "wrong_family": 0,
+        "compatible_truth": 3,
+        "correct": 2,
+        "abstained": 1,
+        "raw_top_family_correct": 3
+      },
+      "high_temperature": {
+        "panels": 9,
+        "accepted": 0,
+        "wrong_family": 0,
+        "compatible_truth": 0,
+        "correct": 0,
+        "abstained": 9,
+        "raw_top_family_correct": 7
+      },
+      "system_instruction": {
+        "panels": 3,
+        "accepted": 2,
+        "wrong_family": 0,
+        "compatible_truth": 2,
+        "correct": 2,
+        "abstained": 1,
+        "raw_top_family_correct": 3
+      },
+      "agent_wrapper": {
+        "panels": 3,
+        "accepted": 1,
+        "wrong_family": 1,
+        "compatible_truth": 0,
+        "correct": 0,
+        "abstained": 2,
+        "raw_top_family_correct": 2
+      },
+      "held_out_variant": {
+        "panels": 12,
+        "accepted": 6,
+        "wrong_family": 2,
+        "compatible_truth": 4,
+        "correct": 4,
+        "abstained": 6,
+        "raw_top_family_correct": 6
+      },
+      "unfamiliar_family": {
+        "panels": 9,
+        "accepted": 1,
+        "wrong_family": 1,
+        "compatible_truth": 0,
+        "correct": 8,
+        "abstained": 8,
+        "raw_top_family_correct": 0
+      }
+    },
+    "routing": {
+      "known_backend_change": {
+        "reported": "unknown",
+        "segments": [
+          "unknown",
+          "GPT-2"
+        ]
+      },
+      "unfamiliar_backend_change": {
+        "reported": "unknown",
+        "segments": [
+          "unknown",
+          "GPT-2"
+        ]
+      },
+      "unsegmented_mixture": {
+        "reported": "unknown",
+        "segments": [
+          "unknown"
+        ]
+      }
+    },
+    "fit": {
+      "enrollment": 3,
+      "calibration_panels_per_lineage": {
+        "Qwen": 12,
+        "SmolLM2": 12,
+        "GPT-2": 12
+      },
+      "alpha": 0.2,
+      "reference_probes": 8
+    },
+    "observed_sha256": "97527e2fe5e82278740595f3dbfc81ff9db5e447dbeab2cbc72c5fb4ceb578d6",
+    "evaluator_plan_sha256": "47d801052be046f475ad6ce1a237954d8ba7a872229387ae81fdda5006f2b757",
+    "probes_sha256": "8e859546b5a36b1ab2ce5a2f7dda215f707af9d2ae4b16bb82a454d8aea139bc",
+    "reference_weight_sha256": {
+      "qwen-instruct": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "smollm2-135m-instruct": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "gpt2": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+      "qwen2.5-0.5b-base": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342",
+      "smollm2-135m-base": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+      "distilgpt2": "e1ff18884359fe8beb795a5f414feb85a6ce3d929ad019c0d958c039d2b94a1b",
+      "pythia-70m": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15"
+    },
+    "queries": 816,
+    "hardware_and_runtime": {
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "torch_peak_allocated_bytes": 2082841088,
+      "process_max_rss_kib": 5589812,
+      "dtype": "float32",
+      "threads": 4,
+      "python": "3.13.5",
+      "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "cuda_runtime": "12.8",
+      "seconds": 20.068858727999668,
+      "seconds_by_model": {
+        "qwen-instruct": 8.403614270000162,
+        "smollm2-135m-instruct": 5.145563963999848,
+        "gpt2": 3.058541077999962,
+        "qwen2.5-0.5b-base": 1.1990083289997528,
+        "smollm2-135m-base": 0.8263459790000525,
+        "distilgpt2": 0.32658030199991117,
+        "pythia-70m": 1.0295501630002946
+      }
+    },
+    "cohort_by_model": {
+      "matched_sampling": {
+        "qwen-instruct": {
+          "panels": 8,
+          "correct": 2,
+          "abstained": 6,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "smollm2-135m-instruct": {
+          "panels": 8,
+          "correct": 6,
+          "abstained": 2,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "gpt2": {
+          "panels": 8,
+          "correct": 7,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        }
+      },
+      "greedy_repeat": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "high_temperature": {
+        "qwen-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 3
+        },
+        "smollm2-135m-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 3
+        },
+        "gpt2": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "system_instruction": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "agent_wrapper": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 0,
+          "wrong_family": 1,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 0
+        }
+      },
+      "held_out_variant": {
+        "qwen2.5-0.5b-base": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 4,
+          "wrong_family": 0,
+          "raw_top_family_correct": 2
+        },
+        "smollm2-135m-base": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 2,
+          "wrong_family": 2,
+          "raw_top_family_correct": 0
+        },
+        "distilgpt2": {
+          "panels": 4,
+          "correct": 4,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 4
+        }
+      },
+      "unfamiliar_family": {
+        "pythia-70m": {
+          "panels": 9,
+          "correct": 8,
+          "abstained": 8,
+          "wrong_family": 1,
+          "raw_top_family_correct": 0
+        }
+      }
+    },
+    "false_identifications": [
+      {
+        "id": "r026",
+        "model": "qwen-instruct",
+        "cohort": "agent_wrapper",
+        "seed": 0,
+        "temperature": 0,
+        "top_p": 1.0,
+        "render": "wrapper",
+        "truth": "Qwen",
+        "prediction": "GPT-2",
+        "raw_top_family": "Qwen",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "Qwen": 0.15384615384615385,
+          "SmolLM2": 0.07692307692307693,
+          "GPT-2": 0.7692307692307693
+        }
+      },
+      {
+        "id": "r085",
+        "model": "smollm2-135m-base",
+        "cohort": "held_out_variant",
+        "seed": 0,
+        "temperature": 0,
+        "top_p": 1.0,
+        "render": "default",
+        "truth": "SmolLM2",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.23076923076923078,
+          "SmolLM2": 0.07692307692307693,
+          "Qwen": 0.07692307692307693
+        }
+      },
+      {
+        "id": "r087",
+        "model": "smollm2-135m-base",
+        "cohort": "held_out_variant",
+        "seed": 6201,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "render": "default",
+        "truth": "SmolLM2",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.46153846153846156,
+          "SmolLM2": 0.07692307692307693,
+          "Qwen": 0.07692307692307693
+        }
+      },
+      {
+        "id": "r093",
+        "model": "pythia-70m",
+        "cohort": "unfamiliar_family",
+        "seed": 0,
+        "temperature": 0,
+        "top_p": 1.0,
+        "render": "default",
+        "truth": "unknown",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.3076923076923077,
+          "SmolLM2": 0.07692307692307693,
+          "Qwen": 0.07692307692307693
+        }
+      }
+    ]
+  },
+  "development_contrastive_reanalysis": {
+    "profile_sha256": "2621b5abce1a362a4d163e721e72d311dc4f93a87afa008e641b39bc492986a7",
+    "cohorts": {
+      "matched_sampling": {
+        "panels": 24,
+        "accepted": 21,
+        "wrong_family": 0,
+        "compatible_truth": 21,
+        "correct": 21,
+        "abstained": 3,
+        "raw_top_family_correct": 24
+      },
+      "greedy_repeat": {
+        "panels": 3,
+        "accepted": 3,
+        "wrong_family": 0,
+        "compatible_truth": 3,
+        "correct": 3,
+        "abstained": 0,
+        "raw_top_family_correct": 3
+      },
+      "high_temperature": {
+        "panels": 9,
+        "accepted": 0,
+        "wrong_family": 0,
+        "compatible_truth": 0,
+        "correct": 0,
+        "abstained": 9,
+        "raw_top_family_correct": 7
+      },
+      "system_instruction": {
+        "panels": 3,
+        "accepted": 2,
+        "wrong_family": 0,
+        "compatible_truth": 2,
+        "correct": 2,
+        "abstained": 1,
+        "raw_top_family_correct": 3
+      },
+      "agent_wrapper": {
+        "panels": 3,
+        "accepted": 1,
+        "wrong_family": 0,
+        "compatible_truth": 1,
+        "correct": 1,
+        "abstained": 2,
+        "raw_top_family_correct": 2
+      },
+      "held_out_variant": {
+        "panels": 12,
+        "accepted": 6,
+        "wrong_family": 2,
+        "compatible_truth": 4,
+        "correct": 4,
+        "abstained": 6,
+        "raw_top_family_correct": 6
+      },
+      "unfamiliar_family": {
+        "panels": 9,
+        "accepted": 0,
+        "wrong_family": 0,
+        "compatible_truth": 0,
+        "correct": 9,
+        "abstained": 9,
+        "raw_top_family_correct": 0
+      }
+    },
+    "routing": {
+      "known_backend_change": {
+        "reported": "mixed/routed",
+        "segments": [
+          "Qwen",
+          "GPT-2"
+        ]
+      },
+      "unfamiliar_backend_change": {
+        "reported": "unknown",
+        "segments": [
+          "Qwen",
+          "unknown"
+        ]
+      },
+      "unsegmented_mixture": {
+        "reported": "unknown",
+        "segments": [
+          "unknown"
+        ]
+      }
+    },
+    "fit": {
+      "enrollment": 3,
+      "calibration_panels_per_lineage": {
+        "Qwen": 12,
+        "SmolLM2": 12,
+        "GPT-2": 12
+      },
+      "alpha": 0.2,
+      "reference_probes": 8
+    },
+    "cohort_by_model": {
+      "matched_sampling": {
+        "qwen-instruct": {
+          "panels": 8,
+          "correct": 6,
+          "abstained": 2,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "smollm2-135m-instruct": {
+          "panels": 8,
+          "correct": 7,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "gpt2": {
+          "panels": 8,
+          "correct": 8,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        }
+      },
+      "greedy_repeat": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "high_temperature": {
+        "qwen-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 3
+        },
+        "smollm2-135m-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 3
+        },
+        "gpt2": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "system_instruction": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "agent_wrapper": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 0
+        }
+      },
+      "held_out_variant": {
+        "qwen2.5-0.5b-base": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 4,
+          "wrong_family": 0,
+          "raw_top_family_correct": 2
+        },
+        "smollm2-135m-base": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 2,
+          "wrong_family": 2,
+          "raw_top_family_correct": 0
+        },
+        "distilgpt2": {
+          "panels": 4,
+          "correct": 4,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 4
+        }
+      },
+      "unfamiliar_family": {
+        "pythia-70m": {
+          "panels": 9,
+          "correct": 9,
+          "abstained": 9,
+          "wrong_family": 0,
+          "raw_top_family_correct": 0
+        }
+      }
+    },
+    "false_identifications": [
+      {
+        "id": "r085",
+        "model": "smollm2-135m-base",
+        "cohort": "held_out_variant",
+        "seed": 0,
+        "temperature": 0,
+        "top_p": 1.0,
+        "render": "default",
+        "truth": "SmolLM2",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.3076923076923077,
+          "SmolLM2": 0.15384615384615385,
+          "Qwen": 0.07692307692307693
+        }
+      },
+      {
+        "id": "r087",
+        "model": "smollm2-135m-base",
+        "cohort": "held_out_variant",
+        "seed": 6201,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "render": "default",
+        "truth": "SmolLM2",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.38461538461538464,
+          "SmolLM2": 0.15384615384615385,
+          "Qwen": 0.07692307692307693
+        }
+      }
+    ]
+  },
+  "fresh_holdout_contrastive": {
+    "schema_version": 1,
+    "phase": "holdout",
+    "method": "prompt-conditioned-contrastive-fingerprint-v2",
+    "profile_sha256": "2621b5abce1a362a4d163e721e72d311dc4f93a87afa008e641b39bc492986a7",
+    "cohorts": {
+      "matched_sampling": {
+        "panels": 24,
+        "accepted": 23,
+        "wrong_family": 0,
+        "compatible_truth": 23,
+        "correct": 23,
+        "abstained": 1,
+        "raw_top_family_correct": 24
+      },
+      "greedy_repeat": {
+        "panels": 3,
+        "accepted": 3,
+        "wrong_family": 0,
+        "compatible_truth": 3,
+        "correct": 3,
+        "abstained": 0,
+        "raw_top_family_correct": 3
+      },
+      "high_temperature": {
+        "panels": 9,
+        "accepted": 0,
+        "wrong_family": 0,
+        "compatible_truth": 0,
+        "correct": 0,
+        "abstained": 9,
+        "raw_top_family_correct": 7
+      },
+      "system_instruction": {
+        "panels": 3,
+        "accepted": 2,
+        "wrong_family": 0,
+        "compatible_truth": 2,
+        "correct": 2,
+        "abstained": 1,
+        "raw_top_family_correct": 3
+      },
+      "agent_wrapper": {
+        "panels": 3,
+        "accepted": 1,
+        "wrong_family": 0,
+        "compatible_truth": 1,
+        "correct": 1,
+        "abstained": 2,
+        "raw_top_family_correct": 2
+      },
+      "held_out_variant": {
+        "panels": 12,
+        "accepted": 4,
+        "wrong_family": 1,
+        "compatible_truth": 3,
+        "correct": 3,
+        "abstained": 8,
+        "raw_top_family_correct": 7
+      },
+      "unfamiliar_family": {
+        "panels": 9,
+        "accepted": 1,
+        "wrong_family": 1,
+        "compatible_truth": 0,
+        "correct": 8,
+        "abstained": 8,
+        "raw_top_family_correct": 0
+      }
+    },
+    "routing": {
+      "known_backend_change": {
+        "reported": "mixed/routed",
+        "segments": [
+          "Qwen",
+          "GPT-2"
+        ]
+      },
+      "unfamiliar_backend_change": {
+        "reported": "unknown",
+        "segments": [
+          "Qwen",
+          "unknown"
+        ]
+      },
+      "unsegmented_mixture": {
+        "reported": "unknown",
+        "segments": [
+          "unknown"
+        ]
+      }
+    },
+    "fit": {
+      "enrollment": 3,
+      "calibration_panels_per_lineage": {
+        "Qwen": 12,
+        "SmolLM2": 12,
+        "GPT-2": 12
+      },
+      "alpha": 0.2,
+      "reference_probes": 8
+    },
+    "observed_sha256": "05557718f3719f6a24443c796d9a2982615975e20316e6aec337b5db7e5302b3",
+    "evaluator_plan_sha256": "6538f55a291973da4fa03475f08dd260bce05640f6786d12229f0359f893d55f",
+    "probes_sha256": "8e859546b5a36b1ab2ce5a2f7dda215f707af9d2ae4b16bb82a454d8aea139bc",
+    "reference_weight_sha256": {
+      "qwen-instruct": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "smollm2-135m-instruct": "5af571cbf074e6d21a03528d2330792e532ca608f24ac70a143f6b369968ab8c",
+      "gpt2": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+      "qwen2-0.5b-instruct": "130282af0dfa9fe5840737cc49a0d339d06075f83c5a315c3372c9a0740d0b96",
+      "smollm2-360m-instruct": "e6bffe7435d7ddc10fd3b9a9efd429dafbacb1cb17015fb5562664e7532bf86e",
+      "gpt2-medium": "fc5a354a19255ad494f3d71549390baca1ccf61d1d822b9408971705c687c9cd",
+      "gpt-neo-125m": "52738cbfb54e25a232598242f60ef19ee193d36090b98fe649b10c02724b3521"
+    },
+    "queries": 816,
+    "hardware_and_runtime": {
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "torch_peak_allocated_bytes": 2082842112,
+      "process_max_rss_kib": 5565116,
+      "dtype": "float32",
+      "threads": 4,
+      "python": "3.13.5",
+      "os": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+      "torch": "2.10.0+cu128",
+      "transformers": "4.57.6",
+      "cuda_runtime": "12.8",
+      "seconds": 17.99370963299998,
+      "seconds_by_model": {
+        "qwen-instruct": 6.864016257999992,
+        "smollm2-135m-instruct": 5.118994512999961,
+        "gpt2": 2.362098131000039,
+        "qwen2-0.5b-instruct": 1.1361117589999594,
+        "smollm2-360m-instruct": 1.0289840969999204,
+        "gpt2-medium": 0.6942303299997548,
+        "gpt-neo-125m": 0.700213352999981
+      }
+    },
+    "cohort_by_model": {
+      "matched_sampling": {
+        "qwen-instruct": {
+          "panels": 8,
+          "correct": 8,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "smollm2-135m-instruct": {
+          "panels": 8,
+          "correct": 8,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        },
+        "gpt2": {
+          "panels": 8,
+          "correct": 7,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 8
+        }
+      },
+      "greedy_repeat": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "high_temperature": {
+        "qwen-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 3
+        },
+        "smollm2-135m-instruct": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 2
+        },
+        "gpt2": {
+          "panels": 3,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 0,
+          "raw_top_family_correct": 2
+        }
+      },
+      "system_instruction": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        }
+      },
+      "agent_wrapper": {
+        "qwen-instruct": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-135m-instruct": {
+          "panels": 1,
+          "correct": 1,
+          "abstained": 0,
+          "wrong_family": 0,
+          "raw_top_family_correct": 1
+        },
+        "gpt2": {
+          "panels": 1,
+          "correct": 0,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 0
+        }
+      },
+      "held_out_variant": {
+        "qwen2-0.5b-instruct": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 3,
+          "wrong_family": 1,
+          "raw_top_family_correct": 1
+        },
+        "smollm2-360m-instruct": {
+          "panels": 4,
+          "correct": 0,
+          "abstained": 4,
+          "wrong_family": 0,
+          "raw_top_family_correct": 2
+        },
+        "gpt2-medium": {
+          "panels": 4,
+          "correct": 3,
+          "abstained": 1,
+          "wrong_family": 0,
+          "raw_top_family_correct": 4
+        }
+      },
+      "unfamiliar_family": {
+        "gpt-neo-125m": {
+          "panels": 9,
+          "correct": 8,
+          "abstained": 8,
+          "wrong_family": 1,
+          "raw_top_family_correct": 0
+        }
+      }
+    },
+    "false_identifications": [
+      {
+        "id": "r081",
+        "model": "qwen2-0.5b-instruct",
+        "cohort": "held_out_variant",
+        "seed": 0,
+        "temperature": 0,
+        "top_p": 1.0,
+        "render": "default",
+        "truth": "Qwen",
+        "prediction": "SmolLM2",
+        "raw_top_family": "SmolLM2",
+        "compatible": [
+          "SmolLM2"
+        ],
+        "ranks": {
+          "SmolLM2": 0.23076923076923078,
+          "Qwen": 0.07692307692307693,
+          "GPT-2": 0.07692307692307693
+        }
+      },
+      {
+        "id": "r100",
+        "model": "gpt-neo-125m",
+        "cohort": "unfamiliar_family",
+        "seed": 8306,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "render": "default",
+        "truth": "unknown",
+        "prediction": "GPT-2",
+        "raw_top_family": "GPT-2",
+        "compatible": [
+          "GPT-2"
+        ],
+        "ranks": {
+          "GPT-2": 0.3076923076923077,
+          "SmolLM2": 0.15384615384615385,
+          "Qwen": 0.07692307692307693
+        }
+      }
+    ]
+  }
+}

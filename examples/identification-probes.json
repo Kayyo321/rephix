@@ -1,0 +1,10 @@
+{
+  "format": "Continue the pattern in the same format for two more rows.\n<k>rain</k> = blue\n<k>coal</k> = black\n",
+  "code": "Continue the code from the last line.\ndef rotate_left(values, n):\n    if not values:\n        return []\n",
+  "creative": "Finish this first line of a children's story. Keep the tone.\nAt seven o'clock the elevator stopped at a floor that smelled of toast, and",
+  "literal": "Reply with the exact text between brackets, including punctuation. [ éclair  /  öre? ]",
+  "language": "Réponds en français. Imagine deux raisons pour lesquelles un parapluie pourrait refuser de s'ouvrir.",
+  "math": "A train goes 17 km in 12 minutes. A cyclist goes 5 km in 15 minutes. Explain a quick way to compare their speeds without a calculator.",
+  "table": "Complete the next row.\ncity | season | item\nOslo | winter | skis\nLisbon | summer | hat\nLima | autumn |",
+  "classification": "Label each phrase as a question, command, or statement. Phrases: 'You brought it?', 'Kindly stop', 'What a surprise', 'Is it really?'"
+}

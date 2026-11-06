@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "method": "prompt-conditioned-contrastive-fingerprint-v2",
+  "probes": {
+    "format": "Continue the pattern in the same format for two more rows.\n<k>rain</k> = blue\n<k>coal</k> = black\n",
+    "code": "Continue the code from the last line.\ndef rotate_left(values, n):\n    if not values:\n        return []\n",
+    "creative": "Finish this first line of a children's story. Keep the tone.\nAt seven o'clock the elevator stopped at a floor that smelled of toast, and",
+    "literal": "Reply with the exact text between brackets, including punctuation. [ \u00e9clair  /  \u00f6re? ]",
+    "language": "R\u00e9ponds en fran\u00e7ais. Imagine deux raisons pour lesquelles un parapluie pourrait refuser de s'ouvrir.",
+    "math": "A train goes 17 km in 12 minutes. A cyclist goes 5 km in 15 minutes. Explain a quick way to compare their speeds without a calculator.",
+    "table": "Complete the next row.\ncity | season | item\nOslo | winter | skis\nLisbon | summer | hat\nLima | autumn |",
+    "classification": "Label each phrase as a question, command, or statement. Phrases: 'You brought it?', 'Kindly stop', 'What a surprise', 'Is it really?'"
+  },
+  "references": {
+    "Qwen": {
+      "format": "To continue the pattern in the same format for two more rows, we need to identify the pattern in the given examples.",
+      "code": "To rotate the elements of a list to the left by `n` positions, you can use the following code:\n\n```",
+      "creative": "At seven o'clock the elevator stopped at a floor that smelled of toast, and the children ran to the kitchen to find",
+      "literal": "[ \u00e9clair / \u00f6re? ]",
+      "language": "Voici deux raisons pour lesquelles un parapluie pourrait refuser de s'ouvrir :\n\n1",
+      "math": "To compare the speeds of the train and the cyclist without a calculator, we can use a simple ratio. Here's a",
+      "table": "city | season | item\nOslo | winter | skis\nLisbon | summer | hat\nLima",
+      "classification": "Question: 'You brought it?'\nCommand: 'Stop'\nStatement: 'What a surprise'\nCommand: 'Is"
+    },
+    "SmolLM2": {
+      "format": "<k>rain</k> = blue\n<k>coal</k> = black\n<k>coal",
+      "code": "```python\ndef rotate_left(values, n):\n    if not values:\n        return []\n    rotated_values",
+      "creative": "At seven o'clock, the elevator stopped at a floor that smelled of toast.",
+      "literal": "Reply with the exact text between brackets, including punctuation. [ \u00e9clair  /  \u00f6re? ]",
+      "language": "En fran\u00e7ais, c'est une question qui peut \u00eatre re\u00e7u par un paraplu",
+      "math": "To compare the speeds of the train and cyclist without a calculator, we can use the concept of relative speed. Relative",
+      "table": "Oslo, Lisbon, and Lima are all located in the winter season, with the exception of the summer season.",
+      "classification": "1. You brought it?\n2. Kindly stop\n3. What a surprise\n4. Is it really"
+    },
+    "GPT-2": {
+      "format": "<k>silver</k> = white\n<k>gold</k> = silver\n<k>silver",
+      "code": "def rotate_right(values, n):\n         return values[n]\n",
+      "creative": " the door opened.\nThe door was locked.\nThe door was locked.\nThe door was locked.\nThe",
+      "literal": "\n\n[ \u00e9clair  /  \u00f6re? ] [ \u00e9clair  /  \u00f6re? ]",
+      "language": "\n\n\"I'm not going to be able to do anything about it. I'm not going to be able to",
+      "math": "\n\nThe speed of a train is determined by the speed of the train. The speed of a train is determined by",
+      "table": " snow\nMunich | winter | snow\nOmaha | winter | snow\nPueblo | winter |",
+      "classification": " and 'What's the matter?'\n\n'You brought it?', 'Kindly stop', 'What a surprise"
+    }
+  },
+  "calibration": {
+    "Qwen": [
+      0.2269092182336848,
+      0.18023823913457337,
+      0.11795841915761493,
+      0.15556010637077106,
+      0.17376087189697897,
+      0.07299477745318148,
+      0.10993569059113913,
+      0.17934238844301517,
+      0.41168777601631146,
+      0.1052108150165747,
+      0.21257748892904824,
+      0.2505595063903214
+    ],
+    "SmolLM2": [
+      0.13714458630423584,
+      0.08958908016961371,
+      0.10322788443557603,
+      0.0170979651947469,
+      0.02709432743788286,
+      0.0,
+      0.06170795057946264,
+      0.03729670156978594,
+      0.09364200566000772,
+      0.09543735331034747,
+      0.08896725194202892,
+      0.08802843304828634
+    ],
+    "GPT-2": [
+      0.031108846800689073,
+      0.0553937851253687,
+      0.016306005136452185,
+      0.008372745254620445,
+      0.0073712942424582475,
+      0.0025337418520038507,
+      0.017930055137147818,
+      0.0539328252649647,
+      0.0115619668000909,
+      0.014199199353264488,
+      0.003815797397250582,
+      0.0033408967247456098
+    ]
+  },
+  "calibration_population": "Same three enrolled checkpoints, exact fixed probes, same rendering, 24 new token cap, temperature 0.70, top-p 0.90, seeds 4100-4111. Calibration units are whole panels. Held-out sampling seeds test this population; checkpoint and deployment shifts are outside it.",
+  "alpha": 0.2
+}
