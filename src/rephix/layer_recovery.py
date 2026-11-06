@@ -10,15 +10,18 @@ from contextlib import nullcontext
 from pathlib import Path
 
 from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
+from .gemma_recovery import GEMMA3_SCALED_EMBEDDING, GEMMA_OFFSET_RMS_NORMS, recover_gemma_rms
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .layer_staging import LayerStager
+from .rms_probe import unit_float32_rms_amplitude
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
 
 _HF_RMS_NORMS = {
     "transformers.models.llama.modeling_llama.LlamaRMSNorm",
     "transformers.models.mistral.modeling_mistral.MistralRMSNorm",
     "transformers.models.mixtral.modeling_mixtral.MixtralRMSNorm",
+    "transformers.models.phi3.modeling_phi3.Phi3RMSNorm",
     "transformers.models.qwen2.modeling_qwen2.Qwen2RMSNorm",
     "transformers.models.qwen3.modeling_qwen3.Qwen3RMSNorm",
 }
@@ -26,11 +29,18 @@ _DIRECT_HF_RMS_NORMS = {
     "transformers.models.falcon_mamba.modeling_falcon_mamba.FalconMambaRMSNorm",
     "transformers.models.mamba.modeling_mamba.MambaRMSNorm",
     "transformers.models.mt5.modeling_mt5.MT5LayerNorm",
+    "transformers.models.olmoe.modeling_olmoe.OlmoeRMSNorm",
     "transformers.models.t5.modeling_t5.T5LayerNorm",
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
 }
+_OLMO_RMS_NORMS = {
+    "transformers.models.olmo2.modeling_olmo2.Olmo2RMSNorm",
+    "transformers.models.olmo3.modeling_olmo3.Olmo3RMSNorm",
+}
 _BART = "transformers.models.bart.modeling_bart."
 _DEBERTA_MLM_HEAD = "transformers.models.deberta_v2.modeling_deberta_v2.DebertaV2LMPredictionHead"
+_FALCON_LINEAR = "transformers.models.falcon.modeling_falcon.FalconLinear"
+_OPT_POSITIONS = "transformers.models.opt.modeling_opt.OPTLearnedPositionalEmbedding"
 _WHISPER_POSITIONS = "transformers.models.whisper.modeling_whisper.WhisperPositionalEmbedding"
 _RELATIVE_BIAS_EMBEDDING = ".relative_attention_bias"
 _VISION_EMBEDDINGS = {
@@ -49,7 +59,7 @@ def _qualified_name(module):
 def _operator(torch, module, *, direct):
     cls = type(module)
     qualified_name = _qualified_name(module)
-    if cls is torch.nn.Linear:
+    if cls is torch.nn.Linear or (direct and qualified_name == _FALCON_LINEAR):
         return "linear"
     if direct and qualified_name in SSM_MIXERS:
         return "ssm_mixer"
@@ -69,16 +79,24 @@ def _operator(torch, module, *, direct):
         return "conv1d"
     if cls is torch.nn.Embedding and module.max_norm is None:
         return "embedding"
-    if direct and qualified_name == _WHISPER_POSITIONS and module.max_norm is None:
+    if (
+        direct
+        and qualified_name in {_WHISPER_POSITIONS, GEMMA3_SCALED_EMBEDDING}
+        and module.max_norm is None
+    ):
         return "embedding"
     if direct and qualified_name == _BART + "BartScaledWordEmbedding":
         return "scaled_embedding"
-    if direct and qualified_name == _BART + "BartLearnedPositionalEmbedding":
+    if direct and qualified_name in {_BART + "BartLearnedPositionalEmbedding", _OPT_POSITIONS}:
         return "offset_embedding"
     if cls is torch.nn.LayerNorm and module.weight.numel() > 1:
         return "layer_norm"
     if qualified_name in _HF_RMS_NORMS or (direct and qualified_name in _DIRECT_HF_RMS_NORMS):
         return "hf_rms_norm"
+    if direct and qualified_name in GEMMA_OFFSET_RMS_NORMS:
+        return "gemma_rms_norm"
+    if direct and qualified_name in _OLMO_RMS_NORMS:
+        return "olmo_rms_norm"
     if cls is getattr(torch.nn, "RMSNorm", None):
         return "rms_norm"
     if qualified_name in _VISION_EMBEDDINGS and getattr(module, "mask_token", None) is None:
@@ -265,6 +283,9 @@ def recover_from_layer_calls(
     BART position probes take signed logical positions, with the reserved rows
     addressed by negative positions. Its final_logits_bias path takes one token
     ID and returns the root logits at zero input to the language-model head.
+    OPT position probes also take signed logical positions. The Gemma3 lookup
+    uses unscaled rows. Gemma-family offset RMSNorm uses FP32 input/output.
+    OLMo 2 and 3 RMSNorm probes use at least FP32 input/output.
     Whisper position probes take absolute row IDs, as for token embeddings.
     A standalone DeBERTa MLM bias probe returns logits at zero input to its
     tied vocabulary projection.
@@ -285,6 +306,7 @@ def recover_from_layer_calls(
     relative_bias_gauges = []
     ssm_decays = []
     ssm_log_elements = 0
+    gemma_rms_rounding = []
 
     with torch.no_grad():
         for path, module, pending, kind in plan:
@@ -293,6 +315,10 @@ def recover_from_layer_calls(
             else:
                 recovered += sum(parameter.numel() for parameter in pending.values())
             dtype = torch.float64 if kind == "ssm_mixer" else next(iter(pending.values())).dtype
+            if kind == "gemma_rms_norm":
+                dtype = torch.float32
+            elif kind == "olmo_rms_norm" and dtype != torch.float64:
+                dtype = torch.float32
 
             def read(inputs, shape):
                 nonlocal calls, rows, scalars
@@ -357,6 +383,21 @@ def recover_from_layer_calls(
                 bias.copy_(read(hidden, (1, bias.numel()))[0])
             elif kind == "vision_embeddings":
                 gauges.append({"module": path, **_vision_embeddings(module, read)})
+            elif kind == "gemma_rms_norm":
+                ambiguous = recover_gemma_rms(torch, module, read)
+                if ambiguous:
+                    gemma_rms_rounding.append(
+                        {
+                            "module": path,
+                            "ambiguous_parameter_elements": ambiguous,
+                        }
+                    )
+            elif kind == "olmo_rms_norm":
+                weight = pending["weight"]
+                shape = (1, *weight.shape)
+                amplitude = unit_float32_rms_amplitude(module.variance_epsilon, weight.numel())
+                inputs = weight.new_full(shape, amplitude, dtype=dtype)
+                weight.copy_(read(inputs, shape)[0])
             else:
                 _normalization(torch, module, pending, kind, read)
 
@@ -367,11 +408,13 @@ def recover_from_layer_calls(
         "persistent_buffer_elements_recovered": recovered_buffers,
         "individually_identified_parameter_elements": recovered
         - sum(gauge["affected_stored_elements"] for gauge in gauges + relative_bias_gauges)
-        - ssm_log_elements,
+        - ssm_log_elements
+        - sum(entry["ambiguous_parameter_elements"] for entry in gemma_rms_rounding),
         "embedding_gauges": gauges,
         "relative_bias_mode": relative_bias_mode,
         "relative_bias_gauges": relative_bias_gauges,
         "state_space_decays": ssm_decays,
+        "gemma_rms_rounding": gemma_rms_rounding,
         "layer_calls": calls,
         "probe_input_rows": rows,
         "observed_output_scalars": scalars,
@@ -659,6 +702,10 @@ def export_recovered_model(
             return observe_ssm_mixer(torch, module, inputs.to(device))
         if name == _BART + "BartLearnedPositionalEmbedding":
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))[0]
+        if name == _OPT_POSITIONS:
+            return module(None, position_ids=inputs.to(device))
+        if name == GEMMA3_SCALED_EMBEDDING:
+            return torch.nn.Embedding.forward(module, inputs.to(device))
         if name == _WHISPER_POSITIONS:
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))
         if relative_bias_mode == "attention" and hasattr(module, "relative_attention_bias"):
