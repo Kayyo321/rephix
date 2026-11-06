@@ -15,7 +15,7 @@ import numpy as np
 from .gguf_quant import recover_blocks
 from .io import write_json
 
-_QUANTIZED = {"Q4_0", "Q5_0", "Q8_0", "Q4_K", "Q6_K"}
+_QUANTIZED = {"Q4_0", "Q5_0", "Q8_0", "Q4_K", "Q6_K", "MXFP4"}
 _SUPPORTED = _QUANTIZED | {"F32", "F16", "BF16"}
 _TILE_FLOATS = 1 << 22
 

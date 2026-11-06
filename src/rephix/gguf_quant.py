@@ -104,7 +104,7 @@ def _recover_chunk(blocks, limit, q8):
 def recover_blocks(values, encoding):
     """Pack exact observations in the chosen GGML block encoding.
 
-    Q8_0, Q5_0, and Q4_0 take 32 values per block. K-quants take 256 values.
+    Q8_0, Q5_0, Q4_0, and MXFP4 take 32 values per block. K-quants take 256.
     """
     encoding = getattr(encoding, "name", encoding)
     if encoding == "Q4_K":
@@ -115,6 +115,10 @@ def recover_blocks(values, encoding):
         from .gguf_q6k import recover_q6k
 
         return recover_q6k(values)
+    if encoding == "MXFP4":
+        from .mxfp4 import recover_mxfp4
+
+        return recover_mxfp4(values)
     if not isinstance(encoding, str) or encoding not in _FORMATS:
         raise ValueError(f"unsupported GGML block encoding {encoding!r}")
     limit, width = _FORMATS[encoding]

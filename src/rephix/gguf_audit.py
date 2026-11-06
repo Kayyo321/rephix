@@ -11,7 +11,7 @@ import numpy as np
 from .weight_audit import DEFAULT_ATOL, DEFAULT_RTOL
 
 _VALUES_PER_BATCH = 1 << 20
-_BLOCK_FIELDS = {"Q4_0": 33, "Q5_0": 33, "Q8_0": 33, "Q4_K": 274, "Q6_K": 273}
+_BLOCK_FIELDS = {"Q4_0": 33, "Q5_0": 33, "Q8_0": 33, "Q4_K": 274, "Q6_K": 273, "MXFP4": 33}
 
 
 @dataclass
@@ -116,6 +116,9 @@ def _count_payload(counts, left, right, encoding):
         counts.exact_stored_fields += _matching_q4_k_fields(changed, equal_bytes)
     elif encoding == "Q6_K":
         counts.exact_stored_fields += _matching_q6_k_fields(changed, equal_bytes)
+    elif encoding == "MXFP4":
+        counts.exact_stored_fields += int(np.count_nonzero(equal_bytes[:, 0]))
+        counts.exact_stored_fields += _matching_nibbles(changed[:, 1:])
     else:
         counts.exact_stored_fields += int(np.count_nonzero(equal_bytes[:, :2].all(axis=1)))
         if encoding == "Q8_0":

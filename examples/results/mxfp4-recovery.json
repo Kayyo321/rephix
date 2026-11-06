@@ -1,0 +1,2171 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "format": "GGUF",
+      "model_id": "shibatch/tinygptossmoe3m",
+      "revision": "0c9ea36f844e31177ba85a97a9679cd21c3ca63c",
+      "reference_file": {
+        "filename": "tinygptossmoe3m-MXFP4.gguf",
+        "size_bytes": 1940768,
+        "sha256": "91cd3a1c2008ce12b3f86b1b9b7dc9b4f574dc5185d9842ace7e2dcfd62662fe"
+      },
+      "candidate_file": {
+        "filename": "tiny-recovered.gguf",
+        "size_bytes": 1940768,
+        "sha256": "91cd3a1c2008ce12b3f86b1b9b7dc9b4f574dc5185d9842ace7e2dcfd62662fe"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 117,
+        "observed_output_scalars": 2895432,
+        "copied_structural_prefix_bytes": 34720,
+        "by_encoding": {
+          "Q8_0": {
+            "tensors": 26,
+            "dequantized_values": 507904,
+            "blocks": 15872,
+            "ambiguous_blocks": 15872,
+            "zero_blocks": 4,
+            "reference_convention_blocks": 15872
+          },
+          "F32": {
+            "tensors": 73,
+            "dequantized_values": 28232
+          },
+          "MXFP4": {
+            "tensors": 18,
+            "dequantized_values": 2359296,
+            "blocks": 73728,
+            "ambiguous_blocks": 68264,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 73728,
+            "ambiguous_scale_blocks": 11,
+            "ambiguous_zero_code_blocks": 68263,
+            "ambiguous_zero_codes": 203833,
+            "ambiguous_packed_fields": 204167
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 117,
+          "payload_bytes": 1905952,
+          "exact_payload_bytes": 1905952,
+          "stored_fields": 2985032,
+          "exact_stored_fields": 2985032,
+          "quantized_blocks": 89600,
+          "exact_quantized_blocks": 89600,
+          "dequantized_values": 2895432,
+          "exact_dequantized_values": 2895432,
+          "within_tolerance_dequantized_values": 2895432,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 1.0,
+          "fraction_exact_stored_fields": 1.0,
+          "fraction_exact_quantized_blocks": 1.0,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 73,
+            "payload_bytes": 112928,
+            "exact_payload_bytes": 112928,
+            "stored_fields": 28232,
+            "exact_stored_fields": 28232,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 28232,
+            "exact_dequantized_values": 28232,
+            "within_tolerance_dequantized_values": 28232,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "MXFP4": {
+            "tensors": 18,
+            "payload_bytes": 1253376,
+            "exact_payload_bytes": 1253376,
+            "stored_fields": 2433024,
+            "exact_stored_fields": 2433024,
+            "quantized_blocks": 73728,
+            "exact_quantized_blocks": 73728,
+            "dequantized_values": 2359296,
+            "exact_dequantized_values": 2359296,
+            "within_tolerance_dequantized_values": 2359296,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q8_0": {
+            "tensors": 26,
+            "payload_bytes": 539648,
+            "exact_payload_bytes": 539648,
+            "stored_fields": 523776,
+            "exact_stored_fields": 523776,
+            "quantized_blocks": 15872,
+            "exact_quantized_blocks": 15872,
+            "dequantized_values": 507904,
+            "exact_dequantized_values": 507904,
+            "within_tolerance_dequantized_values": 507904,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "recovery_seconds": 1.228,
+      "native_behavior": {
+        "schema_version": 1,
+        "backend": "llama.cpp CPU",
+        "llama_server_version": "version: 0.2.0-dev (build 10615, commit f280b2698)\nbuilt with GNU 11.4.0 for Linux x86_64",
+        "llama_server_sha256": "2bad8c940c3b0ad9a84222659934dafdf5ec35716ac58375bfcb240518914371",
+        "reference_filename": "tinygptossmoe3m-MXFP4.gguf",
+        "candidate_filename": "tiny-recovered.gguf",
+        "threads": 2,
+        "context_size": 256,
+        "max_new_tokens": 8,
+        "next_token_top_n": 8,
+        "ignore_eos": true,
+        "cache_prompt": false,
+        "temperature": -1,
+        "seed": 0,
+        "metrics": {
+          "prompt_count": 6,
+          "exact_prompt_token_id_matches": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_exact_top_n_token_order_matches": 6,
+          "next_token_shared_logprob_coordinates": 48,
+          "next_token_exact_logprob_coordinates": 48,
+          "next_token_max_abs_logprob_error": 0.0,
+          "next_token_logprob_rmse": 0.0
+        },
+        "reference": [
+          {
+            "prompt": "Once upon a time, a fox found a",
+            "prompt_token_ids": [
+              430,
+              446,
+              258,
+              395,
+              11,
+              258,
+              790,
+              87,
+              594,
+              258
+            ],
+            "continuation_ids": [
+              406,
+              11,
+              969,
+              961,
+              13,
+              298,
+              790,
+              87
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 406,
+                "logprob": -1.814013123512268
+              },
+              {
+                "id": 396,
+                "logprob": -2.185638904571533
+              },
+              {
+                "id": 794,
+                "logprob": -2.321469783782959
+              },
+              {
+                "id": 879,
+                "logprob": -3.2661309242248535
+              },
+              {
+                "id": 280,
+                "logprob": -3.3942818641662598
+              },
+              {
+                "id": 969,
+                "logprob": -3.546994686126709
+              },
+              {
+                "id": 257,
+                "logprob": -3.5712056159973145
+              },
+              {
+                "id": 266,
+                "logprob": -3.6679883003234863
+              }
+            ]
+          },
+          {
+            "prompt": "The library closed early because",
+            "prompt_token_ids": [
+              372,
+              373,
+              65,
+              81,
+              964,
+              731,
+              813,
+              321,
+              286,
+              383,
+              786
+            ],
+            "continuation_ids": [
+              303,
+              281,
+              349,
+              406,
+              264,
+              879,
+              13,
+              198
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 303,
+                "logprob": -0.31770816445350647
+              },
+              {
+                "id": 278,
+                "logprob": -1.9062834978103638
+              },
+              {
+                "id": 346,
+                "logprob": -3.642400026321411
+              },
+              {
+                "id": 262,
+                "logprob": -3.72005295753479
+              },
+              {
+                "id": 399,
+                "logprob": -3.859990358352661
+              },
+              {
+                "id": 361,
+                "logprob": -5.299635887145996
+              },
+              {
+                "id": 623,
+                "logprob": -5.464902877807617
+              },
+              {
+                "id": 494,
+                "logprob": -5.50126314163208
+              }
+            ]
+          },
+          {
+            "prompt": "If each box holds twelve pencils, five boxes hold",
+            "prompt_token_ids": [
+              40,
+              69,
+              755,
+              782,
+              689,
+              323,
+              82,
+              716,
+              367,
+              338,
+              280,
+              293,
+              66,
+              289,
+              82,
+              11,
+              272,
+              704,
+              782,
+              313,
+              689,
+              323
+            ],
+            "continuation_ids": [
+              288,
+              13,
+              198,
+              198,
+              50,
+              78,
+              11,
+              262
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 288,
+                "logprob": -1.6098747253417969
+              },
+              {
+                "id": 13,
+                "logprob": -1.8183488845825195
+              },
+              {
+                "id": 82,
+                "logprob": -2.007448673248291
+              },
+              {
+                "id": 344,
+                "logprob": -3.127744674682617
+              },
+              {
+                "id": 11,
+                "logprob": -3.1889190673828125
+              },
+              {
+                "id": 263,
+                "logprob": -3.486623764038086
+              },
+              {
+                "id": 262,
+                "logprob": -3.4883947372436523
+              },
+              {
+                "id": 447,
+                "logprob": -3.6703319549560547
+              }
+            ]
+          },
+          {
+            "prompt": "def double(value):\n    return",
+            "prompt_token_ids": [
+              67,
+              68,
+              69,
+              276,
+              271,
+              581,
+              7,
+              85,
+              397,
+              644,
+              8,
+              25,
+              198,
+              220,
+              220,
+              220,
+              403,
+              83,
+              837
+            ],
+            "continuation_ids": [
+              263,
+              265,
+              262,
+              568,
+              13,
+              408,
+              281,
+              258
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 263,
+                "logprob": -1.4592750072479248
+              },
+              {
+                "id": 82,
+                "logprob": -1.6748135089874268
+              },
+              {
+                "id": 265,
+                "logprob": -2.6262919902801514
+              },
+              {
+                "id": 586,
+                "logprob": -2.942517042160034
+              },
+              {
+                "id": 262,
+                "logprob": -3.2204387187957764
+              },
+              {
+                "id": 11,
+                "logprob": -3.3643548488616943
+              },
+              {
+                "id": 13,
+                "logprob": -3.430250883102417
+              },
+              {
+                "id": 288,
+                "logprob": -3.471565008163452
+              }
+            ]
+          },
+          {
+            "prompt": "Why do some birds migrate in winter?\nAnswer:",
+            "prompt_token_ids": [
+              54,
+              71,
+              88,
+              382,
+              514,
+              536,
+              82,
+              279,
+              327,
+              81,
+              736,
+              315,
+              260,
+              267,
+              427,
+              30,
+              198,
+              32,
+              77,
+              82,
+              86,
+              277,
+              25
+            ],
+            "continuation_ids": [
+              328,
+              40,
+              822,
+              422,
+              694,
+              11,
+              409,
+              334
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -0.9227722883224487
+              },
+              {
+                "id": 220,
+                "logprob": -1.759684443473816
+              },
+              {
+                "id": 520,
+                "logprob": -2.5808191299438477
+              },
+              {
+                "id": 283,
+                "logprob": -2.991816997528076
+              },
+              {
+                "id": 334,
+                "logprob": -3.7942490577697754
+              },
+              {
+                "id": 886,
+                "logprob": -3.880260467529297
+              },
+              {
+                "id": 198,
+                "logprob": -3.945268392562866
+              },
+              {
+                "id": 297,
+                "logprob": -4.161324977874756
+              }
+            ]
+          },
+          {
+            "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+            "prompt_token_ids": [
+              51,
+              81,
+              299,
+              82,
+              75,
+              736,
+              733,
+              297,
+              79,
+              299,
+              720,
+              25,
+              298,
+              257,
+              418,
+              267,
+              468,
+              348,
+              841,
+              449,
+              494,
+              302,
+              13,
+              198,
+              50,
+              79,
+              299,
+              720,
+              25
+            ],
+            "continuation_ids": [
+              328,
+              851,
+              741,
+              345,
+              11,
+              297,
+              79,
+              299
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -1.1404178142547607
+              },
+              {
+                "id": 220,
+                "logprob": -1.8350025415420532
+              },
+              {
+                "id": 520,
+                "logprob": -2.0048234462738037
+              },
+              {
+                "id": 283,
+                "logprob": -2.7398173809051514
+              },
+              {
+                "id": 297,
+                "logprob": -2.7518889904022217
+              },
+              {
+                "id": 886,
+                "logprob": -3.540482759475708
+              },
+              {
+                "id": 402,
+                "logprob": -3.9938504695892334
+              },
+              {
+                "id": 626,
+                "logprob": -4.326558589935303
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "prompt": "Once upon a time, a fox found a",
+            "prompt_token_ids": [
+              430,
+              446,
+              258,
+              395,
+              11,
+              258,
+              790,
+              87,
+              594,
+              258
+            ],
+            "continuation_ids": [
+              406,
+              11,
+              969,
+              961,
+              13,
+              298,
+              790,
+              87
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 406,
+                "logprob": -1.814013123512268
+              },
+              {
+                "id": 396,
+                "logprob": -2.185638904571533
+              },
+              {
+                "id": 794,
+                "logprob": -2.321469783782959
+              },
+              {
+                "id": 879,
+                "logprob": -3.2661309242248535
+              },
+              {
+                "id": 280,
+                "logprob": -3.3942818641662598
+              },
+              {
+                "id": 969,
+                "logprob": -3.546994686126709
+              },
+              {
+                "id": 257,
+                "logprob": -3.5712056159973145
+              },
+              {
+                "id": 266,
+                "logprob": -3.6679883003234863
+              }
+            ]
+          },
+          {
+            "prompt": "The library closed early because",
+            "prompt_token_ids": [
+              372,
+              373,
+              65,
+              81,
+              964,
+              731,
+              813,
+              321,
+              286,
+              383,
+              786
+            ],
+            "continuation_ids": [
+              303,
+              281,
+              349,
+              406,
+              264,
+              879,
+              13,
+              198
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 303,
+                "logprob": -0.31770816445350647
+              },
+              {
+                "id": 278,
+                "logprob": -1.9062834978103638
+              },
+              {
+                "id": 346,
+                "logprob": -3.642400026321411
+              },
+              {
+                "id": 262,
+                "logprob": -3.72005295753479
+              },
+              {
+                "id": 399,
+                "logprob": -3.859990358352661
+              },
+              {
+                "id": 361,
+                "logprob": -5.299635887145996
+              },
+              {
+                "id": 623,
+                "logprob": -5.464902877807617
+              },
+              {
+                "id": 494,
+                "logprob": -5.50126314163208
+              }
+            ]
+          },
+          {
+            "prompt": "If each box holds twelve pencils, five boxes hold",
+            "prompt_token_ids": [
+              40,
+              69,
+              755,
+              782,
+              689,
+              323,
+              82,
+              716,
+              367,
+              338,
+              280,
+              293,
+              66,
+              289,
+              82,
+              11,
+              272,
+              704,
+              782,
+              313,
+              689,
+              323
+            ],
+            "continuation_ids": [
+              288,
+              13,
+              198,
+              198,
+              50,
+              78,
+              11,
+              262
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 288,
+                "logprob": -1.6098747253417969
+              },
+              {
+                "id": 13,
+                "logprob": -1.8183488845825195
+              },
+              {
+                "id": 82,
+                "logprob": -2.007448673248291
+              },
+              {
+                "id": 344,
+                "logprob": -3.127744674682617
+              },
+              {
+                "id": 11,
+                "logprob": -3.1889190673828125
+              },
+              {
+                "id": 263,
+                "logprob": -3.486623764038086
+              },
+              {
+                "id": 262,
+                "logprob": -3.4883947372436523
+              },
+              {
+                "id": 447,
+                "logprob": -3.6703319549560547
+              }
+            ]
+          },
+          {
+            "prompt": "def double(value):\n    return",
+            "prompt_token_ids": [
+              67,
+              68,
+              69,
+              276,
+              271,
+              581,
+              7,
+              85,
+              397,
+              644,
+              8,
+              25,
+              198,
+              220,
+              220,
+              220,
+              403,
+              83,
+              837
+            ],
+            "continuation_ids": [
+              263,
+              265,
+              262,
+              568,
+              13,
+              408,
+              281,
+              258
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 263,
+                "logprob": -1.4592750072479248
+              },
+              {
+                "id": 82,
+                "logprob": -1.6748135089874268
+              },
+              {
+                "id": 265,
+                "logprob": -2.6262919902801514
+              },
+              {
+                "id": 586,
+                "logprob": -2.942517042160034
+              },
+              {
+                "id": 262,
+                "logprob": -3.2204387187957764
+              },
+              {
+                "id": 11,
+                "logprob": -3.3643548488616943
+              },
+              {
+                "id": 13,
+                "logprob": -3.430250883102417
+              },
+              {
+                "id": 288,
+                "logprob": -3.471565008163452
+              }
+            ]
+          },
+          {
+            "prompt": "Why do some birds migrate in winter?\nAnswer:",
+            "prompt_token_ids": [
+              54,
+              71,
+              88,
+              382,
+              514,
+              536,
+              82,
+              279,
+              327,
+              81,
+              736,
+              315,
+              260,
+              267,
+              427,
+              30,
+              198,
+              32,
+              77,
+              82,
+              86,
+              277,
+              25
+            ],
+            "continuation_ids": [
+              328,
+              40,
+              822,
+              422,
+              694,
+              11,
+              409,
+              334
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -0.9227722883224487
+              },
+              {
+                "id": 220,
+                "logprob": -1.759684443473816
+              },
+              {
+                "id": 520,
+                "logprob": -2.5808191299438477
+              },
+              {
+                "id": 283,
+                "logprob": -2.991816997528076
+              },
+              {
+                "id": 334,
+                "logprob": -3.7942490577697754
+              },
+              {
+                "id": 886,
+                "logprob": -3.880260467529297
+              },
+              {
+                "id": 198,
+                "logprob": -3.945268392562866
+              },
+              {
+                "id": 297,
+                "logprob": -4.161324977874756
+              }
+            ]
+          },
+          {
+            "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+            "prompt_token_ids": [
+              51,
+              81,
+              299,
+              82,
+              75,
+              736,
+              733,
+              297,
+              79,
+              299,
+              720,
+              25,
+              298,
+              257,
+              418,
+              267,
+              468,
+              348,
+              841,
+              449,
+              494,
+              302,
+              13,
+              198,
+              50,
+              79,
+              299,
+              720,
+              25
+            ],
+            "continuation_ids": [
+              328,
+              851,
+              741,
+              345,
+              11,
+              297,
+              79,
+              299
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -1.1404178142547607
+              },
+              {
+                "id": 220,
+                "logprob": -1.8350025415420532
+              },
+              {
+                "id": 520,
+                "logprob": -2.0048234462738037
+              },
+              {
+                "id": 283,
+                "logprob": -2.7398173809051514
+              },
+              {
+                "id": 297,
+                "logprob": -2.7518889904022217
+              },
+              {
+                "id": 886,
+                "logprob": -3.540482759475708
+              },
+              {
+                "id": 402,
+                "logprob": -3.9938504695892334
+              },
+              {
+                "id": 626,
+                "logprob": -4.326558589935303
+              }
+            ]
+          }
+        ],
+        "elapsed_seconds": 0.4361061849995167
+      }
+    },
+    {
+      "format": "OpenAI original MXFP4 safetensors",
+      "model_id": "shibatch/tinygptossmoe3m",
+      "revision": "0c9ea36f844e31177ba85a97a9679cd21c3ca63c",
+      "reference_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 2334056,
+        "sha256": "30dac8e68ccf869d872beb382cebd0be8b168de761dfb38f1358d260d4b8d09d"
+      },
+      "candidate_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 2334056,
+        "sha256": "9de5c70875bfd9e5611f6baadd44ecd68d4aa86427654fbb0b9c3dda600170bd"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_native_gpt_oss_tensor_operators",
+        "checkpoint_layout": "openai_original",
+        "oracle_device": "cuda",
+        "tensor_calls": 81,
+        "observed_output_scalars": 2895432,
+        "dense_values": 536136,
+        "mxfp4": {
+          "blocks": 73728,
+          "ambiguous_blocks": 60808,
+          "zero_blocks": 0,
+          "reference_convention_blocks": 73728,
+          "ambiguous_scale_blocks": 106,
+          "ambiguous_zero_code_blocks": 60789,
+          "ambiguous_zero_codes": 130519,
+          "ambiguous_packed_fields": 133843
+        }
+      },
+      "safetensors_audit": {
+        "checkpoint_layout": "openai_original",
+        "mxfp4_scales": 73728,
+        "exact_mxfp4_scales": 73728,
+        "mxfp4_codes": 2359296,
+        "exact_mxfp4_codes": 2293980,
+        "exact_mxfp4_values": 2359296,
+        "exact_mxfp4_blocks": 30685,
+        "dense_values": 536136,
+        "exact_dense_values": 536136
+      },
+      "recovery_seconds": 1.226,
+      "native_behavior": {
+        "backend": "OpenAI GPT-OSS PyTorch reference CPU, native packed checkpoint load",
+        "runtime_revision": "599476783c6f88508dab8577808b5ead5cbee8d2",
+        "pytorch_version": "2.10.0+cu128",
+        "prompt_count": 6,
+        "prompts": [
+          "Once upon a time, a fox found a",
+          "The library closed early because",
+          "If each box holds twelve pencils, five boxes hold",
+          "def double(value):\n    return",
+          "Why do some birds migrate in winter?\nAnswer:",
+          "Translate into Spanish: The train arrives at noon.\nSpanish:"
+        ],
+        "prompt_token_ids": [
+          [
+            430,
+            446,
+            258,
+            395,
+            11,
+            258,
+            790,
+            87,
+            594,
+            258
+          ],
+          [
+            372,
+            373,
+            65,
+            81,
+            964,
+            731,
+            813,
+            321,
+            286,
+            383,
+            786
+          ],
+          [
+            40,
+            69,
+            755,
+            782,
+            689,
+            323,
+            82,
+            716,
+            367,
+            338,
+            280,
+            293,
+            66,
+            289,
+            82,
+            11,
+            272,
+            704,
+            782,
+            313,
+            689,
+            323
+          ],
+          [
+            67,
+            68,
+            69,
+            276,
+            271,
+            581,
+            7,
+            85,
+            397,
+            644,
+            8,
+            25,
+            198,
+            220,
+            220,
+            220,
+            403,
+            83,
+            837
+          ],
+          [
+            54,
+            71,
+            88,
+            382,
+            514,
+            536,
+            82,
+            279,
+            327,
+            81,
+            736,
+            315,
+            260,
+            267,
+            427,
+            30,
+            198,
+            32,
+            77,
+            82,
+            86,
+            277,
+            25
+          ],
+          [
+            51,
+            81,
+            299,
+            82,
+            75,
+            736,
+            733,
+            297,
+            79,
+            299,
+            720,
+            25,
+            298,
+            257,
+            418,
+            267,
+            468,
+            348,
+            841,
+            449,
+            494,
+            302,
+            13,
+            198,
+            50,
+            79,
+            299,
+            720,
+            25
+          ]
+        ],
+        "tokenizer_sha256": "aa81ff9823a3249d87ae978b31f1e72226d77d63f9488115eb9bd76462699c70",
+        "logit_coordinates": 6144,
+        "exact_logit_coordinates": 6144,
+        "logit_max_abs_error": 0.0,
+        "logit_rmse": 0.0,
+        "reference_logits_sha256": "ec1ce6891cf55543c0b1fa280f5a3ce948d33dd0afc6b9ad34ccd5c891bf16ed",
+        "candidate_logits_sha256": "ec1ce6891cf55543c0b1fa280f5a3ce948d33dd0afc6b9ad34ccd5c891bf16ed",
+        "max_new_tokens": 8,
+        "exact_greedy_matches": 6,
+        "reference_continuation_ids": [
+          [
+            406,
+            11,
+            272,
+            450,
+            416,
+            266,
+            368,
+            636
+          ],
+          [
+            303,
+            281,
+            349,
+            879,
+            13,
+            198,
+            198,
+            372
+          ],
+          [
+            288,
+            262,
+            280,
+            293,
+            66,
+            289,
+            82,
+            13
+          ],
+          [
+            263,
+            265,
+            262,
+            568,
+            13,
+            760,
+            485,
+            281
+          ],
+          [
+            328,
+            40,
+            822,
+            422,
+            694,
+            11,
+            409,
+            303
+          ],
+          [
+            328,
+            851,
+            287,
+            257,
+            418,
+            267,
+            407,
+            262
+          ]
+        ],
+        "candidate_continuation_ids": [
+          [
+            406,
+            11,
+            272,
+            450,
+            416,
+            266,
+            368,
+            636
+          ],
+          [
+            303,
+            281,
+            349,
+            879,
+            13,
+            198,
+            198,
+            372
+          ],
+          [
+            288,
+            262,
+            280,
+            293,
+            66,
+            289,
+            82,
+            13
+          ],
+          [
+            263,
+            265,
+            262,
+            568,
+            13,
+            760,
+            485,
+            281
+          ],
+          [
+            328,
+            40,
+            822,
+            422,
+            694,
+            11,
+            409,
+            303
+          ],
+          [
+            328,
+            851,
+            287,
+            257,
+            418,
+            267,
+            407,
+            262
+          ]
+        ]
+      }
+    },
+    {
+      "format": "GGUF",
+      "model_id": "ggml-org/gpt-oss-20b-GGUF",
+      "revision": "15dcfc7e7c608c6161507211ed43c5b590801b4b",
+      "reference_file": {
+        "filename": "gpt-oss-20b-MXFP4.gguf",
+        "size_bytes": 12109566624,
+        "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901"
+      },
+      "candidate_file": {
+        "filename": "recovered-20b.gguf",
+        "size_bytes": 12109566624,
+        "sha256": "eb55fd5992bd144ce7efbda4d60e2d73397e6e52b75bd785bbcbda7a4e8644c6"
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_dequantized_gguf_tensor_operators",
+        "oracle_device": "cuda",
+        "tensor_calls": 16005,
+        "observed_output_scalars": 20914757184,
+        "copied_structural_prefix_bytes": 13008288,
+        "by_encoding": {
+          "Q8_0": {
+            "tensors": 98,
+            "dequantized_values": 1795276800,
+            "blocks": 56102400,
+            "ambiguous_blocks": 56102400,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 56102400
+          },
+          "F32": {
+            "tensors": 289,
+            "dequantized_values": 9182784
+          },
+          "MXFP4": {
+            "tensors": 72,
+            "dequantized_values": 19110297600,
+            "blocks": 597196800,
+            "ambiguous_blocks": 583397998,
+            "zero_blocks": 0,
+            "reference_convention_blocks": 597196800,
+            "ambiguous_scale_blocks": 130946361,
+            "ambiguous_zero_code_blocks": 582514355,
+            "ambiguous_zero_codes": 2443232841,
+            "ambiguous_packed_fields": 6083039175
+          }
+        }
+      },
+      "gguf_audit": {
+        "schema_version": 1,
+        "metadata_prefix_exact": true,
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "totals": {
+          "tensors": 459,
+          "payload_bytes": 12096558336,
+          "exact_payload_bytes": 10918213973,
+          "stored_fields": 21568056384,
+          "exact_stored_fields": 20346357797,
+          "quantized_blocks": 653299200,
+          "exact_quantized_blocks": 142793005,
+          "dequantized_values": 20914757184,
+          "exact_dequantized_values": 20914757184,
+          "within_tolerance_dequantized_values": 20914757184,
+          "max_abs_error": 0.0,
+          "fraction_exact_payload_bytes": 0.9025884610920129,
+          "fraction_exact_stored_fields": 0.9433561112207448,
+          "fraction_exact_quantized_blocks": 0.21857214121799015,
+          "fraction_exact_dequantized_values": 1.0,
+          "fraction_within_tolerance_dequantized_values": 1.0
+        },
+        "by_encoding": {
+          "F32": {
+            "tensors": 289,
+            "payload_bytes": 36731136,
+            "exact_payload_bytes": 36731136,
+            "stored_fields": 9182784,
+            "exact_stored_fields": 9182784,
+            "quantized_blocks": 0,
+            "exact_quantized_blocks": 0,
+            "dequantized_values": 9182784,
+            "exact_dequantized_values": 9182784,
+            "within_tolerance_dequantized_values": 9182784,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": null,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "MXFP4": {
+            "tensors": 72,
+            "payload_bytes": 10152345600,
+            "exact_payload_bytes": 8974001237,
+            "stored_fields": 19707494400,
+            "exact_stored_fields": 18485795813,
+            "quantized_blocks": 597196800,
+            "exact_quantized_blocks": 86690605,
+            "dequantized_values": 19110297600,
+            "exact_dequantized_values": 19110297600,
+            "within_tolerance_dequantized_values": 19110297600,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 0.8839337814701659,
+            "fraction_exact_stored_fields": 0.938008426530366,
+            "fraction_exact_quantized_blocks": 0.14516254105849194,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          },
+          "Q8_0": {
+            "tensors": 98,
+            "payload_bytes": 1907481600,
+            "exact_payload_bytes": 1907481600,
+            "stored_fields": 1851379200,
+            "exact_stored_fields": 1851379200,
+            "quantized_blocks": 56102400,
+            "exact_quantized_blocks": 56102400,
+            "dequantized_values": 1795276800,
+            "exact_dequantized_values": 1795276800,
+            "within_tolerance_dequantized_values": 1795276800,
+            "max_abs_error": 0.0,
+            "fraction_exact_payload_bytes": 1.0,
+            "fraction_exact_stored_fields": 1.0,
+            "fraction_exact_quantized_blocks": 1.0,
+            "fraction_exact_dequantized_values": 1.0,
+            "fraction_within_tolerance_dequantized_values": 1.0
+          }
+        }
+      },
+      "recovery_seconds": 554.285,
+      "audit_seconds": 296.408,
+      "native_behavior": {
+        "schema_version": 1,
+        "backend": "llama.cpp CPU",
+        "llama_server_version": "version: 0.2.0-dev (build 10615, commit f280b2698)\nbuilt with GNU 11.4.0 for Linux x86_64",
+        "llama_server_sha256": "2bad8c940c3b0ad9a84222659934dafdf5ec35716ac58375bfcb240518914371",
+        "reference_filename": "gpt-oss-20b-MXFP4.gguf",
+        "candidate_filename": "recovered-20b.gguf",
+        "threads": 8,
+        "context_size": 256,
+        "max_new_tokens": 8,
+        "next_token_top_n": 8,
+        "ignore_eos": true,
+        "cache_prompt": false,
+        "temperature": -1,
+        "seed": 0,
+        "metrics": {
+          "prompt_count": 6,
+          "exact_prompt_token_id_matches": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_exact_top_n_token_order_matches": 6,
+          "next_token_shared_logprob_coordinates": 48,
+          "next_token_exact_logprob_coordinates": 48,
+          "next_token_max_abs_logprob_error": 0.0,
+          "next_token_logprob_rmse": 0.0
+        },
+        "reference": [
+          {
+            "prompt": "Once upon a time, a fox found a",
+            "prompt_token_ids": [
+              18049,
+              7557,
+              261,
+              1058,
+              11,
+              261,
+              68347,
+              2491,
+              261
+            ],
+            "continuation_ids": [
+              60730,
+              22179,
+              13,
+              1679,
+              673,
+              33612,
+              326,
+              9805
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 60730,
+                "logprob": -3.232290506362915
+              },
+              {
+                "id": 29000,
+                "logprob": -3.4097225666046143
+              },
+              {
+                "id": 6107,
+                "logprob": -3.868194818496704
+              },
+              {
+                "id": 7144,
+                "logprob": -4.096714496612549
+              },
+              {
+                "id": 8803,
+                "logprob": -4.197300434112549
+              },
+              {
+                "id": 67153,
+                "logprob": -4.246026515960693
+              },
+              {
+                "id": 3592,
+                "logprob": -4.254985332489014
+              },
+              {
+                "id": 9047,
+                "logprob": -4.394017696380615
+              }
+            ]
+          },
+          {
+            "prompt": "The library closed early because",
+            "prompt_token_ids": [
+              976,
+              11282,
+              12412,
+              6047,
+              2236
+            ],
+            "continuation_ids": [
+              328,
+              290,
+              21248,
+              13,
+              623,
+              11282,
+              673,
+              12412
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -0.7932243943214417
+              },
+              {
+                "id": 290,
+                "logprob": -1.6155567169189453
+              },
+              {
+                "id": 480,
+                "logprob": -2.908717155456543
+              },
+              {
+                "id": 1023,
+                "logprob": -3.471973419189453
+              },
+              {
+                "id": 581,
+                "logprob": -3.62674617767334
+              },
+              {
+                "id": 357,
+                "logprob": -3.6719465255737305
+              },
+              {
+                "id": 1354,
+                "logprob": -3.6766443252563477
+              },
+              {
+                "id": 261,
+                "logprob": -3.901224136352539
+              }
+            ]
+          },
+          {
+            "prompt": "If each box holds twelve pencils, five boxes hold",
+            "prompt_token_ids": [
+              3335,
+              2454,
+              5506,
+              18305,
+              44683,
+              134821,
+              11,
+              6468,
+              21967,
+              5060
+            ],
+            "continuation_ids": [
+              46352,
+              20,
+              2381,
+              32499,
+              220,
+              899,
+              314,
+              220
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 46352,
+                "logprob": -1.458284854888916
+              },
+              {
+                "id": 220,
+                "logprob": -1.6100515127182007
+              },
+              {
+                "id": 261,
+                "logprob": -1.881161093711853
+              },
+              {
+                "id": 734,
+                "logprob": -2.7841227054595947
+              },
+              {
+                "id": 1495,
+                "logprob": -2.898423433303833
+              },
+              {
+                "id": 1402,
+                "logprob": -2.991868495941162
+              },
+              {
+                "id": 198,
+                "logprob": -3.2547459602355957
+              },
+              {
+                "id": 279,
+                "logprob": -3.482637643814087
+              }
+            ]
+          },
+          {
+            "prompt": "def double(value):\n    return",
+            "prompt_token_ids": [
+              1314,
+              3503,
+              6333,
+              1883,
+              271,
+              622
+            ],
+            "continuation_ids": [
+              1432,
+              425,
+              220,
+              17,
+              279,
+              1314,
+              13749,
+              6333
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 1432,
+                "logprob": -0.5099125504493713
+              },
+              {
+                "id": 220,
+                "logprob": -2.0252907276153564
+              },
+              {
+                "id": 4428,
+                "logprob": -2.892827033996582
+              },
+              {
+                "id": 285,
+                "logprob": -3.4610776901245117
+              },
+              {
+                "id": 989,
+                "logprob": -3.4700403213500977
+              },
+              {
+                "id": 677,
+                "logprob": -3.748725175857544
+              },
+              {
+                "id": 350,
+                "logprob": -4.585234642028809
+              },
+              {
+                "id": 3503,
+                "logprob": -5.34982967376709
+              }
+            ]
+          },
+          {
+            "prompt": "Why do some birds migrate in winter?\nAnswer:",
+            "prompt_token_ids": [
+              13903,
+              621,
+              1236,
+              28510,
+              82377,
+              306,
+              13655,
+              3901,
+              17045,
+              25
+            ],
+            "continuation_ids": [
+              6083,
+              28510,
+              82377,
+              306,
+              13655,
+              316,
+              1646,
+              945
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 6083,
+                "logprob": -1.2981266975402832
+              },
+              {
+                "id": 86199,
+                "logprob": -2.230654239654541
+              },
+              {
+                "id": 3164,
+                "logprob": -2.5921692848205566
+              },
+              {
+                "id": 2514,
+                "logprob": -2.686204433441162
+              },
+              {
+                "id": 13602,
+                "logprob": -2.7904019355773926
+              },
+              {
+                "id": 623,
+                "logprob": -3.2006287574768066
+              },
+              {
+                "id": 730,
+                "logprob": -3.8050389289855957
+              },
+              {
+                "id": 11048,
+                "logprob": -4.056786060333252
+              }
+            ]
+          },
+          {
+            "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+            "prompt_token_ids": [
+              35194,
+              1511,
+              21619,
+              25,
+              623,
+              8513,
+              39650,
+              540,
+              49985,
+              558,
+              105421,
+              25
+            ],
+            "continuation_ids": [
+              3241,
+              33215,
+              62225,
+              434,
+              1475,
+              3875,
+              2588,
+              13
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 3241,
+                "logprob": -0.26134374737739563
+              },
+              {
+                "id": 392,
+                "logprob": -3.1104533672332764
+              },
+              {
+                "id": 623,
+                "logprob": -3.649704694747925
+              },
+              {
+                "id": 279,
+                "logprob": -3.7427966594696045
+              },
+              {
+                "id": 220,
+                "logprob": -3.780799627304077
+              },
+              {
+                "id": 793,
+                "logprob": -4.084122180938721
+              },
+              {
+                "id": 4422,
+                "logprob": -4.154458999633789
+              },
+              {
+                "id": 1202,
+                "logprob": -4.809597969055176
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "prompt": "Once upon a time, a fox found a",
+            "prompt_token_ids": [
+              18049,
+              7557,
+              261,
+              1058,
+              11,
+              261,
+              68347,
+              2491,
+              261
+            ],
+            "continuation_ids": [
+              60730,
+              22179,
+              13,
+              1679,
+              673,
+              33612,
+              326,
+              9805
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 60730,
+                "logprob": -3.232290506362915
+              },
+              {
+                "id": 29000,
+                "logprob": -3.4097225666046143
+              },
+              {
+                "id": 6107,
+                "logprob": -3.868194818496704
+              },
+              {
+                "id": 7144,
+                "logprob": -4.096714496612549
+              },
+              {
+                "id": 8803,
+                "logprob": -4.197300434112549
+              },
+              {
+                "id": 67153,
+                "logprob": -4.246026515960693
+              },
+              {
+                "id": 3592,
+                "logprob": -4.254985332489014
+              },
+              {
+                "id": 9047,
+                "logprob": -4.394017696380615
+              }
+            ]
+          },
+          {
+            "prompt": "The library closed early because",
+            "prompt_token_ids": [
+              976,
+              11282,
+              12412,
+              6047,
+              2236
+            ],
+            "continuation_ids": [
+              328,
+              290,
+              21248,
+              13,
+              623,
+              11282,
+              673,
+              12412
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 328,
+                "logprob": -0.7932243943214417
+              },
+              {
+                "id": 290,
+                "logprob": -1.6155567169189453
+              },
+              {
+                "id": 480,
+                "logprob": -2.908717155456543
+              },
+              {
+                "id": 1023,
+                "logprob": -3.471973419189453
+              },
+              {
+                "id": 581,
+                "logprob": -3.62674617767334
+              },
+              {
+                "id": 357,
+                "logprob": -3.6719465255737305
+              },
+              {
+                "id": 1354,
+                "logprob": -3.6766443252563477
+              },
+              {
+                "id": 261,
+                "logprob": -3.901224136352539
+              }
+            ]
+          },
+          {
+            "prompt": "If each box holds twelve pencils, five boxes hold",
+            "prompt_token_ids": [
+              3335,
+              2454,
+              5506,
+              18305,
+              44683,
+              134821,
+              11,
+              6468,
+              21967,
+              5060
+            ],
+            "continuation_ids": [
+              46352,
+              20,
+              2381,
+              32499,
+              220,
+              899,
+              314,
+              220
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 46352,
+                "logprob": -1.458284854888916
+              },
+              {
+                "id": 220,
+                "logprob": -1.6100515127182007
+              },
+              {
+                "id": 261,
+                "logprob": -1.881161093711853
+              },
+              {
+                "id": 734,
+                "logprob": -2.7841227054595947
+              },
+              {
+                "id": 1495,
+                "logprob": -2.898423433303833
+              },
+              {
+                "id": 1402,
+                "logprob": -2.991868495941162
+              },
+              {
+                "id": 198,
+                "logprob": -3.2547459602355957
+              },
+              {
+                "id": 279,
+                "logprob": -3.482637643814087
+              }
+            ]
+          },
+          {
+            "prompt": "def double(value):\n    return",
+            "prompt_token_ids": [
+              1314,
+              3503,
+              6333,
+              1883,
+              271,
+              622
+            ],
+            "continuation_ids": [
+              1432,
+              425,
+              220,
+              17,
+              279,
+              1314,
+              13749,
+              6333
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 1432,
+                "logprob": -0.5099125504493713
+              },
+              {
+                "id": 220,
+                "logprob": -2.0252907276153564
+              },
+              {
+                "id": 4428,
+                "logprob": -2.892827033996582
+              },
+              {
+                "id": 285,
+                "logprob": -3.4610776901245117
+              },
+              {
+                "id": 989,
+                "logprob": -3.4700403213500977
+              },
+              {
+                "id": 677,
+                "logprob": -3.748725175857544
+              },
+              {
+                "id": 350,
+                "logprob": -4.585234642028809
+              },
+              {
+                "id": 3503,
+                "logprob": -5.34982967376709
+              }
+            ]
+          },
+          {
+            "prompt": "Why do some birds migrate in winter?\nAnswer:",
+            "prompt_token_ids": [
+              13903,
+              621,
+              1236,
+              28510,
+              82377,
+              306,
+              13655,
+              3901,
+              17045,
+              25
+            ],
+            "continuation_ids": [
+              6083,
+              28510,
+              82377,
+              306,
+              13655,
+              316,
+              1646,
+              945
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 6083,
+                "logprob": -1.2981266975402832
+              },
+              {
+                "id": 86199,
+                "logprob": -2.230654239654541
+              },
+              {
+                "id": 3164,
+                "logprob": -2.5921692848205566
+              },
+              {
+                "id": 2514,
+                "logprob": -2.686204433441162
+              },
+              {
+                "id": 13602,
+                "logprob": -2.7904019355773926
+              },
+              {
+                "id": 623,
+                "logprob": -3.2006287574768066
+              },
+              {
+                "id": 730,
+                "logprob": -3.8050389289855957
+              },
+              {
+                "id": 11048,
+                "logprob": -4.056786060333252
+              }
+            ]
+          },
+          {
+            "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+            "prompt_token_ids": [
+              35194,
+              1511,
+              21619,
+              25,
+              623,
+              8513,
+              39650,
+              540,
+              49985,
+              558,
+              105421,
+              25
+            ],
+            "continuation_ids": [
+              3241,
+              33215,
+              62225,
+              434,
+              1475,
+              3875,
+              2588,
+              13
+            ],
+            "next_token_top_logprobs": [
+              {
+                "id": 3241,
+                "logprob": -0.26134374737739563
+              },
+              {
+                "id": 392,
+                "logprob": -3.1104533672332764
+              },
+              {
+                "id": 623,
+                "logprob": -3.649704694747925
+              },
+              {
+                "id": 279,
+                "logprob": -3.7427966594696045
+              },
+              {
+                "id": 220,
+                "logprob": -3.780799627304077
+              },
+              {
+                "id": 793,
+                "logprob": -4.084122180938721
+              },
+              {
+                "id": 4422,
+                "logprob": -4.154458999633789
+              },
+              {
+                "id": 1202,
+                "logprob": -4.809597969055176
+              }
+            ]
+          }
+        ],
+        "elapsed_seconds": 59.41935714600186
+      },
+      "mxfp4_packed_difference_audit": {
+        "changed_scale_fields": 0,
+        "changed_zero_code_sign_fields": 1221698587,
+        "other_changed_code_fields": 0
+      },
+      "mxfp4_two_alias_minimax_upper_bound": 0.8456668551685597
+    }
+  ],
+  "probe_runtime": {
+    "pytorch_version": "2.10.0+cu128",
+    "gguf_version": "0.19.0",
+    "cuda_device": "NVIDIA GeForce RTX 5080",
+    "arithmetic": "float32"
+  }
+}

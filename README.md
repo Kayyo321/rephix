@@ -86,6 +86,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `audit-weights` | Stream local safetensors and report exact agreement, tolerance agreement, and coverage | Agreement on same-name stored tensor coordinates, including buffers |
 | `recover-gguf` | Rebuild a local GGUF checkpoint from chosen tensor-operator inputs | Exact float32 responses and known GGUF layout |
 | `audit-gguf` | Compare original packed fields and dequantized GGUF values | Separate raw encoding and effective weight agreement |
+| `recover-mxfp4-safetensors` | Rebuild packed GPT-OSS safetensors in Hugging Face or OpenAI's original layout | Exact float32 responses and known tensor layout |
+| `audit-mxfp4-safetensors` | Compare packed GPT-OSS scales, codes, and numeric weights | Separate stored-field and effective weight agreement |
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |
