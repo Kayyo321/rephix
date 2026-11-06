@@ -47,3 +47,28 @@ The trials captured FP64 activations on an RTX 5080 and solved the fits on CPU. 
 The raw weight audit used `1e-8 + 1e-5 * abs(reference)`. The independent full-vocabulary logit RMSE was `1.73e-6` on SmolLM2 and `7.33e-7` on Lite-Mistral. The estimator's configuration directory contained only configuration and tokenizer files. [Pinned runs and audits](../examples/results/passive-layer-recovery.json)
 
 On Pythia-70M the first attention QKV layer had rank 512 of 513, so the exporter stopped. An explicit unit-norm perturbation along the LayerNorm null direction changed that row's outputs by at most `1.8e-15` across 1,026 fitting rows and 128 validation rows. Moving the validation inputs off the hyperplane along the same direction exposed a unit output difference. This is a limit of the observed inputs even when the tensor coordinates and layer type are known.
+
+## Complete missing directions with a few chosen inputs
+
+`calibrate-layer-traces` plans extra observations from the passive input arrays. Full-rank affine layers need no calls. For a design of width `d` and numerical rank `r`, it selects `d-r` activation rows, the minimum number that can fill the measured gap because each additional row increases rank by at most one. In biased layers the intercept stays fixed at one. The planner verifies the combined rank after casting its proposed inputs to the trace dtype. It tries a bounded set of scales and rejects a plan if none passes. Missing embedding IDs can be observed by direct lookup under a separate budget.
+
+```bash
+rephix --threads 4 calibrate-layer-traces --model models/reference \
+  --traces runs/passive/traces --output runs/passive/chosen --device cuda \
+  --max-probes 128 --max-embedding-rows 1008
+rephix --threads 4 recover-layer-traces --model-config runs/passive/config \
+  --traces runs/passive/traces --calibration runs/passive/chosen \
+  --output runs/passive/recovered-calibrated
+```
+
+Set the two budgets for your trace. The default embedding budget is zero. All operators are planned before any chosen target calls. The extra arrays are tied to the passive trace manifest and the fitted operator's passive arrays by SHA-256 digests. The offline exporter appends them to the fitting observations, then validates on the untouched passive holdout. The layer oracle is used by the calibration command. The estimator still uses only the configuration and evidence directories. For an external oracle, call `rephix.trace_calibration.collect_trace_calibration` with a callback accepting the operator path and its activation rows or integer lookup IDs.
+
+| Reference | Chosen affine rows | Full affine basis rows | Chosen lookup IDs | Parameters within tolerance |
+| --- | ---: | ---: | ---: | ---: |
+| Pythia-70M | 12 | 22,040 | 0 | 100% |
+| GPT-2 | 24 | 64,560 | 1,008 | 100% |
+| SmolLM2-135M | 0 | 149,760 | 0 | 100% |
+
+Pythia and GPT-2 each needed one chosen row for every rank-deficient affine operator. The learned GPT-2 position table needed IDs 16 through 1,023 because the passive contexts were 16 tokens long. SmolLM2 was the zero-probe control. Pythia and GPT-2 were compared against the parameters after loading and reserializing their legacy checkpoints. Relative L2 errors were `1.06e-9`, `2.16e-13`, and `5.88e-10`, respectively. All three independently reloaded exports matched 24/24 next-token predictions and 6/6 greedy continuations.
+
+Replacing the first Pythia probe and its output with a genuine row from that layer's passive trace kept the calibration row count and file digests valid. Its affine design still had rank 512 of 513 and the exporter refused to publish. [Calibrated runs and control](../examples/results/calibrated-layer-recovery.json)

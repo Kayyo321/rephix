@@ -1,0 +1,2751 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "pythia-70m": {
+      "schema_version": 1,
+      "model_id": "EleutherAI/pythia-70m",
+      "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42",
+      "reference_sha256": {
+        "config.json": "002050231a9b1ec3ac77aa6b9b3bbdc4d923f4068a7dd33b8da72a9bd6ad9a43",
+        "model.safetensors": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15",
+        "special_tokens_map.json": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad",
+        "tokenizer.json": "c24618a1b3e6a38167beff1c72cffd126c3a66254347304b50547d12c5f25624",
+        "tokenizer_config.json": "70e38394e494931c6f773ba41e19460dd4436526b852207367f04341b4066d3f"
+      },
+      "candidate_sha256": {
+        "config.json": "5134fc2d772cf82520b2f7d356ad313d1cfd1ee50ae8cb888c3b88d262867913",
+        "generation_config.json": "43d1f83d871a388f486b86713426772920fbe4bd59e2d16013b65ebc91760b4c",
+        "model.safetensors": "15e8a63ecae80a5755dc3f794a1abfe56679129eeafa1aec633c4f8dc23c3993",
+        "special_tokens_map.json": "10b8c8852c1e1f70b54d9aff61728408c28971c0e97a6c5a7b2debbd1d3e9c0c",
+        "tokenizer.json": "d4c0d99d84af59e9126913fafe5210822963e9a3065ee43e6833b358b0c2f825",
+        "tokenizer_config.json": "7e7f486a2f85c693e38bb52579389d6dfecb703d030c798c16a9f45806905986",
+        "trace-recovery.json": "fca4f1a9a6772dda48ed777ffa704ff41a01c9cd8c65ff5c3f0303edc0d0ec54"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "contexts_sha256": {
+        "train": "dad54c10083842413b3bc4aee316c99c86e7d6980b402db5966e72d14e6616b7",
+        "validation": "ca5c6dfaa0c1a1703df9c048add7fe6b3f7d44ba42ef67834acd14af32125659"
+      },
+      "trace_bytes": 1526141312,
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "gpt_neox",
+        "config_sha256": "002050231a9b1ec3ac77aa6b9b3bbdc4d923f4068a7dd33b8da72a9bd6ad9a43",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 3144,
+        "train_input_tokens": 50304,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "gpt_neox",
+        "dtype": "float64",
+        "max_validation_rmse": 1e-05,
+        "unique_parameter_elements_recovered": 70426624,
+        "calibration": {
+          "chosen_rows": 12,
+          "affine_rows": 12,
+          "embedding_rows": 0,
+          "calibrated_operators": 12
+        },
+        "summary": {
+          "operator_count": 39,
+          "full_design_rank_count": 38,
+          "rank_checked_count": 38,
+          "embedding_tables": [
+            {
+              "path": "gpt_neox.embed_in",
+              "kind": "embedding",
+              "weight_shape": [
+                50304,
+                512
+              ],
+              "has_bias": false,
+              "observed_token_ids": 50304,
+              "observed_rows": 50304
+            }
+          ],
+          "worst_condition": {
+            "path": "embed_out",
+            "kind": "linear",
+            "weight_shape": [
+              50304,
+              512
+            ],
+            "has_bias": false,
+            "design_rank": 512,
+            "design_width": 512,
+            "condition_number": 141459563.02457082,
+            "relative_rank_tolerance": 2.2737367544323206e-13,
+            "validation_rmse": 1.991029540685041e-12,
+            "max_validation_rmse": 1e-05,
+            "features": 512,
+            "outputs": 50304,
+            "training_samples": 1024,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.9910295406850416e-12
+          },
+          "worst_validation": {
+            "path": "gpt_neox.layers.5.attention.query_key_value",
+            "kind": "linear",
+            "weight_shape": [
+              1536,
+              512
+            ],
+            "has_bias": true,
+            "design_rank": 513,
+            "design_width": 513,
+            "condition_number": 8350.591833923874,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "validation_rmse": 9.81099871537176e-12,
+            "max_validation_rmse": 1e-05,
+            "features": 512,
+            "outputs": 1536,
+            "training_samples": 1027,
+            "validation_samples": 128,
+            "passive_samples": 1026,
+            "calibration_samples": 1,
+            "validation_runtime_rmse": 9.810871794455385e-12
+          },
+          "worst_runtime_validation": {
+            "path": "gpt_neox.layers.5.attention.query_key_value",
+            "kind": "linear",
+            "weight_shape": [
+              1536,
+              512
+            ],
+            "has_bias": true,
+            "design_rank": 513,
+            "design_width": 513,
+            "condition_number": 8350.591833923874,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "validation_rmse": 9.81099871537176e-12,
+            "max_validation_rmse": 1e-05,
+            "features": 512,
+            "outputs": 1536,
+            "training_samples": 1027,
+            "validation_samples": 128,
+            "passive_samples": 1026,
+            "calibration_samples": 1,
+            "validation_runtime_rmse": 9.810871794455385e-12
+          }
+        }
+      },
+      "reference_audit_mode": "loaded_and_reserialized",
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 76,
+        "candidate_tensors": 76,
+        "compared_tensors": 76,
+        "reference_elements": 70426624,
+        "candidate_elements": 70426624,
+        "compared_elements": 70426624,
+        "coverage": 1.0,
+        "exactly_equal_elements": 25858180,
+        "fraction_exactly_equal": 0.3671648381157671,
+        "within_tolerance_elements": 70426624,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 1.0568443948389038e-09,
+        "zero_filled_relative_l2": 1.0568443948389038e-09,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 4.789109384344406e-09,
+        "logit_max_abs_error": 5.2461473387666047e-08,
+        "mean_kl_nats": 0.0,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "evaluation_seconds": 4.154959196999698,
+      "calibration_capture": {
+        "schema_version": 1,
+        "observation_mode": "rank_and_coverage_completing_layer_calls",
+        "trace_manifest_sha256": "33d110916f539afd675d6ce26081f25a075167c2869bc9f4f9c3f1bef0abec72",
+        "dtype": "float64",
+        "max_probes": 128,
+        "max_embedding_rows": 0,
+        "chosen_rows": 12,
+        "affine_rows": 12,
+        "embedding_rows": 0,
+        "affine_operators": 25,
+        "full_affine_basis_rows": 22040,
+        "operators": [
+          {
+            "operator_index": 3,
+            "path": "gpt_neox.layers.0.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "2b7a1b60f688197a89d9fc1456acb845207bbdee099a788d4a10c77c47c78d89",
+              "y.npy": "8ee6929237dbfc7f01526c997e7a9c4d048c0ff4918700d45865fa3ac936391e"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 6.997311229035059,
+            "condition_number": 104.84834234312915,
+            "chosen_sha256": {
+              "x.npy": "a6213e521b22353c6fe71fcfbccce04549653326c09668b811a7abcfcb1b7c2d",
+              "y.npy": "b2f1270d89661a3cb82ee467fcc3106e3048b281a963898daf0bdb979c6d5dc1"
+            }
+          },
+          {
+            "operator_index": 5,
+            "path": "gpt_neox.layers.0.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "2259ddf4b076e17794b9e0c230a883631df717052dca6f6b2c454f4adecf92ae",
+              "y.npy": "4300dcc44d6b324ade57e6298ed6b6c8c023bb44d0d32738b25e4fe6574d4331"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 2.0991012455535696,
+            "condition_number": 31.496165974577078,
+            "chosen_sha256": {
+              "x.npy": "949c6695aba80e764e90367b425a3b76f7148787876ed8e2deb80173707555e7",
+              "y.npy": "c1f872f267438671206b3bae52df535aa896bf02a53d03902cc26d2a658a1192"
+            }
+          },
+          {
+            "operator_index": 9,
+            "path": "gpt_neox.layers.1.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "206d8f4410a10c6f53fa68ce2f936575a3d4e816a16f11052fbd3eabbdea23d5",
+              "y.npy": "ad11a3d9f2e33e297b6ac3d058c974e3729ee89882d6925c13c5058aa36ad7cf"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 14.759021015180814,
+            "condition_number": 375.64063196329084,
+            "chosen_sha256": {
+              "x.npy": "8445b47aaa67f60bfa9558c482e678f0ddea7474665431df65c28b2cac6b7f3b",
+              "y.npy": "697f108a91a3ee3ff18cc4444b913b9a0104c1be1eb8b3b86c6834dc6094faf5"
+            }
+          },
+          {
+            "operator_index": 11,
+            "path": "gpt_neox.layers.1.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "e50d5dee1b8e0b455da20fba80a68e2bb4b0ad123fcbd7ccc9de2a695de0a282",
+              "y.npy": "0c0a58da4f981e17d74610093a02ddffbb9d240136f795cbcdcdd3edf70b8658"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 18.08119244186147,
+            "condition_number": 512.0952638369947,
+            "chosen_sha256": {
+              "x.npy": "df21b56174be079653ba345c1a3824e42acbb4af16c290d1d2a63126e7ee7de0",
+              "y.npy": "22fd45efdfe9886277d87d6e8b890e0485473fb9cd06aeec00af8378ba18981c"
+            }
+          },
+          {
+            "operator_index": 15,
+            "path": "gpt_neox.layers.2.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "512dd8b4c4eb698de889a7bc98e048f335d5e3fc9c73984dca26e2573793531e",
+              "y.npy": "a35924b46953f71df689ee11e5ce2c3ad32bff433d2d8d3639bddc4e79d2692f"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 19.889416238186822,
+            "condition_number": 671.4331162156128,
+            "chosen_sha256": {
+              "x.npy": "4168d0e77110e2351373b2bda9d338ed1df1e6a6fff8eec85c925759a26e4d35",
+              "y.npy": "fa33428fc77a79a94276c2ab732d2ecb935c75e0791f287805c9ae92a15d2cf4"
+            }
+          },
+          {
+            "operator_index": 17,
+            "path": "gpt_neox.layers.2.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "3ba9150f21aa5510410262d1be0adc0ce9906a3ba8c53a6b4b8d07af2908f94f",
+              "y.npy": "59661949b47eda6193461d54eb26b49486d3e2358ef06e9a6e536c2ef5f9ebbe"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 17.863571181567185,
+            "condition_number": 502.30359203572476,
+            "chosen_sha256": {
+              "x.npy": "771e5a813231ec864af06b43434af0ea49e1a78b91059639032e57dd302f0b3d",
+              "y.npy": "866b9fe2363063bd0a705cf08fceffa18c03ab13bac2b57f88f288e21007f302"
+            }
+          },
+          {
+            "operator_index": 21,
+            "path": "gpt_neox.layers.3.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "a807cc824bc5c11b67f4ec763ad92b8c5118f1187f0e035e6444077f63124712",
+              "y.npy": "e7a9144bbedcc3ffdab473c0a81c3bc79977a7c7e24fcc15b64b2ef9d3023139"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 25.95429002013665,
+            "condition_number": 1969.2449213857683,
+            "chosen_sha256": {
+              "x.npy": "63676bf009dfb43cfb76263124387a12753cbb24a33939b13720105d353c84f9",
+              "y.npy": "950da8703bb6bed8d16b7681ec0d833b69e53690b19062aeff70574c6775e312"
+            }
+          },
+          {
+            "operator_index": 23,
+            "path": "gpt_neox.layers.3.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "c9d9d015054c413690bb3ce3b3216ca3b94a6610341e8732b45e6663a11f0101",
+              "y.npy": "c6dc56db24bcf5703bab440428b41ea817bce29749a518583876d24f25d9917b"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 15.617623022251927,
+            "condition_number": 937.1117817365644,
+            "chosen_sha256": {
+              "x.npy": "7ecf3adf1fef74730ddbb23f816f5bfcb4155c74aabd2dd01ced6e991dcaf0d0",
+              "y.npy": "de403c0bc18b692f0ab30e8963ce7c0dd8b9a61a90446dd2752cc64921dd6e8d"
+            }
+          },
+          {
+            "operator_index": 27,
+            "path": "gpt_neox.layers.4.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "36fe4f1dfb402fc21bdec456495139913df74b6b7e9461250b7a93244d48471e",
+              "y.npy": "7d20b61121a74986fcd5020d9c5915090864cd074aee6412f97810ba47c5ce17"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 38.65631723018157,
+            "condition_number": 3046.4056207801023,
+            "chosen_sha256": {
+              "x.npy": "612304289d53dafc2fe38f6110343ac72bb16293d5add225c7914a8cb5c72914",
+              "y.npy": "4ec9f11208c78f75a6783323798dd0c49fe113ac16b2b3e95565955774e9c507"
+            }
+          },
+          {
+            "operator_index": 29,
+            "path": "gpt_neox.layers.4.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "5ea7765ae30bcfb4f2fcc5a2660fa3228a3066666a35c3cdfc659c5cd823cf08",
+              "y.npy": "47628e8e3c0a1f0ffae33a93da461dff4dff7e5861d8a3cc10027fea587508d3"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 17.713601120369983,
+            "condition_number": 1199.8290176441278,
+            "chosen_sha256": {
+              "x.npy": "1651db9a5cb5a8a8e9ad5a01f513d5746737cd98b9d2c43fcad53c78b7cab6db",
+              "y.npy": "1cad05b34ae8cb620504734d67005c1174a9fe419b40f50316fd3d7ee4317c07"
+            }
+          },
+          {
+            "operator_index": 33,
+            "path": "gpt_neox.layers.5.attention.query_key_value",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "ddd77a0c8368a4a5672c1f9a4e581f73f6358189a8db08d6fb6aa5a30be3f01d",
+              "y.npy": "b44c181a34fe3b8cc2e16299223be6e81cbc79302f905fb78e0d7258219f22a2"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 143.78586978769042,
+            "condition_number": 8350.591833923863,
+            "chosen_sha256": {
+              "x.npy": "b244bf0138932b0fb99d50728029d4245ad66a99461d5e402d4d7815b32285a6",
+              "y.npy": "4a00f2c5e47b5a82c08279ab3b604651133ed239bc2772b5c478c16141b2bdc1"
+            }
+          },
+          {
+            "operator_index": 35,
+            "path": "gpt_neox.layers.5.mlp.dense_h_to_4h",
+            "kind": "linear",
+            "passive_sha256": {
+              "x.npy": "721004ac357ac80c14d7234fe1a3ce0cf3a90cbc40ae4b6ac5cbd9497c08221a",
+              "y.npy": "6889f3c1b0463cc5fa631d06ede126c2a98ce661caf99f9551bf572d37e5fdfb"
+            },
+            "passive_rank": 512,
+            "design_width": 513,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 2.2803980925800715e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 21.906443477941252,
+            "condition_number": 872.7399955792972,
+            "chosen_sha256": {
+              "x.npy": "17ad04bb1023aea71cee508e565d39f0757812d358a8c8d1e803c4207e345fba",
+              "y.npy": "007e0f31abd7951f5eef26dcd87a6550490c513abb203ce01e76a59e2389c4a5"
+            }
+          }
+        ]
+      },
+      "calibration_manifest_sha256": "bd7442445598e28bca9e55bd6d6802b71b4fc6fa60159b465bec955517b7f917",
+      "calibration_seconds": 7,
+      "recovery_seconds": 9,
+      "estimator_config_files": [
+        "config.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json"
+      ]
+    },
+    "gpt2": {
+      "schema_version": 1,
+      "model_id": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+      "reference_sha256": {
+        "config.json": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4",
+        "generation_config.json": "ed0b32ac72c0f5f44a719abb2d7786ea5146c871f83717b7f2018065954de02b",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+        "tokenizer.json": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6",
+        "tokenizer_config.json": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f",
+        "vocab.json": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+      },
+      "candidate_sha256": {
+        "config.json": "b6252b097d1d8f26d25ab988eca5db89107afcdd6f1a69203d3dc3b620c324f2",
+        "generation_config.json": "f0fbd59fa0ac70a180770d0b883dc916c6266aed67a1f15ddb10dc9fb636a1f7",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "152c350505b0ffd04b79ccd71e50c11050ea1327302704d098fdff546eb427df",
+        "special_tokens_map.json": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad",
+        "tokenizer.json": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e",
+        "tokenizer_config.json": "f1cb5e31899749cf30935ccea01180ab3cfd484bd2bcf3bfdc1aeb9fdf935f6f",
+        "trace-recovery.json": "1f82b81ba9227067fc838f1235d64f91c2348e667a4fe597905675f5f57f631e",
+        "vocab.json": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "contexts_sha256": {
+        "train": "bc936e4627228f0b842ff6128fb5bc5d9d84439623ef765c52602e0c9c4a40fa",
+        "validation": "611b6bc356ad252d937bd789e0400d2a51ea236e3412e6fa3eab9f4cc2d83654"
+      },
+      "trace_bytes": 4038128721,
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "gpt2",
+        "config_sha256": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 3142,
+        "train_input_tokens": 50272,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "gpt2",
+        "dtype": "float64",
+        "max_validation_rmse": 1e-05,
+        "unique_parameter_elements_recovered": 124439808,
+        "calibration": {
+          "chosen_rows": 1032,
+          "affine_rows": 24,
+          "embedding_rows": 1008,
+          "calibrated_operators": 25
+        },
+        "summary": {
+          "operator_count": 75,
+          "full_design_rank_count": 73,
+          "rank_checked_count": 73,
+          "embedding_tables": [
+            {
+              "path": "transformer.wte",
+              "kind": "embedding",
+              "weight_shape": [
+                50257,
+                768
+              ],
+              "has_bias": false,
+              "observed_token_ids": 50257,
+              "observed_rows": 50257
+            },
+            {
+              "path": "transformer.wpe",
+              "kind": "embedding",
+              "weight_shape": [
+                1024,
+                768
+              ],
+              "has_bias": false,
+              "observed_token_ids": 1024,
+              "observed_rows": 1024
+            }
+          ],
+          "worst_condition": {
+            "path": "transformer.h.2.mlp.c_proj",
+            "kind": "conv1d",
+            "weight_shape": [
+              3072,
+              768
+            ],
+            "has_bias": true,
+            "design_rank": 3073,
+            "design_width": 3073,
+            "condition_number": 117001.18149188107,
+            "relative_rank_tolerance": 1.3646861418692424e-12,
+            "validation_rmse": 4.85085612049228e-14,
+            "max_validation_rmse": 1e-05,
+            "features": 3072,
+            "outputs": 768,
+            "training_samples": 6146,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 5.117728895289061e-14
+          },
+          "worst_validation": {
+            "path": "transformer.h.11.attn.c_proj",
+            "kind": "conv1d",
+            "weight_shape": [
+              768,
+              768
+            ],
+            "has_bias": true,
+            "design_rank": 769,
+            "design_width": 769,
+            "condition_number": 1490.1222416428013,
+            "relative_rank_tolerance": 3.4150460237469815e-13,
+            "validation_rmse": 1.1135695347724068e-13,
+            "max_validation_rmse": 1e-05,
+            "features": 768,
+            "outputs": 768,
+            "training_samples": 1538,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.116176202874421e-13
+          },
+          "worst_runtime_validation": {
+            "path": "transformer.h.11.attn.c_proj",
+            "kind": "conv1d",
+            "weight_shape": [
+              768,
+              768
+            ],
+            "has_bias": true,
+            "design_rank": 769,
+            "design_width": 769,
+            "condition_number": 1490.1222416428013,
+            "relative_rank_tolerance": 3.4150460237469815e-13,
+            "validation_rmse": 1.1135695347724068e-13,
+            "max_validation_rmse": 1e-05,
+            "features": 768,
+            "outputs": 768,
+            "training_samples": 1538,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.116176202874421e-13
+          }
+        }
+      },
+      "reference_audit_mode": "loaded_and_reserialized",
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 148,
+        "candidate_tensors": 148,
+        "compared_tensors": 148,
+        "reference_elements": 124439808,
+        "candidate_elements": 124439808,
+        "compared_elements": 124439808,
+        "coverage": 1.0,
+        "exactly_equal_elements": 39729899,
+        "fraction_exactly_equal": 0.31927001205273475,
+        "within_tolerance_elements": 124439808,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 2.1641570747752343e-13,
+        "zero_filled_relative_l2": 2.1641570747752343e-13,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 1.1833917786136058e-12,
+        "logit_max_abs_error": 4.291678123991005e-12,
+        "mean_kl_nats": 1.8210818636007082e-16,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "evaluation_seconds": 7.167120594000153,
+      "calibration_capture": {
+        "schema_version": 1,
+        "observation_mode": "rank_and_coverage_completing_layer_calls",
+        "trace_manifest_sha256": "07c2706a1bfb53fad7e409399fddb435dcc825a3bd2488baf1e2214bd695e0a2",
+        "dtype": "float64",
+        "max_probes": 128,
+        "max_embedding_rows": 1008,
+        "chosen_rows": 1032,
+        "affine_rows": 24,
+        "embedding_rows": 1008,
+        "affine_operators": 48,
+        "full_affine_basis_rows": 64560,
+        "operators": [
+          {
+            "operator_index": 1,
+            "path": "transformer.wpe",
+            "kind": "embedding",
+            "passive_sha256": {
+              "seen.npy": "f7a855aac83062c07414a22a69f7d85d600ef474c6ed53928f90e396f7062de4",
+              "y.npy": "b7b74017386128e533894711f58d4b488da943f21a66bd6e013f22f1e6e263c4"
+            },
+            "probe_rows": 1008,
+            "chosen_sha256": {
+              "x.npy": "53e324bb47faeaa8715f6509cb37dc24641369ed0fdc06fc1157cc932983095d",
+              "y.npy": "59b4aa7230eba989541cc700964871250ab11180d549b14ef2011cc7196e1aff"
+            }
+          },
+          {
+            "operator_index": 3,
+            "path": "transformer.h.0.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "96367bd0977df8fcdd83ca29f4d39676a02f73582d37c2c3c07638737c181415",
+              "y.npy": "ea1766a8893422cba220441498a853651ea5c57b16ef10ab865ba4ec299609cb"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 1.6398114308635696,
+            "condition_number": 904.4834356946407,
+            "chosen_sha256": {
+              "x.npy": "607426faeccd9f6b07615b5f67c34858c39fd564b10eed3a0f2d8a7e2471fe39",
+              "y.npy": "55ff72f2ad183e40114b32ab23f01d6e9a85827f272698cf9a9308b3fdf0b191"
+            }
+          },
+          {
+            "operator_index": 6,
+            "path": "transformer.h.0.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "b1a87d4ce22c3fc22378992f31a6cca5e128328185614d5ad8eb34e3f8c9fc89",
+              "y.npy": "42942ab9cdb2f125eee49c99e5d7489a07a10c2654b062b1623d854d7d670ea5"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 2.5711960128997093,
+            "condition_number": 1399.72528693241,
+            "chosen_sha256": {
+              "x.npy": "86f691e96ce33a864b70a70f811db057ff07c801a9dbdd0b61c578841894b065",
+              "y.npy": "061008568de9a3f99b246df990220428aae51d0aaaad1841395fe63aea31678e"
+            }
+          },
+          {
+            "operator_index": 9,
+            "path": "transformer.h.1.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "83d0096862d541fb71d86896f4d905863747b11ea770b924d869484ee4ade246",
+              "y.npy": "6dbaf7de97fa7767b96fc508c6d7a8d15ce2a18482da1f71a91022c1a9955c7f"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.1335213129968067,
+            "condition_number": 656.5574756341003,
+            "chosen_sha256": {
+              "x.npy": "906a4a75410b60f0cb0ff16c1ab42a7718fdb15275a91e507acecb049422db35",
+              "y.npy": "337473255c1731c8dfd987255f270de7c36b3d7b9f712135a8a70b9115ece044"
+            }
+          },
+          {
+            "operator_index": 12,
+            "path": "transformer.h.1.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "7621c7c22539415ce895a1921968f5f3f9f9682e6ae9595497503ddb2f15c678",
+              "y.npy": "2584958d3a42668046ea79937ac858d74e6f28bf0b08077783acda7e49711796"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.732522794368397,
+            "condition_number": 714.1958452290897,
+            "chosen_sha256": {
+              "x.npy": "f1d6516b0ff61168db6646ada564d21462804f1b4f76255d0ab36569f2774747",
+              "y.npy": "0b410cf6027c2dd29d6e9477aa3ce9bda4d096b7c980de9474998f9fd4750568"
+            }
+          },
+          {
+            "operator_index": 15,
+            "path": "transformer.h.2.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "cf9b963ef74f999b575c644f92a2e931836549798e5a283bef69b07bf11147e1",
+              "y.npy": "6abdd4883d052c6d022bae376dcddd33ad5af45c1d89e47999f46359b7b6affc"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 6.569386665046599,
+            "condition_number": 1127.193115739397,
+            "chosen_sha256": {
+              "x.npy": "3305363cf54092171fd3b655a3dc71591471b31cb389ebba87450473f4817bde",
+              "y.npy": "da69226072f536d74906dd7b50b90ffe6a8ed1e3d7ae620f5ab7542cb5a83d8d"
+            }
+          },
+          {
+            "operator_index": 18,
+            "path": "transformer.h.2.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "e54cfe3174ac2c2f6b544159e8bf07feebe86bdddd44f8502f45e00d14422c9c",
+              "y.npy": "2f1c0fb3ca29ada7f6f17ab4c48b0634e59caa4f5eabc9fcbe1d28a2187f0b9a"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 5.058839487896811,
+            "condition_number": 2044.3862137794856,
+            "chosen_sha256": {
+              "x.npy": "269ac5985a3a3969f2136a8206277b40a914404a774cd9f967508f9e781d3a69",
+              "y.npy": "c415ddda93415c8253fd5b63042e233419c83697ead1ba8dc6455535cedfb567"
+            }
+          },
+          {
+            "operator_index": 21,
+            "path": "transformer.h.3.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "4ac2944956e819eb0e8781f0f20e7b9869627918d406d779d5174c7674910165",
+              "y.npy": "a5bdc6fc58449b7753e9aaba6d892ae8b37f5847720a0a849ae465edf196fff5"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 8.086728663992524,
+            "condition_number": 1731.6489997571869,
+            "chosen_sha256": {
+              "x.npy": "26465ec0d786d3557cefcd285d2a019bed5316674b6761bf8216f847d0164cf9",
+              "y.npy": "64db253bb9c1c5449f7c66084263f00767b7560c9f53381032ca2728145d8151"
+            }
+          },
+          {
+            "operator_index": 24,
+            "path": "transformer.h.3.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "555585d458764fa594471832e2a215c32415c63d71e6fc1054c250216b0a7c8c",
+              "y.npy": "88a19fd2178607185dc029d6ed067159678515f093a26ed8c10266e3a869b825"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 4.0814342855325645,
+            "condition_number": 12363.041552910478,
+            "chosen_sha256": {
+              "x.npy": "178afa20737ac5c00c5728ae48ae643eefcfa3adf77b2b4c18fc0cbf024cb384",
+              "y.npy": "a842a117a9693ac63319fcc0a01c1a7ca5b61a4251cf7b8390160b6eaaa35740"
+            }
+          },
+          {
+            "operator_index": 27,
+            "path": "transformer.h.4.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "98ac7bfc42ef4ea07f10a18d59f43dc3bc61714e1718f0530dc5934e70dad5ff",
+              "y.npy": "7b73573a5f4e1ad8266aa7fd8f3914c70e084363595a09c75e44c06177877601"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 7.25806033576681,
+            "condition_number": 987.200403018437,
+            "chosen_sha256": {
+              "x.npy": "c7b59226d4312805aaada3b8fbb957e44b00846a7130aae875e45d88bd19ea76",
+              "y.npy": "74fa919a6cd4005dde3fbbf86bbf4bed4b57a9ab2a7ef9b87e331b900427099b"
+            }
+          },
+          {
+            "operator_index": 30,
+            "path": "transformer.h.4.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "60e53c619d158a7695e30df73993e3e88f9848676e1a651b5013d0394af1668a",
+              "y.npy": "f8924de01533290f37840eb0db414cee1a7a335b6ab929710baa86e90a92c082"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 4.155663951604802,
+            "condition_number": 1079.5720341865197,
+            "chosen_sha256": {
+              "x.npy": "3f28afa3908959aa3ec3ecf4b85f85e965e67abd00133ecebdad5d13134114be",
+              "y.npy": "4bb15d50b85f25e5a091bc837435e47307c0610709c7990460c67f8886fb5163"
+            }
+          },
+          {
+            "operator_index": 33,
+            "path": "transformer.h.5.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "c540fa8fbbd5d9527fc3490cba9550e3da8814ab8a8b8944af773a417e59bd22",
+              "y.npy": "4f6a01eb03ab8f059d077502dfe93a37af7b4a3676589cb6b9076edce7763d40"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 8.294973343553131,
+            "condition_number": 863.1892322208383,
+            "chosen_sha256": {
+              "x.npy": "f8a255cefc5fc3b9d6d89dab4dd4bd7f6bfafbb55715317023a6a372149fefdc",
+              "y.npy": "bc6bc363d8577d3c9f91dd44d95252b928aa2e4b2e3cceb78af62de6b251297d"
+            }
+          },
+          {
+            "operator_index": 36,
+            "path": "transformer.h.5.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "463fa9fb6fd4f2be79d7333c387e3d5b2d0174b2fee6caac28dabb042e92e623",
+              "y.npy": "a28c4612e3bbd6b773b127580a71ddd116c4e258ea37f27c3e1074ffde2c2df0"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 4.145492214307389,
+            "condition_number": 1853.5940043450162,
+            "chosen_sha256": {
+              "x.npy": "2a22253cae0c86a763b1cc49bf4ad13f7ce938451467d729065601a5edfb8143",
+              "y.npy": "e745d21349b9a67d53f76c0f1c64c63cbb474fe4457dec8221c344406b200cf3"
+            }
+          },
+          {
+            "operator_index": 39,
+            "path": "transformer.h.6.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "62a1763b70b42f6d81ccc6d5b9956abccbf734f336271ad59f1ba0578bfe17ea",
+              "y.npy": "1409aa5c0d291085f0a286d6a287d50a4ce643b8abb9febced834781805559f1"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 7.727911202171925,
+            "condition_number": 689.9857441817863,
+            "chosen_sha256": {
+              "x.npy": "9f710406db35533d3f4af4a9529db19ecf5631231ce64831bcc79db177765d91",
+              "y.npy": "e946c913253a33d27824c8c1d09b568b2679bdf13b0b446e5731bf057bd57734"
+            }
+          },
+          {
+            "operator_index": 42,
+            "path": "transformer.h.6.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "4309dd9b744312d752594578dbbf14c44dd074bc7a6373d9cfa401289f9f3345",
+              "y.npy": "bc9034605bc3d40995488b7b566922023737b8f136912399f49948dc797aa901"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.8984504715193125,
+            "condition_number": 1639.214183022114,
+            "chosen_sha256": {
+              "x.npy": "ebec15b9f0dff2b301edddf8e7ac7679343dcdf1745c3a92518832a862a13b99",
+              "y.npy": "7aefb290af8a1addfa5ac2dbfa5ce9e3e3f75f920be06301cd04d11f140ef226"
+            }
+          },
+          {
+            "operator_index": 45,
+            "path": "transformer.h.7.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "051b61ddeaa8dacf7cc82abe2ada1b0fe045aad3c647d85bee8f74d3f044ced9",
+              "y.npy": "9dafdaf31a6f5a6ccf8dcc917223932d3131ac81ceda8bb7358e09b4393735f0"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 7.652783802842495,
+            "condition_number": 596.1712543605389,
+            "chosen_sha256": {
+              "x.npy": "97ddbef77b88e679d79fb1d0a8c2409e927de7d54f2e061aaee2e72672a0cefa",
+              "y.npy": "5485072824de7eb3e2a82406b9369bbfb1e472345216d4c3eb4af101f626e786"
+            }
+          },
+          {
+            "operator_index": 48,
+            "path": "transformer.h.7.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "44a64d67cb2e71ba4f87e7ad722e2399484e9f999b1cbb96eab2e9ef5864cf94",
+              "y.npy": "c257f76412a76591af2fc77f0d876120b700592aa5f62bac6bd87812be446eeb"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.525691730633563,
+            "condition_number": 4922.960156972084,
+            "chosen_sha256": {
+              "x.npy": "16f546b4d41668d16ddae8beba302929b9df6236d13aa3eb044a2bf4c26252b0",
+              "y.npy": "b06e5be45c2aeec8d93c12b38364551d80146aa6379842ce671e12f172c2453e"
+            }
+          },
+          {
+            "operator_index": 51,
+            "path": "transformer.h.8.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "a6be2715af0683d98a2c0f76cc2388a73d68ccf51ae263fbf6fbe9c56ad536bc",
+              "y.npy": "9486747d56b53f03c444356a46d9a468d5ffc81d650542c4d8a2e0c553547d64"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 7.3730842139523896,
+            "condition_number": 600.673772768279,
+            "chosen_sha256": {
+              "x.npy": "d380a67cee862a66defa2e28c7049878574f018def9a11acf72b7bc2b12d9339",
+              "y.npy": "671d133796d174d4d9bdd3e53f9472b5bff8745877ca1d1bfedd37d998a0591b"
+            }
+          },
+          {
+            "operator_index": 54,
+            "path": "transformer.h.8.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "dad5fa31f1f1cd89a9e9ca9aff885d7204775916d315cc376bdab83dc5df146d",
+              "y.npy": "aad3ec3228266c20e470bd0746559a72358227a8edf4a0c62ad16506d51dbe7f"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.2756795005576085,
+            "condition_number": 3901.683416573684,
+            "chosen_sha256": {
+              "x.npy": "48a0597cf7ac346342750b035d58f30fc825d81eb41a56b2327e9e31ca5abd5d",
+              "y.npy": "1f5600408b5e16fed8cf835a68455b3fe7e775de3c247a735f34a4f777ccd8fb"
+            }
+          },
+          {
+            "operator_index": 57,
+            "path": "transformer.h.9.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "89a35321c0b63c43614cc2ed8e6aacc6f853fcc16bc3e337ff611159c21aa4fa",
+              "y.npy": "aee35a246b9ea442afa9b59a79fb5183cfc5a6c21b6486fa0fcb5d3697708772"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 6.690273686673647,
+            "condition_number": 602.920435131587,
+            "chosen_sha256": {
+              "x.npy": "03eba60354b6f54919d4c1df8346f8211b297dd3369bffbf1be560d9cf390e6f",
+              "y.npy": "3d88c14a8d4c3bbd9c038ec996b3f395362d3dc932f615c98b569bad538dfefd"
+            }
+          },
+          {
+            "operator_index": 60,
+            "path": "transformer.h.9.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "25f0fd8c5d827d2ae03254859b895ecf6c62469a2868b8591b4ba785ae22581e",
+              "y.npy": "b54bb54d7e4ecba42ba1b7fea3f0ad82ad841518b000d9b14928582712d74e03"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 3.182021584735555,
+            "condition_number": 5017.661701206942,
+            "chosen_sha256": {
+              "x.npy": "c8cb97768eefd30f219600d55943a046d1de66932fcabf985d1fa0aa2dff668c",
+              "y.npy": "6a95bd663cb4a57e9e1906f83a381a28612942b039a46e6b5989d60fb8f9457b"
+            }
+          },
+          {
+            "operator_index": 63,
+            "path": "transformer.h.10.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "6a515c576c1831269549651399454baebbb6002f9354435749e1a4274a37b7b8",
+              "y.npy": "778949ce6a166255387149273bdd6eaf86f6db18fbce3708847ddfd826978db2"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 5.9229583468348865,
+            "condition_number": 618.1990369395685,
+            "chosen_sha256": {
+              "x.npy": "0441bcb7baac8c494718454f62bb77fe8b7749131912994347b900326ab48b14",
+              "y.npy": "6327a690b0d511175a9ad7da4391a953fc4e9aecf71991f684af48ca141ec720"
+            }
+          },
+          {
+            "operator_index": 66,
+            "path": "transformer.h.10.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "dc547454a63cf68da58fb559e0d4dc65fa141466d59a606d2767c1062c828a7c",
+              "y.npy": "3259600f705c52627b305af6ebd179080e927fffad9a196c2f5f86cdf05d072a"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 2.8890328324048213,
+            "condition_number": 3808.055608151192,
+            "chosen_sha256": {
+              "x.npy": "7f0d11b74fa06fdec6406a1fd44b5ca7f64592ad89bab8267a459b3c3da2cf4e",
+              "y.npy": "d88ee981df7e0ae0252001fcce95f0f4b3a85dfa9a00946b064acebdafc1d43f"
+            }
+          },
+          {
+            "operator_index": 69,
+            "path": "transformer.h.11.attn.c_attn",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "13c17439eb8a9fd5398317068541e74b42692d629230da1a516cc88850543029",
+              "y.npy": "a3e2fcf3a2bfd5253933f1e10f0e7937677e7bd69b2f04cbc19eeb2b762382dc"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 4.800876986647366,
+            "condition_number": 683.1816906701331,
+            "chosen_sha256": {
+              "x.npy": "228639dfafe6c5474dc980e2e217eb2d62285ec67b3ab4e2bf0763ea702ecb25",
+              "y.npy": "a5d0f7a09aa57479fac104fd8e9b4335e3c4fd7a742ee17d5c22042522490d0d"
+            }
+          },
+          {
+            "operator_index": 72,
+            "path": "transformer.h.11.mlp.c_fc",
+            "kind": "conv1d",
+            "passive_sha256": {
+              "x.npy": "e9d71e0a00279face8421bd6235d35ad05c98a9326fe21815fad24f9cad84682",
+              "y.npy": "6035d5aafa882455384eb4ddf8ccdc546d1099b2d4289546fa3fa9d355bb755c"
+            },
+            "passive_rank": 768,
+            "design_width": 769,
+            "probe_rows": 1,
+            "relative_rank_tolerance": 3.417266469796232e-13,
+            "geometry": "projected_nullspace",
+            "probe_scale": 2.704317236183569,
+            "condition_number": 1253.2293783859573,
+            "chosen_sha256": {
+              "x.npy": "0d5fb9f2574a9169491bfc77e3b6e0bd9dcec4b19e08c503ec1d0139bdc9cc9f",
+              "y.npy": "a7e1e9e3e871a64ae8bf7bd6fc0bc2d121f65ac0d7fb49112f2f34dfa4eca0c2"
+            }
+          }
+        ]
+      },
+      "calibration_manifest_sha256": "7e62b3e64073fcd871c99790efa8ded15673655229cdfd391551e8c77e1b0d09",
+      "calibration_seconds": 29,
+      "recovery_seconds": 44,
+      "estimator_config_files": [
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "smollm2-135m-base": {
+      "schema_version": 1,
+      "model_id": "HuggingFaceTB/SmolLM2-135M",
+      "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+      "reference_sha256": {
+        "config.json": "1d556eab73b69c7f11f64c557a2f9c6f440bd4c6b89bb2584a6b498c92603843",
+        "generation_config.json": "2056c988e990b0d13670f63f2f3b87b3b6d07edaf7a3416998ba27dab2d8a059",
+        "merges.txt": "0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510",
+        "model.safetensors": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+        "special_tokens_map.json": "e786b595b9a23148bf1630df78d9037a048ea671e48bfd3549a1e3c233742bb3",
+        "tokenizer.json": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c",
+        "tokenizer_config.json": "4bb9af56a342753d39374f4016a16574cab299fe088e896f425ce3c433f61424",
+        "vocab.json": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+      },
+      "candidate_sha256": {
+        "config.json": "d902a35e7658106acba4613aa0c4bb2efe95dcf7e445286060ade2a6bbd05e35",
+        "generation_config.json": "43d1f83d871a388f486b86713426772920fbe4bd59e2d16013b65ebc91760b4c",
+        "merges.txt": "0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510",
+        "model.safetensors": "91b67f6c141e6143b36c13e0b8abee14505edd4b52205fe37d85023d5255712c",
+        "special_tokens_map.json": "e786b595b9a23148bf1630df78d9037a048ea671e48bfd3549a1e3c233742bb3",
+        "tokenizer.json": "7d27c493c729a66ecefc837280b05d948b1ed50d130eebdbf911b1b36cf38ed7",
+        "tokenizer_config.json": "dc56f9ca2dd808c574d331a145e4e78b911eb1b53e2f7d95be284f2107ab8f70",
+        "trace-recovery.json": "58ee893ffea5963a8b6ef31cc368b5563cb4702aaa08e0e28a5d8043c9a62b90",
+        "vocab.json": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "contexts_sha256": {
+        "train": "a1b9e8a2852de7bc12c69a3e3aa04092f9b7fc7fa0b6ba3a59f6c1f948c94dc1",
+        "validation": "cc842570b23a3b5fd087120ba4ab339fb809600e36f55dca9813e3944d76cd68"
+      },
+      "trace_bytes": 4433895168,
+      "capture": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "llama",
+        "config_sha256": "1d556eab73b69c7f11f64c557a2f9c6f440bd4c6b89bb2584a6b498c92603843",
+        "dtype": "float64",
+        "capture_device": "cuda",
+        "train_contexts": 3072,
+        "train_input_tokens": 49152,
+        "validation_contexts": 32,
+        "validation_input_tokens": 512,
+        "source_ignored_keys": []
+      },
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "passive_layer_inputs_and_outputs",
+        "model_type": "llama",
+        "dtype": "float64",
+        "max_validation_rmse": 1e-05,
+        "unique_parameter_elements_recovered": 134515008,
+        "calibration": {
+          "chosen_rows": 0,
+          "affine_rows": 0,
+          "embedding_rows": 0,
+          "calibrated_operators": 0
+        },
+        "summary": {
+          "operator_count": 272,
+          "full_design_rank_count": 271,
+          "rank_checked_count": 271,
+          "embedding_tables": [
+            {
+              "path": "model.embed_tokens",
+              "kind": "embedding",
+              "weight_shape": [
+                49152,
+                576
+              ],
+              "has_bias": false,
+              "observed_token_ids": 49152,
+              "observed_rows": 49152
+            }
+          ],
+          "worst_condition": {
+            "path": "model.layers.18.self_attn.o_proj",
+            "kind": "linear",
+            "weight_shape": [
+              576,
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 162690.49183478946,
+            "relative_rank_tolerance": 2.5579538487363607e-13,
+            "validation_rmse": 1.4428895349379633e-14,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 1152,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.445744484281049e-14
+          },
+          "worst_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 55.49172312264877,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.246984479194741e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.2469844791947404e-07
+          },
+          "worst_runtime_validation": {
+            "path": "model.norm",
+            "kind": "hf_rms_norm",
+            "weight_shape": [
+              576
+            ],
+            "has_bias": false,
+            "design_rank": 576,
+            "design_width": 576,
+            "condition_number": 55.49172312264877,
+            "relative_rank_tolerance": 1.4210854715202004e-14,
+            "validation_rmse": 1.246984479194741e-07,
+            "max_validation_rmse": 1e-05,
+            "features": 576,
+            "outputs": 576,
+            "training_samples": 64,
+            "validation_samples": 128,
+            "validation_runtime_rmse": 1.2469844791947404e-07
+          }
+        }
+      },
+      "reference_audit_mode": "as_stored",
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 272,
+        "candidate_tensors": 272,
+        "compared_tensors": 272,
+        "reference_elements": 134515008,
+        "candidate_elements": 134515008,
+        "compared_elements": 134515008,
+        "coverage": 1.0,
+        "exactly_equal_elements": 28964141,
+        "fraction_exactly_equal": 0.21532274673767257,
+        "within_tolerance_elements": 134515008,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 5.876015744572291e-10,
+        "zero_filled_relative_l2": 5.876015744572291e-10,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.embed_tokens.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.0.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.1.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.10.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.11.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.12.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.13.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.14.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.15.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.16.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.17.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.18.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.19.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.2.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.20.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.21.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.22.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.23.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.24.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.25.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.26.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.27.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.28.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.29.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.3.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.4.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.5.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.6.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.7.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.8.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.input_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.down_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.gate_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.mlp.up_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.post_attention_layernorm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.k_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.o_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.q_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.layers.9.self_attn.v_proj.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          },
+          "model.norm.weight": {
+            "reference": "BF16",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ],
+      "recovered_behavior": {
+        "prompt_count": 24,
+        "logit_rmse": 1.7335270510178072e-06,
+        "logit_max_abs_error": 9.577840852870168e-06,
+        "mean_kl_nats": 9.93110235509707e-14,
+        "next_token_top1_matches": 24,
+        "exact_greedy_matches": 6,
+        "greedy_prompts": 6,
+        "max_new_tokens": 8
+      },
+      "evaluation_seconds": 8.410832277999361,
+      "calibration_capture": {
+        "schema_version": 1,
+        "observation_mode": "rank_and_coverage_completing_layer_calls",
+        "trace_manifest_sha256": "2248773888717818e55c14fb0d862d9f462869d4094579630c8fa69b0910f0cd",
+        "dtype": "float64",
+        "max_probes": 0,
+        "max_embedding_rows": 0,
+        "chosen_rows": 0,
+        "affine_rows": 0,
+        "embedding_rows": 0,
+        "affine_operators": 210,
+        "full_affine_basis_rows": 149760,
+        "operators": []
+      },
+      "calibration_manifest_sha256": "3d987815afd537ba35f2c5708d6d475ba629f73a422cf14ce60abaaf3f4e5ce6",
+      "calibration_seconds": 34,
+      "recovery_seconds": 42,
+      "estimator_config_files": [
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    }
+  },
+  "same_count_on_support_control": {
+    "model_id": "EleutherAI/pythia-70m",
+    "module": "gpt_neox.layers.0.attention.query_key_value",
+    "replacement": "first fitting activation and paired affine output",
+    "replacement_rows": 1,
+    "bundle_chosen_rows": 12,
+    "estimator_error": "rephix: gpt_neox.layers.0.attention.query_key_value: training design is rank deficient: rank 512 of 513",
+    "published_checkpoint": false
+  }
+}

@@ -286,7 +286,7 @@ def _array(path, dtype):
     return values
 
 
-def _fit_operator(torch, module, operator, train, validation, dtype, gate):
+def _fit_operator(torch, module, operator, train, validation, dtype, gate, calibration=None):
     from .trace_solver import fit_trace_affine, fit_trace_normalization
 
     kind = operator["kind"]
@@ -295,11 +295,17 @@ def _fit_operator(torch, module, operator, train, validation, dtype, gate):
         seen = _array(train / "seen.npy", np.dtype("bool"))
         if y.shape != tuple(module.weight.shape) or seen.shape != y.shape[:1]:
             raise ValueError("embedding trace shape mismatch")
-        if not seen.all():
-            raise ValueError(f"embedding token coverage {int(seen.sum())}/{len(seen)}")
+        observed_ids = int(seen.sum())
+        if calibration is not None:
+            ids, observed = calibration
+            y = np.array(y, copy=True)
+            y[ids] = observed
+            observed_ids += len(ids)
+        if observed_ids != len(seen):
+            raise ValueError(f"embedding token coverage {observed_ids}/{len(seen)}")
         if not np.isfinite(y).all():
             raise ValueError("embedding trace contains nonfinite values")
-        return y, None, {"observed_token_ids": int(seen.sum()), "observed_rows": int(seen.sum())}
+        return y, None, {"observed_token_ids": observed_ids, "observed_rows": observed_ids}
 
     x, val_x, val_y = (
         _array(train / "x.npy", dtype),
@@ -313,6 +319,8 @@ def _fit_operator(torch, module, operator, train, validation, dtype, gate):
         raise ValueError("trace feature or output width disagrees with model")
     opts = {"has_bias": operator["has_bias"], "max_validation_rmse": gate}
     if kind in _AFFINE:
+        if calibration is not None:
+            opts.update(calibration_x=calibration[0], calibration_y=calibration[1])
         weight, bias, metrics = fit_trace_affine(x, y, val_x, val_y, **opts)
         return (weight.T if kind == "linear" else weight), bias, metrics
     return fit_trace_normalization(
@@ -337,14 +345,7 @@ def _runtime_validation(torch, module, validation, dtype):
     return math.sqrt(squared / observed.size)
 
 
-def recover_layer_traces(
-    config_path, traces, output, *, max_validation_rmse=1e-5, include_tokenizer=True
-):
-    """Reconstruct all parameters from saved traces and a weights-free model config."""
-    config_path, traces = Path(config_path), Path(traces)
-    output = _destination(output)
-    if not math.isfinite(max_validation_rmse) or max_validation_rmse < 0:
-        raise ValueError("max validation RMSE must be finite and nonnegative")
+def _trace_description(traces):
     manifest = json.loads((traces / "manifest.json").read_text(encoding="utf-8"))
     if (
         not isinstance(manifest, dict)
@@ -355,6 +356,27 @@ def recover_layer_traces(
     precision = manifest.get("dtype")
     if not isinstance(precision, str) or precision not in _DTYPES:
         raise ValueError("unsupported trace precision")
+    if not isinstance(manifest.get("layout"), list) or not manifest["layout"]:
+        raise ValueError("trace manifest has no operator layout")
+    return manifest, np.dtype(_DTYPES[precision])
+
+
+def recover_layer_traces(
+    config_path,
+    traces,
+    output,
+    *,
+    max_validation_rmse=1e-5,
+    include_tokenizer=True,
+    calibration=None,
+):
+    """Reconstruct a checkpoint from traces, optional chosen rows, and configuration."""
+    config_path, traces = Path(config_path), Path(traces)
+    output = _destination(output)
+    if not math.isfinite(max_validation_rmse) or max_validation_rmse < 0:
+        raise ValueError("max validation RMSE must be finite and nonnegative")
+    manifest, dtype = _trace_description(traces)
+    precision = dtype.name
     if file_sha256(config_path / "config.json") != manifest.get("config_sha256"):
         raise ValueError("trace configuration hash does not match the supplied model configuration")
 
@@ -369,7 +391,12 @@ def recover_layer_traces(
     layout = _layout(torch, model)
     if layout != manifest.get("layout") or config.model_type != manifest.get("model_type"):
         raise ValueError("trace operator layout does not match the supplied architecture")
-    dtype = np.dtype(_DTYPES[precision])
+    chosen = {}
+    calibration_summary = None
+    if calibration is not None:
+        from .trace_calibration import load_trace_calibration
+
+        chosen, calibration_summary = load_trace_calibration(calibration, traces, layout, dtype)
     modules = []
     with torch.no_grad():
         for index, operator in enumerate(layout):
@@ -386,6 +413,7 @@ def recover_layer_traces(
                     validation_path,
                     dtype,
                     max_validation_rmse,
+                    chosen.get(index),
                 )
                 module.weight.copy_(torch.from_numpy(np.array(weight, copy=True)))
                 if bias is not None:
@@ -415,6 +443,8 @@ def recover_layer_traces(
         "unique_parameter_elements_recovered": sum(p.numel() for p in model.parameters()),
         "operators": modules,
     }
+    if calibration_summary is not None:
+        report["calibration"] = calibration_summary
     with tempfile.TemporaryDirectory(prefix=".rephix-trace-recovery-", dir=output.parent) as tmp:
         staged = Path(tmp) / "checkpoint"
         model.save_pretrained(staged, safe_serialization=True)
@@ -458,6 +488,7 @@ def add_subcommands(commands):
     recover.add_argument("--model-config", required=True, help="directory with model configuration")
     recover.add_argument("--traces", required=True)
     recover.add_argument("--output", required=True)
+    recover.add_argument("--calibration", help="optional rank-completing affine evidence")
     recover.add_argument("--max-validation-rmse", type=float, default=1e-5)
     recover.add_argument("--without-tokenizer", action="store_true")
     recover.set_defaults(
@@ -467,5 +498,6 @@ def add_subcommands(commands):
             a.output,
             max_validation_rmse=a.max_validation_rmse,
             include_tokenizer=not a.without_tokenizer,
+            calibration=a.calibration,
         )
     )

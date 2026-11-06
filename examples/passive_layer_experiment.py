@@ -4,6 +4,7 @@ import argparse
 import json
 import platform
 import shutil
+import tempfile
 import time
 from pathlib import Path
 
@@ -80,7 +81,16 @@ def evaluate(args):
         tokenizer = _load_tokenizer(AutoTokenizer, path, model_config=model.config, **opts)
         return _capture(model, tokenizer, texts, args.device, logit_dtype=torch.float64)
 
-    audit = compare_checkpoints(args.source, candidate)
+    if args.repack_reference:
+        with tempfile.TemporaryDirectory(dir=work) as temporary:
+            loaded = AutoModelForCausalLM.from_pretrained(
+                args.source, use_safetensors=True, torch_dtype=dtype, **opts
+            )
+            loaded.save_pretrained(temporary, safe_serialization=True)
+            del loaded
+            audit = compare_checkpoints(temporary, candidate)
+    else:
+        audit = compare_checkpoints(args.source, candidate)
     audit.pop("reference")
     audit.pop("candidate")
     reference, reconstructed = capture(args.source), capture(candidate)
@@ -126,6 +136,7 @@ def evaluate(args):
         "trace_bytes": sum(p.stat().st_size for p in (work / "traces").rglob("*.npy")),
         "capture": manifest,
         "recovery": report,
+        "reference_audit_mode": "loaded_and_reserialized" if args.repack_reference else "as_stored",
         "raw_checkpoint_audit": audit,
         "held_out_prompts": prompts_spec,
         "recovered_behavior": _behavior(reference, reconstructed),
@@ -146,6 +157,7 @@ def main():
     ev.add_argument("--model-id", required=True)
     ev.add_argument("--revision", required=True)
     ev.add_argument("--output", type=Path, required=True)
+    ev.add_argument("--repack-reference", action="store_true")
     args = parser.parse_args()
     if args.stage == "prepare":
         prepare(args)

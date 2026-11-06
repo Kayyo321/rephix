@@ -1,4 +1,4 @@
-"""Tests for passive affine and normalization recovery."""
+"""Tests for affine calibration and passive trace recovery."""
 
 import json
 import unittest
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from rephix.trace_solver import fit_trace_affine, fit_trace_normalization
+from rephix.trace_solver import fit_trace_affine, fit_trace_normalization, plan_affine_calibration
 
 
 class TraceAffineTests(unittest.TestCase):
@@ -63,6 +63,124 @@ class TraceAffineTests(unittest.TestCase):
             ):
                 fit_trace_affine(
                     x, x @ self.weights, self.val_x, self.val_x @ self.weights, has_bias=True
+                )
+
+    def test_calibrates_multiple_affine_directions_from_a_wide_design(self):
+        x = self.x[:2].copy()
+        x[:, -1] = 4
+        probes, plan = plan_affine_calibration(x, has_bias=True, max_rows=3)
+        self.assertEqual(probes.shape, (3, 4))
+        self.assertEqual(probes.dtype, x.dtype)
+        self.assertEqual(
+            (plan["passive_rank"], plan["design_width"], plan["probe_rows"]), (2, 5, 3)
+        )
+        self.assertEqual(plan["geometry"], "projected_nullspace")
+        json.dumps(plan, allow_nan=False)
+
+        weight, bias, fit = fit_trace_affine(
+            x,
+            x @ self.weights + self.bias,
+            self.val_x,
+            self.val_x @ self.weights + self.bias,
+            has_bias=True,
+            calibration_x=probes,
+            calibration_y=probes @ self.weights + self.bias,
+        )
+        np.testing.assert_allclose(weight, self.weights, atol=2e-6, rtol=0)
+        np.testing.assert_allclose(bias, self.bias, atol=2e-6, rtol=0)
+        self.assertEqual(fit["design_rank"], 5)
+        self.assertEqual(fit["training_samples"], 5)
+        self.assertEqual(fit["passive_samples"], 2)
+        self.assertEqual(fit["calibration_samples"], 3)
+
+    def test_calibrates_multiple_biasless_directions_without_doubling_targets(self):
+        x = self.x.astype(np.float64)
+        x[:, 2:] = 0
+        val_x = self.val_x.astype(np.float64)
+        probes, plan = plan_affine_calibration(x, has_bias=False, max_rows=2)
+        self.assertEqual(probes.shape, (2, 4))
+        self.assertEqual(probes.dtype, np.float64)
+        self.assertEqual(plan["passive_rank"], 2)
+        self.assertEqual(plan["geometry"], "nullspace")
+
+        with patch("rephix.trace_solver.np.concatenate", wraps=np.concatenate) as concatenate:
+            weight, bias, _ = fit_trace_affine(
+                x,
+                x @ self.weights,
+                val_x,
+                val_x @ self.weights,
+                has_bias=False,
+                calibration_x=probes,
+                calibration_y=probes @ self.weights,
+            )
+        self.assertEqual(concatenate.call_count, 2)
+        self.assertEqual(
+            [call.args[0][1].shape for call in concatenate.call_args_list], [(2, 512), (2, 8)]
+        )
+        np.testing.assert_allclose(weight, self.weights, atol=1e-12, rtol=0)
+        self.assertIsNone(bias)
+
+    def test_planner_uses_the_training_cutoff_and_reports_budget(self):
+        self.x[:, -1] = self.x[:, :3].sum(axis=1)
+        probes, plan = plan_affine_calibration(self.x, has_bias=False, max_rows=1)
+        self.assertEqual(probes.shape, (1, 4))
+        self.assertEqual(plan["passive_rank"], 3)
+        self.assertEqual(plan["relative_rank_tolerance"], 8 * np.finfo(np.float32).eps)
+        with self.assertRaisesRegex(ValueError, "calibration row budget exceeded: need 1"):
+            plan_affine_calibration(self.x, has_bias=False, max_rows=0)
+        with self.assertRaisesRegex(ValueError, "max_rows must be a nonnegative integer"):
+            plan_affine_calibration(self.x, has_bias=False, max_rows=True)
+
+        x = self.x.astype(np.float64)
+        probes, plan = plan_affine_calibration(x, has_bias=False, max_rows=0)
+        self.assertEqual(probes.shape, (0, 4))
+        self.assertEqual(probes.dtype, x.dtype)
+        self.assertEqual(plan["passive_rank"], 4)
+        self.assertEqual(plan["geometry"], "none")
+
+    def test_planner_rejects_an_intercept_below_the_cutoff_at_any_probe_scale(self):
+        x = np.full((3, 1), 1e10, dtype=np.float32)
+        with self.assertRaisesRegex(ValueError, "could not complete rank 1 of 2"):
+            plan_affine_calibration(x, has_bias=True, max_rows=1)
+
+    def test_planner_reduces_probe_scale_to_keep_a_marginal_intercept(self):
+        x = np.full((2, 1), 1e6, dtype=np.float32)
+        probes, plan = plan_affine_calibration(x, has_bias=True, max_rows=1)
+        self.assertEqual(probes.shape, (1, 1))
+        self.assertLess(plan["probe_scale"], 1e6)
+        self.assertLess(plan["condition_number"], 1 / plan["relative_rank_tolerance"])
+
+    def test_calibration_requires_paired_targets_and_preserves_the_held_out_check(self):
+        x = self.x.copy()
+        x[:, -1] = 0
+        probes, _ = plan_affine_calibration(x, has_bias=False, max_rows=1)
+        y, val_y = x @ self.weights, self.val_x @ self.weights
+        chosen_y = probes @ self.weights
+        args = (x, y, self.val_x, val_y)
+        with self.assertRaisesRegex(ValueError, "must be supplied together"):
+            fit_trace_affine(*args, has_bias=False, calibration_x=probes)
+        with self.assertRaisesRegex(ValueError, "must match training widths"):
+            fit_trace_affine(
+                *args, has_bias=False, calibration_x=probes, calibration_y=chosen_y[:, :-1]
+            )
+        with self.assertRaisesRegex(ValueError, "calibration_y must contain only finite"):
+            fit_trace_affine(
+                *args, has_bias=False, calibration_x=probes, calibration_y=chosen_y * np.nan
+            )
+        wrong_y = chosen_y.copy()
+        wrong_y[0, -1] += 1
+        wrong_val_y = val_y.copy()
+        wrong_val_y[0, -1] += 1
+        for calibration_y, heldout_y in ((wrong_y, val_y), (chosen_y, wrong_val_y)):
+            with self.assertRaisesRegex(ValueError, "held-out RMSE .* exceeds"):
+                fit_trace_affine(
+                    x,
+                    y,
+                    self.val_x,
+                    heldout_y,
+                    has_bias=False,
+                    calibration_x=probes,
+                    calibration_y=calibration_y,
                 )
 
 

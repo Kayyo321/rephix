@@ -169,6 +169,7 @@ def build_parser():
         session,
         session_targets,
         tiny,
+        trace_calibration,
         trace_recovery,
     )
 
@@ -184,6 +185,7 @@ def build_parser():
         tiny,
         session,
         session_targets,
+        trace_calibration,
         trace_recovery,
     ):
         module.add_subcommands(commands)
