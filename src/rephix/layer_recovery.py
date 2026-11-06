@@ -6,6 +6,7 @@ import copy
 import os
 import shutil
 import tempfile
+from contextlib import nullcontext
 from pathlib import Path
 
 from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
@@ -36,6 +37,8 @@ _VISION_EMBEDDINGS = {
     "transformers.models.vit.modeling_vit.ViTEmbeddings": ("cls_token",),
     "transformers.models.deit.modeling_deit.DeiTEmbeddings": ("cls_token", "distillation_token"),
 }
+_PROBE_PLAN_VERSION = 1
+_JOURNAL_FILENAME = "observations.sqlite3"
 
 
 def _qualified_name(module):
@@ -235,6 +238,13 @@ def _vision_embeddings(module, read):
     }
 
 
+def _validate_probe_options(batch_size, relative_bias_mode):
+    if isinstance(batch_size, bool) or not isinstance(batch_size, int) or batch_size < 1:
+        raise ValueError("probe batch size must be a positive integer")
+    if relative_bias_mode not in ("embedding", "attention"):
+        raise ValueError("relative bias mode must be embedding or attention")
+
+
 def recover_from_layer_calls(
     model,
     call_layer,
@@ -243,6 +253,7 @@ def recover_from_layer_calls(
     relative_bias_mode="embedding",
     relative_bias_bucket_device="cpu",
     ssm_rate_device="cpu",
+    _journal=None,
 ):
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
 
@@ -267,10 +278,7 @@ def recover_from_layer_calls(
     """
     import torch
 
-    if isinstance(batch_size, bool) or not isinstance(batch_size, int) or batch_size < 1:
-        raise ValueError("probe batch size must be a positive integer")
-    if relative_bias_mode not in ("embedding", "attention"):
-        raise ValueError("relative bias mode must be embedding or attention")
+    _validate_probe_options(batch_size, relative_bias_mode)
     plan = _plan(torch, model, direct=True, relative_bias_mode=relative_bias_mode)
     calls = rows = scalars = recovered = recovered_buffers = 0
     gauges = []
@@ -288,18 +296,21 @@ def recover_from_layer_calls(
 
             def read(inputs, shape):
                 nonlocal calls, rows, scalars
-                result = call_layer(path, inputs)
-                if (
-                    not isinstance(result, torch.Tensor)
-                    or result.shape != shape
-                    or result.dtype != dtype
-                ):
-                    raise ValueError(
-                        f"{path}: oracle output shape or dtype disagrees with skeleton"
-                    )
-                values = result.to("cpu")
-                if not torch.isfinite(values).all():
-                    raise ValueError(f"{path}: non-finite oracle output")
+                if _journal is not None:
+                    values = _journal.observe(path, inputs, shape, dtype, oracle=call_layer)
+                else:
+                    result = call_layer(path, inputs)
+                    if (
+                        not isinstance(result, torch.Tensor)
+                        or result.shape != shape
+                        or result.dtype != dtype
+                    ):
+                        raise ValueError(
+                            f"{path}: oracle output shape or dtype disagrees with skeleton"
+                        )
+                    values = result.to("cpu")
+                    if not torch.isfinite(values).all():
+                        raise ValueError(f"{path}: non-finite oracle output")
                 calls += 1
                 rows += inputs.shape[0]
                 scalars += values.numel()
@@ -382,6 +393,113 @@ def _observe_bart_logits_bias(torch, model, token):
         handle.remove()
 
 
+def _model_wrapper(config, causal, architecture=None):
+    is_vision = config.model_type in {"vit", "deit"}
+    is_speech = config.model_type == "whisper"
+    is_encoder = (
+        config.model_type in ENCODER_MODEL_TYPES
+        and not config.is_decoder
+        and not config.is_encoder_decoder
+    )
+    if architecture is not None and not is_encoder:
+        raise ValueError("--architecture is supported only for native encoder-only models")
+    wrapper = causal
+    if is_vision:
+        from transformers import AutoModelForImageClassification
+
+        wrapper = AutoModelForImageClassification
+    elif is_speech:
+        from transformers import AutoModelForSpeechSeq2Seq
+
+        wrapper = AutoModelForSpeechSeq2Seq
+    elif config.is_encoder_decoder:
+        from transformers import AutoModelForSeq2SeqLM
+
+        wrapper = AutoModelForSeq2SeqLM
+    elif is_encoder:
+        wrapper = encoder_auto_model(config, architecture=architecture)
+        if architecture is not None:
+            config.architectures = [architecture]
+    return wrapper, is_vision, is_speech, is_encoder
+
+
+def _save_export_assets(tokenizer_class, config, source, destination, *, vision, speech, encoder):
+    destination.mkdir(parents=True, exist_ok=True)
+    if vision or speech:
+        preprocessor = source / "preprocessor_config.json"
+        shutil.copyfile(preprocessor, destination / preprocessor.name)
+        processor = source / "processor_config.json"
+        if speech and processor.is_file():
+            shutil.copyfile(processor, destination / processor.name)
+    if vision:
+        return
+    tokenizer_options = {}
+    if (
+        config.model_type in {"t5", "mt5", "umt5"}
+        and (source / "spiece.model").is_file()
+        and not (source / "tokenizer.json").is_file()
+    ):
+        # Retain the native SentencePiece byte fallback for rare tokens.
+        tokenizer_options["use_fast"] = False
+    tokenizer = _load_tokenizer(
+        tokenizer_class,
+        source,
+        model_config=config,
+        local_files_only=True,
+        trust_remote_code=False,
+        **tokenizer_options,
+    )
+    tokenizer.save_pretrained(destination)
+    if encoder and config.model_type == "albert":
+        vocab = source / "spiece.model"
+        if vocab.is_file() and not (destination / vocab.name).is_file():
+            shutil.copyfile(vocab, destination / vocab.name)
+
+
+def _publish_checkpoint(candidate, output, report, write_assets):
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
+        staged = Path(temporary) / "checkpoint"
+        candidate.save_pretrained(staged, safe_serialization=True)
+        if write_assets is not None:
+            write_assets(staged)
+        write_json(staged / "layer-recovery.json", report)
+        _check_output(output)
+        os.rename(staged, output)
+
+
+def _check_output(output):
+    if output.exists() or output.is_symlink():
+        raise ValueError("recovery output already exists; choose a new directory")
+
+
+def _check_disjoint(left, right):
+    left_path, right_path = left.resolve(), right.resolve()
+    if (
+        left_path == right_path
+        or left_path in right_path.parents
+        or right_path in left_path.parents
+    ):
+        raise ValueError("source, evidence and recovery output must use separate directories")
+
+
+def _copy_export_assets(assets, destination):
+    for asset in assets.rglob("*"):
+        relative = asset.relative_to(assets)
+        if asset.is_file() and relative.as_posix() not in {"config.json", "generation_config.json"}:
+            output = destination / relative
+            output.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(asset, output)
+
+
+def _evidence_report(journal, evidence_dir):
+    return {
+        "evidence_dir": str(evidence_dir),
+        "evidence_observations_cached": journal.reused_calls,
+        "evidence_observations_collected": journal.fresh_calls,
+    }
+
+
 def export_recovered_model(
     source,
     output,
@@ -393,15 +511,20 @@ def export_recovered_model(
     relative_bias_mode="embedding",
     architecture=None,
     stage_layers=False,
+    evidence_dir=None,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
+    _validate_probe_options(batch_size, relative_bias_mode)
     if not (source / "config.json").is_file():
         raise ValueError("layer recovery requires a local Transformers directory with config.json")
-    if output.exists() or output.is_symlink():
-        raise ValueError("recovery output already exists; choose a new directory")
+    _check_output(output)
     if source.resolve() in output.resolve().parents:
         raise ValueError("recovery output must be outside the source model directory")
+    if evidence_dir is not None:
+        evidence_dir = Path(evidence_dir)
+        _check_disjoint(source, evidence_dir)
+        _check_disjoint(output, evidence_dir)
 
     torch, AutoConfig, AutoModelForCausalLM, AutoTokenizer = _deps()
     device = _device(torch, device)
@@ -411,36 +534,13 @@ def export_recovered_model(
     model_dtype = {"auto": "auto", "float32": torch.float32, "float64": torch.float64}.get(dtype)
     if model_dtype is None:
         raise ValueError("layer recovery dtype must be auto, float32, or float64")
-    is_vision = config.model_type in {"vit", "deit"}
-    is_speech = config.model_type == "whisper"
-    is_encoder = (
-        config.model_type in ENCODER_MODEL_TYPES
-        and not config.is_decoder
-        and not config.is_encoder_decoder
-    )
     source_architectures = config.architectures
-    if architecture is not None and not is_encoder:
-        raise ValueError("--architecture is supported only for native encoder-only models")
+    auto_model, is_vision, is_speech, is_encoder = _model_wrapper(
+        config, AutoModelForCausalLM, architecture
+    )
     preprocessor = source / "preprocessor_config.json"
     if include_tokenizer and (is_vision or is_speech) and not preprocessor.is_file():
         raise ValueError("source has no preprocessor_config.json; use --without-preprocessor")
-    auto_model = AutoModelForCausalLM
-    if is_vision:
-        from transformers import AutoModelForImageClassification
-
-        auto_model = AutoModelForImageClassification
-    elif is_speech:
-        from transformers import AutoModelForSpeechSeq2Seq
-
-        auto_model = AutoModelForSpeechSeq2Seq
-    elif config.is_encoder_decoder:
-        from transformers import AutoModelForSeq2SeqLM
-
-        auto_model = AutoModelForSeq2SeqLM
-    elif is_encoder:
-        auto_model = encoder_auto_model(config, architecture=architecture)
-        if architecture is not None:
-            config.architectures = [architecture]
     target, loading = auto_model.from_pretrained(
         source,
         config=config,
@@ -466,6 +566,67 @@ def export_recovered_model(
         oracle_dtype = target.get_parameter(name).dtype
         if parameter.dtype != oracle_dtype:
             parameter.data = parameter.detach().to(oracle_dtype)
+
+    def save_extras(destination):
+        _save_export_assets(
+            AutoTokenizer,
+            config,
+            source,
+            destination,
+            vision=is_vision,
+            speech=is_speech,
+            encoder=is_encoder,
+        )
+
+    provenance = {
+        "model_type": target.config.model_type,
+        "architecture": type(target).__name__,
+        "oracle_device": device,
+        "oracle_dtype": str(target.dtype),
+        "oracle_placement": "staged" if stage_layers else "resident",
+        "ignored_source_keys": sorted(loading["unexpected_keys"]),
+        "image_processor_exported" if is_vision else "tokenizer_exported": include_tokenizer,
+    }
+    if is_speech:
+        provenance["audio_feature_extractor_exported"] = include_tokenizer
+    if is_encoder:
+        provenance["source_architectures"] = source_architectures
+
+    journal_context = nullcontext()
+    write_assets = save_extras if include_tokenizer else None
+    if evidence_dir is not None:
+        from .layer_bundle import bundle_binding, prepare_bundle, source_fingerprint
+        from .layer_journal import LayerJournal
+
+        def save_scaffold(destination):
+            scaffold = copy.deepcopy(target.config)
+            scaffold.architectures = [type(target).__name__]
+            scaffold.save_pretrained(destination)
+            if getattr(target, "generation_config", None) is not None:
+                target.generation_config.save_pretrained(destination)
+            if include_tokenizer:
+                save_extras(destination)
+
+        metadata = {
+            "probe_plan_version": _PROBE_PLAN_VERSION,
+            "source_files": source_fingerprint(source),
+            "load_dtype": dtype,
+            "batch_size": batch_size,
+            "relative_bias_mode": relative_bias_mode,
+            "parameter_dtype_overrides": {
+                name: str(parameter.dtype)
+                for name, parameter in candidate.named_parameters()
+                if parameter.dtype != target.dtype
+            },
+            "provenance": provenance,
+        }
+        _, assets = prepare_bundle(evidence_dir, metadata, save_scaffold)
+        journal_context = LayerJournal(
+            evidence_dir / _JOURNAL_FILENAME, torch, binding=bundle_binding(evidence_dir)
+        )
+
+        def write_assets(destination):
+            _copy_export_assets(assets, destination)
 
     host_layer_calls = 0
 
@@ -511,75 +672,113 @@ def export_recovered_model(
         return module(inputs.to(device))
 
     try:
-        report = recover_from_layer_calls(
-            candidate,
-            observe,
-            batch_size=batch_size,
-            relative_bias_mode=relative_bias_mode,
-            relative_bias_bucket_device=device,
-            ssm_rate_device=device,
-        )
+        with journal_context as journal:
+            report = recover_from_layer_calls(
+                candidate,
+                observe,
+                batch_size=batch_size,
+                relative_bias_mode=relative_bias_mode,
+                relative_bias_bucket_device=device,
+                ssm_rate_device=device,
+                _journal=journal,
+            )
+            if journal is not None:
+                journal.finish()
+                report.update(_evidence_report(journal, evidence_dir))
     finally:
         if stager is not None:
             stager.clear()
     if not is_vision:
         candidate.generation_config = target.generation_config
     report.update(
-        model_type=target.config.model_type,
-        architecture=type(target).__name__,
+        provenance,
         source=str(source),
         checkpoint=str(output),
-        oracle_device=device,
-        oracle_dtype=str(target.dtype),
-        oracle_placement="staged" if stage_layers else "resident",
         oracle_staged_groups=stager.moves if stager is not None else 0,
         oracle_peak_staged_state_bytes=stager.peak_state_bytes if stager is not None else 0,
-        oracle_host_layer_calls=report["layer_calls"] if device == "cpu" else host_layer_calls,
-        ignored_source_keys=loading["unexpected_keys"],
+        oracle_host_layer_calls=(
+            report.get("evidence_observations_collected", report["layer_calls"])
+            if device == "cpu"
+            else host_layer_calls
+        ),
     )
-    report["image_processor_exported" if is_vision else "tokenizer_exported"] = include_tokenizer
-    if is_speech:
-        report["audio_feature_extractor_exported"] = include_tokenizer
-    if is_encoder:
-        report["source_architectures"] = source_architectures
     target = None
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
-        staged = Path(temporary) / "checkpoint"
-        candidate.save_pretrained(staged, safe_serialization=True)
-        if include_tokenizer and (is_vision or is_speech):
-            shutil.copyfile(preprocessor, staged / preprocessor.name)
-            processor = source / "processor_config.json"
-            if is_speech and processor.is_file():
-                shutil.copyfile(processor, staged / processor.name)
-        if include_tokenizer and not is_vision:
-            tokenizer_options = {}
-            if (
-                config.model_type in {"t5", "mt5", "umt5"}
-                and (source / "spiece.model").is_file()
-                and not (source / "tokenizer.json").is_file()
-            ):
-                # Preserve the native SentencePiece byte fallback instead of
-                # synthesizing a fast tokenizer that can change rare tokens.
-                tokenizer_options["use_fast"] = False
-            tokenizer = _load_tokenizer(
-                AutoTokenizer,
-                source,
-                model_config=config,
-                local_files_only=True,
-                trust_remote_code=False,
-                **tokenizer_options,
+    _publish_checkpoint(candidate, output, report, write_assets)
+    return report
+
+
+def replay_layer_evidence(evidence_dir, output):
+    """Build a standalone checkpoint from a complete local evidence bundle."""
+    from .layer_bundle import bundle_binding, open_bundle
+    from .layer_journal import LayerJournal
+
+    evidence_dir, output = Path(evidence_dir), Path(output)
+    _check_output(output)
+    _check_disjoint(evidence_dir, output)
+    metadata, assets = open_bundle(evidence_dir)
+    if metadata.get("probe_plan_version") != _PROBE_PLAN_VERSION:
+        raise ValueError("unsupported layer evidence probe plan version")
+    torch, AutoConfig, causal, _ = _deps()
+    from transformers import GenerationConfig
+
+    with LayerJournal(
+        evidence_dir / _JOURNAL_FILENAME, torch, binding=bundle_binding(evidence_dir), readonly=True
+    ) as journal:
+        provenance = metadata["provenance"]
+        config = AutoConfig.from_pretrained(assets, local_files_only=True, trust_remote_code=False)
+        wrapper, _, _, _ = _model_wrapper(config, causal)
+        dtypes = {
+            str(dtype): dtype
+            for dtype in (torch.float16, torch.bfloat16, torch.float32, torch.float64)
+        }
+        oracle_dtype = dtypes[provenance["oracle_dtype"]]
+        candidate = wrapper.from_config(
+            config, trust_remote_code=False, torch_dtype=oracle_dtype
+        ).eval()
+        candidate.tie_weights()
+        if type(candidate).__name__ != provenance["architecture"]:
+            raise ValueError("layer evidence scaffold architecture disagrees with capture")
+        overrides = metadata["parameter_dtype_overrides"]
+        for name, parameter in candidate.named_parameters():
+            dtype = dtypes[overrides[name]] if name in overrides else oracle_dtype
+            if parameter.dtype != dtype:
+                parameter.data = parameter.detach().to(dtype)
+        if (assets / "generation_config.json").is_file():
+            candidate.generation_config = GenerationConfig.from_pretrained(
+                assets, local_files_only=True
             )
-            tokenizer.save_pretrained(staged)
-            if is_encoder and config.model_type == "albert":
-                vocab = source / "spiece.model"
-                if vocab.is_file() and not (staged / vocab.name).is_file():
-                    shutil.copyfile(vocab, staged / vocab.name)
-        write_json(staged / "layer-recovery.json", report)
-        if output.exists() or output.is_symlink():
-            raise ValueError("recovery output already exists; choose a new directory")
-        os.rename(staged, output)
+        device = provenance["oracle_device"]
+        relative_bias_mode = metadata["relative_bias_mode"]
+        uses_bucket_backend = relative_bias_mode == "attention" and config.model_type in {
+            "t5",
+            "mt5",
+            "umt5",
+        }
+        if uses_bucket_backend or config.model_type in {"mamba", "falcon_mamba"}:
+            _device(torch, device)
+        report = recover_from_layer_calls(
+            candidate,
+            None,
+            batch_size=metadata["batch_size"],
+            relative_bias_mode=relative_bias_mode,
+            relative_bias_bucket_device=device,
+            ssm_rate_device=device,
+            _journal=journal,
+        )
+        journal.finish()
+        report.update(_evidence_report(journal, evidence_dir))
+    report.update(
+        provenance,
+        source=None,
+        checkpoint=str(output),
+        oracle_staged_groups=0,
+        oracle_peak_staged_state_bytes=0,
+        oracle_host_layer_calls=0,
+    )
+    _publish_checkpoint(
+        candidate, output, report, lambda staged: _copy_export_assets(assets, staged)
+    )
     return report
 
 
@@ -594,6 +793,7 @@ def _command(args):
         relative_bias_mode=args.relative_bias_mode,
         architecture=args.architecture,
         stage_layers=args.stage_layers,
+        evidence_dir=args.evidence_dir,
     )
 
 
@@ -606,6 +806,9 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument(
+        "--evidence-dir", help="durable layer observation bundle to create or resume"
+    )
     recover.add_argument(
         "--architecture", help="native encoder class to use instead of config.json"
     )
@@ -627,3 +830,7 @@ def add_subcommands(commands):
         action="store_true",
     )
     recover.set_defaults(func=_command)
+    replay = commands.add_parser("replay-layers", help="rebuild a checkpoint from sealed evidence")
+    replay.add_argument("--evidence-dir", required=True, help="complete layer observation bundle")
+    replay.add_argument("--output", required=True, help="new Transformers checkpoint directory")
+    replay.set_defaults(func=lambda args: replay_layer_evidence(args.evidence_dir, args.output))

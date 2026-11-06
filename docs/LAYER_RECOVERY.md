@@ -24,6 +24,31 @@ The default FP32 probes reduce rounding loss in biased layers. For a large BF16 
 
 `audit-weights` streams local safetensors files or standard indexed shard directories. A reference element matches when its candidate has the same name and shape and `abs(candidate - reference) <= atol + rtol * abs(reference)`. Defaults are `atol=1e-8` and `rtol=1e-5`. Exact agreement counts equal numeric values, even across differing storage dtypes. Coverage and both agreement fractions use all stored reference elements, including buffers. Raw relative L2 is `||candidate - reference||₂ / ||reference||₂` and requires full name and shape coverage. The separate zero-filled score substitutes zeros for unavailable coordinates. Extra candidate tensors are reported and excluded from the scores. The audit does not remap names, align equivalent parameters, or infer tied aliases. Use the existing `compare-weights` command when comparing the loaded model's named parameters and cosine similarity.
 
+## Resume and replay layer probes
+
+Pass `--evidence-dir` to save each complete probe response as it arrives. Keep the source checkpoint available for interrupted captures and repeat the same command to continue. Rephix verifies the source files and probe settings, then reuses committed responses in order. If a process stops before committing a response, the next run queries that position again. The output directory must be new, and the source, evidence, and output directories must be separate.
+
+```bash
+rephix --threads 4 recover-layers --dtype auto --batch-size 256 \
+  --model reference --evidence-dir probes --output recovered
+rephix --threads 4 replay-layers --evidence-dir probes --output replayed
+```
+
+Once the last observation is committed, Rephix seals the bundle before exporting the checkpoint. A sealed bundle can rebuild the checkpoint even if the first export was interrupted or the source has been deleted. It contains a checksummed observation database and the saved model configuration, plus the selected tokenizer or preprocessor assets. Replay verifies that the complete probe sequence is present and consumes it without making oracle calls. Replay reconstructs the model on CPU. T5-family attention-only bias probes and Mamba decay probes also need the original oracle device backend for their numerical transforms.
+
+The evidence database stores responses at the original observation precision and can be about as large as the source weights. Allow room for both the bundle and the exported model. The report distinguishes `evidence_observations_cached` from `evidence_observations_collected` for the current invocation.
+
+### Forced-stop trials
+
+Two CPU captures were terminated with `SIGKILL` after 17 committed responses and before the next probe. Each resumed with its original settings, and the source directory was deleted before offline replay. The resumed exports matched all 17,253,120 original stored values exactly. Each offline export had the same safetensors SHA-256 as its resumed export. Independent reloads matched all 384,000 held-out next-token logit coordinates and all 12 cached greedy continuations of up to eight tokens. [Experiment measurements](../examples/results/layer-evidence.json)
+
+| Source | Reused on resume | Newly collected | Reused offline | Journal size |
+| --- | ---: | ---: | ---: | ---: |
+| TinyLlama-15M, FP16 | 17 | 211 | 228 | 30.53 MB |
+| Tiny random Mistral, FP32 | 17 | 128 | 145 | 8.34 MB |
+
+[Pinned TinyLlama checkpoint](https://huggingface.co/nickypro/tinyllama-15M/tree/a97e01fa7d54c088df9dc1b53d581a863ce08cd6) · [Pinned Mistral fixture](https://huggingface.co/dacorvo/tiny-random-MistralForCausalLM/tree/81d453e3c8985649e9ee3d4c9378461029d1c73a)
+
 ## Why an endpoint cannot guarantee 95% raw weight agreement
 
 Consider a biasless Llama or Mistral decoder with RMSNorm and gated MLPs. Negate its input embedding, every attention and MLP matrix, and its output projection. Keep the RMSNorm weights. A tied embedding and head are negated once.
