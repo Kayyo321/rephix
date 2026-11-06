@@ -1,0 +1,12 @@
+{"id":"arithmetic-01","prompt":"What is 7 plus 8? Give only the number.","output":"","metadata":{"group_id":"arithmetic"}}
+{"id":"arithmetic-02","prompt":"Calculate 13 minus 4. Give only the number.","output":"","metadata":{"group_id":"arithmetic"}}
+{"id":"word-01","prompt":"Write one sentence using the word telescope.","output":"","metadata":{"group_id":"telescope"}}
+{"id":"word-02","prompt":"What does telescope mean? Answer in one sentence.","output":"","metadata":{"group_id":"telescope"}}
+{"id":"science-01","prompt":"Why does ice float on water? Answer in one sentence.","output":"","metadata":{"group_id":"ice"}}
+{"id":"science-02","prompt":"Name the process by which plants use sunlight to make sugar.","output":"","metadata":{"group_id":"photosynthesis"}}
+{"id":"coding-01","prompt":"Write a Python expression that reverses the string variable s.","output":"","metadata":{"group_id":"python-reverse"}}
+{"id":"coding-02","prompt":"In Python, what does len([2, 4, 6]) return? Give only the number.","output":"","metadata":{"group_id":"python-length"}}
+{"id":"logic-01","prompt":"All robins are birds. Is a robin a bird? Answer yes or no.","output":"","metadata":{"group_id":"robin"}}
+{"id":"format-01","prompt":"Return a JSON object with the key color and the value blue.","output":"","metadata":{"group_id":"json-color"}}
+{"id":"language-01","prompt":"Translate good morning into Spanish.","output":"","metadata":{"group_id":"spanish-greeting"}}
+{"id":"summary-01","prompt":"Summarize in five words: A cat slept peacefully beside the warm fireplace all evening.","output":"","metadata":{"group_id":"cat-summary"}}
