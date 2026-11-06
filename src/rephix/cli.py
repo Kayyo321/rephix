@@ -160,6 +160,7 @@ def build_parser():
     from . import (
         alignment,
         doctor,
+        endpoint_head,
         experiments,
         hf,
         layer_recovery,
@@ -174,6 +175,7 @@ def build_parser():
         hf,
         projection,
         layer_recovery,
+        endpoint_head,
         alignment,
         query,
         experiments,

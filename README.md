@@ -16,6 +16,7 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Behavioral identification and calibration](docs/IDENTIFICATION.md)
 - [Output subspace recovery from dense log probabilities](docs/LOGIT_SUBSPACE.md)
 - [Full checkpoint recovery with layer access and cross-family measurements](docs/LAYER_RECOVERY.md)
+- [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
 ## Start with a controlled experiment
 
@@ -75,6 +76,7 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `fit`, `evaluate` | Fit candidates and measure held-out continuations | Behavioral reconstruction, separately from parameter recovery |
 | `compare-weights` | Compare compatible checkpoint tensors | Coordinate distance without general symmetry alignment |
 | `audit-weights` | Stream local safetensors and report exact agreement, tolerance agreement, and coverage | Agreement on same-name stored tensor coordinates, including buffers |
+| `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank and an unchanged anchor |
 | `recover-layers` | Reconstruct and export a supported local model from chosen inputs to its layers | Whole-model parameter recovery with known architecture and direct layer access |
 | `recover-projection` | Fit selected output weights using observed head inputs | White-box component recovery under an extra access assumption |
 | `sweep`, `report` | Compare bounded settings and export tables or plots | Reproducible validation comparisons with a separate final test |

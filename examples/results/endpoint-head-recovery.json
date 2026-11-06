@@ -1,0 +1,2324 @@
+{
+  "schema_version": 1,
+  "runs": {
+    "smollm2_fp32": {
+      "schema_version": 1,
+      "case": "planted_private_head",
+      "base_model": {
+        "path": "$BASE_MODELS/smollm2-135m-base",
+        "model_safetensors_sha256": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+        "model_id": "HuggingFaceTB/SmolLM2-135M",
+        "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float32",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 3,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": true,
+      "target_query_counts": {
+        "train": {
+          "queries": 1728,
+          "input_tokens": 13814,
+          "dense_scores": 84934656
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 6291456
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 775,
+          "dense_scores": 1179648
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$BASE_MODELS/smollm2-135m-base",
+          "--train",
+          "$SCRATCH/llama-run/train",
+          "--validation",
+          "$SCRATCH/llama-run/validation",
+          "--output",
+          "$SCRATCH/llama-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 0,
+        "seconds": 4.379899165000097,
+        "candidate_present": true,
+        "stderr": ""
+      },
+      "fit": {
+        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "model_type": "llama",
+        "base_output_was_tied": true,
+        "base_ignored_keys": [],
+        "tokenizer_exported": true,
+        "checkpoint": "$SCRATCH/llama-run/recovered",
+        "validation_runtime_contrast_rmse": 9.04592605268544e-06,
+        "anchor_id": 0,
+        "has_bias": false,
+        "classes": 49152,
+        "features": 576,
+        "parameters_per_class": 576,
+        "training_samples": 1728,
+        "validation_samples": 128,
+        "design_rank": 576,
+        "rank_tolerance": 0.0017581755930569276,
+        "relative_rank_tolerance": 9.5367431640625e-07,
+        "condition_number": 772.7133624722042,
+        "training_contrast_rmse": 6.526713534855259e-06,
+        "validation_contrast_rmse": 1.0283628318701943e-05,
+        "max_validation_rmse": 0.001
+      },
+      "full_parameters": {
+        "recovered": {
+          "reference": "$SCRATCH/llama-run/planted_reference",
+          "candidate": "$SCRATCH/llama-run/recovered",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 134672300,
+          "fraction_exactly_equal": 0.8270904943272154,
+          "within_tolerance_elements": 153609704,
+          "fraction_within_tolerance": 0.94339464028473,
+          "relative_l2": 1.5932201911835863e-06,
+          "zero_filled_relative_l2": 1.5932201911835863e-06,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        },
+        "base_only": {
+          "reference": "$SCRATCH/llama-run/planted_reference",
+          "candidate": "$SCRATCH/llama-run/base_fp32",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 134515591,
+          "fraction_exactly_equal": 0.8261280653475699,
+          "within_tolerance_elements": 134516676,
+          "fraction_within_tolerance": 0.8261347288796128,
+          "relative_l2": 0.047773819397037044,
+          "zero_filled_relative_l2": 0.047773819397037044,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        }
+      },
+      "head_parameters": {
+        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "anchor_coordinates": {
+          "lm_head.weight": {
+            "reference_matches_base": true,
+            "recovered_matches_base": true
+          }
+        },
+        "recovered": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 157292,
+            "within_tolerance_elements": 19094696,
+            "fraction_exactly_equal": 0.005555753354673032,
+            "fraction_within_tolerance": 0.6744489316587094,
+            "relative_l2": 4.899657421776275e-06,
+            "rmse": 6.670211839229258e-07,
+            "max_abs_error": 4.172325134277344e-06
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 156716,
+            "within_tolerance_elements": 19094115,
+            "fraction_exactly_equal": 0.005535522291730813,
+            "fraction_within_tolerance": 0.674442298319072,
+            "relative_l2": 4.899698931356047e-06,
+            "rmse": 6.670279414087867e-07,
+            "max_abs_error": 4.172325134277344e-06
+          }
+        },
+        "base_only": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 583,
+            "within_tolerance_elements": 1668,
+            "fraction_exactly_equal": 2.0592300980179397e-05,
+            "fraction_within_tolerance": 5.8915879991319445e-05,
+            "relative_l2": 0.14691964743517266,
+            "rmse": 0.02000109573746898,
+            "max_abs_error": 0.10968947410583496
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 1085,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 3.832436819806486e-05,
+            "relative_l2": 0.14692091643936106,
+            "rmse": 0.02000130167494121,
+            "max_abs_error": 0.10968947410583496
+          }
+        }
+      },
+      "final_behavior": {
+        "recovered": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 32363,
+            "within_tolerance_elements": 1073043,
+            "fraction_exactly_equal": 0.027434455023871526,
+            "fraction_within_tolerance": 0.9096298217773438,
+            "relative_l2": 1.19483265993865e-06,
+            "rmse": 8.450396679225775e-06,
+            "max_abs_error": 4.76837158203125e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 110468,
+            "within_tolerance_elements": 1179648,
+            "fraction_exactly_equal": 0.09364488389756945,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 4.0180262003037125e-07,
+            "rmse": 7.134385091627697e-06,
+            "max_abs_error": 4.673004150390625e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          }
+        },
+        "base_only": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 24,
+            "within_tolerance_elements": 66,
+            "fraction_exactly_equal": 2.0345052083333332e-05,
+            "fraction_within_tolerance": 5.5948893229166664e-05,
+            "relative_l2": 0.14440825694643736,
+            "rmse": 1.0213204709483041,
+            "max_abs_error": 5.016565799713135,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 120,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 0.00010172526041666667,
+            "relative_l2": 0.06424079805917479,
+            "rmse": 1.1406560562322838,
+            "max_abs_error": 5.170650482177734,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          }
+        }
+      },
+      "control_passed": true,
+      "seconds": 9.18877380899994,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "24d4a89dddc7031b61de468bded147087575f7f8e338e12289270a41df4f3eb8",
+          "lengths.npy": "f0b9baa67c5956ee6c21ed8c842413362132025fe9f45df02c277fe84581ed65",
+          "scores.npy": "65327a8e8dae8e809497b0da7d52d57d4957917cc9e7e7c3bb2de1b1c1f4488d"
+        },
+        "validation": {
+          "input_ids.npy": "778c4677de03798e7ad91495107cb9b6620e2ca227159d2721365b9b13729e96",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "299f14db796895fd61719f945ed03248bb3dd14f441f866fab423f6ab3b22460"
+        },
+        "final": {
+          "input_ids.npy": "830058f54a8b078aa13a6c663f202e0ceb8d9ace89de898e161a6a850264f3c3",
+          "lengths.npy": "6fdf7344c9a55c98351aa370cdfd9652ca89794505665c6436929f0aec0b1525",
+          "logits.npy": "b2254dd4111fed0b87736b8445ee5c280e79c928e35a6d67591627000d29b747",
+          "scores.npy": "c515d066dc041501cd87f77269d96312c2ba7cc78afb085babda9eb34208c49b"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "smollm2_fp32_more": {
+      "schema_version": 1,
+      "case": "planted_private_head",
+      "base_model": {
+        "path": "$BASE_MODELS/smollm2-135m-base",
+        "model_safetensors_sha256": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+        "model_id": "HuggingFaceTB/SmolLM2-135M",
+        "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float32",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 12,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": true,
+      "target_query_counts": {
+        "train": {
+          "queries": 6912,
+          "input_tokens": 55354,
+          "dense_scores": 339738624
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 6291456
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 775,
+          "dense_scores": 1179648
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$BASE_MODELS/smollm2-135m-base",
+          "--train",
+          "$SCRATCH/llama-more-run/train",
+          "--validation",
+          "$SCRATCH/llama-more-run/validation",
+          "--output",
+          "$SCRATCH/llama-more-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 0,
+        "seconds": 8.876084273999368,
+        "candidate_present": true,
+        "stderr": ""
+      },
+      "fit": {
+        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "model_type": "llama",
+        "base_output_was_tied": true,
+        "base_ignored_keys": [],
+        "tokenizer_exported": true,
+        "checkpoint": "$SCRATCH/llama-more-run/recovered",
+        "validation_runtime_contrast_rmse": 5.663609108287842e-06,
+        "anchor_id": 0,
+        "has_bias": false,
+        "classes": 49152,
+        "features": 576,
+        "parameters_per_class": 576,
+        "training_samples": 6912,
+        "validation_samples": 128,
+        "design_rank": 576,
+        "rank_tolerance": 0.003506347812166388,
+        "relative_rank_tolerance": 9.5367431640625e-07,
+        "condition_number": 577.9759185609984,
+        "training_contrast_rmse": 7.554748430099661e-06,
+        "validation_contrast_rmse": 7.770948735165757e-06,
+        "max_validation_rmse": 0.001
+      },
+      "full_parameters": {
+        "recovered": {
+          "reference": "$SCRATCH/llama-more-run/planted_reference",
+          "candidate": "$SCRATCH/llama-more-run/recovered",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 134906131,
+          "fraction_exactly_equal": 0.8285265683927733,
+          "within_tolerance_elements": 158957430,
+          "fraction_within_tolerance": 0.9762377219048293,
+          "relative_l2": 6.309257577682988e-07,
+          "zero_filled_relative_l2": 6.309257577682988e-07,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        },
+        "base_only": {
+          "reference": "$SCRATCH/llama-more-run/planted_reference",
+          "candidate": "$SCRATCH/llama-more-run/base_fp32",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 134515591,
+          "fraction_exactly_equal": 0.8261280653475699,
+          "within_tolerance_elements": 134516676,
+          "fraction_within_tolerance": 0.8261347288796128,
+          "relative_l2": 0.047773819397037044,
+          "zero_filled_relative_l2": 0.047773819397037044,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        }
+      },
+      "head_parameters": {
+        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "anchor_coordinates": {
+          "lm_head.weight": {
+            "reference_matches_base": true,
+            "recovered_matches_base": true
+          }
+        },
+        "recovered": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 391123,
+            "within_tolerance_elements": 24442422,
+            "fraction_exactly_equal": 0.013814961468731915,
+            "fraction_within_tolerance": 0.863337410820855,
+            "relative_l2": 1.94029682070672e-06,
+            "rmse": 2.6414481076933976e-07,
+            "max_abs_error": 1.6205012798309326e-06
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 390547,
+            "within_tolerance_elements": 24441839,
+            "fraction_exactly_equal": 0.013794900485391368,
+            "fraction_within_tolerance": 0.863334596565734,
+            "relative_l2": 1.940313190181845e-06,
+            "rmse": 2.641474774404384e-07,
+            "max_abs_error": 1.6205012798309326e-06
+          }
+        },
+        "base_only": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 583,
+            "within_tolerance_elements": 1668,
+            "fraction_exactly_equal": 2.0592300980179397e-05,
+            "fraction_within_tolerance": 5.8915879991319445e-05,
+            "relative_l2": 0.14691964743517266,
+            "rmse": 0.02000109573746898,
+            "max_abs_error": 0.10968947410583496
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 1085,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 3.832436819806486e-05,
+            "relative_l2": 0.14692091643936106,
+            "rmse": 0.02000130167494121,
+            "max_abs_error": 0.10968947410583496
+          }
+        }
+      },
+      "final_behavior": {
+        "recovered": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 65449,
+            "within_tolerance_elements": 1127917,
+            "fraction_exactly_equal": 0.055481804741753474,
+            "fraction_within_tolerance": 0.9561470879448785,
+            "relative_l2": 5.837305365210565e-07,
+            "rmse": 4.128406221866662e-06,
+            "max_abs_error": 2.574920654296875e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 201043,
+            "within_tolerance_elements": 1179648,
+            "fraction_exactly_equal": 0.17042626274956596,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 2.1847697370641549e-07,
+            "rmse": 3.879265057946036e-06,
+            "max_abs_error": 2.574920654296875e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          }
+        },
+        "base_only": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 24,
+            "within_tolerance_elements": 66,
+            "fraction_exactly_equal": 2.0345052083333332e-05,
+            "fraction_within_tolerance": 5.5948893229166664e-05,
+            "relative_l2": 0.14440825694643736,
+            "rmse": 1.0213204709483041,
+            "max_abs_error": 5.016565799713135,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 120,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 0.00010172526041666667,
+            "relative_l2": 0.06424079805917479,
+            "rmse": 1.1406560562322838,
+            "max_abs_error": 5.170650482177734,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          }
+        }
+      },
+      "control_passed": true,
+      "seconds": 16.641612065999652,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "5bebcbd2cfbc7cf7b5fef1dbb386d3cb2572a47686a4ca1bd6812289e53a0cfd",
+          "lengths.npy": "5d1e9a7cbd5f22f91fb35cbd3d3d21685d0f8cdd3802a94cc9cae2af430a6ea2",
+          "scores.npy": "6c70c6cafea2a2a0b7930ee054df797afaf06d5c946103afbb053628d4f59eb8"
+        },
+        "validation": {
+          "input_ids.npy": "778c4677de03798e7ad91495107cb9b6620e2ca227159d2721365b9b13729e96",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "299f14db796895fd61719f945ed03248bb3dd14f441f866fab423f6ab3b22460"
+        },
+        "final": {
+          "input_ids.npy": "830058f54a8b078aa13a6c663f202e0ceb8d9ace89de898e161a6a850264f3c3",
+          "lengths.npy": "6fdf7344c9a55c98351aa370cdfd9652ca89794505665c6436929f0aec0b1525",
+          "logits.npy": "b2254dd4111fed0b87736b8445ee5c280e79c928e35a6d67591627000d29b747",
+          "scores.npy": "c515d066dc041501cd87f77269d96312c2ba7cc78afb085babda9eb34208c49b"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "smollm2_fp64": {
+      "schema_version": 1,
+      "case": "planted_private_head",
+      "base_model": {
+        "path": "$BASE_MODELS/smollm2-135m-base",
+        "model_safetensors_sha256": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1",
+        "model_id": "HuggingFaceTB/SmolLM2-135M",
+        "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float64",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 3,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": true,
+      "target_query_counts": {
+        "train": {
+          "queries": 1728,
+          "input_tokens": 13814,
+          "dense_scores": 84934656
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 6291456
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 775,
+          "dense_scores": 1179648
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$BASE_MODELS/smollm2-135m-base",
+          "--train",
+          "$SCRATCH/llama-fp64-run/train",
+          "--validation",
+          "$SCRATCH/llama-fp64-run/validation",
+          "--output",
+          "$SCRATCH/llama-fp64-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 0,
+        "seconds": 4.580166415999884,
+        "candidate_present": true,
+        "stderr": ""
+      },
+      "fit": {
+        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "model_type": "llama",
+        "base_output_was_tied": true,
+        "base_ignored_keys": [],
+        "tokenizer_exported": true,
+        "checkpoint": "$SCRATCH/llama-fp64-run/recovered",
+        "validation_runtime_contrast_rmse": 7.360455652164384e-06,
+        "anchor_id": 0,
+        "has_bias": false,
+        "classes": 49152,
+        "features": 576,
+        "parameters_per_class": 576,
+        "training_samples": 1728,
+        "validation_samples": 128,
+        "design_rank": 576,
+        "rank_tolerance": 0.0017581755930569276,
+        "relative_rank_tolerance": 9.5367431640625e-07,
+        "condition_number": 772.7133624722042,
+        "training_contrast_rmse": 3.4624972892021586e-14,
+        "validation_contrast_rmse": 4.2161892493937784e-14,
+        "max_validation_rmse": 0.001
+      },
+      "full_parameters": {
+        "recovered": {
+          "reference": "$SCRATCH/llama-fp64-run/planted_reference",
+          "candidate": "$SCRATCH/llama-fp64-run/recovered",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 162826550,
+          "fraction_exactly_equal": 0.9999999385849582,
+          "within_tolerance_elements": 162826560,
+          "fraction_within_tolerance": 1.0,
+          "relative_l2": 1.1479733817854685e-17,
+          "zero_filled_relative_l2": 1.1479733817854685e-17,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        },
+        "base_only": {
+          "reference": "$SCRATCH/llama-fp64-run/planted_reference",
+          "candidate": "$SCRATCH/llama-fp64-run/base_fp32",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 273,
+          "candidate_tensors": 273,
+          "compared_tensors": 273,
+          "reference_elements": 162826560,
+          "candidate_elements": 162826560,
+          "compared_elements": 162826560,
+          "coverage": 1.0,
+          "exactly_equal_elements": 134515591,
+          "fraction_exactly_equal": 0.8261280653475699,
+          "within_tolerance_elements": 134516676,
+          "fraction_within_tolerance": 0.8261347288796128,
+          "relative_l2": 0.047773819397037044,
+          "zero_filled_relative_l2": 0.047773819397037044,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        }
+      },
+      "head_parameters": {
+        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "anchor_coordinates": {
+          "lm_head.weight": {
+            "reference_matches_base": true,
+            "recovered_matches_base": true
+          }
+        },
+        "recovered": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 28311542,
+            "within_tolerance_elements": 28311552,
+            "fraction_exactly_equal": 0.9999996467872903,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 3.5303822605262534e-17,
+            "rmse": 4.806131434109562e-18,
+            "max_abs_error": 1.4210854715202004e-14
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 28310959,
+            "within_tolerance_elements": 28310969,
+            "fraction_exactly_equal": 0.9999996467800166,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 3.5304127538602185e-17,
+            "rmse": 4.806180919526348e-18,
+            "max_abs_error": 1.4210854715202004e-14
+          }
+        },
+        "base_only": {
+          "all": {
+            "elements": 28311552,
+            "exactly_equal_elements": 583,
+            "within_tolerance_elements": 1668,
+            "fraction_exactly_equal": 2.0592300980179397e-05,
+            "fraction_within_tolerance": 5.8915879991319445e-05,
+            "relative_l2": 0.14691964743517266,
+            "rmse": 0.02000109573746898,
+            "max_abs_error": 0.10968947410583496
+          },
+          "changed": {
+            "elements": 28310969,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 1085,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 3.832436819806486e-05,
+            "relative_l2": 0.14692091643936106,
+            "rmse": 0.02000130167494121,
+            "max_abs_error": 0.10968947410583496
+          }
+        }
+      },
+      "final_behavior": {
+        "recovered": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 1159621,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 0.9830229017469618,
+            "relative_l2": 2.735001194050974e-07,
+            "rmse": 1.9343164768427617e-06,
+            "max_abs_error": 2.0738887460236555e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 1179648,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 1.2047581954301345e-07,
+            "rmse": 2.1391619774013736e-06,
+            "max_abs_error": 2.09387828817853e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          }
+        },
+        "base_only": {
+          "logits": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 66,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 5.5948893229166664e-05,
+            "relative_l2": 0.1444082571081234,
+            "rmse": 1.0213204722688063,
+            "max_abs_error": 5.016566114028883,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          },
+          "log_probs": {
+            "elements": 1179648,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 121,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 0.00010257297092013889,
+            "relative_l2": 0.0642407996468048,
+            "rmse": 1.1406560795649194,
+            "max_abs_error": 5.170651489605888,
+            "top1_matches": 13,
+            "top1_agreement": 0.5416666666666666
+          }
+        }
+      },
+      "control_passed": true,
+      "seconds": 11.773708789000011,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "24d4a89dddc7031b61de468bded147087575f7f8e338e12289270a41df4f3eb8",
+          "lengths.npy": "f0b9baa67c5956ee6c21ed8c842413362132025fe9f45df02c277fe84581ed65",
+          "scores.npy": "a4f53d194c4243b3c49f5c5c7e6c604ca9b1fa363af01688dafb24876246caeb"
+        },
+        "validation": {
+          "input_ids.npy": "778c4677de03798e7ad91495107cb9b6620e2ca227159d2721365b9b13729e96",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "8a6c8d08325115b3becd81a43847e764b1e0366a0233551e53f803196ae49ae7"
+        },
+        "final": {
+          "input_ids.npy": "830058f54a8b078aa13a6c663f202e0ceb8d9ace89de898e161a6a850264f3c3",
+          "lengths.npy": "6fdf7344c9a55c98351aa370cdfd9652ca89794505665c6436929f0aec0b1525",
+          "logits.npy": "0801d00eac153c87efe8200e007825733c01c7172a73ae3445acd35de63e8107",
+          "scores.npy": "c7878d29c4d0da4dace64cbab1cfd3629b7f9668da35f6b778436ff5311140e6"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "mistral_fp32": {
+      "schema_version": 1,
+      "case": "planted_private_head",
+      "base_model": {
+        "path": "$SCRATCH/mistral",
+        "model_safetensors_sha256": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "model_id": "OuteAI/Lite-Mistral-150M-v2-Instruct",
+        "revision": "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float32",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 3,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": false,
+      "target_query_counts": {
+        "train": {
+          "queries": 2304,
+          "input_tokens": 18390,
+          "dense_scores": 75497472
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 4194304
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 743,
+          "dense_scores": 786432
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$SCRATCH/mistral",
+          "--train",
+          "$SCRATCH/mistral-run/train",
+          "--validation",
+          "$SCRATCH/mistral-run/validation",
+          "--output",
+          "$SCRATCH/mistral-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 0,
+        "seconds": 4.62756598299984,
+        "candidate_present": true,
+        "stderr": ""
+      },
+      "fit": {
+        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "model_type": "mistral",
+        "base_output_was_tied": false,
+        "base_ignored_keys": [],
+        "tokenizer_exported": true,
+        "checkpoint": "$SCRATCH/mistral-run/recovered",
+        "validation_runtime_contrast_rmse": 2.146142898378806e-06,
+        "anchor_id": 0,
+        "has_bias": false,
+        "classes": 32768,
+        "features": 768,
+        "parameters_per_class": 768,
+        "training_samples": 2304,
+        "validation_samples": 128,
+        "design_rank": 768,
+        "rank_tolerance": 0.0013448479740872166,
+        "relative_rank_tolerance": 9.5367431640625e-07,
+        "condition_number": 96.3148583767713,
+        "training_contrast_rmse": 1.622620296857101e-06,
+        "validation_contrast_rmse": 2.339299181516335e-06,
+        "max_validation_rmse": 0.001
+      },
+      "full_parameters": {
+        "recovered": {
+          "reference": "$SCRATCH/mistral-run/planted_reference",
+          "candidate": "$SCRATCH/mistral-run/recovered",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 111,
+          "candidate_tensors": 111,
+          "compared_tensors": 111,
+          "reference_elements": 156519168,
+          "candidate_elements": 156519168,
+          "compared_elements": 156519168,
+          "coverage": 1.0,
+          "exactly_equal_elements": 132013075,
+          "fraction_exactly_equal": 0.8434307228108956,
+          "within_tolerance_elements": 154954832,
+          "fraction_within_tolerance": 0.990005466934248,
+          "relative_l2": 3.813847280039303e-07,
+          "zero_filled_relative_l2": 3.813847280039303e-07,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        },
+        "base_only": {
+          "reference": "$SCRATCH/mistral-run/planted_reference",
+          "candidate": "$SCRATCH/mistral-run/base_fp32",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 111,
+          "candidate_tensors": 111,
+          "compared_tensors": 111,
+          "reference_elements": 156519168,
+          "candidate_elements": 156519168,
+          "compared_elements": 156519168,
+          "coverage": 1.0,
+          "exactly_equal_elements": 131354113,
+          "fraction_exactly_equal": 0.839220618652918,
+          "within_tolerance_elements": 131354475,
+          "fraction_within_tolerance": 0.8392229314686875,
+          "relative_l2": 0.13341210966044453,
+          "zero_filled_relative_l2": 0.13341210966044453,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        }
+      },
+      "head_parameters": {
+        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "anchor_coordinates": {
+          "lm_head.weight": {
+            "reference_matches_base": true,
+            "recovered_matches_base": true
+          }
+        },
+        "recovered": {
+          "all": {
+            "elements": 25165824,
+            "exactly_equal_elements": 659731,
+            "within_tolerance_elements": 23601488,
+            "fraction_exactly_equal": 0.026215354601542156,
+            "fraction_within_tolerance": 0.9378388722737631,
+            "relative_l2": 1.0917279164697273e-06,
+            "rmse": 5.7177047899373166e-08,
+            "max_abs_error": 3.7439167499542236e-07
+          },
+          "changed": {
+            "elements": 25165055,
+            "exactly_equal_elements": 658963,
+            "within_tolerance_elements": 23600719,
+            "fraction_exactly_equal": 0.026185637186169473,
+            "fraction_within_tolerance": 0.9378369727385854,
+            "relative_l2": 1.09173606506892e-06,
+            "rmse": 5.717791994545317e-08,
+            "max_abs_error": 3.7439167499542236e-07
+          }
+        },
+        "base_only": {
+          "all": {
+            "elements": 25165824,
+            "exactly_equal_elements": 769,
+            "within_tolerance_elements": 1131,
+            "fraction_exactly_equal": 3.055731455485026e-05,
+            "fraction_within_tolerance": 4.494190216064453e-05,
+            "relative_l2": 0.3818971076102623,
+            "rmse": 0.020001090825883926,
+            "max_abs_error": 0.10968947410583496
+          },
+          "changed": {
+            "elements": 25165055,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 362,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 1.4385027173594494e-05,
+            "relative_l2": 0.3818999685059018,
+            "rmse": 0.020001396422699512,
+            "max_abs_error": 0.10968947410583496
+          }
+        }
+      },
+      "final_behavior": {
+        "recovered": {
+          "logits": {
+            "elements": 786432,
+            "exactly_equal_elements": 58047,
+            "within_tolerance_elements": 775531,
+            "fraction_exactly_equal": 0.07381057739257812,
+            "fraction_within_tolerance": 0.986138661702474,
+            "relative_l2": 4.79568070784874e-07,
+            "rmse": 2.499925992490273e-06,
+            "max_abs_error": 1.3828277587890625e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          },
+          "log_probs": {
+            "elements": 786432,
+            "exactly_equal_elements": 190397,
+            "within_tolerance_elements": 786432,
+            "fraction_exactly_equal": 0.24210230509440103,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 1.538247758006954e-07,
+            "rmse": 2.4463807663199158e-06,
+            "max_abs_error": 1.33514404296875e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          }
+        },
+        "base_only": {
+          "logits": {
+            "elements": 786432,
+            "exactly_equal_elements": 24,
+            "within_tolerance_elements": 44,
+            "fraction_exactly_equal": 3.0517578125e-05,
+            "fraction_within_tolerance": 5.5948893229166664e-05,
+            "relative_l2": 0.2528333336502329,
+            "rmse": 1.3179872912008694,
+            "max_abs_error": 6.871310234069824,
+            "top1_matches": 18,
+            "top1_agreement": 0.75
+          },
+          "log_probs": {
+            "elements": 786432,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 66,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 8.392333984375e-05,
+            "relative_l2": 0.09457107579908651,
+            "rmse": 1.5040285914983418,
+            "max_abs_error": 7.710485458374023,
+            "top1_matches": 18,
+            "top1_agreement": 0.75
+          }
+        }
+      },
+      "control_passed": true,
+      "seconds": 8.429254910999589,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "967a6ab96ecee0186e1e1f72be2d7f0195bd315c997cee9f39874383ff4df831",
+          "lengths.npy": "8cf29fcf67f46ba89ae4184478031a55f991c8402b8d54f8ed67e6fb1a5ea5a7",
+          "scores.npy": "e98491078d381881debb90fc5fa43e6404e3eb1f7c7c76de38bd640575145873"
+        },
+        "validation": {
+          "input_ids.npy": "9ae4761959e34122537dfb7822272f20324bf3ce1a127bd8ed1a37757553985f",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "fcf5810f7dfa0b7867aa0897fceb54e128b3351cca2ef4104705a3b78207fd1e"
+        },
+        "final": {
+          "input_ids.npy": "769e3837e0e4dc1608290ab2b7df941cb37b6182db5be2db66d3f5ac8e827674",
+          "lengths.npy": "d842b79beac6b3e3f13f04e62f9ea1e8fac11398d6b5999e8c86fba713a41600",
+          "logits.npy": "e7fc439a727c34a8c9cd5b3d97160ccbcb6066a95f87cd121f950c339e1ae8b8",
+          "scores.npy": "d8a253d267bed632ada81f9156335474459ee522c1e824e58c3d75729ac42e89"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "mistral_fp64": {
+      "schema_version": 1,
+      "case": "planted_private_head",
+      "base_model": {
+        "path": "$SCRATCH/mistral",
+        "model_safetensors_sha256": "60d47cd37ad9dc1900461c4effdd8762ae740c719f7dac33979dced68a3dfdfd",
+        "model_id": "OuteAI/Lite-Mistral-150M-v2-Instruct",
+        "revision": "6e2f90cbf312921289b3b8c29cb34cbdb6cb708e"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float64",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 3,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": false,
+      "target_query_counts": {
+        "train": {
+          "queries": 2304,
+          "input_tokens": 18390,
+          "dense_scores": 75497472
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 4194304
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 743,
+          "dense_scores": 786432
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$SCRATCH/mistral",
+          "--train",
+          "$SCRATCH/mistral-fp64-run/train",
+          "--validation",
+          "$SCRATCH/mistral-fp64-run/validation",
+          "--output",
+          "$SCRATCH/mistral-fp64-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 0,
+        "seconds": 4.355982482999934,
+        "candidate_present": true,
+        "stderr": ""
+      },
+      "fit": {
+        "observation_mode": "dense_endpoint_scores_with_known_backbone_and_anchor",
+        "model_type": "mistral",
+        "base_output_was_tied": false,
+        "base_ignored_keys": [],
+        "tokenizer_exported": true,
+        "checkpoint": "$SCRATCH/mistral-fp64-run/recovered",
+        "validation_runtime_contrast_rmse": 1.8966681107994637e-06,
+        "anchor_id": 0,
+        "has_bias": false,
+        "classes": 32768,
+        "features": 768,
+        "parameters_per_class": 768,
+        "training_samples": 2304,
+        "validation_samples": 128,
+        "design_rank": 768,
+        "rank_tolerance": 0.0013448479740872166,
+        "relative_rank_tolerance": 9.5367431640625e-07,
+        "condition_number": 96.3148583767713,
+        "training_contrast_rmse": 1.3751150267443434e-14,
+        "validation_contrast_rmse": 1.6805345906266277e-14,
+        "max_validation_rmse": 0.001
+      },
+      "full_parameters": {
+        "recovered": {
+          "reference": "$SCRATCH/mistral-fp64-run/planted_reference",
+          "candidate": "$SCRATCH/mistral-fp64-run/recovered",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 111,
+          "candidate_tensors": 111,
+          "compared_tensors": 111,
+          "reference_elements": 156519168,
+          "candidate_elements": 156519168,
+          "compared_elements": 156519168,
+          "coverage": 1.0,
+          "exactly_equal_elements": 156519164,
+          "fraction_exactly_equal": 0.9999999744440247,
+          "within_tolerance_elements": 156519168,
+          "fraction_within_tolerance": 1.0,
+          "relative_l2": 3.734532205980038e-18,
+          "zero_filled_relative_l2": 3.734532205980038e-18,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        },
+        "base_only": {
+          "reference": "$SCRATCH/mistral-fp64-run/planted_reference",
+          "candidate": "$SCRATCH/mistral-fp64-run/base_fp32",
+          "atol": 1e-08,
+          "rtol": 1e-05,
+          "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+          "reference_tensors": 111,
+          "candidate_tensors": 111,
+          "compared_tensors": 111,
+          "reference_elements": 156519168,
+          "candidate_elements": 156519168,
+          "compared_elements": 156519168,
+          "coverage": 1.0,
+          "exactly_equal_elements": 131354113,
+          "fraction_exactly_equal": 0.839220618652918,
+          "within_tolerance_elements": 131354475,
+          "fraction_within_tolerance": 0.8392229314686875,
+          "relative_l2": 0.13341210966044453,
+          "zero_filled_relative_l2": 0.13341210966044453,
+          "missing_tensors": [],
+          "extra_tensors": [],
+          "shape_mismatches": {},
+          "dtype_mismatches": {},
+          "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+        }
+      },
+      "head_parameters": {
+        "reference_changed_definition": "reference FP32 coordinate differs exactly from base FP32",
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "anchor_coordinates": {
+          "lm_head.weight": {
+            "reference_matches_base": true,
+            "recovered_matches_base": true
+          }
+        },
+        "recovered": {
+          "all": {
+            "elements": 25165824,
+            "exactly_equal_elements": 25165820,
+            "within_tolerance_elements": 25165824,
+            "fraction_exactly_equal": 0.9999998410542806,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 1.069023682611031e-17,
+            "rmse": 5.598795943944346e-19,
+            "max_abs_error": 1.7763568394002505e-15
+          },
+          "changed": {
+            "elements": 25165055,
+            "exactly_equal_elements": 25165051,
+            "within_tolerance_elements": 25165055,
+            "fraction_exactly_equal": 0.9999998410494235,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 1.0690316909596964e-17,
+            "rmse": 5.5988814879892425e-19,
+            "max_abs_error": 1.7763568394002505e-15
+          }
+        },
+        "base_only": {
+          "all": {
+            "elements": 25165824,
+            "exactly_equal_elements": 769,
+            "within_tolerance_elements": 1131,
+            "fraction_exactly_equal": 3.055731455485026e-05,
+            "fraction_within_tolerance": 4.494190216064453e-05,
+            "relative_l2": 0.3818971076102623,
+            "rmse": 0.020001090825883926,
+            "max_abs_error": 0.10968947410583496
+          },
+          "changed": {
+            "elements": 25165055,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 362,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 1.4385027173594494e-05,
+            "relative_l2": 0.3818999685059018,
+            "rmse": 0.020001396422699512,
+            "max_abs_error": 0.10968947410583496
+          }
+        }
+      },
+      "final_behavior": {
+        "recovered": {
+          "logits": {
+            "elements": 786432,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 780988,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 0.9930775960286459,
+            "relative_l2": 2.8939647874998814e-07,
+            "rmse": 1.5085862119429208e-06,
+            "max_abs_error": 1.1713498301091363e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          },
+          "log_probs": {
+            "elements": 786432,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 786432,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 1.0,
+            "relative_l2": 1.1079016349742246e-07,
+            "rmse": 1.7619718385177088e-06,
+            "max_abs_error": 1.3215161747126558e-05,
+            "top1_matches": 24,
+            "top1_agreement": 1.0
+          }
+        },
+        "base_only": {
+          "logits": {
+            "elements": 786432,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 44,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 5.5948893229166664e-05,
+            "relative_l2": 0.2528333330936047,
+            "rmse": 1.3179872881386934,
+            "max_abs_error": 6.871310453526936,
+            "top1_matches": 18,
+            "top1_agreement": 0.75
+          },
+          "log_probs": {
+            "elements": 786432,
+            "exactly_equal_elements": 0,
+            "within_tolerance_elements": 65,
+            "fraction_exactly_equal": 0.0,
+            "fraction_within_tolerance": 8.265177408854167e-05,
+            "relative_l2": 0.09457107214147799,
+            "rmse": 1.5040285219507554,
+            "max_abs_error": 7.710481363908066,
+            "top1_matches": 18,
+            "top1_agreement": 0.75
+          }
+        }
+      },
+      "control_passed": true,
+      "seconds": 9.257649836999917,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "967a6ab96ecee0186e1e1f72be2d7f0195bd315c997cee9f39874383ff4df831",
+          "lengths.npy": "8cf29fcf67f46ba89ae4184478031a55f991c8402b8d54f8ed67e6fb1a5ea5a7",
+          "scores.npy": "212d7b0f9a38509c89766ef0867b4d47276015752841cdb65e4e745252d54900"
+        },
+        "validation": {
+          "input_ids.npy": "9ae4761959e34122537dfb7822272f20324bf3ce1a127bd8ed1a37757553985f",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "1ece69adbe2708d3328a46d151867243230e19033219346468478b5e6cbff934"
+        },
+        "final": {
+          "input_ids.npy": "769e3837e0e4dc1608290ab2b7df941cb37b6182db5be2db66d3f5ac8e827674",
+          "lengths.npy": "d842b79beac6b3e3f13f04e62f9ea1e8fac11398d6b5999e8c86fba713a41600",
+          "logits.npy": "b6871c924a1f2a354ad71b5c1113b7bb676a186765b272ab371f06ab9fd74413",
+          "scores.npy": "82559093d35e121fac49f3a1f2e81703097476172c0f00e7b3d4647fb413eff5"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "pythia_rank_control": {
+      "schema_version": 1,
+      "case": "rank_deficient_backbone",
+      "base_model": {
+        "path": "$BASE_MODELS/pythia-70m",
+        "model_safetensors_sha256": "ebfa4e2f18696ebd83716a0d39fe2c025f2ff8483f72a83ca59c475692fc9d15",
+        "model_id": "EleutherAI/pythia-70m",
+        "revision": "a39f36b100fe8a5377810d56c3f4789b9c53ac42"
+      },
+      "target_model": {
+        "planted_from_base": true
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float32",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 3,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": 0.02
+      },
+      "base_output_was_tied": false,
+      "target_query_counts": {
+        "train": {
+          "queries": 1536,
+          "input_tokens": 12280,
+          "dense_scores": 77266944
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 6438912
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 592,
+          "dense_scores": 1207296
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$BASE_MODELS/pythia-70m",
+          "--train",
+          "$SCRATCH/pythia-rank-run/train",
+          "--validation",
+          "$SCRATCH/pythia-rank-run/validation",
+          "--output",
+          "$SCRATCH/pythia-rank-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 1,
+        "seconds": 2.434682965999855,
+        "candidate_present": false,
+        "stderr": "rephix: training design is rank deficient: rank 511 of 512",
+        "rejected_design_rank": 511,
+        "parameters_per_class": 512
+      },
+      "control_passed": true,
+      "seconds": 6.751835392999965,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "2bb9f84d887acf07f4a259eec9fc830f50f53be5c47acf21f2d6fcaf2377574d",
+          "lengths.npy": "010a5cd044da245aeeb778d8718c0113f74e338e5517d4243d7eba30097313d6",
+          "scores.npy": "bd5b9d9a4ed8823f80d3c0c5d7f52755717f65d6afca8598bf9d24da43acc875"
+        },
+        "validation": {
+          "input_ids.npy": "087880613de3330b642999d7c400a3e426c3163ae016d640cf6dce532c1d0d5e",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "e1f094cd81fd05a9b150db35537d43b2890c52b1845d5f5fa98104f49709f3bc"
+        },
+        "final": {
+          "input_ids.npy": "3b232734572b65f0bff2ad3bac47adef59acaf5704d09bb81806c5ac10a0f1a4",
+          "lengths.npy": "c4e97b751ad467a8b45c586860b53cdeacc4499dfa5867e21fe96a2540321849",
+          "logits.npy": "9f4bd7edc8451d41c3c40e1bbc0b85d1612afaab2ef0d7c2debfed5882e9c518",
+          "scores.npy": "5de562525720f346d687ee692165993fae3cde34973d33abf7f722ff6db8d98e"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    },
+    "qwen_backbone_control": {
+      "schema_version": 1,
+      "case": "different_backbone",
+      "base_model": {
+        "path": "$BASE_MODELS/qwen2.5-0.5b-base",
+        "model_safetensors_sha256": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342",
+        "model_id": "Qwen/Qwen2.5-0.5B",
+        "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987"
+      },
+      "target_model": {
+        "path": "$QWEN_INSTRUCT",
+        "model_safetensors_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "numpy": "2.5.4",
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5080",
+        "model_dtype": "float32",
+        "evidence_dtype": "float32",
+        "torch_threads": 4
+      },
+      "configuration": {
+        "seed": 7115,
+        "fit_multiplier": 2,
+        "validation_rows": 128,
+        "batch_size": 16,
+        "anchor_id": 0,
+        "max_validation_contrast_rmse": 0.001,
+        "plant_delta_std": null
+      },
+      "tokenizer_coordinates_match": true,
+      "target_query_counts": {
+        "train": {
+          "queries": 1792,
+          "input_tokens": 14320,
+          "dense_scores": 272269312
+        },
+        "validation": {
+          "queries": 128,
+          "input_tokens": 1061,
+          "dense_scores": 19447808
+        },
+        "final": {
+          "queries": 24,
+          "input_tokens": 564,
+          "dense_scores": 3646464
+        }
+      },
+      "estimator": {
+        "command": [
+          "python",
+          "-m",
+          "rephix",
+          "--threads",
+          "4",
+          "recover-endpoint-head",
+          "--base",
+          "$BASE_MODELS/qwen2.5-0.5b-base",
+          "--train",
+          "$SCRATCH/mismatch-run/train",
+          "--validation",
+          "$SCRATCH/mismatch-run/validation",
+          "--output",
+          "$SCRATCH/mismatch-run/recovered",
+          "--anchor-id",
+          "0",
+          "--device",
+          "cuda",
+          "--batch-size",
+          "16",
+          "--max-validation-rmse",
+          "0.001"
+        ],
+        "returncode": 1,
+        "seconds": 7.340840802999992,
+        "candidate_present": false,
+        "stderr": "rephix: held-out contrast RMSE 1.68548 exceeds max_validation_rmse 0.001",
+        "rejected_validation_contrast_rmse": 1.68548
+      },
+      "control_passed": true,
+      "seconds": 14.839559874999395,
+      "evidence_sha256": {
+        "train": {
+          "input_ids.npy": "c09b853e8a1ea5ec7b538e5d6050c4d39bdb940c7cccfb727b30804a76f07646",
+          "lengths.npy": "d42512f35e774e3ae98efc3481861797b3c5a64169193c9788e4e96bc80205d6",
+          "scores.npy": "2921193601d79417a88c3d4cea2c2f9c289d8edfea120a2a213a50318131d7ad"
+        },
+        "validation": {
+          "input_ids.npy": "16aff213af0d19e9114ab6bda5b6415f94bce6581ca0e2308066e21ae396a7b2",
+          "lengths.npy": "480139a26bea72a45f5827d3233fc3719424c7460a7677a50ad875174f5e1c44",
+          "scores.npy": "20cf1419e610cf34abccd9a8b33c0cf54ed03d68048f8f6fd6b9403b76d881cf"
+        },
+        "final": {
+          "input_ids.npy": "c4addefa2474d69d7bb0b155ebdaab227c8ef7d03dabcb6a7e961b16ff76dd97",
+          "lengths.npy": "40b7da0407f3e23d6fa080f4d1f80a0f56903e3f9a0be56aabe6656dfcb66d71",
+          "logits.npy": "cd2979db7d7bd0f9e17b1cc57af6f0aa7548de6989aa1891e79706cb7134af6b",
+          "scores.npy": "7069f3b24491fb6308f73656b60e3bb4cd691cb3d3209e6a27857d0f72f697e5"
+        }
+      },
+      "final_prompts": [
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+        },
+        {
+          "family": 3,
+          "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+        },
+        {
+          "family": 1,
+          "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+        },
+        {
+          "family": 1,
+          "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 4,
+          "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+        },
+        {
+          "family": 3,
+          "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+        },
+        {
+          "family": 1,
+          "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+        },
+        {
+          "family": 1,
+          "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+        },
+        {
+          "family": 3,
+          "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+        },
+        {
+          "family": 2,
+          "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+        },
+        {
+          "family": 0,
+          "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+        },
+        {
+          "family": 5,
+          "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+        }
+      ]
+    }
+  }
+}
