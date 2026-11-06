@@ -1,5 +1,7 @@
 # Reproducible reconstruction experiments
 
+Examples use Bash syntax. On Windows, use Git Bash/WSL for these blocks, or place each command on one line and adapt variable assignment for PowerShell. The Python CLI itself is cross-platform.
+
 Use separate experiment tracks for identifiable parameter recovery and behavioral reconstruction. Record which evidence and prior each candidate receives, then compare it on independent data. The [validation record](VALIDATION.md) and [cloud results](CLOUD_RESULTS.md) describe completed checks; the commands below are a recipe for new runs, not a promise of accuracy.
 
 ## 1. Verify the local environment
@@ -99,22 +101,10 @@ Fitting rejects train/validation overlap. Candidate metadata retains hashed ids,
 
 The default `--init random` uses the reference architecture and tokenizer without reading reference weights for initialization. Reconstructing the full 0.5B architecture is an expensive baseline. A smaller random architecture can share the reference vocabulary while using much less compute.
 
-Create a small Qwen2 student config without loading teacher weights:
+A ready-to-use [small student configuration](../examples/qwen-student/config.json) is included at `examples/qwen-student`. It has two layers, hidden size 64, and the Qwen2.5-0.5B vocabulary/special tokens. It contains no weights and was used in the reported cloud smoke trial. Copy and edit its JSON to explore other architectures; give each changed configuration a new run directory.
 
 ```bash
-python - <<'PY'
-from transformers import AutoConfig
-
-config = AutoConfig.from_pretrained("models/qwen2.5-0.5b-instruct", trust_remote_code=False)
-config.hidden_size = 64
-config.intermediate_size = 128
-config.num_hidden_layers = 2
-config.num_attention_heads = 4
-config.num_key_value_heads = 2
-config.max_position_embeddings = 256
-config.tie_word_embeddings = True
-config.save_pretrained("models/qwen-student-config")
-PY
+rephix doctor --model examples/qwen-student --require-hf
 ```
 
 `--student-config` is valid only with random initialization. Vocabulary size and special token IDs must match the reference config; the reference tokenizer remains the input/output vocabulary. If using a remote student repository, `--student-revision` pins that repository independently of the reference revision. A smaller student is a behavioral surrogate with different tensor shapes, so direct full-checkpoint weight distance is not applicable.
@@ -124,7 +114,7 @@ Run a bounded trial:
 ```bash
 rephix --threads 2 fit \
   --train data/splits/train.jsonl --validation data/splits/validation.jsonl \
-  --teacher "$QWEN_MODEL" --student-config models/qwen-student-config \
+  --teacher "$QWEN_MODEL" --student-config examples/qwen-student \
   --output runs/qwen-student --init random --trainable all \
   --steps 20 --eval-every 5 --save-every 5 --learning-rate 0.0005 \
   --topk-weight 1 --max-seq-length 128 --device cpu --seed 42
@@ -155,7 +145,7 @@ To extend the student run from 20 to 40 total optimizer steps, repeat its settin
 ```bash
 rephix --threads 2 fit \
   --train data/splits/train.jsonl --validation data/splits/validation.jsonl \
-  --teacher "$QWEN_MODEL" --student-config models/qwen-student-config \
+  --teacher "$QWEN_MODEL" --student-config examples/qwen-student \
   --output runs/qwen-student --init random --trainable all \
   --steps 40 --eval-every 5 --save-every 5 --learning-rate 0.0005 \
   --topk-weight 1 --max-seq-length 128 --device cpu --seed 42 --resume

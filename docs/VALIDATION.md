@@ -22,3 +22,5 @@ A real pretrained Qwen2.5-0.5B cloud experiment also ran. See [CLOUD_RESULTS.md]
 CI runs core checks on Linux, Windows, and macOS with Python 3.10 and 3.12; runs the offline model workflow on Linux; builds wheel/source distributions; and checks installation from the wheel. Its current status is visible in [GitHub Actions](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml). CUDA and MPS execution, long training budgets, and performance on the owner's hardware remain hardware-specific checks.
 
 In a sandbox with a read-only home directory, set `MPLCONFIGDIR` to a writable directory before plotting. This changes only Matplotlib's cache location.
+
+The [eight-job GitHub run for the implementation](https://github.com/Kayyo321/rephix/actions/runs/42158375656) passed on every configured platform. A fresh isolated wheel installation with NumPy 2.5.4 and no Torch, Transformers, or Matplotlib also ran all 106 discovered tests successfully with 28 optional-dependency skips; `doctor`, affine recovery, and symmetry commands worked from outside the source checkout.
