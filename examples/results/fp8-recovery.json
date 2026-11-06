@@ -1,0 +1,1134 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "model_id": "Qwen/Qwen3-0.6B-FP8",
+      "revision": "e5be08033360965ceca7b0ffd72d521a51331ce0",
+      "fixture": "pretrained",
+      "weight_scale_storage_dtype": "BF16",
+      "reference_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 1062975744,
+        "sha256": "0ea0df1b2e16e0039d33f7381a47a157735963ac201e9dc4780be174a2283510"
+      },
+      "candidate_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 1062975744,
+        "sha256": "59b583ee4e4a65b134ec6d5e2c3a59880dd6779b63d35fe26860d36f612783bf"
+      },
+      "configuration_sha256": "06cfd761f687dc74c366a546949c2896b18854a647dac9ea6e43b849d57dbd47",
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_block_scaled_fp8_tensor_operators",
+        "oracle_device": "cpu",
+        "observation_dtype": "float64",
+        "tensor_calls": 882,
+        "observed_output_scalars": 751632384,
+        "fp8": {
+          "blocks": 26880,
+          "zero_blocks": 0,
+          "saturated_blocks": 26880,
+          "ambiguous_blocks": 6554,
+          "ambiguous_scale_blocks": 2121,
+          "ambiguous_code_scale_blocks": 2121,
+          "ambiguous_zero_codes": 5375,
+          "ambiguous_packed_fields": 34757615
+        }
+      },
+      "recovery_seconds": 41.15,
+      "audit": {
+        "schema_version": 1,
+        "fp8_codes": 440401920,
+        "exact_fp8_codes": 440399258,
+        "fp8_scales": 26880,
+        "exact_fp8_scales": 26880,
+        "exact_fp8_values": 440401920,
+        "exact_fp32_values": 440401920,
+        "dense_values": 311230464,
+        "exact_dense_values": 311230464
+      },
+      "packed_code_differences": {
+        "zero_code_sign_differences": 2662,
+        "other_code_differences": 0
+      },
+      "held_out_behavior": {
+        "schema_version": 1,
+        "mode": "native",
+        "device": "cuda",
+        "device_name": "NVIDIA GeForce RTX 5080",
+        "torch_version": "2.10.0+cu128",
+        "transformers_version": "4.57.6",
+        "max_new_tokens": 8,
+        "metrics": {
+          "prompt_count": 6,
+          "exact_prompt_token_ids": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_logit_coordinates": 911616,
+          "next_token_exact_logit_coordinates": 911616,
+          "next_token_max_abs_logit_error": 0.0,
+          "next_token_logit_rmse": 0.0
+        },
+        "reference": {
+          "rows": [
+            {
+              "prompt": "Once upon a time, a fox found a",
+              "prompt_token_ids": [
+                12522,
+                5193,
+                264,
+                882,
+                11,
+                264,
+                38835,
+                1730,
+                264
+              ],
+              "greedy_continuation": [
+                4916,
+                429,
+                572,
+                2480,
+                315,
+                40676,
+                13,
+                576
+              ],
+              "top_1_id": 4916,
+              "logits_sha256": "f89eb850a8a2fdd4c78615e74fff48537d2ba8d4ddda86837a86e3eafc810994"
+            },
+            {
+              "prompt": "The library closed early because",
+              "prompt_token_ids": [
+                785,
+                6733,
+                7877,
+                4124,
+                1576
+              ],
+              "greedy_continuation": [
+                315,
+                264,
+                13458,
+                13,
+                576,
+                6733,
+                374,
+                304
+              ],
+              "top_1_id": 315,
+              "logits_sha256": "40686570a3c6f61d08c7dd65b8a99165481f84cc2cfda5221051a6edace0460b"
+            },
+            {
+              "prompt": "If each box holds twelve pencils, five boxes hold",
+              "prompt_token_ids": [
+                2679,
+                1817,
+                3745,
+                9982,
+                29235,
+                96338,
+                11,
+                4236,
+                14697,
+                3331
+              ],
+              "greedy_continuation": [
+                5779,
+                96338,
+                11,
+                323,
+                1052,
+                525,
+                220,
+                16
+              ],
+              "top_1_id": 5779,
+              "logits_sha256": "018d6ec87608ca9f0470754215c3d092683a5734968ccc9196625121acf8810b"
+            },
+            {
+              "prompt": "def double(value):\n    return",
+              "prompt_token_ids": [
+                750,
+                1990,
+                3679,
+                982,
+                262,
+                470
+              ],
+              "greedy_continuation": [
+                897,
+                353,
+                220,
+                17,
+                271,
+                750,
+                23725,
+                3679
+              ],
+              "top_1_id": 897,
+              "logits_sha256": "5dc5c6553a157b9b81270d3d02651c353ded768efaeffa6dc415afc65924d526"
+            },
+            {
+              "prompt": "Why do some birds migrate in winter?\nAnswer:",
+              "prompt_token_ids": [
+                10234,
+                653,
+                1045,
+                19654,
+                44566,
+                304,
+                12406,
+                5267,
+                16141,
+                25
+              ],
+              "greedy_continuation": [
+                56528,
+                44566,
+                304,
+                12406,
+                369,
+                3807,
+                7966,
+                13
+              ],
+              "top_1_id": 56528,
+              "logits_sha256": "e592d3d67741ee0018c920390304eb741c28d9784e6cadfe5933399ce20f1581"
+            },
+            {
+              "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+              "prompt_token_ids": [
+                27473,
+                1119,
+                15154,
+                25,
+                576,
+                5426,
+                29682,
+                518,
+                37145,
+                624,
+                61797,
+                25
+              ],
+              "greedy_continuation": [
+                576,
+                5426,
+                29682,
+                518,
+                37145,
+                382,
+                785,
+                5426
+              ],
+              "top_1_id": 576,
+              "logits_sha256": "221675817c862432eb4f3f57f6e78d40462380dec7a888a162aa014c055294bd"
+            }
+          ],
+          "skipped_non_inference_tensors": [],
+          "adapted_rope_parameters": false,
+          "elapsed_seconds": 2.659886205001385
+        },
+        "candidate": {
+          "rows": [
+            {
+              "prompt": "Once upon a time, a fox found a",
+              "prompt_token_ids": [
+                12522,
+                5193,
+                264,
+                882,
+                11,
+                264,
+                38835,
+                1730,
+                264
+              ],
+              "greedy_continuation": [
+                4916,
+                429,
+                572,
+                2480,
+                315,
+                40676,
+                13,
+                576
+              ],
+              "top_1_id": 4916,
+              "logits_sha256": "f89eb850a8a2fdd4c78615e74fff48537d2ba8d4ddda86837a86e3eafc810994"
+            },
+            {
+              "prompt": "The library closed early because",
+              "prompt_token_ids": [
+                785,
+                6733,
+                7877,
+                4124,
+                1576
+              ],
+              "greedy_continuation": [
+                315,
+                264,
+                13458,
+                13,
+                576,
+                6733,
+                374,
+                304
+              ],
+              "top_1_id": 315,
+              "logits_sha256": "40686570a3c6f61d08c7dd65b8a99165481f84cc2cfda5221051a6edace0460b"
+            },
+            {
+              "prompt": "If each box holds twelve pencils, five boxes hold",
+              "prompt_token_ids": [
+                2679,
+                1817,
+                3745,
+                9982,
+                29235,
+                96338,
+                11,
+                4236,
+                14697,
+                3331
+              ],
+              "greedy_continuation": [
+                5779,
+                96338,
+                11,
+                323,
+                1052,
+                525,
+                220,
+                16
+              ],
+              "top_1_id": 5779,
+              "logits_sha256": "018d6ec87608ca9f0470754215c3d092683a5734968ccc9196625121acf8810b"
+            },
+            {
+              "prompt": "def double(value):\n    return",
+              "prompt_token_ids": [
+                750,
+                1990,
+                3679,
+                982,
+                262,
+                470
+              ],
+              "greedy_continuation": [
+                897,
+                353,
+                220,
+                17,
+                271,
+                750,
+                23725,
+                3679
+              ],
+              "top_1_id": 897,
+              "logits_sha256": "5dc5c6553a157b9b81270d3d02651c353ded768efaeffa6dc415afc65924d526"
+            },
+            {
+              "prompt": "Why do some birds migrate in winter?\nAnswer:",
+              "prompt_token_ids": [
+                10234,
+                653,
+                1045,
+                19654,
+                44566,
+                304,
+                12406,
+                5267,
+                16141,
+                25
+              ],
+              "greedy_continuation": [
+                56528,
+                44566,
+                304,
+                12406,
+                369,
+                3807,
+                7966,
+                13
+              ],
+              "top_1_id": 56528,
+              "logits_sha256": "e592d3d67741ee0018c920390304eb741c28d9784e6cadfe5933399ce20f1581"
+            },
+            {
+              "prompt": "Translate into Spanish: The train arrives at noon.\nSpanish:",
+              "prompt_token_ids": [
+                27473,
+                1119,
+                15154,
+                25,
+                576,
+                5426,
+                29682,
+                518,
+                37145,
+                624,
+                61797,
+                25
+              ],
+              "greedy_continuation": [
+                576,
+                5426,
+                29682,
+                518,
+                37145,
+                382,
+                785,
+                5426
+              ],
+              "top_1_id": 576,
+              "logits_sha256": "221675817c862432eb4f3f57f6e78d40462380dec7a888a162aa014c055294bd"
+            }
+          ],
+          "skipped_non_inference_tensors": [],
+          "adapted_rope_parameters": false,
+          "elapsed_seconds": 1.0365268139976251
+        }
+      }
+    },
+    {
+      "model_id": "IlyasMoutawwakil/tiny-random-DeepseekV3-FP8",
+      "revision": "971e7bbb85e97d45b3dceef18c5e55a08807fb87",
+      "fixture": "random_fixture",
+      "weight_scale_storage_dtype": "FP32",
+      "reference_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 17249724,
+        "sha256": "7acef975d813b8a065a8995acb695b90141f3776fc921e1dd64b81a522737890"
+      },
+      "candidate_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 17249724,
+        "sha256": "4b65adf8152312317aa89b44c1d17f872119ee60cc554ef5360055ceef1858da"
+      },
+      "configuration_sha256": "af97c163af57674c85c8805a2181bb7898b954e53d5a47a1b8aa293a81325ef9",
+      "recovery": {
+        "schema_version": 1,
+        "observation_mode": "chosen_inputs_to_block_scaled_fp8_tensor_operators",
+        "oracle_device": "cpu",
+        "observation_dtype": "float64",
+        "tensor_calls": 269,
+        "observed_output_scalars": 15987200,
+        "fp8": {
+          "blocks": 915,
+          "zero_blocks": 0,
+          "saturated_blocks": 915,
+          "ambiguous_blocks": 241,
+          "ambiguous_scale_blocks": 148,
+          "ambiguous_code_scale_blocks": 148,
+          "ambiguous_zero_codes": 117,
+          "ambiguous_packed_fields": 2355447
+        }
+      },
+      "recovery_seconds": 1.347,
+      "audit": {
+        "schema_version": 1,
+        "fp8_codes": 14786560,
+        "exact_fp8_codes": 14786508,
+        "fp8_scales": 915,
+        "exact_fp8_scales": 915,
+        "exact_fp8_values": 14786560,
+        "exact_fp32_values": 14786560,
+        "dense_values": 1200640,
+        "exact_dense_values": 1200640
+      },
+      "packed_code_differences": {
+        "zero_code_sign_differences": 52,
+        "other_code_differences": 0
+      },
+      "held_out_behavior": {
+        "schema_version": 1,
+        "mode": "dense",
+        "device": "cuda",
+        "device_name": "NVIDIA GeForce RTX 5080",
+        "torch_version": "2.10.0+cu128",
+        "transformers_version": "4.57.6",
+        "max_new_tokens": 8,
+        "metrics": {
+          "prompt_count": 6,
+          "exact_prompt_token_ids": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_logit_coordinates": 6144,
+          "next_token_exact_logit_coordinates": 6144,
+          "next_token_max_abs_logit_error": 0.0,
+          "next_token_logit_rmse": 0.0
+        },
+        "reference": {
+          "rows": [
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                2,
+                9,
+                16,
+                24
+              ],
+              "greedy_continuation": [
+                200,
+                755,
+                458,
+                678,
+                579,
+                458,
+                458,
+                458
+              ],
+              "top_1_id": 200,
+              "logits_sha256": "e819371a1b5c69acc33a9ed3a283b3efa7c28429922d5d7ad36b8abaf799e723"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                31,
+                14,
+                286,
+                445
+              ],
+              "greedy_continuation": [
+                265,
+                788,
+                265,
+                919,
+                919,
+                919,
+                992,
+                457
+              ],
+              "top_1_id": 265,
+              "logits_sha256": "bdb2b3cde6aa74cb819af37090f6a05ba17ebb54619731f48a5969da4faf70a8"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                380,
+                511,
+                700,
+                12
+              ],
+              "greedy_continuation": [
+                658,
+                288,
+                122,
+                981,
+                848,
+                893,
+                981,
+                948
+              ],
+              "top_1_id": 658,
+              "logits_sha256": "cdcdda591c7d1273858e219d70eb0deb514b9ea65d86add5d2bf81d48903779a"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                451,
+                566,
+                804,
+                909
+              ],
+              "greedy_continuation": [
+                376,
+                501,
+                578,
+                215,
+                410,
+                793,
+                760,
+                773
+              ],
+              "top_1_id": 376,
+              "logits_sha256": "655ec4535fee8b3a17a75df775446b4c69011bced993b737c5d864dcd1a3be99"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                4,
+                22,
+                7,
+                106
+              ],
+              "greedy_continuation": [
+                1007,
+                1007,
+                1007,
+                328,
+                510,
+                328,
+                510,
+                328
+              ],
+              "top_1_id": 1007,
+              "logits_sha256": "044fb0fd23b297136e2a603b6532755cfec776248294ddaf1787ad4d382e5ce3"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                166,
+                325,
+                701,
+                822
+              ],
+              "greedy_continuation": [
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                978
+              ],
+              "top_1_id": 101,
+              "logits_sha256": "6fe168e0937bfd4c831811f56c27bcb39b5775a5507b98be8d8af0a788779af8"
+            }
+          ],
+          "skipped_non_inference_tensors": [
+            "model.layers.4.eh_proj.weight",
+            "model.layers.4.embed_tokens.weight",
+            "model.layers.4.enorm.weight",
+            "model.layers.4.hnorm.weight",
+            "model.layers.4.input_layernorm.weight",
+            "model.layers.4.mlp.experts.0.down_proj.weight",
+            "model.layers.4.mlp.experts.0.gate_proj.weight",
+            "model.layers.4.mlp.experts.0.up_proj.weight",
+            "model.layers.4.mlp.experts.1.down_proj.weight",
+            "model.layers.4.mlp.experts.1.gate_proj.weight",
+            "model.layers.4.mlp.experts.1.up_proj.weight",
+            "model.layers.4.mlp.experts.10.down_proj.weight",
+            "model.layers.4.mlp.experts.10.gate_proj.weight",
+            "model.layers.4.mlp.experts.10.up_proj.weight",
+            "model.layers.4.mlp.experts.11.down_proj.weight",
+            "model.layers.4.mlp.experts.11.gate_proj.weight",
+            "model.layers.4.mlp.experts.11.up_proj.weight",
+            "model.layers.4.mlp.experts.12.down_proj.weight",
+            "model.layers.4.mlp.experts.12.gate_proj.weight",
+            "model.layers.4.mlp.experts.12.up_proj.weight",
+            "model.layers.4.mlp.experts.13.down_proj.weight",
+            "model.layers.4.mlp.experts.13.gate_proj.weight",
+            "model.layers.4.mlp.experts.13.up_proj.weight",
+            "model.layers.4.mlp.experts.14.down_proj.weight",
+            "model.layers.4.mlp.experts.14.gate_proj.weight",
+            "model.layers.4.mlp.experts.14.up_proj.weight",
+            "model.layers.4.mlp.experts.15.down_proj.weight",
+            "model.layers.4.mlp.experts.15.gate_proj.weight",
+            "model.layers.4.mlp.experts.15.up_proj.weight",
+            "model.layers.4.mlp.experts.2.down_proj.weight",
+            "model.layers.4.mlp.experts.2.gate_proj.weight",
+            "model.layers.4.mlp.experts.2.up_proj.weight",
+            "model.layers.4.mlp.experts.3.down_proj.weight",
+            "model.layers.4.mlp.experts.3.gate_proj.weight",
+            "model.layers.4.mlp.experts.3.up_proj.weight",
+            "model.layers.4.mlp.experts.4.down_proj.weight",
+            "model.layers.4.mlp.experts.4.gate_proj.weight",
+            "model.layers.4.mlp.experts.4.up_proj.weight",
+            "model.layers.4.mlp.experts.5.down_proj.weight",
+            "model.layers.4.mlp.experts.5.gate_proj.weight",
+            "model.layers.4.mlp.experts.5.up_proj.weight",
+            "model.layers.4.mlp.experts.6.down_proj.weight",
+            "model.layers.4.mlp.experts.6.gate_proj.weight",
+            "model.layers.4.mlp.experts.6.up_proj.weight",
+            "model.layers.4.mlp.experts.7.down_proj.weight",
+            "model.layers.4.mlp.experts.7.gate_proj.weight",
+            "model.layers.4.mlp.experts.7.up_proj.weight",
+            "model.layers.4.mlp.experts.8.down_proj.weight",
+            "model.layers.4.mlp.experts.8.gate_proj.weight",
+            "model.layers.4.mlp.experts.8.up_proj.weight",
+            "model.layers.4.mlp.experts.9.down_proj.weight",
+            "model.layers.4.mlp.experts.9.gate_proj.weight",
+            "model.layers.4.mlp.experts.9.up_proj.weight",
+            "model.layers.4.mlp.gate.e_score_correction_bias",
+            "model.layers.4.mlp.gate.weight",
+            "model.layers.4.mlp.shared_experts.down_proj.weight",
+            "model.layers.4.mlp.shared_experts.gate_proj.weight",
+            "model.layers.4.mlp.shared_experts.up_proj.weight",
+            "model.layers.4.post_attention_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_proj_with_mqa.weight",
+            "model.layers.4.self_attn.kv_b_proj.weight",
+            "model.layers.4.self_attn.o_proj.weight",
+            "model.layers.4.self_attn.q_a_layernorm.weight",
+            "model.layers.4.self_attn.q_a_proj.weight",
+            "model.layers.4.self_attn.q_b_proj.weight",
+            "model.layers.4.shared_head.head.weight",
+            "model.layers.4.shared_head.norm.weight"
+          ],
+          "adapted_rope_parameters": true,
+          "elapsed_seconds": 1.512607870001375
+        },
+        "candidate": {
+          "rows": [
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                2,
+                9,
+                16,
+                24
+              ],
+              "greedy_continuation": [
+                200,
+                755,
+                458,
+                678,
+                579,
+                458,
+                458,
+                458
+              ],
+              "top_1_id": 200,
+              "logits_sha256": "e819371a1b5c69acc33a9ed3a283b3efa7c28429922d5d7ad36b8abaf799e723"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                31,
+                14,
+                286,
+                445
+              ],
+              "greedy_continuation": [
+                265,
+                788,
+                265,
+                919,
+                919,
+                919,
+                992,
+                457
+              ],
+              "top_1_id": 265,
+              "logits_sha256": "bdb2b3cde6aa74cb819af37090f6a05ba17ebb54619731f48a5969da4faf70a8"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                380,
+                511,
+                700,
+                12
+              ],
+              "greedy_continuation": [
+                658,
+                288,
+                122,
+                981,
+                848,
+                893,
+                981,
+                948
+              ],
+              "top_1_id": 658,
+              "logits_sha256": "cdcdda591c7d1273858e219d70eb0deb514b9ea65d86add5d2bf81d48903779a"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                451,
+                566,
+                804,
+                909
+              ],
+              "greedy_continuation": [
+                376,
+                501,
+                578,
+                215,
+                410,
+                793,
+                760,
+                773
+              ],
+              "top_1_id": 376,
+              "logits_sha256": "655ec4535fee8b3a17a75df775446b4c69011bced993b737c5d864dcd1a3be99"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                4,
+                22,
+                7,
+                106
+              ],
+              "greedy_continuation": [
+                1007,
+                1007,
+                1007,
+                328,
+                510,
+                328,
+                510,
+                328
+              ],
+              "top_1_id": 1007,
+              "logits_sha256": "044fb0fd23b297136e2a603b6532755cfec776248294ddaf1787ad4d382e5ce3"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                166,
+                325,
+                701,
+                822
+              ],
+              "greedy_continuation": [
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                978
+              ],
+              "top_1_id": 101,
+              "logits_sha256": "6fe168e0937bfd4c831811f56c27bcb39b5775a5507b98be8d8af0a788779af8"
+            }
+          ],
+          "skipped_non_inference_tensors": [
+            "model.layers.4.eh_proj.weight",
+            "model.layers.4.embed_tokens.weight",
+            "model.layers.4.enorm.weight",
+            "model.layers.4.hnorm.weight",
+            "model.layers.4.input_layernorm.weight",
+            "model.layers.4.mlp.experts.0.down_proj.weight",
+            "model.layers.4.mlp.experts.0.gate_proj.weight",
+            "model.layers.4.mlp.experts.0.up_proj.weight",
+            "model.layers.4.mlp.experts.1.down_proj.weight",
+            "model.layers.4.mlp.experts.1.gate_proj.weight",
+            "model.layers.4.mlp.experts.1.up_proj.weight",
+            "model.layers.4.mlp.experts.10.down_proj.weight",
+            "model.layers.4.mlp.experts.10.gate_proj.weight",
+            "model.layers.4.mlp.experts.10.up_proj.weight",
+            "model.layers.4.mlp.experts.11.down_proj.weight",
+            "model.layers.4.mlp.experts.11.gate_proj.weight",
+            "model.layers.4.mlp.experts.11.up_proj.weight",
+            "model.layers.4.mlp.experts.12.down_proj.weight",
+            "model.layers.4.mlp.experts.12.gate_proj.weight",
+            "model.layers.4.mlp.experts.12.up_proj.weight",
+            "model.layers.4.mlp.experts.13.down_proj.weight",
+            "model.layers.4.mlp.experts.13.gate_proj.weight",
+            "model.layers.4.mlp.experts.13.up_proj.weight",
+            "model.layers.4.mlp.experts.14.down_proj.weight",
+            "model.layers.4.mlp.experts.14.gate_proj.weight",
+            "model.layers.4.mlp.experts.14.up_proj.weight",
+            "model.layers.4.mlp.experts.15.down_proj.weight",
+            "model.layers.4.mlp.experts.15.gate_proj.weight",
+            "model.layers.4.mlp.experts.15.up_proj.weight",
+            "model.layers.4.mlp.experts.2.down_proj.weight",
+            "model.layers.4.mlp.experts.2.gate_proj.weight",
+            "model.layers.4.mlp.experts.2.up_proj.weight",
+            "model.layers.4.mlp.experts.3.down_proj.weight",
+            "model.layers.4.mlp.experts.3.gate_proj.weight",
+            "model.layers.4.mlp.experts.3.up_proj.weight",
+            "model.layers.4.mlp.experts.4.down_proj.weight",
+            "model.layers.4.mlp.experts.4.gate_proj.weight",
+            "model.layers.4.mlp.experts.4.up_proj.weight",
+            "model.layers.4.mlp.experts.5.down_proj.weight",
+            "model.layers.4.mlp.experts.5.gate_proj.weight",
+            "model.layers.4.mlp.experts.5.up_proj.weight",
+            "model.layers.4.mlp.experts.6.down_proj.weight",
+            "model.layers.4.mlp.experts.6.gate_proj.weight",
+            "model.layers.4.mlp.experts.6.up_proj.weight",
+            "model.layers.4.mlp.experts.7.down_proj.weight",
+            "model.layers.4.mlp.experts.7.gate_proj.weight",
+            "model.layers.4.mlp.experts.7.up_proj.weight",
+            "model.layers.4.mlp.experts.8.down_proj.weight",
+            "model.layers.4.mlp.experts.8.gate_proj.weight",
+            "model.layers.4.mlp.experts.8.up_proj.weight",
+            "model.layers.4.mlp.experts.9.down_proj.weight",
+            "model.layers.4.mlp.experts.9.gate_proj.weight",
+            "model.layers.4.mlp.experts.9.up_proj.weight",
+            "model.layers.4.mlp.gate.e_score_correction_bias",
+            "model.layers.4.mlp.gate.weight",
+            "model.layers.4.mlp.shared_experts.down_proj.weight",
+            "model.layers.4.mlp.shared_experts.gate_proj.weight",
+            "model.layers.4.mlp.shared_experts.up_proj.weight",
+            "model.layers.4.post_attention_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_proj_with_mqa.weight",
+            "model.layers.4.self_attn.kv_b_proj.weight",
+            "model.layers.4.self_attn.o_proj.weight",
+            "model.layers.4.self_attn.q_a_layernorm.weight",
+            "model.layers.4.self_attn.q_a_proj.weight",
+            "model.layers.4.self_attn.q_b_proj.weight",
+            "model.layers.4.shared_head.head.weight",
+            "model.layers.4.shared_head.norm.weight"
+          ],
+          "adapted_rope_parameters": true,
+          "elapsed_seconds": 0.1958153109990235
+        },
+        "published_dense_reference": {
+          "rows": [
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                2,
+                9,
+                16,
+                24
+              ],
+              "greedy_continuation": [
+                200,
+                755,
+                458,
+                678,
+                579,
+                458,
+                458,
+                458
+              ],
+              "top_1_id": 200,
+              "logits_sha256": "e819371a1b5c69acc33a9ed3a283b3efa7c28429922d5d7ad36b8abaf799e723"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                31,
+                14,
+                286,
+                445
+              ],
+              "greedy_continuation": [
+                265,
+                788,
+                265,
+                919,
+                919,
+                919,
+                992,
+                457
+              ],
+              "top_1_id": 265,
+              "logits_sha256": "bdb2b3cde6aa74cb819af37090f6a05ba17ebb54619731f48a5969da4faf70a8"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                380,
+                511,
+                700,
+                12
+              ],
+              "greedy_continuation": [
+                658,
+                288,
+                122,
+                981,
+                848,
+                893,
+                981,
+                948
+              ],
+              "top_1_id": 658,
+              "logits_sha256": "cdcdda591c7d1273858e219d70eb0deb514b9ea65d86add5d2bf81d48903779a"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                451,
+                566,
+                804,
+                909
+              ],
+              "greedy_continuation": [
+                376,
+                501,
+                578,
+                215,
+                410,
+                793,
+                760,
+                773
+              ],
+              "top_1_id": 376,
+              "logits_sha256": "655ec4535fee8b3a17a75df775446b4c69011bced993b737c5d864dcd1a3be99"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                4,
+                22,
+                7,
+                106
+              ],
+              "greedy_continuation": [
+                1007,
+                1007,
+                1007,
+                328,
+                510,
+                328,
+                510,
+                328
+              ],
+              "top_1_id": 1007,
+              "logits_sha256": "044fb0fd23b297136e2a603b6532755cfec776248294ddaf1787ad4d382e5ce3"
+            },
+            {
+              "prompt": null,
+              "prompt_token_ids": [
+                166,
+                325,
+                701,
+                822
+              ],
+              "greedy_continuation": [
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                978
+              ],
+              "top_1_id": 101,
+              "logits_sha256": "6fe168e0937bfd4c831811f56c27bcb39b5775a5507b98be8d8af0a788779af8"
+            }
+          ],
+          "skipped_non_inference_tensors": [
+            "model.layers.4.eh_proj.weight",
+            "model.layers.4.embed_tokens.weight",
+            "model.layers.4.enorm.weight",
+            "model.layers.4.hnorm.weight",
+            "model.layers.4.input_layernorm.weight",
+            "model.layers.4.mlp.experts.0.down_proj.weight",
+            "model.layers.4.mlp.experts.0.gate_proj.weight",
+            "model.layers.4.mlp.experts.0.up_proj.weight",
+            "model.layers.4.mlp.experts.1.down_proj.weight",
+            "model.layers.4.mlp.experts.1.gate_proj.weight",
+            "model.layers.4.mlp.experts.1.up_proj.weight",
+            "model.layers.4.mlp.experts.10.down_proj.weight",
+            "model.layers.4.mlp.experts.10.gate_proj.weight",
+            "model.layers.4.mlp.experts.10.up_proj.weight",
+            "model.layers.4.mlp.experts.11.down_proj.weight",
+            "model.layers.4.mlp.experts.11.gate_proj.weight",
+            "model.layers.4.mlp.experts.11.up_proj.weight",
+            "model.layers.4.mlp.experts.12.down_proj.weight",
+            "model.layers.4.mlp.experts.12.gate_proj.weight",
+            "model.layers.4.mlp.experts.12.up_proj.weight",
+            "model.layers.4.mlp.experts.13.down_proj.weight",
+            "model.layers.4.mlp.experts.13.gate_proj.weight",
+            "model.layers.4.mlp.experts.13.up_proj.weight",
+            "model.layers.4.mlp.experts.14.down_proj.weight",
+            "model.layers.4.mlp.experts.14.gate_proj.weight",
+            "model.layers.4.mlp.experts.14.up_proj.weight",
+            "model.layers.4.mlp.experts.15.down_proj.weight",
+            "model.layers.4.mlp.experts.15.gate_proj.weight",
+            "model.layers.4.mlp.experts.15.up_proj.weight",
+            "model.layers.4.mlp.experts.2.down_proj.weight",
+            "model.layers.4.mlp.experts.2.gate_proj.weight",
+            "model.layers.4.mlp.experts.2.up_proj.weight",
+            "model.layers.4.mlp.experts.3.down_proj.weight",
+            "model.layers.4.mlp.experts.3.gate_proj.weight",
+            "model.layers.4.mlp.experts.3.up_proj.weight",
+            "model.layers.4.mlp.experts.4.down_proj.weight",
+            "model.layers.4.mlp.experts.4.gate_proj.weight",
+            "model.layers.4.mlp.experts.4.up_proj.weight",
+            "model.layers.4.mlp.experts.5.down_proj.weight",
+            "model.layers.4.mlp.experts.5.gate_proj.weight",
+            "model.layers.4.mlp.experts.5.up_proj.weight",
+            "model.layers.4.mlp.experts.6.down_proj.weight",
+            "model.layers.4.mlp.experts.6.gate_proj.weight",
+            "model.layers.4.mlp.experts.6.up_proj.weight",
+            "model.layers.4.mlp.experts.7.down_proj.weight",
+            "model.layers.4.mlp.experts.7.gate_proj.weight",
+            "model.layers.4.mlp.experts.7.up_proj.weight",
+            "model.layers.4.mlp.experts.8.down_proj.weight",
+            "model.layers.4.mlp.experts.8.gate_proj.weight",
+            "model.layers.4.mlp.experts.8.up_proj.weight",
+            "model.layers.4.mlp.experts.9.down_proj.weight",
+            "model.layers.4.mlp.experts.9.gate_proj.weight",
+            "model.layers.4.mlp.experts.9.up_proj.weight",
+            "model.layers.4.mlp.gate.e_score_correction_bias",
+            "model.layers.4.mlp.gate.weight",
+            "model.layers.4.mlp.shared_experts.down_proj.weight",
+            "model.layers.4.mlp.shared_experts.gate_proj.weight",
+            "model.layers.4.mlp.shared_experts.up_proj.weight",
+            "model.layers.4.post_attention_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_layernorm.weight",
+            "model.layers.4.self_attn.kv_a_proj_with_mqa.weight",
+            "model.layers.4.self_attn.kv_b_proj.weight",
+            "model.layers.4.self_attn.o_proj.weight",
+            "model.layers.4.self_attn.q_a_layernorm.weight",
+            "model.layers.4.self_attn.q_a_proj.weight",
+            "model.layers.4.self_attn.q_b_proj.weight",
+            "model.layers.4.shared_head.head.weight",
+            "model.layers.4.shared_head.norm.weight"
+          ],
+          "adapted_rope_parameters": true,
+          "elapsed_seconds": 0.18992370100022526
+        },
+        "reference_against_published_dense": {
+          "prompt_count": 6,
+          "exact_prompt_token_ids": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_logit_coordinates": 6144,
+          "next_token_exact_logit_coordinates": 6144,
+          "next_token_max_abs_logit_error": 0.0,
+          "next_token_logit_rmse": 0.0
+        },
+        "candidate_against_published_dense": {
+          "prompt_count": 6,
+          "exact_prompt_token_ids": 6,
+          "exact_cached_greedy_matches": 6,
+          "next_token_top1_matches": 6,
+          "next_token_logit_coordinates": 6144,
+          "next_token_exact_logit_coordinates": 6144,
+          "next_token_max_abs_logit_error": 0.0,
+          "next_token_logit_rmse": 0.0
+        }
+      },
+      "published_dense_reference_file": {
+        "filename": "model.safetensors",
+        "size_bytes": 32005616,
+        "sha256": "8fbdbb57abeb1118ea25980db265b369ff8e0d31d7984ccbb0d3864e134b7bfe"
+      },
+      "fp32_observation_control": {
+        "recovery": {
+          "schema_version": 1,
+          "observation_mode": "chosen_inputs_to_block_scaled_fp8_tensor_operators",
+          "oracle_device": "cpu",
+          "observation_dtype": "float32",
+          "tensor_calls": 269,
+          "observed_output_scalars": 15987200,
+          "fp8": {
+            "blocks": 915,
+            "zero_blocks": 0,
+            "saturated_blocks": 915,
+            "ambiguous_blocks": 241,
+            "ambiguous_scale_blocks": 148,
+            "ambiguous_code_scale_blocks": 148,
+            "ambiguous_zero_codes": 117,
+            "ambiguous_packed_fields": 2355447
+          }
+        },
+        "audit": {
+          "schema_version": 1,
+          "fp8_codes": 14786560,
+          "exact_fp8_codes": 14786508,
+          "fp8_scales": 915,
+          "exact_fp8_scales": 915,
+          "exact_fp8_values": 14786560,
+          "exact_fp32_values": 14786560,
+          "dense_values": 1200640,
+          "exact_dense_values": 1200640
+        },
+        "candidate_file": {
+          "filename": "model.safetensors",
+          "size_bytes": 17249724,
+          "sha256": "4b65adf8152312317aa89b44c1d17f872119ee60cc554ef5360055ceef1858da"
+        }
+      }
+    }
+  ]
+}

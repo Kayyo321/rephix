@@ -88,6 +88,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `audit-gguf` | Compare original packed fields and dequantized GGUF values | Separate raw encoding and effective weight agreement |
 | `recover-mxfp4-safetensors` | Rebuild packed GPT-OSS safetensors in Hugging Face or OpenAI's original layout | Exact float32 responses and known tensor layout |
 | `audit-mxfp4-safetensors` | Compare packed GPT-OSS scales, codes, and numeric weights | Separate stored-field and effective weight agreement |
+| `recover-fp8-safetensors` | Rebuild block-scaled E4M3FN safetensors with FP32 or BF16 scales | [Exact dequantized tensor responses](docs/FP8_RECOVERY.md) |
+| `audit-fp8-safetensors` | Compare FP8 codes, scales, and decoded weights | Separate packed-field, exact numeric, and FP32 agreement |
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |

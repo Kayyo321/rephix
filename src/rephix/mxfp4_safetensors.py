@@ -2,11 +2,7 @@
 
 from __future__ import annotations
 
-import json
-import shutil
-import struct
 import sys
-import tempfile
 from collections import defaultdict
 from dataclasses import dataclass
 from math import prod
@@ -16,35 +12,21 @@ import numpy as np
 
 from .io import write_json
 from .mxfp4 import infer_mxfp4_fields
-from .weight_audit import _inventory, _unique_json_object
+from .safetensors_payload import (
+    _TILE_FLOATS,
+    _decode_dense,
+    _encode_dense,
+    _local_oracle,
+    _observed_tile,
+    _Payload,
+    _payload_layout,
+    _read_json,
+    _staged_checkpoint,
+)
+from .weight_audit import _inventory
 
 _BLOCK = 32
-_TILE_FLOATS = 1 << 22
-_DTYPES = {"BF16": "<u2", "F16": "<f2", "F32": "<f4", "U8": "u1"}
 _FP4 = np.array([0, 1, 2, 3, 4, 6, 8, 12, -0.0, -1, -2, -3, -4, -6, -8, -12], np.float32)
-_ASSETS = (
-    "config.json",
-    "generation_config.json",
-    "model.safetensors.index.json",
-    "tokenizer.json",
-    "tokenizer_config.json",
-    "special_tokens_map.json",
-    "added_tokens.json",
-    "chat_template.jinja",
-)
-
-
-@dataclass(frozen=True)
-class _Payload:
-    shard: Path
-    offset: int
-    shape: tuple[int, ...]
-    dtype: str
-
-    def map(self, shape):
-        return np.memmap(
-            self.shard, mode="r", dtype=_DTYPES[self.dtype], offset=self.offset, shape=shape
-        )
 
 
 @dataclass(frozen=True)
@@ -87,10 +69,6 @@ def decode_mxfp4_safetensors(blocks, scales):
     if not np.isfinite(values).all():
         raise ValueError("native MXFP4 values exceed the finite float32 range")
     return values
-
-
-def _read_json(path):
-    return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_json_object)
 
 
 def _checkpoint_inventory(source, layout):
@@ -143,23 +121,7 @@ def _layout(source):
     if hidden % _BLOCK or inner % _BLOCK:
         raise ValueError("GPT-OSS MXFP4 projection widths must be multiples of 32")
 
-    # Validate every shard with safetensors before reading the payload offsets.
-    entries = _checkpoint_inventory(source, layout)
-    by_shard = defaultdict(list)
-    for name, entry in entries.items():
-        by_shard[entry.shard].append(name)
-    prefixes, payloads = {}, {}
-    for path, names in by_shard.items():
-        with path.open("rb") as shard:
-            size = shard.read(8)
-            header = shard.read(struct.unpack("<Q", size)[0])
-        fields = json.loads(header, object_pairs_hook=_unique_json_object)
-        prefix = size + header
-        prefixes[path] = (prefix, path.stat().st_size)
-        for name in names:
-            entry = entries[name]
-            offset = len(prefix) + fields[name]["data_offsets"][0]
-            payloads[name] = _Payload(path, offset, entry.shape, entry.dtype)
+    prefixes, payloads = _payload_layout(_checkpoint_inventory(source, layout))
 
     operators = {}
     for layer in range(layers):
@@ -187,67 +149,6 @@ def _layout(source):
         width = data.shape[-1] if data.shape else 1
         operators[name] = _Operator(name, prod(data.shape) // width, width, data)
     return layout, prefixes, operators
-
-
-def _decode_dense(raw, dtype):
-    if dtype == "BF16":
-        values = (raw.astype(np.uint32) << 16).view(np.float32)
-    else:
-        values = raw.astype(np.float32, copy=False)
-    if not np.isfinite(values).all():
-        raise ValueError("non-finite dense weights in native MXFP4 checkpoint")
-    return values
-
-
-def _encode_dense(values, dtype):
-    if dtype == "BF16":
-        result = (values.view(np.uint32) >> 16).astype("<u2")
-    else:
-        with np.errstate(over="ignore"):
-            result = values.astype(_DTYPES[dtype], copy=False)
-    if not np.array_equal(_decode_dense(result, dtype), values):
-        raise ValueError(f"float32 observations cannot be represented as {dtype}")
-    return result
-
-
-def _local_oracle(operators, device, torch):
-    active = matrix = None
-
-    def observe(name, start, stop, inputs):
-        nonlocal active, matrix
-        key = (name, start, stop)
-        if key != active:
-            values = operators[name].source_rows(start, stop)
-            matrix = values if torch is None else torch.tensor(values, device=device)
-            active = key
-        if torch is None:
-            # The CPU adapter specializes the affine operation to its unit-vector inputs.
-            return matrix[:, np.argmax(inputs, axis=1)].T
-        return (
-            torch.nn.functional.linear(torch.as_tensor(inputs, device=device), matrix).cpu().numpy()
-        )
-
-    return observe
-
-
-def _observed_tile(call_tensor, operator, start, stop, batch_size):
-    width, rows = operator.width, stop - start
-    step = min(batch_size, max(1, _TILE_FLOATS // width))
-    values = np.empty((rows, width), dtype=np.float32)
-    calls = 0
-    for column in range(0, width, step):
-        count = min(step, width - column)
-        indices = np.arange(count)
-        inputs = np.zeros((count, width), dtype=np.float32)
-        inputs[indices, column + indices] = 1
-        response = np.asarray(call_tensor(operator.name, start, stop, inputs))
-        if response.shape != (count, rows) or response.dtype != np.float32:
-            raise ValueError(f"{operator.name}: native MXFP4 oracle shape or dtype mismatch")
-        if not np.isfinite(response).all():
-            raise ValueError(f"{operator.name}: non-finite native MXFP4 oracle output")
-        values[:, column : column + count] = response.T
-        calls += 1
-    return values, calls
 
 
 def _tiles(operator):
@@ -316,29 +217,9 @@ def recover_mxfp4_safetensors(source, output, *, batch_size=256, device="cpu", c
     calls = 0
     stats = defaultdict(int)
     try:
-        output.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix=".rephix-hf-mxfp4-", dir=output.parent) as temp:
-            staged = Path(temp) / "model"
-            staged.mkdir()
-            for path, (header, size) in prefixes.items():
-                dest = staged / path.relative_to(source)
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                with dest.open("wb") as shard:
-                    shard.write(header)
-                    shard.truncate(size)
+        with _staged_checkpoint(source, output, prefixes) as staged:
             for operator in operators.values():
                 calls += _write_operator(source, staged, operator, oracle, batch_size, stats)
-            for name in _ASSETS:
-                asset = source / name
-                if asset.is_file():
-                    shutil.copyfile(asset, staged / name)
-            for template in (source / "chat_templates").glob("*.jinja"):
-                dest = staged / "chat_templates" / template.name
-                dest.parent.mkdir(exist_ok=True)
-                shutil.copyfile(template, dest)
-            if output.exists() or output.is_symlink():
-                raise ValueError("native MXFP4 output already exists")
-            staged.rename(output)
     finally:
         if torch is not None:
             torch.set_float32_matmul_precision(previous_precision)
