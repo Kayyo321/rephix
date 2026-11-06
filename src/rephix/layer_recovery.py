@@ -23,6 +23,7 @@ _T5_RMS_NORMS = {
     "transformers.models.umt5.modeling_umt5.UMT5LayerNorm",
 }
 _BART = "transformers.models.bart.modeling_bart."
+_WHISPER_POSITIONS = "transformers.models.whisper.modeling_whisper.WhisperPositionalEmbedding"
 _RELATIVE_BIAS_EMBEDDING = ".relative_attention_bias"
 _VISION_EMBEDDINGS = {
     "transformers.models.vit.modeling_vit.ViTEmbeddings": ("cls_token",),
@@ -40,6 +41,11 @@ def _operator(torch, module, *, direct):
     qualified_name = _qualified_name(module)
     if cls is torch.nn.Linear:
         return "linear"
+    if direct and cls is torch.nn.Conv1d:
+        from .convolution import validate_conv1d
+
+        validate_conv1d(module)
+        return "spatial_conv1d"
     if cls is torch.nn.Conv2d:
         from .convolution import validate_conv2d
 
@@ -48,6 +54,8 @@ def _operator(torch, module, *, direct):
     if qualified_name == "transformers.pytorch_utils.Conv1D":
         return "conv1d"
     if cls is torch.nn.Embedding and module.max_norm is None:
+        return "embedding"
+    if direct and qualified_name == _WHISPER_POSITIONS and module.max_norm is None:
         return "embedding"
     if direct and qualified_name == _BART + "BartScaledWordEmbedding":
         return "scaled_embedding"
@@ -217,6 +225,7 @@ def recover_from_layer_calls(
     BART position probes take signed logical positions, with the reserved rows
     addressed by negative positions. Its final_logits_bias path takes one token
     ID and returns the root logits at zero input to the language-model head.
+    Whisper position probes take absolute row IDs, as for token embeddings.
     In attention mode, T5-family bias probes take a vector of cache positions
     at the attention parent path and return its relative bias tensor. The bucket
     device selects the backend used by the oracle for position bucketing.
@@ -261,6 +270,10 @@ def recover_from_layer_calls(
 
             if kind in {"linear", "conv1d"}:
                 _affine(torch, module, pending, kind, read, batch_size)
+            elif kind == "spatial_conv1d":
+                from .convolution import recover_conv1d
+
+                recover_conv1d(torch, module, pending, read, batch_size)
             elif kind == "conv2d":
                 from .convolution import recover_conv2d
 
@@ -350,15 +363,19 @@ def export_recovered_model(
     if model_dtype is None:
         raise ValueError("layer recovery dtype must be auto, float32, or float64")
     is_vision = config.model_type in {"vit", "deit"}
+    is_speech = config.model_type == "whisper"
+    preprocessor = source / "preprocessor_config.json"
+    if include_tokenizer and (is_vision or is_speech) and not preprocessor.is_file():
+        raise ValueError("source has no preprocessor_config.json; use --without-preprocessor")
     auto_model = AutoModelForCausalLM
     if is_vision:
         from transformers import AutoModelForImageClassification
 
-        if include_tokenizer and not (source / "preprocessor_config.json").is_file():
-            raise ValueError(
-                "vision source has no preprocessor_config.json; use --without-preprocessor"
-            )
         auto_model = AutoModelForImageClassification
+    elif is_speech:
+        from transformers import AutoModelForSpeechSeq2Seq
+
+        auto_model = AutoModelForSpeechSeq2Seq
     elif config.is_encoder_decoder:
         from transformers import AutoModelForSeq2SeqLM
 
@@ -390,8 +407,11 @@ def export_recovered_model(
         if path == "final_logits_bias" and config.model_type == "bart":
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
-        if _qualified_name(module) == _BART + "BartLearnedPositionalEmbedding":
+        name = _qualified_name(module)
+        if name == _BART + "BartLearnedPositionalEmbedding":
             return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))[0]
+        if name == _WHISPER_POSITIONS:
+            return module(inputs[None].to(device), past_key_values_length=int(inputs[0]))
         if relative_bias_mode == "attention" and hasattr(module, "relative_attention_bias"):
             from .relative_bias import relative_bias_spec
 
@@ -421,17 +441,20 @@ def export_recovered_model(
         ignored_source_keys=loading["unexpected_keys"],
     )
     report["image_processor_exported" if is_vision else "tokenizer_exported"] = include_tokenizer
+    if is_speech:
+        report["audio_feature_extractor_exported"] = include_tokenizer
     target = None
 
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
         staged = Path(temporary) / "checkpoint"
         candidate.save_pretrained(staged, safe_serialization=True)
-        if include_tokenizer and is_vision:
-            shutil.copyfile(
-                source / "preprocessor_config.json", staged / "preprocessor_config.json"
-            )
-        elif include_tokenizer:
+        if include_tokenizer and (is_vision or is_speech):
+            shutil.copyfile(preprocessor, staged / preprocessor.name)
+            processor = source / "processor_config.json"
+            if is_speech and processor.is_file():
+                shutil.copyfile(processor, staged / processor.name)
+        if include_tokenizer and not is_vision:
             tokenizer_options = {}
             if (
                 config.model_type in {"t5", "mt5", "umt5"}

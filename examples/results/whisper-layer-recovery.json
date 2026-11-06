@@ -1,0 +1,5617 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "openai/whisper-tiny.en",
+      "revision": "87c7102498dcde7456f24cfd30239ca606ed9063",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "inference_dtype": "torch.float64",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 91,
+        "unique_parameter_elements_recovered": 37760256,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 37760256,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "layer_calls": 288,
+        "probe_input_rows": 89094,
+        "observed_output_scalars": 38388096,
+        "probe_batch_size": 512,
+        "model_type": "whisper",
+        "architecture": "WhisperForConditionalGeneration",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "audio_feature_extractor_exported": true
+      },
+      "reference_sha256": {
+        "added_tokens.json": "560be47bea388757f8d4cc185c5d82067426cbb6361e38016dd90ddc01ab203a",
+        "config.json": "b5366317df280f79e6cc366f259f379674f81a8721d458acf2e00680ccb10b1d",
+        "generation_config.json": "38744c19d5cede6ff4dab5079c6d6ddc02ca726960bbef208fb602ad5a030eab",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "db59695928ded6043adaef491a53ef4e12da9611184d77c53baa691a60b958ad",
+        "normalizer.json": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+        "preprocessor_config.json": "9b5cd03a36fbb8a627c64d98a5b5b126ead95a77720723944487311f0110b666",
+        "special_tokens_map.json": "014f8f802366ed818919550be0ad9e35907327cb9e142e8aaa102420f460bda8",
+        "tokenizer.json": "5eb60cec1e77aeeb6869a2bb5a8e01a84c3fe5d072d75369343021fe6f5310d0",
+        "tokenizer_config.json": "14f84bdf4b9ecdbd4738ddc81c17a1baedfc02bb93c6e049c951e15a1b40b70d",
+        "vocab.json": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7"
+      },
+      "candidate_sha256": {
+        "added_tokens.json": "560be47bea388757f8d4cc185c5d82067426cbb6361e38016dd90ddc01ab203a",
+        "config.json": "e1f388a4fab76663aed92822ad4665e68a6fee7180908837a6d92fe3b92de51b",
+        "generation_config.json": "6a93098954b90eaf273a21e63cf3e45f814ef72275faa74589b645e44c40ac9a",
+        "layer-recovery.json": "fe11f7d31d53ca455b5b523e4bfffafb57393dcee14be8645182133761832fab",
+        "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+        "model.safetensors": "0118ed08f35e93946b554f35f6d85c5aef11adcb55bb9e4619a7cd31afe4e81f",
+        "normalizer.json": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+        "preprocessor_config.json": "9b5cd03a36fbb8a627c64d98a5b5b126ead95a77720723944487311f0110b666",
+        "special_tokens_map.json": "98bdf3ec5b32e31575b02f64b0a32bde7c0449075d34484a7df9bdd3cdeb9fb9",
+        "tokenizer.json": "287537d5be89a39bd18e7e3875ad9900faa668493fb759392b8f52a492eca5db",
+        "tokenizer_config.json": "7498445adabf4fd836db90b0f0d979ca9dc0b543528e5d9f1912430a5879e212",
+        "vocab.json": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7"
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 167,
+        "candidate_tensors": 167,
+        "compared_tensors": 167,
+        "reference_elements": 37760256,
+        "candidate_elements": 37760256,
+        "compared_elements": 37760256,
+        "coverage": 1.0,
+        "exactly_equal_elements": 37754393,
+        "fraction_exactly_equal": 0.999844730925553,
+        "within_tolerance_elements": 37760256,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 6.606676821351571e-17,
+        "zero_filled_relative_l2": 6.606676821351571e-17,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.decoder.embed_positions.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.embed_tokens.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.embed_positions.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "dataset": {
+        "id": "hf-internal-testing/librispeech_asr_dummy",
+        "config": "clean",
+        "split": "validation",
+        "revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+        "parquet_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+        "sample_rate_hz": 16000,
+        "clips": [
+          {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f",
+            "input_features_sha256": "6696bd85bfec115f87b0d6807c70c449362d8dd4e0a55dbff9c7a9f86bed32a4",
+            "attention_mask_sha256": "0267f6b5634b41994af3f4772d772a56c36ce55af77241d432e340b58873d7a4",
+            "teacher_forced_ids": [
+              383,
+              44471,
+              50256
+            ]
+          },
+          {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3",
+            "input_features_sha256": "1d5d044e15b7c013dbf42c5739e1c78ae1632ed7fcfebc676dcf9c58b33af569",
+            "attention_mask_sha256": "9e4a21ae3916a1a34a7e9754cce851891aad511f81977ba9c962e4c4fabe7e81",
+            "teacher_forced_ids": [
+              314,
+              635,
+              4438,
+              284,
+              1037,
+              534,
+              3956,
+              284,
+              6654,
+              475,
+              339,
+              561,
+              407,
+              467,
+              50256
+            ]
+          },
+          {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb",
+            "input_features_sha256": "5ad427674f9d9c40d687850bbd0704b202234599b511de18e9826b513d869976",
+            "attention_mask_sha256": "9300d4dc8fdd34b6adc95ed7a6f94795986b3fefd209196af0aa2845131ba496",
+            "teacher_forced_ids": [
+              317,
+              5664,
+              318,
+              407,
+              257,
+              845,
+              1588,
+              3953,
+              286,
+              640,
+              290,
+              465,
+              1767,
+              2622,
+              790,
+              13390,
+              286,
+              340,
+              50256
+            ]
+          },
+          {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae",
+            "input_features_sha256": "306c1dd4b47406433f769a2d69cd4277e6443de2675d29035410ffb3f70c82f1",
+            "attention_mask_sha256": "a6247e1bc4e1eb574e8a1ab67fe1c3358692c4fb690a689e232562590951af2e",
+            "teacher_forced_ids": [
+              43438,
+              627,
+              346,
+              353,
+              468,
+              6825,
+              465,
+              2863,
+              329,
+              339,
+              468,
+              4054,
+              772,
+              284,
+              787,
+              2241,
+              262,
+              12777,
+              2848,
+              286,
+              12036,
+              50256
+            ]
+          },
+          {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404",
+            "input_features_sha256": "6f5bc4628a79498ca8d94ded2e5a48e264697396cca0649b72068620d4e2df12",
+            "attention_mask_sha256": "eba1a4d1f681ef08cfc001e0502763065af12d0402720bc2855473fa894c2f7c",
+            "teacher_forced_ids": [
+              406,
+              3732,
+              695,
+              338,
+              5986,
+              389,
+              257,
+              3297,
+              286,
+              510,
+              10942,
+              290,
+              379,
+              795,
+              21641,
+              290,
+              285,
+              888,
+              338,
+              40123,
+              4686,
+              25727,
+              82,
+              389,
+              355,
+              2260,
+              355,
+              257,
+              474,
+              32735,
+              21247,
+              285,
+              1694,
+              35122,
+              7126,
+              17016,
+              338,
+              32964,
+              8212,
+              379,
+              530,
+              881,
+              287,
+              262,
+              976,
+              835,
+              326,
+              285,
+              1694,
+              269,
+              668,
+              263,
+              973,
+              284,
+              7644,
+              465,
+              9941,
+              290,
+              285,
+              1694,
+              45610,
+              2927,
+              959,
+              3607,
+              465,
+              1650,
+              353,
+              257,
+              37999,
+              23905,
+              319,
+              262,
+              736,
+              878,
+              339,
+              1139,
+              588,
+              257,
+              47259,
+              263,
+              287,
+              257,
+              7858,
+              31501,
+              7837,
+              1306,
+              582,
+              50256
+            ]
+          }
+        ]
+      },
+      "preprocessing": {
+        "exact_input_features_and_masks": true,
+        "exact_teacher_forced_ids": true,
+        "preprocessor_config_byte_identical": true,
+        "input_shape_per_clip": [
+          1,
+          80,
+          3000
+        ]
+      },
+      "teacher_forced": {
+        "prompt_ids": [
+          50257,
+          50362
+        ],
+        "target_tokens": 147,
+        "logit_elements": 7624008,
+        "argmax_matches": 147,
+        "logit_max_abs_error": 8.348877145181177e-14,
+        "logit_rmse": 1.3775839332075882e-14
+      },
+      "free_running": {
+        "examples": 5,
+        "cached": true,
+        "max_new_tokens": 128,
+        "exact_token_matches": 5,
+        "exact_text_matches": 5,
+        "clips": [
+          {
+            "id": "1272-141231-0013",
+            "reference": {
+              "token_ids": [
+                383,
+                1160,
+                82,
+                13
+              ],
+              "text": " The 20s."
+            },
+            "candidate": {
+              "token_ids": [
+                383,
+                1160,
+                82,
+                13
+              ],
+              "text": " The 20s."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-135031-0006",
+            "reference": {
+              "token_ids": [
+                314,
+                635,
+                4438,
+                284,
+                1037,
+                534,
+                3956,
+                284,
+                6654,
+                11,
+                475,
+                339,
+                561,
+                407,
+                467,
+                13
+              ],
+              "text": " I also offered to help your brother to escape, but he would not go."
+            },
+            "candidate": {
+              "token_ids": [
+                314,
+                635,
+                4438,
+                284,
+                1037,
+                534,
+                3956,
+                284,
+                6654,
+                11,
+                475,
+                339,
+                561,
+                407,
+                467,
+                13
+              ],
+              "text": " I also offered to help your brother to escape, but he would not go."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-141231-0005",
+            "reference": {
+              "token_ids": [
+                317,
+                5664,
+                318,
+                407,
+                257,
+                845,
+                1588,
+                3953,
+                286,
+                640,
+                11,
+                290,
+                465,
+                1767,
+                2622,
+                790,
+                13390,
+                286,
+                340,
+                13
+              ],
+              "text": " A minute is not a very large measure of time, and his body needed every fraction of it."
+            },
+            "candidate": {
+              "token_ids": [
+                317,
+                5664,
+                318,
+                407,
+                257,
+                845,
+                1588,
+                3953,
+                286,
+                640,
+                11,
+                290,
+                465,
+                1767,
+                2622,
+                790,
+                13390,
+                286,
+                340,
+                13
+              ],
+              "text": " A minute is not a very large measure of time, and his body needed every fraction of it."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-128104-0013",
+            "reference": {
+              "token_ids": [
+                1770,
+                13,
+                2264,
+                346,
+                353,
+                468,
+                6825,
+                465,
+                2863,
+                11,
+                329,
+                339,
+                468,
+                4054,
+                772,
+                284,
+                787,
+                2241,
+                262,
+                16749,
+                2848,
+                286,
+                12036,
+                13
+              ],
+              "text": " Mr. Quilter has missed his chance, for he has failed even to make himself the Tupper of painting."
+            },
+            "candidate": {
+              "token_ids": [
+                1770,
+                13,
+                2264,
+                346,
+                353,
+                468,
+                6825,
+                465,
+                2863,
+                11,
+                329,
+                339,
+                468,
+                4054,
+                772,
+                284,
+                787,
+                2241,
+                262,
+                16749,
+                2848,
+                286,
+                12036,
+                13
+              ],
+              "text": " Mr. Quilter has missed his chance, for he has failed even to make himself the Tupper of painting."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-128104-0004",
+            "reference": {
+              "token_ids": [
+                5164,
+                10076,
+                338,
+                5986,
+                389,
+                257,
+                3297,
+                286,
+                510,
+                12,
+                33427,
+                12,
+                259,
+                12,
+                9186,
+                21641,
+                11,
+                290,
+                14737,
+                338,
+                40123,
+                4686,
+                829,
+                389,
+                355,
+                2260,
+                355,
+                257,
+                474,
+                32735,
+                21247,
+                13,
+                1770,
+                13,
+                12817,
+                74,
+                3087,
+                18489,
+                338,
+                32964,
+                8212,
+                379,
+                530,
+                881,
+                287,
+                262,
+                976,
+                835,
+                326,
+                1770,
+                13,
+                1879,
+                6122,
+                973,
+                284,
+                7644,
+                465,
+                9941,
+                13,
+                843,
+                1770,
+                13,
+                1757,
+                7778,
+                959,
+                3607,
+                465,
+                1650,
+                353,
+                257,
+                37999,
+                23905,
+                287,
+                262,
+                736,
+                11,
+                878,
+                339,
+                1139,
+                11,
+                588,
+                257,
+                47259,
+                263,
+                290,
+                257,
+                9663,
+                7837,
+                11,
+                1306,
+                582
+              ],
+              "text": " Linnell's pictures are a sort of up-guards-in-item paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampooer and a Turkish bath, next man"
+            },
+            "candidate": {
+              "token_ids": [
+                5164,
+                10076,
+                338,
+                5986,
+                389,
+                257,
+                3297,
+                286,
+                510,
+                12,
+                33427,
+                12,
+                259,
+                12,
+                9186,
+                21641,
+                11,
+                290,
+                14737,
+                338,
+                40123,
+                4686,
+                829,
+                389,
+                355,
+                2260,
+                355,
+                257,
+                474,
+                32735,
+                21247,
+                13,
+                1770,
+                13,
+                12817,
+                74,
+                3087,
+                18489,
+                338,
+                32964,
+                8212,
+                379,
+                530,
+                881,
+                287,
+                262,
+                976,
+                835,
+                326,
+                1770,
+                13,
+                1879,
+                6122,
+                973,
+                284,
+                7644,
+                465,
+                9941,
+                13,
+                843,
+                1770,
+                13,
+                1757,
+                7778,
+                959,
+                3607,
+                465,
+                1650,
+                353,
+                257,
+                37999,
+                23905,
+                287,
+                262,
+                736,
+                11,
+                878,
+                339,
+                1139,
+                11,
+                588,
+                257,
+                47259,
+                263,
+                290,
+                257,
+                9663,
+                7837,
+                11,
+                1306,
+                582
+              ],
+              "text": " Linnell's pictures are a sort of up-guards-in-item paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampooer and a Turkish bath, next man"
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          }
+        ]
+      },
+      "longform": {
+        "constituent_clip_ids": [
+          "1272-128104-0004",
+          "1272-128104-0013"
+        ],
+        "silence_between_seconds": 0.25,
+        "duration_seconds": 36.75,
+        "mel_frames": 3675,
+        "input_features_sha256": "57b718293a822b22fd54284538a8986b23c728e8c41cf871def76639ba906715",
+        "attention_mask_sha256": "56145d45de94e6ee7a977cc57ab2f48c702bfe13d7b29fc3ac984df201468e83",
+        "reference": {
+          "token_ids": [
+            50363,
+            5164,
+            10076,
+            338,
+            5986,
+            389,
+            257,
+            3297,
+            286,
+            510,
+            12,
+            33427,
+            290,
+            22037,
+            21641,
+            11,
+            290,
+            14737,
+            338,
+            40123,
+            50701,
+            50701,
+            4686,
+            829,
+            389,
+            355,
+            2260,
+            355,
+            257,
+            474,
+            32735,
+            21247,
+            13,
+            50949,
+            50949,
+            1770,
+            13,
+            12817,
+            74,
+            3087,
+            18489,
+            338,
+            32964,
+            8212,
+            379,
+            530,
+            881,
+            287,
+            262,
+            976,
+            835,
+            326,
+            1770,
+            13,
+            1879,
+            6122,
+            973,
+            51228,
+            51228,
+            284,
+            7644,
+            465,
+            9941,
+            13,
+            51357,
+            51357,
+            843,
+            1770,
+            13,
+            1757,
+            7778,
+            959,
+            3607,
+            465,
+            1650,
+            353,
+            257,
+            37999,
+            23905,
+            287,
+            262,
+            736,
+            11,
+            878,
+            339,
+            1139,
+            11,
+            588,
+            51645,
+            51645,
+            257,
+            47259,
+            263,
+            290,
+            257,
+            9663,
+            7837,
+            13,
+            51789,
+            51789,
+            50363,
+            1770,
+            13,
+            2264,
+            346,
+            353,
+            468,
+            6825,
+            465,
+            2863,
+            11,
+            329,
+            339,
+            468,
+            4054,
+            772,
+            284,
+            787,
+            2241,
+            262,
+            256,
+            14710,
+            50709,
+            50709,
+            286,
+            12036,
+            13,
+            50749
+          ],
+          "segments": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 6.76,
+              "token_ids": [
+                50363,
+                5164,
+                10076,
+                338,
+                5986,
+                389,
+                257,
+                3297,
+                286,
+                510,
+                12,
+                33427,
+                290,
+                22037,
+                21641,
+                11,
+                290,
+                14737,
+                338,
+                40123,
+                50701
+              ]
+            },
+            {
+              "start_seconds": 6.76,
+              "end_seconds": 11.72,
+              "token_ids": [
+                50701,
+                4686,
+                829,
+                389,
+                355,
+                2260,
+                355,
+                257,
+                474,
+                32735,
+                21247,
+                13,
+                50949
+              ]
+            },
+            {
+              "start_seconds": 11.72,
+              "end_seconds": 17.3,
+              "token_ids": [
+                50949,
+                1770,
+                13,
+                12817,
+                74,
+                3087,
+                18489,
+                338,
+                32964,
+                8212,
+                379,
+                530,
+                881,
+                287,
+                262,
+                976,
+                835,
+                326,
+                1770,
+                13,
+                1879,
+                6122,
+                973,
+                51228
+              ]
+            },
+            {
+              "start_seconds": 17.3,
+              "end_seconds": 19.88,
+              "token_ids": [
+                51228,
+                284,
+                7644,
+                465,
+                9941,
+                13,
+                51357
+              ]
+            },
+            {
+              "start_seconds": 19.88,
+              "end_seconds": 25.64,
+              "token_ids": [
+                51357,
+                843,
+                1770,
+                13,
+                1757,
+                7778,
+                959,
+                3607,
+                465,
+                1650,
+                353,
+                257,
+                37999,
+                23905,
+                287,
+                262,
+                736,
+                11,
+                878,
+                339,
+                1139,
+                11,
+                588,
+                51645
+              ]
+            },
+            {
+              "start_seconds": 25.64,
+              "end_seconds": 28.52,
+              "token_ids": [
+                51645,
+                257,
+                47259,
+                263,
+                290,
+                257,
+                9663,
+                7837,
+                13,
+                51789,
+                51789
+              ]
+            },
+            {
+              "start_seconds": 28.52,
+              "end_seconds": 35.44,
+              "token_ids": [
+                50363,
+                1770,
+                13,
+                2264,
+                346,
+                353,
+                468,
+                6825,
+                465,
+                2863,
+                11,
+                329,
+                339,
+                468,
+                4054,
+                772,
+                284,
+                787,
+                2241,
+                262,
+                256,
+                14710,
+                50709
+              ]
+            },
+            {
+              "start_seconds": 35.44,
+              "end_seconds": 36.24,
+              "token_ids": [
+                50709,
+                286,
+                12036,
+                13,
+                50749
+              ]
+            }
+          ],
+          "text": " Linnell's pictures are a sort of up-guards and atom paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampooer and a Turkish bath. Mr. Quilter has missed his chance, for he has failed even to make himself the tipper of painting."
+        },
+        "candidate": {
+          "token_ids": [
+            50363,
+            5164,
+            10076,
+            338,
+            5986,
+            389,
+            257,
+            3297,
+            286,
+            510,
+            12,
+            33427,
+            290,
+            22037,
+            21641,
+            11,
+            290,
+            14737,
+            338,
+            40123,
+            50701,
+            50701,
+            4686,
+            829,
+            389,
+            355,
+            2260,
+            355,
+            257,
+            474,
+            32735,
+            21247,
+            13,
+            50949,
+            50949,
+            1770,
+            13,
+            12817,
+            74,
+            3087,
+            18489,
+            338,
+            32964,
+            8212,
+            379,
+            530,
+            881,
+            287,
+            262,
+            976,
+            835,
+            326,
+            1770,
+            13,
+            1879,
+            6122,
+            973,
+            51228,
+            51228,
+            284,
+            7644,
+            465,
+            9941,
+            13,
+            51357,
+            51357,
+            843,
+            1770,
+            13,
+            1757,
+            7778,
+            959,
+            3607,
+            465,
+            1650,
+            353,
+            257,
+            37999,
+            23905,
+            287,
+            262,
+            736,
+            11,
+            878,
+            339,
+            1139,
+            11,
+            588,
+            51645,
+            51645,
+            257,
+            47259,
+            263,
+            290,
+            257,
+            9663,
+            7837,
+            13,
+            51789,
+            51789,
+            50363,
+            1770,
+            13,
+            2264,
+            346,
+            353,
+            468,
+            6825,
+            465,
+            2863,
+            11,
+            329,
+            339,
+            468,
+            4054,
+            772,
+            284,
+            787,
+            2241,
+            262,
+            256,
+            14710,
+            50709,
+            50709,
+            286,
+            12036,
+            13,
+            50749
+          ],
+          "segments": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 6.76,
+              "token_ids": [
+                50363,
+                5164,
+                10076,
+                338,
+                5986,
+                389,
+                257,
+                3297,
+                286,
+                510,
+                12,
+                33427,
+                290,
+                22037,
+                21641,
+                11,
+                290,
+                14737,
+                338,
+                40123,
+                50701
+              ]
+            },
+            {
+              "start_seconds": 6.76,
+              "end_seconds": 11.72,
+              "token_ids": [
+                50701,
+                4686,
+                829,
+                389,
+                355,
+                2260,
+                355,
+                257,
+                474,
+                32735,
+                21247,
+                13,
+                50949
+              ]
+            },
+            {
+              "start_seconds": 11.72,
+              "end_seconds": 17.3,
+              "token_ids": [
+                50949,
+                1770,
+                13,
+                12817,
+                74,
+                3087,
+                18489,
+                338,
+                32964,
+                8212,
+                379,
+                530,
+                881,
+                287,
+                262,
+                976,
+                835,
+                326,
+                1770,
+                13,
+                1879,
+                6122,
+                973,
+                51228
+              ]
+            },
+            {
+              "start_seconds": 17.3,
+              "end_seconds": 19.88,
+              "token_ids": [
+                51228,
+                284,
+                7644,
+                465,
+                9941,
+                13,
+                51357
+              ]
+            },
+            {
+              "start_seconds": 19.88,
+              "end_seconds": 25.64,
+              "token_ids": [
+                51357,
+                843,
+                1770,
+                13,
+                1757,
+                7778,
+                959,
+                3607,
+                465,
+                1650,
+                353,
+                257,
+                37999,
+                23905,
+                287,
+                262,
+                736,
+                11,
+                878,
+                339,
+                1139,
+                11,
+                588,
+                51645
+              ]
+            },
+            {
+              "start_seconds": 25.64,
+              "end_seconds": 28.52,
+              "token_ids": [
+                51645,
+                257,
+                47259,
+                263,
+                290,
+                257,
+                9663,
+                7837,
+                13,
+                51789,
+                51789
+              ]
+            },
+            {
+              "start_seconds": 28.52,
+              "end_seconds": 35.44,
+              "token_ids": [
+                50363,
+                1770,
+                13,
+                2264,
+                346,
+                353,
+                468,
+                6825,
+                465,
+                2863,
+                11,
+                329,
+                339,
+                468,
+                4054,
+                772,
+                284,
+                787,
+                2241,
+                262,
+                256,
+                14710,
+                50709
+              ]
+            },
+            {
+              "start_seconds": 35.44,
+              "end_seconds": 36.24,
+              "token_ids": [
+                50709,
+                286,
+                12036,
+                13,
+                50749
+              ]
+            }
+          ],
+          "text": " Linnell's pictures are a sort of up-guards and atom paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap in the back, before he says, like a shampooer and a Turkish bath. Mr. Quilter has missed his chance, for he has failed even to make himself the tipper of painting."
+        },
+        "exact_token_match": true,
+        "exact_text_match": true,
+        "exact_timestamp_segments": true
+      },
+      "evaluation_seconds": 6.229947562000234
+    },
+    {
+      "schema_version": 1,
+      "model_id": "openai/whisper-large-v3-turbo",
+      "revision": "41f01f3fe87f28c78e2fbf8b568835947dd65ed9",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cuda",
+        "inference_dtype": "torch.float64",
+        "gpu": "NVIDIA GeForce RTX 5080"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 315,
+        "unique_parameter_elements_recovered": 808878080,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 808878080,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "layer_calls": 1413,
+        "probe_input_rows": 493588,
+        "observed_output_scalars": 814780160,
+        "probe_batch_size": 512,
+        "model_type": "whisper",
+        "architecture": "WhisperForConditionalGeneration",
+        "oracle_device": "cuda",
+        "oracle_dtype": "torch.float64",
+        "ignored_source_keys": [],
+        "tokenizer_exported": true,
+        "audio_feature_extractor_exported": true
+      },
+      "reference_sha256": {
+        "added_tokens.json": "3c51f66c4c21f9e126970078f11ae77a78c74aee8df606ee9daba86e467108e0",
+        "config.json": "c5b526b3e3cd64cd8940dabb45e8ba726629e22d8ed389c29b552f9140daf04a",
+        "generation_config.json": "cce11bfe3aaa6ae9e072ea2637caaec8795e68d9b67e655a5af16ee509681a4c",
+        "merges.txt": "2df2990a395e35e8dfbc7511e08c12d56018d8d04691e0133e5d63b21e154dc6",
+        "model.safetensors": "542566a422ae4f3fd23f1ba11add198fca01bbf82e66e6a2857b3f608b1eb9d1",
+        "normalizer.json": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+        "preprocessor_config.json": "7ccc62c6f2765af1f3b46c00c9b5894426835a05021c8b9c01eecb6dfb542711",
+        "special_tokens_map.json": "baea4ea09372eb4fca86b4e4346139fd73cb807d5087e9de0948e971739c3e74",
+        "tokenizer.json": "297b13372ac43916285644fb9687add3cc62ee2a1adb60da3dc25cc94c1871fd",
+        "tokenizer_config.json": "844b642c73a91359722f47b35705f7174686df33d252695d8572cf9ac03a6389",
+        "vocab.json": "e2aa043ef015641d363d8288e7c241c85e36a5c761fb303598e0710233344387"
+      },
+      "candidate_sha256": {
+        "added_tokens.json": "3c51f66c4c21f9e126970078f11ae77a78c74aee8df606ee9daba86e467108e0",
+        "config.json": "67c3b32631be6a9bf860d5a6309a86ff1221e27f8128aa3ba353a5cf2e2d2909",
+        "generation_config.json": "4617fcca458af3b91a103143aaac919c1ab6680b552d7abd10811b7248bd77b4",
+        "layer-recovery.json": "2b13f263c7d67427d6037ddd518001f260ded0e2d7577b75abe20fd381b0e65a",
+        "merges.txt": "2df2990a395e35e8dfbc7511e08c12d56018d8d04691e0133e5d63b21e154dc6",
+        "model-00001-of-00002.safetensors": "adf0b11d969b7cfe9618dbb58ea8544a15b40e813134b0bea97a3ec3058c3715",
+        "model-00002-of-00002.safetensors": "f6696dfa828033573e3e2907c73b39e15d862ee4e47178e6ebd9f8c50d2b8cc1",
+        "model.safetensors.index.json": "a3664a2074ec38e387b41763396f65cb9fd5a8df56726c53940d4a7e5558573b",
+        "normalizer.json": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+        "preprocessor_config.json": "7ccc62c6f2765af1f3b46c00c9b5894426835a05021c8b9c01eecb6dfb542711",
+        "special_tokens_map.json": "baea4ea09372eb4fca86b4e4346139fd73cb807d5087e9de0948e971739c3e74",
+        "tokenizer.json": "5c1bf30c9e716e1477bedef846b01be0013daecb89e9e3ef7ab89b23c178df1b",
+        "tokenizer_config.json": "3c75940dfce3a294fca7041a5faff011677f1b68fa85e47511bb8cf6dccaded6",
+        "vocab.json": "6788c80b082e9b0d1393147d3a3e62ba19285ac0c82ace8e5ef00f37ead58971"
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 587,
+        "candidate_tensors": 587,
+        "compared_tensors": 587,
+        "reference_elements": 808878080,
+        "candidate_elements": 808878080,
+        "compared_elements": 808878080,
+        "coverage": 1.0,
+        "exactly_equal_elements": 808807688,
+        "fraction_exactly_equal": 0.9999129757602035,
+        "within_tolerance_elements": 808878080,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 1.8614260413836267e-17,
+        "zero_filled_relative_l2": 1.8614260413836267e-17,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "model.decoder.embed_positions.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.embed_tokens.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.encoder_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.encoder_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.encoder_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.encoder_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.decoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.conv1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.conv1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.conv2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.embed_positions.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.0.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.1.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.10.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.11.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.12.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.13.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.14.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.15.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.16.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.17.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.18.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.19.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.2.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.20.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.21.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.22.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.23.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.24.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.25.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.26.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.27.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.28.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.29.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.3.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.30.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.31.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.4.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.5.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.6.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.7.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.8.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc1.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc1.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc2.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.fc2.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.final_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.final_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.k_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.out_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.out_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.q_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.q_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.v_proj.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn.v_proj.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn_layer_norm.bias": {
+            "reference": "F16",
+            "candidate": "F64"
+          },
+          "model.encoder.layers.9.self_attn_layer_norm.weight": {
+            "reference": "F16",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "dataset": {
+        "id": "hf-internal-testing/librispeech_asr_dummy",
+        "config": "clean",
+        "split": "validation",
+        "revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+        "parquet_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+        "sample_rate_hz": 16000,
+        "clips": [
+          {
+            "text": "THE TWENTIES",
+            "id": "1272-141231-0013",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 26239,
+            "duration_seconds": 1.6399375,
+            "audio_sha256": "ff87e7b407cf5355d492e618dbc87e9800a688ccb950ab1ac693d64a1bcfb80f",
+            "input_features_sha256": "51375f4b8e1791ba0312a3f944500ace4247f1cc08b9a76338f43112868ba3e6",
+            "attention_mask_sha256": "0267f6b5634b41994af3f4772d772a56c36ce55af77241d432e340b58873d7a4",
+            "teacher_forced_ids": [
+              440,
+              49398,
+              50257
+            ]
+          },
+          {
+            "text": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+            "id": "1272-135031-0006",
+            "chapter_id": 135031,
+            "speaker_id": 1272,
+            "samples": 65440,
+            "duration_seconds": 4.09,
+            "audio_sha256": "65ae3678b861333fb9ba2e5d7db9a0f77fe58ad89d4480872eeb62d22e894dd3",
+            "input_features_sha256": "741ceca9df282daaa506d9259e0553037f768ef0d9ff41e2736342af73e8329a",
+            "attention_mask_sha256": "9e4a21ae3916a1a34a7e9754cce851891aad511f81977ba9c962e4c4fabe7e81",
+            "teacher_forced_ids": [
+              286,
+              611,
+              8059,
+              281,
+              854,
+              428,
+              3708,
+              281,
+              7615,
+              457,
+              415,
+              576,
+              406,
+              352,
+              50257
+            ]
+          },
+          {
+            "text": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+            "id": "1272-141231-0005",
+            "chapter_id": 141231,
+            "speaker_id": 1272,
+            "samples": 92960,
+            "duration_seconds": 5.81,
+            "audio_sha256": "65265556f1956c0f20f5234b6aa2166dfdcde396ffc3cd1287d9e9e64489afbb",
+            "input_features_sha256": "44660edd68e7718ad47539e42fc24ba1674972568c30f8bf4325bbd61bfba14b",
+            "attention_mask_sha256": "9300d4dc8fdd34b6adc95ed7a6f94795986b3fefd209196af0aa2845131ba496",
+            "teacher_forced_ids": [
+              316,
+              3456,
+              307,
+              406,
+              257,
+              588,
+              2416,
+              3481,
+              295,
+              565,
+              293,
+              702,
+              1772,
+              2978,
+              633,
+              14135,
+              295,
+              309,
+              50257
+            ]
+          },
+          {
+            "text": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+            "id": "1272-128104-0013",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 113600,
+            "duration_seconds": 7.1,
+            "audio_sha256": "4e090445122aee10fe3045cf79fb234f5059e6b911c0ffcbedb91e04c20473ae",
+            "input_features_sha256": "f842884d13887f393a1657b76b26ccd5a12d2a3e984b0f64d82cd83f731498e7",
+            "attention_mask_sha256": "a6247e1bc4e1eb574e8a1ab67fe1c3358692c4fb690a689e232562590951af2e",
+            "teacher_forced_ids": [
+              22058,
+              31619,
+              391,
+              575,
+              6721,
+              702,
+              2931,
+              337,
+              415,
+              575,
+              7612,
+              754,
+              281,
+              652,
+              3647,
+              264,
+              2604,
+              3717,
+              295,
+              5370,
+              50257
+            ]
+          },
+          {
+            "text": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+            "id": "1272-128104-0004",
+            "chapter_id": 128104,
+            "speaker_id": 1272,
+            "samples": 470400,
+            "duration_seconds": 29.4,
+            "audio_sha256": "07244790e9a8300bfcbf12c28ac5230792e75238d03b2ac167a72bf3943c5404",
+            "input_features_sha256": "4432eab64bf3b1a6338ba113b577cb82e884cbde615695339640ba5445993ba7",
+            "attention_mask_sha256": "eba1a4d1f681ef08cfc001e0502763065af12d0402720bc2855473fa894c2f7c",
+            "teacher_forced_ids": [
+              9355,
+              8903,
+              311,
+              5242,
+              366,
+              257,
+              1333,
+              295,
+              493,
+              17652,
+              293,
+              412,
+              846,
+              14880,
+              293,
+              275,
+              1258,
+              311,
+              454,
+              34152,
+              4496,
+              34353,
+              82,
+              366,
+              382,
+              4048,
+              382,
+              257,
+              361,
+              18459,
+              13065,
+              26562,
+              1904,
+              5758,
+              17114,
+              311,
+              29822,
+              7563,
+              412,
+              472,
+              709,
+              294,
+              264,
+              912,
+              636,
+              300,
+              26562,
+              269,
+              809,
+              260,
+              1143,
+              281,
+              7319,
+              702,
+              7798,
+              293,
+              26562,
+              35097,
+              1263,
+              811,
+              2709,
+              702,
+              47335,
+              257,
+              36942,
+              21075,
+              322,
+              264,
+              646,
+              949,
+              415,
+              1619,
+              411,
+              257,
+              27484,
+              260,
+              294,
+              257,
+              3243,
+              74,
+              742,
+              6079,
+              958,
+              587,
+              50257
+            ]
+          }
+        ]
+      },
+      "preprocessing": {
+        "exact_input_features_and_masks": true,
+        "exact_teacher_forced_ids": true,
+        "preprocessor_config_byte_identical": true,
+        "input_shape_per_clip": [
+          1,
+          128,
+          3000
+        ]
+      },
+      "teacher_forced": {
+        "prompt_ids": [
+          50258,
+          50259,
+          50360,
+          50364
+        ],
+        "target_tokens": 143,
+        "logit_elements": 7416838,
+        "argmax_matches": 143,
+        "logit_max_abs_error": 1.0302869668521453e-13,
+        "logit_rmse": 2.0683415143150342e-14
+      },
+      "free_running": {
+        "examples": 5,
+        "cached": true,
+        "max_new_tokens": 128,
+        "exact_token_matches": 5,
+        "exact_text_matches": 5,
+        "clips": [
+          {
+            "id": "1272-141231-0013",
+            "reference": {
+              "token_ids": [
+                264,
+                49398
+              ],
+              "text": " the twenties"
+            },
+            "candidate": {
+              "token_ids": [
+                264,
+                49398
+              ],
+              "text": " the twenties"
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-135031-0006",
+            "reference": {
+              "token_ids": [
+                286,
+                611,
+                8059,
+                281,
+                854,
+                428,
+                3708,
+                281,
+                7615,
+                11,
+                457,
+                415,
+                576,
+                406,
+                352,
+                13
+              ],
+              "text": " I also offered to help your brother to escape, but he would not go."
+            },
+            "candidate": {
+              "token_ids": [
+                286,
+                611,
+                8059,
+                281,
+                854,
+                428,
+                3708,
+                281,
+                7615,
+                11,
+                457,
+                415,
+                576,
+                406,
+                352,
+                13
+              ],
+              "text": " I also offered to help your brother to escape, but he would not go."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-141231-0005",
+            "reference": {
+              "token_ids": [
+                316,
+                3456,
+                307,
+                406,
+                257,
+                588,
+                2416,
+                3481,
+                295,
+                565,
+                11,
+                293,
+                702,
+                1772,
+                2978,
+                633,
+                14135,
+                295,
+                309,
+                13
+              ],
+              "text": " A minute is not a very large measure of time, and his body needed every fraction of it."
+            },
+            "candidate": {
+              "token_ids": [
+                316,
+                3456,
+                307,
+                406,
+                257,
+                588,
+                2416,
+                3481,
+                295,
+                565,
+                11,
+                293,
+                702,
+                1772,
+                2978,
+                633,
+                14135,
+                295,
+                309,
+                13
+              ],
+              "text": " A minute is not a very large measure of time, and his body needed every fraction of it."
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-128104-0013",
+            "reference": {
+              "token_ids": [
+                33660,
+                31619,
+                391,
+                575,
+                6721,
+                702,
+                2931,
+                337,
+                415,
+                575,
+                7612,
+                754,
+                281,
+                652,
+                3647,
+                264,
+                2604,
+                3717,
+                295,
+                5370
+              ],
+              "text": " mr quilter has missed his chance for he has failed even to make himself the tupper of painting"
+            },
+            "candidate": {
+              "token_ids": [
+                33660,
+                31619,
+                391,
+                575,
+                6721,
+                702,
+                2931,
+                337,
+                415,
+                575,
+                7612,
+                754,
+                281,
+                652,
+                3647,
+                264,
+                2604,
+                3717,
+                295,
+                5370
+              ],
+              "text": " mr quilter has missed his chance for he has failed even to make himself the tupper of painting"
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          },
+          {
+            "id": "1272-128104-0004",
+            "reference": {
+              "token_ids": [
+                9355,
+                8903,
+                311,
+                5242,
+                366,
+                257,
+                1333,
+                295,
+                5858,
+                2694,
+                2287,
+                293,
+                7938,
+                14880,
+                11,
+                293,
+                25730,
+                311,
+                454,
+                34152,
+                4496,
+                904,
+                366,
+                382,
+                4048,
+                382,
+                257,
+                361,
+                18459,
+                13065,
+                13,
+                2221,
+                13,
+                7145,
+                74,
+                3093,
+                38756,
+                311,
+                29822,
+                7563,
+                412,
+                472,
+                709,
+                294,
+                264,
+                912,
+                636,
+                300,
+                2221,
+                13,
+                383,
+                809,
+                260,
+                1143,
+                281,
+                7319,
+                702,
+                7798,
+                11,
+                293,
+                2221,
+                13,
+                2619,
+                4586,
+                811,
+                2709,
+                702,
+                47335,
+                257,
+                36942,
+                21075,
+                322,
+                264,
+                646,
+                949,
+                415,
+                1619,
+                11,
+                411,
+                257,
+                27484,
+                260,
+                294,
+                257,
+                18565,
+                6079,
+                11,
+                3087,
+                587,
+                0
+              ],
+              "text": " Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth, and Mr. John Collier gives his sitter a cheerful slap on the back before he says, like a shampooer in a Turkish bath, Next man!"
+            },
+            "candidate": {
+              "token_ids": [
+                9355,
+                8903,
+                311,
+                5242,
+                366,
+                257,
+                1333,
+                295,
+                5858,
+                2694,
+                2287,
+                293,
+                7938,
+                14880,
+                11,
+                293,
+                25730,
+                311,
+                454,
+                34152,
+                4496,
+                904,
+                366,
+                382,
+                4048,
+                382,
+                257,
+                361,
+                18459,
+                13065,
+                13,
+                2221,
+                13,
+                7145,
+                74,
+                3093,
+                38756,
+                311,
+                29822,
+                7563,
+                412,
+                472,
+                709,
+                294,
+                264,
+                912,
+                636,
+                300,
+                2221,
+                13,
+                383,
+                809,
+                260,
+                1143,
+                281,
+                7319,
+                702,
+                7798,
+                11,
+                293,
+                2221,
+                13,
+                2619,
+                4586,
+                811,
+                2709,
+                702,
+                47335,
+                257,
+                36942,
+                21075,
+                322,
+                264,
+                646,
+                949,
+                415,
+                1619,
+                11,
+                411,
+                257,
+                27484,
+                260,
+                294,
+                257,
+                18565,
+                6079,
+                11,
+                3087,
+                587,
+                0
+              ],
+              "text": " Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite idles are as national as a jingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth, and Mr. John Collier gives his sitter a cheerful slap on the back before he says, like a shampooer in a Turkish bath, Next man!"
+            },
+            "exact_token_match": true,
+            "exact_text_match": true
+          }
+        ]
+      },
+      "longform": {
+        "constituent_clip_ids": [
+          "1272-128104-0004",
+          "1272-128104-0013"
+        ],
+        "silence_between_seconds": 0.25,
+        "duration_seconds": 36.75,
+        "mel_frames": 3675,
+        "input_features_sha256": "4e1e122072ded65f88626cc34dc359ed88135f925902f137847e060e279f28f4",
+        "attention_mask_sha256": "56145d45de94e6ee7a977cc57ab2f48c702bfe13d7b29fc3ac984df201468e83",
+        "reference": {
+          "token_ids": [
+            50365,
+            22896,
+            8903,
+            311,
+            5242,
+            366,
+            257,
+            1333,
+            295,
+            493,
+            17652,
+            293,
+            16368,
+            14880,
+            293,
+            275,
+            1258,
+            311,
+            454,
+            34152,
+            4496,
+            34353,
+            82,
+            366,
+            382,
+            4048,
+            382,
+            257,
+            361,
+            18459,
+            13065,
+            50900,
+            50900,
+            33660,
+            2779,
+            74,
+            3093,
+            17114,
+            311,
+            29822,
+            7563,
+            412,
+            472,
+            709,
+            294,
+            264,
+            912,
+            636,
+            300,
+            33660,
+            269,
+            809,
+            260,
+            1143,
+            281,
+            7319,
+            702,
+            7798,
+            51333,
+            51333,
+            293,
+            33660,
+            35097,
+            1263,
+            811,
+            2709,
+            702,
+            47335,
+            257,
+            36942,
+            21075,
+            322,
+            264,
+            646,
+            949,
+            415,
+            1619,
+            411,
+            257,
+            27484,
+            260,
+            294,
+            257,
+            3243,
+            74,
+            742,
+            6079,
+            958,
+            587,
+            51847,
+            51847,
+            50365,
+            33660,
+            31619,
+            391,
+            575,
+            6721,
+            702,
+            2931,
+            337,
+            415,
+            575,
+            7612,
+            754,
+            281,
+            652,
+            3647,
+            264,
+            2604,
+            3717,
+            295,
+            5370,
+            50720
+          ],
+          "segments": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 10.700000000000001,
+              "token_ids": [
+                50365,
+                22896,
+                8903,
+                311,
+                5242,
+                366,
+                257,
+                1333,
+                295,
+                493,
+                17652,
+                293,
+                16368,
+                14880,
+                293,
+                275,
+                1258,
+                311,
+                454,
+                34152,
+                4496,
+                34353,
+                82,
+                366,
+                382,
+                4048,
+                382,
+                257,
+                361,
+                18459,
+                13065,
+                50900
+              ]
+            },
+            {
+              "start_seconds": 10.700000000000001,
+              "end_seconds": 19.36,
+              "token_ids": [
+                50900,
+                33660,
+                2779,
+                74,
+                3093,
+                17114,
+                311,
+                29822,
+                7563,
+                412,
+                472,
+                709,
+                294,
+                264,
+                912,
+                636,
+                300,
+                33660,
+                269,
+                809,
+                260,
+                1143,
+                281,
+                7319,
+                702,
+                7798,
+                51333
+              ]
+            },
+            {
+              "start_seconds": 19.36,
+              "end_seconds": 29.64,
+              "token_ids": [
+                51333,
+                293,
+                33660,
+                35097,
+                1263,
+                811,
+                2709,
+                702,
+                47335,
+                257,
+                36942,
+                21075,
+                322,
+                264,
+                646,
+                949,
+                415,
+                1619,
+                411,
+                257,
+                27484,
+                260,
+                294,
+                257,
+                3243,
+                74,
+                742,
+                6079,
+                958,
+                587,
+                51847,
+                51847
+              ]
+            },
+            {
+              "start_seconds": 29.64,
+              "end_seconds": 36.74,
+              "token_ids": [
+                50365,
+                33660,
+                31619,
+                391,
+                575,
+                6721,
+                702,
+                2931,
+                337,
+                415,
+                575,
+                7612,
+                754,
+                281,
+                652,
+                3647,
+                264,
+                2604,
+                3717,
+                295,
+                5370,
+                50720
+              ]
+            }
+          ],
+          "text": " linnell's pictures are a sort of up guards and adam paintings and mason's exquisite idylls are as national as a jingo poem mr burkett foster's landscapes smile at one much in the same way that mr carker used to flash his teeth and mr john collier gives his sitter a cheerful slap on the back before he says like a shampooer in a turkish bath next man mr quilter has missed his chance for he has failed even to make himself the tupper of painting"
+        },
+        "candidate": {
+          "token_ids": [
+            50365,
+            22896,
+            8903,
+            311,
+            5242,
+            366,
+            257,
+            1333,
+            295,
+            493,
+            17652,
+            293,
+            16368,
+            14880,
+            293,
+            275,
+            1258,
+            311,
+            454,
+            34152,
+            4496,
+            34353,
+            82,
+            366,
+            382,
+            4048,
+            382,
+            257,
+            361,
+            18459,
+            13065,
+            50900,
+            50900,
+            33660,
+            2779,
+            74,
+            3093,
+            17114,
+            311,
+            29822,
+            7563,
+            412,
+            472,
+            709,
+            294,
+            264,
+            912,
+            636,
+            300,
+            33660,
+            269,
+            809,
+            260,
+            1143,
+            281,
+            7319,
+            702,
+            7798,
+            51333,
+            51333,
+            293,
+            33660,
+            35097,
+            1263,
+            811,
+            2709,
+            702,
+            47335,
+            257,
+            36942,
+            21075,
+            322,
+            264,
+            646,
+            949,
+            415,
+            1619,
+            411,
+            257,
+            27484,
+            260,
+            294,
+            257,
+            3243,
+            74,
+            742,
+            6079,
+            958,
+            587,
+            51847,
+            51847,
+            50365,
+            33660,
+            31619,
+            391,
+            575,
+            6721,
+            702,
+            2931,
+            337,
+            415,
+            575,
+            7612,
+            754,
+            281,
+            652,
+            3647,
+            264,
+            2604,
+            3717,
+            295,
+            5370,
+            50720
+          ],
+          "segments": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 10.700000000000001,
+              "token_ids": [
+                50365,
+                22896,
+                8903,
+                311,
+                5242,
+                366,
+                257,
+                1333,
+                295,
+                493,
+                17652,
+                293,
+                16368,
+                14880,
+                293,
+                275,
+                1258,
+                311,
+                454,
+                34152,
+                4496,
+                34353,
+                82,
+                366,
+                382,
+                4048,
+                382,
+                257,
+                361,
+                18459,
+                13065,
+                50900
+              ]
+            },
+            {
+              "start_seconds": 10.700000000000001,
+              "end_seconds": 19.36,
+              "token_ids": [
+                50900,
+                33660,
+                2779,
+                74,
+                3093,
+                17114,
+                311,
+                29822,
+                7563,
+                412,
+                472,
+                709,
+                294,
+                264,
+                912,
+                636,
+                300,
+                33660,
+                269,
+                809,
+                260,
+                1143,
+                281,
+                7319,
+                702,
+                7798,
+                51333
+              ]
+            },
+            {
+              "start_seconds": 19.36,
+              "end_seconds": 29.64,
+              "token_ids": [
+                51333,
+                293,
+                33660,
+                35097,
+                1263,
+                811,
+                2709,
+                702,
+                47335,
+                257,
+                36942,
+                21075,
+                322,
+                264,
+                646,
+                949,
+                415,
+                1619,
+                411,
+                257,
+                27484,
+                260,
+                294,
+                257,
+                3243,
+                74,
+                742,
+                6079,
+                958,
+                587,
+                51847,
+                51847
+              ]
+            },
+            {
+              "start_seconds": 29.64,
+              "end_seconds": 36.74,
+              "token_ids": [
+                50365,
+                33660,
+                31619,
+                391,
+                575,
+                6721,
+                702,
+                2931,
+                337,
+                415,
+                575,
+                7612,
+                754,
+                281,
+                652,
+                3647,
+                264,
+                2604,
+                3717,
+                295,
+                5370,
+                50720
+              ]
+            }
+          ],
+          "text": " linnell's pictures are a sort of up guards and adam paintings and mason's exquisite idylls are as national as a jingo poem mr burkett foster's landscapes smile at one much in the same way that mr carker used to flash his teeth and mr john collier gives his sitter a cheerful slap on the back before he says like a shampooer in a turkish bath next man mr quilter has missed his chance for he has failed even to make himself the tupper of painting"
+        },
+        "exact_token_match": true,
+        "exact_text_match": true,
+        "exact_timestamp_segments": true
+      },
+      "evaluation_seconds": 108.83194695600105
+    }
+  ]
+}
