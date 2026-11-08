@@ -43,10 +43,45 @@ def render(color=True, theme="dark", indent="  "):
     return "\n".join(out)
 
 
+def _windows_vt(stream):
+    """Enable VT processing on a Windows console; False if escapes would print raw.
+
+    cmd.exe turns VT processing off before starting programs, so a classic console
+    window shows raw escape codes unless the program enables it itself.
+    """
+    import ctypes
+    from ctypes import wintypes
+
+    try:
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        import msvcrt
+
+        handle = msvcrt.get_osfhandle(stream.fileno())
+        mode = wintypes.DWORD()
+        if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            return False
+        if mode.value & 0x0004:  # ENABLE_VIRTUAL_TERMINAL_PROCESSING
+            return True
+        return bool(kernel32.SetConsoleMode(handle, mode.value | 0x0004))
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
 def use_color(stream):
     if os.environ.get("NO_COLOR") or os.environ.get("TERM") == "dumb":
         return False
-    return hasattr(stream, "isatty") and stream.isatty()
+    if not (hasattr(stream, "isatty") and stream.isatty()):
+        return False
+    return os.name != "nt" or _windows_vt(stream)
+
+
+def encodable(stream):
+    """Whether the stream can carry the box-drawing wordmark (Windows pipes use ANSI pages)."""
+    try:
+        "".join(LOGO).encode(getattr(stream, "encoding", None) or "utf-8")
+    except (LookupError, UnicodeEncodeError):
+        return False
+    return True
 
 
 def welcome():
@@ -56,7 +91,7 @@ def welcome():
     return "\n".join(
         [
             "",
-            render(color=use_color(sys.stdout)),
+            render(color=use_color(sys.stdout)) if encodable(sys.stdout) else "  rephix",
             "",
             "  rephix ui              open the interactive workbench",
             "  rephix demo            recover planted weights in seconds",

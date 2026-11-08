@@ -12,7 +12,9 @@ import json
 import math
 import os
 import random
+import re
 import shutil
+import sys
 import tempfile
 import uuid
 from pathlib import Path
@@ -48,17 +50,69 @@ def _load_tokenizer(AutoTokenizer, source, *, model_config=None, **options):
     return AutoTokenizer.from_pretrained(source, **options)
 
 
+# Process-wide record of accelerator use, attached to command reports by the CLI.
+ACCELERATOR = {}
+_MPS_FALLBACK = re.compile(r"operator '([^']+)' is not currently supported on the MPS backend")
+
+
+def _monitor_mps():
+    """Record every operator PyTorch runs on the CPU instead of MPS.
+
+    Without PYTORCH_ENABLE_MPS_FALLBACK=1 an unsupported operator raises, so a
+    successful run executed every operator on MPS. With it, PyTorch warns once per
+    operator; those warnings are captured and reported, never silently dropped.
+    """
+    if ACCELERATOR:
+        return
+    import warnings
+
+    enabled = os.environ.get("PYTORCH_ENABLE_MPS_FALLBACK") == "1"
+    ACCELERATOR.update(
+        {"device": "mps", "cpu_fallback_enabled": enabled, "cpu_fallback_operators": []}
+    )
+    previous = warnings.showwarning
+
+    def show(message, category, filename, lineno, file=None, line=None):
+        match = _MPS_FALLBACK.search(str(message))
+        if match and match.group(1) not in ACCELERATOR["cpu_fallback_operators"]:
+            ACCELERATOR["cpu_fallback_operators"].append(match.group(1))
+        previous(message, category, filename, lineno, file, line)
+
+    warnings.showwarning = show
+    warnings.filterwarnings("always", message=".*not currently supported on the MPS backend.*")
+    if enabled:
+        print(
+            "rephix: PYTORCH_ENABLE_MPS_FALLBACK=1: unsupported MPS operators will run on the "
+            "CPU and are listed under accelerator.cpu_fallback_operators",
+            file=sys.stderr,
+        )
+
+
 def _device(torch, name):
     if name == "auto":
         if torch.cuda.is_available():
             return "cuda"
         if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            _monitor_mps()
             return "mps"
         return "cpu"
     if name == "cuda" and not torch.cuda.is_available():
         raise ValueError("CUDA was requested but is unavailable")
-    if name == "mps" and not torch.backends.mps.is_available():
-        raise ValueError("MPS was requested but is unavailable")
+    if name == "mps":
+        mps = getattr(torch.backends, "mps", None)
+        if mps is None or not mps.is_available():
+            built = bool(mps is not None and mps.is_built())
+            raise ValueError(
+                "MPS was requested but is unavailable ("
+                + (
+                    "this PyTorch build supports MPS, but no Metal device is usable: macOS "
+                    "12.3+ on Apple silicon with a non-virtualized GPU is required"
+                    if built
+                    else "this PyTorch build has no MPS support"
+                )
+                + "). Use --device cpu."
+            )
+        _monitor_mps()
     return name
 
 

@@ -59,6 +59,19 @@ class TerminalCoreTests(unittest.TestCase):
         self.assertIn("rephix ui", out.getvalue())
         self.assertNotIn("\x1b", out.getvalue())
 
+    def test_welcome_survives_a_windows_ansi_code_page_pipe(self):
+        import contextlib
+        import io
+
+        from rephix.cli import main
+
+        raw = io.BytesIO()
+        stream = io.TextIOWrapper(raw, encoding="cp1252")
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(main([]), 0)
+        stream.flush()
+        self.assertIn(b"rephix ui", raw.getvalue())
+
     def test_control_sequences_cannot_reach_the_terminal(self):
         value = display_text("hello\x1b]52;c;secret\x07\n世界 e\u0301\x9b31m")
         self.assertNotIn("\x1b", value)

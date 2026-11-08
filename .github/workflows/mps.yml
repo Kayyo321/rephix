@@ -1,0 +1,46 @@
+name: mps
+on:
+  push:
+    branches: ['release/**']
+  workflow_dispatch:
+    inputs:
+      self_hosted:
+        description: Also run the full MPS suite on a self-hosted Apple silicon runner
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  unavailable-on-virtual-gpu:
+    # Hosted Apple silicon runners expose a paravirtual GPU without Metal 2.0, so
+    # torch reports MPS unavailable: this verifies the explicit unavailable path.
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install '.[hf]'
+      - run: python examples/mps_check.py --expect-unavailable --work-dir "$RUNNER_TEMP/mps" --output mps-unavailable.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mps-unavailable
+          path: mps-unavailable.json
+  apple-silicon:
+    if: github.event_name == 'workflow_dispatch' && inputs.self_hosted
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fresh virtual environment with the release's dependencies
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install '.[hf]'
+      - run: '"$RUNNER_TEMP/venv/bin/python" examples/mps_check.py --work-dir "$RUNNER_TEMP/mps-check" --output mps-result.json'
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mps-apple-silicon
+          path: mps-result.json

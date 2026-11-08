@@ -1,32 +1,99 @@
 name: release artifacts
+# Build once from an exact commit, verify, and hand the same bytes to the release.
+# Publishing never rebuilds or overwrites assets: the published event only verifies.
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
-      tag:
-        description: Existing research release tag to build and attach
+      ref:
+        description: Commit SHA to build release assets from
         required: true
         type: string
+  release:
+    types: [published]
 permissions:
   contents: read
 jobs:
-  packages:
+  build:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      id-token: write
+      attestations: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.tag || github.event.release.tag_name }}
-      - uses: actions/setup-python@v6
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m pip install build
-      - run: python -m build
-      - name: Attach distributions to the existing release
+      - name: Build wheel, sdist, installer, build info and SHA256SUMS
+        run: python examples/build_release_assets.py --output release-assets
+      - name: Check the build commit matches the requested ref
+        run: |
+          test "$(python -c "import json;print(json.load(open('release-assets/BUILD-INFO.json'))['commit'])")" = "$(git rev-parse '${{ inputs.ref }}')"
+          cd release-assets && sha256sum --check SHA256SUMS
+      - name: Smoke-install the wheel outside the checkout
+        run: |
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install release-assets/rephix-*-py3-none-any.whl
+          cd /tmp && /tmp/smoke/bin/rephix --version && /tmp/smoke/bin/rephix demo > /dev/null
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            release-assets/rephix-*.whl
+            release-assets/rephix-*.tar.gz
+            release-assets/rephix-installer.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: release-assets/
+          if-no-files-found: error
+
+  verify-published:
+    if: github.event_name == 'release'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download the published assets and verify their checksums
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
-        run: gh release upload "$RELEASE_TAG" dist/*.whl dist/*.tar.gz --repo "$GH_REPO" --clobber
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          mkdir published && cd published
+          gh release download "$TAG" --repo "${{ github.repository }}"
+          python - <<'PY'
+          import hashlib, json, pathlib, os
+          sums = dict(reversed(l.split()) for l in pathlib.Path("SHA256SUMS").read_text().split("\n") if l)
+          for name, digest in sums.items():
+              assert hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest() == digest, name
+          info = json.loads(pathlib.Path("BUILD-INFO.json").read_text())
+          assert info["tag"] == os.environ["TAG"], (info, os.environ["TAG"])
+          print("verified", sorted(sums))
+          PY
+      - name: Tag points at the commit the assets were built from
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          built=$(python -c "import json;print(json.load(open('published/BUILD-INFO.json'))['commit'])")
+          tagged=$(gh api "repos/${{ github.repository }}/commits/$TAG" --jq .sha)
+          test "$built" = "$tagged"
+      - name: Install through the published installer and release discovery
+        shell: bash
+        run: |
+          python published/rephix-installer.py install --prefix "$RUNNER_TEMP/rephix app" --release latest --extras tui
+          if [ "$RUNNER_OS" = Windows ]; then L="$RUNNER_TEMP/rephix app/rephix.exe"; else L="$RUNNER_TEMP/rephix app/rephix"; fi
+          test "$("$L" --version)" = "${{ github.event.release.tag_name }}" || test "v$("$L" --version)" = "${{ github.event.release.tag_name }}"
+          "$L" demo > /dev/null
+          "$L" installation check-update
+          "$L" installation uninstall

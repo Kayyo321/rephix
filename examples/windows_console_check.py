@@ -39,13 +39,17 @@ LONG_COMMAND = "demo --samples 200000 --features 240 --classes 60"
 
 
 PROGRESS = None  # Incremental results survive a job timeout.
+NOTES = []  # Observations of legacy behaviour that are not pass/fail requirements.
 
 
 def check(name, passed, **evidence):
     CHECKS.append({"check": name, "passed": bool(passed), **evidence})
     print(("PASS " if passed else "FAIL ") + name, flush=True)
     if PROGRESS is not None:
-        PROGRESS.write_text(json.dumps(CHECKS, indent=1, ensure_ascii=False), encoding="utf-8")
+        PROGRESS.write_text(
+            json.dumps({"checks": CHECKS, "notes": NOTES}, indent=1, ensure_ascii=False),
+            encoding="utf-8",
+        )
     return passed
 
 
@@ -63,6 +67,8 @@ def wait_until(predicate, timeout=30.0, interval=0.1):
 
 
 class ConPty:
+    last_resize = None
+
     KEYS = {
         "enter": "\r",
         "up": "\x1b[A",
@@ -209,6 +215,7 @@ class Conhost:
         if not attached:
             raise OSError(f"AttachConsole failed: {ctypes.get_last_error()}")
         kernel32.SetConsoleCtrlHandler(None, True)  # this driver ignores Ctrl+C events
+        self.last_resize = None
         self.resize(rows, cols)
 
     def _handle(self, name):
@@ -282,14 +289,40 @@ class Conhost:
 
     def resize(self, rows, cols):
         out = self._handle("CONOUT$")
+        steps = []
         try:
             info = CSBI()
             kernel32.GetConsoleScreenBufferInfo(out, ctypes.byref(info))
-            tiny = SMALL_RECT(0, 0, 0, 0)
-            kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(tiny))
-            kernel32.SetConsoleScreenBufferSize(out, COORD(cols, max(rows, 300)))
+            largest = kernel32.GetLargestConsoleWindowSize(out)
+            most_cols, most_rows = largest & 0xFFFF, (largest >> 16) & 0xFFFF
+            cols, rows = min(cols, most_cols or cols), min(rows, most_rows or rows)
+            width = info.srWindow.Right - info.srWindow.Left + 1
+            height = info.srWindow.Bottom - info.srWindow.Top + 1
+            # Shrink the window first so the buffer can change, then grow the window.
+            first = SMALL_RECT(0, 0, min(width, cols) - 1, min(height, rows) - 1)
+            steps.append(bool(kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(first))))
+            steps.append(
+                bool(
+                    kernel32.SetConsoleScreenBufferSize(
+                        out,
+                        COORD(cols, max(rows, info.dwSize.Y if info.dwSize.Y > height else rows)),
+                    )
+                )
+            )
             window = SMALL_RECT(0, 0, cols - 1, rows - 1)
-            kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(window))
+            steps.append(bool(kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(window))))
+            after = CSBI()
+            kernel32.GetConsoleScreenBufferInfo(out, ctypes.byref(after))
+            self.last_resize = {
+                "requested": [cols, rows],
+                "largest": [most_cols, most_rows],
+                "steps": steps,
+                "error": ctypes.get_last_error(),
+                "window": [
+                    after.srWindow.Right - after.srWindow.Left + 1,
+                    after.srWindow.Bottom - after.srWindow.Top + 1,
+                ],
+            }
         finally:
             kernel32.CloseHandle(out)
 
@@ -379,8 +412,9 @@ def scenario_shells(ctx, Backend, label):
             code = run_shell_command(term, shell, ctx["launcher"], "", "BARE")
             check(
                 f"{label}/{shell}: Unicode welcome renders",
-                code == 0 and "┏━┓" in term.text(),
+                code == 0 and "┏━┓" in term.text() and "[1;38;2" not in term.text(),
                 exit=code,
+                screen=term.text()[-900:],
             )
             code = run_shell_command(term, shell, ctx["launcher"], "no-such-command", "BAD")
             check(
@@ -406,7 +440,12 @@ def scenario_workbench(ctx, Backend, label):
         if not check(f"{label}/ui: opens full-screen workbench", opened, screen=term.text()):
             return
         term.type("demo")
-        filtered = wait_until(lambda: "recover planted" in term.text(), 10)
+
+        def narrowed():
+            match = re.search(r"(\d+) of (\d+) commands", term.text())
+            return match and int(match.group(1)) < int(match.group(2)) and "demo" in term.text()
+
+        filtered = wait_until(narrowed, 10)
         check(f"{label}/ui: typing filters the command list", filtered, screen=term.text())
         term.key("enter")
         time.sleep(0.5)
@@ -427,19 +466,29 @@ def scenario_workbench(ctx, Backend, label):
             screen=term.text(),
         )
         term.resize(24, 60)
-        time.sleep(1.5)
-        narrow_screen = term.text()
+        narrow = wait_until(lambda: "demo" in term.text() and " commands" not in term.text(), 6)
         check(
             f"{label}/ui: two-page layout after resize to 60x24",
-            "demo" in narrow_screen and " commands" not in narrow_screen,
-            screen=narrow_screen,
+            narrow,
+            screen=term.text(),
+            resize=term.last_resize,
         )
         term.resize(10, 40)
-        small = wait_until(lambda: "larger" in term.text().lower(), 6)
-        check(f"{label}/ui: too-small notice at 40x10", small, screen=term.text())
+        small = wait_until(lambda: "too small" in term.text().lower(), 6)
+        check(
+            f"{label}/ui: too-small notice at 40x10",
+            small,
+            screen=term.text(),
+            resize=term.last_resize,
+        )
         term.resize(30, 110)
         restored = wait_until(lambda: " commands" in term.text(), 6)
-        check(f"{label}/ui: full layout after resize back to 110x30", restored, screen=term.text())
+        check(
+            f"{label}/ui: full layout after resize back to 110x30",
+            restored,
+            screen=term.text(),
+            resize=term.last_resize,
+        )
         # Replace the arguments (focus stays in the field after a run) and cancel a long run.
         baseline = set(ctx["children"](term))
         term.key("ctrl-a")
@@ -493,36 +542,47 @@ def scenario_workbench(ctx, Backend, label):
 
 
 def scenario_plain_interrupt(ctx, Backend, label):
-    for shell in ("cmd", "pwsh"):
+    legacy = ctx["prefix"] / "rephix.cmd"
+    for shell, launcher in (("cmd", ctx["launcher"]), ("pwsh", ctx["launcher"]), ("cmd", legacy)):
         if shell == "pwsh" and not shutil.which("pwsh.exe"):
             continue
+        name = f"{label}/{shell}/{Path(launcher).name}"
         term = Backend(shell_argv(shell), cwd=str(ctx["work"]))
         try:
             if not wait_until(lambda: "READY>" in term.text(), 30):
-                check(f"{label}/{shell}: shell ready for interrupt test", False, screen=term.text())
+                check(f"{name}: shell ready for interrupt test", False, screen=term.text())
                 continue
-            term.type(invoke(shell, ctx["launcher"], LONG_COMMAND) + "\r")
-            time.sleep(4)
+            term.type(invoke(shell, launcher, LONG_COMMAND) + "\r")
+            started = wait_until(lambda: len(ctx["children"](term)) >= 2, 30)
+            time.sleep(2)
             before = ctx["children"](term)
             term.interrupt()
             message = wait_until(lambda: "interrupted" in term.text(), 30)
-            prompt = "Terminate batch job" in term.text()
+            prompt = wait_until(lambda: "Terminate batch job" in term.text(), 3)
             if prompt:
                 term.type("Y\r")
             back = wait_until(lambda: term.text().rstrip().endswith("READY>"), 20)
             leftover = ctx["children"](term)
-            check(
-                f"{label}/{shell}: Ctrl+C interrupts a plain command",
-                message and back and before and not leftover,
+            evidence = dict(
                 screen=term.text()[-800:],
                 children_before=list(map(str, before)),
                 children_after=list(map(str, leftover)),
             )
+            if launcher == legacy:
+                NOTES.append(
+                    {
+                        "note": f"{name}: legacy batch launcher after Ctrl+C",
+                        "batch_termination_prompt": bool(prompt),
+                        **evidence,
+                    }
+                )
+                continue
             check(
-                f"{label}/{shell}: no batch-termination prompt after Ctrl+C",
-                not prompt,
-                screen=term.text()[-400:],
+                f"{name}: Ctrl+C interrupts a plain command and returns to the shell",
+                started and message and back and not leftover,
+                **evidence,
             )
+            check(f"{name}: no batch-termination prompt after Ctrl+C", not prompt)
         finally:
             term.close()
 
@@ -545,7 +605,8 @@ def scenario_resume(ctx):
     }
     (folder / "server.json").write_text(json.dumps(server), encoding="utf-8")
     (folder / "features.json").write_text(
-        json.dumps({"kind": "ngram", "vocabulary": vocab, "order": 2}), encoding="utf-8"
+        json.dumps({"kind": "ngram", "vocabulary": vocab, "order": 2, "prompt_length": 4}),
+        encoding="utf-8",
     )
     (folder / "target.json").write_text(
         json.dumps(
@@ -743,7 +804,9 @@ def conhost_driver(scenario, context_file, result_file):
         }[scenario]()
     except Exception as exc:  # noqa: BLE001 - record and report driver failures
         check(f"conhost/{scenario}: driver completed", False, error=repr(exc))
-    Path(result_file).write_text(json.dumps(CHECKS, ensure_ascii=False), encoding="utf-8")
+    Path(result_file).write_text(
+        json.dumps({"checks": CHECKS, "notes": NOTES}, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 def _descendants(pid):
@@ -808,7 +871,8 @@ def main():
         install.returncode == 0,
         stderr=install.stderr[-800:],
     )
-    launcher = prefix / "rephix.cmd"
+    launcher = prefix / "rephix.exe"
+    check("install: native rephix.exe launcher created", launcher.is_file())
     version = wheel.name.split("-")[1]
     ctx = {
         "work": work,
@@ -862,7 +926,9 @@ def main():
             timeout=600,
         )
         if result_file.is_file():
-            for item in json.loads(result_file.read_text(encoding="utf-8")):
+            driven = json.loads(result_file.read_text(encoding="utf-8"))
+            NOTES.extend(driven["notes"])
+            for item in driven["checks"]:
                 CHECKS.append(item)
                 print(("PASS " if item["passed"] else "FAIL ") + item["check"], flush=True)
         else:
@@ -879,7 +945,7 @@ def main():
     failed = [c["check"] for c in CHECKS if not c["passed"]]
     Path(args.output).write_text(
         json.dumps(
-            {"environment": environment, "checks": CHECKS, "failed": failed},
+            {"environment": environment, "checks": CHECKS, "notes": NOTES, "failed": failed},
             indent=1,
             ensure_ascii=False,
         ),

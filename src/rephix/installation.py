@@ -277,6 +277,80 @@ def _validate(path):
     return version
 
 
+EXE_MAIN = b"""import os, runpy, sys
+root = os.path.dirname(os.path.abspath(sys.argv[0]))
+sys.argv[0] = os.path.join(root, 'launch.py')
+runpy.run_path(sys.argv[0], run_name='__main__')
+"""
+
+
+def _windows_launcher_template():
+    """pip's distlib console launcher: it ignores Ctrl+C and waits for its child,
+    so interrupting a command never reaches cmd.exe's batch-termination prompt."""
+    import platform
+    import struct
+
+    from pip._vendor.distlib import scripts
+
+    arm = platform.machine().lower() in ("arm64", "aarch64")
+    name = "t64-arm.exe" if arm else ("t64.exe" if struct.calcsize("P") == 8 else "t32.exe")
+    return scripts.WRAPPERS[name]
+
+
+def _windows_exe(base):
+    import io
+    import zipfile
+
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as archive:
+        # A fixed timestamp makes the launcher byte-identical across refreshes.
+        archive.writestr(zipfile.ZipInfo("__main__.py", (1980, 1, 1, 0, 0, 0)), EXE_MAIN)
+    return _windows_launcher_template() + b'#!"' + base.encode("utf-8") + b'"\n' + stream.getvalue()
+
+
+def _publish_bytes(path, data):
+    if path.is_file() and path.read_bytes() == data:
+        return
+    temporary = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    temporary.write_bytes(data)
+    try:
+        os.replace(temporary, path)
+    except PermissionError:
+        # A running executable cannot be replaced on Windows, but it can be renamed.
+        path.replace(path.with_name(f".{path.name}.{uuid.uuid4().hex}.retired"))
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _retire(path):
+    """Remove a file now, or after the process using it exits (Windows launchers)."""
+    try:
+        path.unlink(missing_ok=True)
+        return None
+    except PermissionError:
+        if os.name != "nt":
+            raise
+    retired = path.with_name(f".{path.name}.{uuid.uuid4().hex}.retired")
+    path.replace(retired)
+    subprocess.Popen(
+        [
+            getattr(sys, "_base_executable", sys.executable),
+            "-I",
+            "-c",
+            "import os, sys, time\n"
+            "for _ in range(1200):\n"
+            "    try:\n        os.remove(sys.argv[1]); break\n"
+            "    except FileNotFoundError:\n        break\n"
+            "    except OSError:\n        time.sleep(0.5)\n",
+            str(retired),
+        ],
+        creationflags=0x00000008 | 0x00000200,  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
+        close_fds=True,
+    )
+    return str(retired)
+
+
 def _bootstrap(root):
     # Stable launcher runs with the base Python, so Windows can remove inactive
     # environments without holding their python.exe open. It forwards signals
@@ -342,6 +416,17 @@ except OSError as exc:
         if any(c in base for c in ('"', "%", "\n", "\r")):
             raise ValueError("Python path cannot be safely represented by the Windows launcher.")
         publish(root / "rephix.cmd", f'@"{base}" "%~dp0launch.py" %*\n')
+        for stale in root.glob(".rephix.exe.*.retired"):
+            try:
+                stale.unlink()
+            except OSError:
+                pass
+        try:
+            template_available = bool(_windows_exe(base))
+        except (ImportError, KeyError, AttributeError):
+            template_available = False  # Base Python without pip; refreshed from the venv.
+        if template_available:
+            _publish_bytes(root / "rephix.exe", _windows_exe(base))
     else:
         # A shell wrapper supports Python paths containing spaces without moving venvs.
         import shlex
@@ -360,7 +445,14 @@ def _report(root, state):
         "active": state["active"],
         "previous": state["previous"],
         "slots": state["slots"],
-        "launcher": str(root / ("rephix.cmd" if os.name == "nt" else "rephix")),
+        "launcher": str(
+            root
+            / (
+                ("rephix.exe" if (root / "rephix.exe").is_file() else "rephix.cmd")
+                if os.name == "nt"
+                else "rephix"
+            )
+        ),
         "user_directories": {name: str(root / name) for name in CATEGORIES},
     }
 
@@ -592,7 +684,8 @@ def uninstall(args):
                 raise ValueError(f"Refusing to purge a non-directory or symlink: {path}")
         _removal_paths(root, list(state["slots"]))
         bootstrap_files = [
-            root / name for name in ("rephix", "rephix.cmd", "launch.py", "manager.py", MANIFEST)
+            root / name
+            for name in ("rephix", "rephix.exe", "rephix.cmd", "launch.py", "manager.py", MANIFEST)
         ]
         if getattr(args, "remove_bootstrap", False):
             for path in bootstrap_files:
@@ -607,10 +700,14 @@ def uninstall(args):
             path = root / name
             if path.exists():
                 shutil.rmtree(path)
+        deferred = []
         if getattr(args, "remove_bootstrap", False):
             for path in bootstrap_files:
-                path.unlink(missing_ok=True)
+                pending = _retire(path)
+                if pending:
+                    deferred.append(pending)
         return {
+            "deferred_removal": deferred,
             "prefix": str(root),
             "uninstalled": True,
             "bootstrap_removed": getattr(args, "remove_bootstrap", False),

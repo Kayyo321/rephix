@@ -208,6 +208,10 @@ def build_parser():
 
 
 def main(argv=None):
+    if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+        # Redirected output uses the platform's encoding (an ANSI code page on
+        # Windows); escape anything it cannot represent instead of failing.
+        sys.stdout.reconfigure(errors="backslashreplace")
     if not (sys.argv[1:] if argv is None else argv):
         from .splash import welcome
 
@@ -226,6 +230,14 @@ def main(argv=None):
 
                 torch.set_num_threads(args.threads)
         result = args.func(args)
+        hf = sys.modules.get("rephix.hf")
+        if isinstance(result, dict) and hf is not None and hf.ACCELERATOR:
+            accelerator = dict(hf.ACCELERATOR)
+            torch = sys.modules.get("torch")
+            if torch is not None and accelerator.get("device") == "mps":
+                # Metal memory still held by this process: direct evidence of MPS work.
+                accelerator["mps_driver_allocated_bytes"] = int(torch.mps.driver_allocated_memory())
+            result = {**result, "accelerator": accelerator}
         if result is not None:
             print(json.dumps(result, indent=2, allow_nan=False))
     except KeyboardInterrupt:
