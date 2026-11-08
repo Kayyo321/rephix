@@ -226,16 +226,39 @@ class CommandOracle:
             encoding="utf-8",
             bufsize=1,
         )
+        import queue
+        import threading
+
+        self._lines = queue.Queue()
+
+        def pump(stream=self._process.stdout, lines=self._lines):
+            for line in stream:
+                lines.put(line)
+            lines.put(None)
+
+        threading.Thread(target=pump, daemon=True).start()
         hello = self._receive()
         if hello.get("protocol") != PROTOCOL or set(hello) != {"protocol"}:
             self.close()
             raise RuntimeError(f"target did not announce {PROTOCOL}")
 
     def _receive(self):
-        line = self._process.stdout.readline()
-        if not line:
+        import queue
+
+        try:
+            line = self._lines.get(timeout=self.timeout)
+        except queue.Empty:
+            self.close()
+            raise RuntimeError(f"target did not reply within {self.timeout} s") from None
+        if line is None:
             raise RuntimeError(f"target exited (status {self._process.poll()})")
-        return json.loads(line)
+        try:
+            reply = json.loads(line)
+        except json.JSONDecodeError:
+            raise RuntimeError("target reply is not a JSON line") from None
+        if not isinstance(reply, dict):
+            raise RuntimeError("target reply must be a JSON object")
+        return reply
 
     def sample(self, prompt, n):
         self._process.stdin.write(_canonical_json({"prompt": prompt, "n": int(n)}) + "\n")
@@ -271,7 +294,7 @@ class Transcript:
         self.records = {}
         if self.path.exists():
             with self.path.open(encoding="utf-8") as handle:
-                lines = handle.read().splitlines()
+                lines = [line for line in handle.read().split("\n") if line]
             if not lines:
                 raise ValueError(f"{self.path}: empty transcript")
             header = json.loads(lines[0])
@@ -280,10 +303,14 @@ class Transcript:
                     f"{self.path}: transcript belongs to a different query plan; "
                     "use a new transcript path"
                 )
-            for line in lines[1:]:
+            for number, line in enumerate(lines[1:], start=2):
                 try:
                     record = json.loads(line)
                 except json.JSONDecodeError:
+                    if number != len(lines):
+                        raise ValueError(
+                            f"{self.path}: unreadable record on line {number} before the end"
+                        ) from None
                     break  # Torn final write from an interrupted run; requery it.
                 digest = record.pop("sha256", None)
                 if digest != _sha256_text(_canonical_json(record)):
@@ -466,13 +493,27 @@ def plugin_estimate(z, counts, smoothing=0.5):
     return solution.T
 
 
-def bootstrap_misspecification(z, counts, gamma, replicates, seed, ridge):
-    """Parametric-bootstrap p-value of the deviance against the saturated model."""
+def bootstrap_misspecification(z, counts, gamma, replicates, seed, ridge, held_out=None):
+    """Parametric-bootstrap test of the declared class, two-sided.
+
+    The statistic is the deviance against the per-context saturated multinomial on the
+    fitted contexts plus, when given, held-out validation contexts that the fit never
+    saw. Each replicate redraws both from the fitted law and refits on the redrawn
+    training counts, so estimation error is part of the null distribution. A large
+    statistic rejects the class; an improbably small one means the outputs are not
+    independent samples (for example rounded expected counts).
+    """
     rng = np.random.default_rng(seed)
     probabilities = _softmax(z @ gamma.T)
-    observed = deviance(counts, probabilities)
     totals = counts.sum(axis=1).astype(int)
-    exceed = 0
+    if held_out is not None:
+        z_val, counts_val = held_out
+        p_val = _softmax(z_val @ gamma.T)
+        totals_val = counts_val.sum(axis=1).astype(int)
+    observed = deviance(counts, probabilities)
+    if held_out is not None:
+        observed += deviance(counts_val, p_val)
+    upper = lower = 0
     simulated = []
     for _ in range(replicates):
         draw = np.stack([rng.multinomial(n, p) for n, p in zip(totals, probabilities)]).astype(
@@ -480,14 +521,23 @@ def bootstrap_misspecification(z, counts, gamma, replicates, seed, ridge):
         )
         refit, _ = fit_multinomial(z, draw, ridge=ridge, start=gamma, max_newton=30)
         value = deviance(draw, _softmax(z @ refit.T))
+        if held_out is not None:
+            draw_val = np.stack([rng.multinomial(n, p) for n, p in zip(totals_val, p_val)]).astype(
+                float
+            )
+            value += deviance(draw_val, _softmax(z_val @ refit.T))
         simulated.append(value)
-        exceed += value >= observed
+        upper += value >= observed
+        lower += value <= observed
     return {
-        "statistic": "deviance against per-context saturated multinomial",
+        "statistic": "deviance against per-context saturated multinomials"
+        + (" on fitted and held-out validation contexts" if held_out is not None else ""),
+        "includes_validation_contexts": held_out is not None,
         "observed_deviance": observed,
         "bootstrap_replicates": replicates,
         "bootstrap_median_deviance": float(np.median(simulated)) if simulated else None,
-        "p_value": (1 + exceed) / (replicates + 1),
+        "p_value": (1 + upper) / (replicates + 1),
+        "p_value_lower_tail": (1 + lower) / (replicates + 1),
     }
 
 
@@ -521,27 +571,34 @@ def recover(
     max_queries=None,
     seed=0,
     ridge=1e-6,
-    bootstrap=99,
+    bootstrap=199,
     alpha=0.01,
     max_relative_standard_error=0.1,
+    span_tolerance=None,
 ):
     """Query a string-only target, fit the canonical parameters and export a model."""
     started = time.perf_counter()
-    if bootstrap and (bootstrap + 1) * alpha < 1:
-        # A Monte Carlo p-value is at least 1/(B+1); fewer replicates can never reject.
-        raise ValueError("--bootstrap must satisfy (bootstrap + 1) * alpha >= 1")
+    if bootstrap and (bootstrap + 1) * alpha / 2 < 1:
+        # Each tail is tested at alpha/2 and a Monte Carlo p-value is at least 1/(B+1);
+        # fewer replicates could never reject.
+        raise ValueError("--bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1")
     mapping = feature_map(features_spec)
     rng = np.random.default_rng(seed)
     if contexts_file:
+        # Split on newlines only: prompts may contain other Unicode line separators.
         pool = [
-            line
-            for line in Path(contexts_file).read_text(encoding="utf-8").splitlines()
+            line.rstrip("\r")
+            for line in Path(contexts_file).read_text(encoding="utf-8").split("\n")
             if line.strip()
         ]
         if len(set(pool)) != len(pool):
             raise ValueError("context file contains duplicate prompts")
         order = rng.permutation(len(pool))
-        wanted = (contexts or len(pool)) + validation_contexts
+        if contexts is None:
+            contexts = len(pool) - validation_contexts
+        if contexts < 1:
+            raise ValueError("need at least one training context")
+        wanted = contexts + validation_contexts
         if wanted > len(pool):
             raise ValueError("context file has fewer prompts than requested")
         selected = [pool[i] for i in order[:wanted]]
@@ -568,6 +625,7 @@ def recover(
             f"plan needs {planned_queries} sampled outputs, above --max-queries {max_queries}"
         )
     plan = {
+        "target_argv": list(target_argv),
         "features": mapping.spec(),
         "training": training,
         "validation": validation,
@@ -607,7 +665,13 @@ def recover(
     design = mapping.features(selected)
     train_design, train_counts = design[: len(training)], counts[: len(training)]
     expected = mapping.span_dimension()
-    basis, span = span_basis(train_design, expected)
+    if span_tolerance is None:
+        # One-hot ngram features are exact. Backbone features carry float32 rounding
+        # (~1e-7 relative), so directions below 1e-5 of the largest singular value
+        # (e.g. the hyperplane normal of a LayerNorm with bias) are unidentified.
+        span_tolerance = 1e-9 if mapping.kind == "ngram" else 1e-5
+    basis, span = span_basis(train_design, expected, tolerance=span_tolerance)
+    span["tolerance"] = span_tolerance
     z = train_design @ basis
     deterministic = bool(np.all(train_counts.max(axis=1) == train_counts.sum(axis=1)))
 
@@ -615,8 +679,13 @@ def recover(
     baseline = plugin_estimate(z, train_counts)
     covariance = fisher_covariance(z, train_counts, gamma)
     standard_error = None if covariance is None else np.sqrt(np.clip(np.diag(covariance), 0, None))
+    held_out = None
+    if validation:
+        held_out = (design[len(training) :] @ basis, counts[len(training) :])
     misspecification = (
-        bootstrap_misspecification(z, train_counts, gamma, bootstrap, seed + 1, ridge)
+        bootstrap_misspecification(
+            z, train_counts, gamma, bootstrap, seed + 1, ridge, held_out=held_out
+        )
         if bootstrap
         else None
     )
@@ -655,7 +724,10 @@ def recover(
     elif expected is not None and span["rank"] < expected:
         status = STATUS_INSUFFICIENT
         reasons.append("queried contexts do not span the valid input feature space")
-    elif misspecification is not None and misspecification["p_value"] <= alpha:
+    elif not optimisation["converged"]:
+        status = STATUS_INSUFFICIENT
+        reasons.append("the maximum-likelihood optimisation did not converge")
+    elif misspecification is not None and misspecification["p_value"] <= alpha / 2:
         status = STATUS_MISSPECIFIED
         reasons.append(
             "deviance test rejects the declared softmax-affine class; the export is an "
@@ -663,16 +735,24 @@ def recover(
         )
     elif misspecification is None:
         status = STATUS_INSUFFICIENT
-        reasons.append("misspecification test disabled; class membership is unverified")
+        reasons.append("misspecification test disabled; class membership is untested")
+    elif misspecification["p_value_lower_tail"] <= alpha / 2:
+        status = STATUS_INSUFFICIENT
+        reasons.append(
+            "outputs are under-dispersed relative to independent sampling; the target "
+            "does not satisfy the sampling contract"
+        )
     elif relative_se is None or relative_se > max_relative_standard_error:
         status = STATUS_INSUFFICIENT
         reasons.append("estimated canonical-parameter standard error exceeds the threshold")
     else:
         status = STATUS_RECOVERED
+        if not validation:
+            reasons.append("no validation contexts: the class test covers fitted contexts only")
     if (
         status == STATUS_RECOVERED
         and validation_report
-        and validation_report["outside_training_span"] > 1e-8
+        and validation_report["outside_training_span"] > 10 * span_tolerance
     ):
         status = STATUS_INSUFFICIENT
         reasons.append("validation contexts leave the identified feature span")
@@ -702,6 +782,13 @@ def recover(
             "target_command": target_argv,
         },
         "prior_knowledge": mapping.spec(),
+        "guarantee": (
+            "Conditional on the target belonging to the declared class, the exported "
+            "canonical parameters estimate the target's and determine its output law on "
+            "every input in the identified span. The class test can reject membership but "
+            "cannot prove it: a target that departs from the class only on inputs that "
+            "were never queried is indistinguishable here."
+        ),
         "canonical_parameterization": (
             "Theta_c = C Theta P_S: class-centred, restricted to the span S of the queried "
             "feature vectors [phi(x); 1]; logits(x) = Theta_c [phi(x); 1] up to a per-input "
@@ -830,10 +917,15 @@ def add_subcommands(commands):
     recover_parser.add_argument("--contexts", type=int, help="training contexts to query")
     recover_parser.add_argument("--contexts-file", help="public prompt pool, one per line")
     recover_parser.add_argument("--samples-per-context", type=int, default=200)
-    recover_parser.add_argument("--validation-contexts", type=int, default=0)
+    recover_parser.add_argument(
+        "--validation-contexts",
+        type=int,
+        default=20,
+        help="held-out contexts added to the class test (default 20)",
+    )
     recover_parser.add_argument("--max-queries", type=int, help="ceiling on sampled outputs")
     recover_parser.add_argument("--seed", type=int, default=0)
-    recover_parser.add_argument("--bootstrap", type=int, default=99)
+    recover_parser.add_argument("--bootstrap", type=int, default=199)
     recover_parser.add_argument("--alpha", type=float, default=0.01)
     recover_parser.add_argument("--max-relative-standard-error", type=float, default=0.1)
     recover_parser.set_defaults(func=_recover_command)

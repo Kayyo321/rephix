@@ -70,22 +70,25 @@ def greedy_temperature(seed=0, vocabulary=6, order=2, scale=2.5):
     theta = rng.normal(size=(vocabulary, features.shape[1]))
     first, second = features @ theta.T, features @ (scale * theta).T
     p, q = _softmax(first), _softmax(second)
-    centre = np.eye(vocabulary) - 1.0 / vocabulary
+    identical = bool((first.argmax(1) == second.argmax(1)).all())
     return {
         "claim": "argmax outputs are invariant to positive logit scaling",
         "inputs_checked": "all contexts (exhaustive)",
         "contexts": int(len(features)),
-        "greedy_outputs_identical": bool((first.argmax(1) == second.argmax(1)).all()),
+        "scale": scale,
+        "greedy_outputs_identical": identical,
         "mean_total_variation_between_laws": float(0.5 * np.abs(p - q).sum(1).mean()),
-        "relative_canonical_parameter_distance": float(
-            np.linalg.norm(centre @ theta * (scale - 1)) / np.linalg.norm(centre @ theta)
-        ),
-        "indistinguishable": bool((first.argmax(1) == second.argmax(1)).all()),
+        "indistinguishable": identical,
     }
 
 
 def finite_query_budget(seed=0, vocabulary=6, order=2, queried=24, delta=8.0):
-    """Any finite query set misses a context where a richer target behaves differently."""
+    """A query set that misses any input admits a richer target that differs only there.
+
+    Here the input space is finite (``vocabulary ** (order + 1)`` contexts), so querying
+    all of it defeats this construction; with unbounded prompt length every finite
+    query set leaves inputs unqueried.
+    """
     rng = np.random.default_rng(seed)
     contexts = _contexts(vocabulary, order + 1)
     selected = rng.choice(len(contexts), size=queried, replace=False)
@@ -107,27 +110,53 @@ def finite_query_budget(seed=0, vocabulary=6, order=2, queried=24, delta=8.0):
     }
 
 
-def in_class_identification(seed=0, vocabulary=6, order=2):
-    """Positive control: inside the declared class, equal laws force equal canonical parameters."""
+def in_class_identification(seed=0, vocabulary=6, order=2, queried=30):
+    """Positive control: inside the class, the law on queried inputs fixes the canonical
+    parameters, and with them the law on every input.
+
+    The canonical parameters are computed from the output law alone (centred log
+    probabilities on the queried contexts, solved on their span) and compared with the
+    canonical form of the generating parameters, and with an arbitrary gauge-shifted
+    parameterization of the same law.
+    """
     rng = np.random.default_rng(seed)
     contexts = _contexts(vocabulary, order)
     features = _one_hot(contexts, vocabulary)
     theta = rng.normal(size=(vocabulary, features.shape[1]))
-    # Any other parameterization with the same laws on all contexts: add gauge terms.
-    gauge_class = np.outer(np.ones(vocabulary), rng.normal(size=features.shape[1]))
-    null = np.linalg.svd(features)[2][np.linalg.matrix_rank(features) :]
-    gauge_null = rng.normal(size=(vocabulary, len(null))) @ null
-    other = theta + gauge_class + gauge_null
-    same_law = np.abs(_softmax(features @ theta.T) - _softmax(features @ other.T)).max()
     centre = np.eye(vocabulary) - 1.0 / vocabulary
-    basis = np.linalg.svd(features, full_matrices=False)[2][: np.linalg.matrix_rank(features)].T
-    canonical_gap = np.abs(centre @ theta @ basis - centre @ other @ basis).max()
+    chosen = rng.choice(len(contexts), size=queried, replace=False)
+    design = features[chosen]
+    rank = np.linalg.matrix_rank(design)
+    basis = np.linalg.svd(design, full_matrices=False)[2][:rank].T
+    law = _softmax(design @ theta.T)
+    # From observations only: centred log-probabilities = (C Theta) a(x) on queried x.
+    centred_log_law = np.log(law) @ centre
+    from_law = np.linalg.lstsq(design @ basis, centred_log_law, rcond=None)[0].T
+    gauge = np.outer(np.ones(vocabulary), rng.normal(size=features.shape[1]))
+    null = np.linalg.svd(features)[2][np.linalg.matrix_rank(features) :]
+    other = theta + gauge + rng.normal(size=(vocabulary, len(null))) @ null
+    predicted = _softmax(features @ (from_law @ basis.T).T)
     return {
-        "claim": "class-centred parameters on the feature span are identified by the output law",
-        "max_law_difference": float(same_law),
-        "raw_parameter_difference": float(np.abs(theta - other).max()),
-        "canonical_parameter_difference": float(canonical_gap),
-        "identified": bool(same_law < 1e-12 and canonical_gap < 1e-9),
+        "claim": "equal output laws on spanning queries force equal canonical parameters",
+        "queried_contexts": int(queried),
+        "all_contexts": int(len(contexts)),
+        "design_rank": int(rank),
+        "span_dimension": int(np.linalg.matrix_rank(features)),
+        "canonical_from_law_minus_truth": float(np.abs(from_law - centre @ theta @ basis).max()),
+        "gauge_shifted_parameters_same_law": float(
+            np.abs(_softmax(features @ theta.T) - _softmax(features @ other.T)).max()
+        ),
+        "gauge_shifted_canonical_difference": float(
+            np.abs(centre @ theta @ basis - centre @ other @ basis).max()
+        ),
+        "law_on_unqueried_contexts_error": float(
+            np.abs(predicted - _softmax(features @ theta.T)).max()
+        ),
+        "identified": bool(
+            rank == np.linalg.matrix_rank(features)
+            and np.abs(from_law - centre @ theta @ basis).max() < 1e-9
+            and np.abs(predicted - _softmax(features @ theta.T)).max() < 1e-12
+        ),
     }
 
 

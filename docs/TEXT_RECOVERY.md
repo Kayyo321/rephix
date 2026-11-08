@@ -9,8 +9,10 @@ from text alone?", in two parts:
 2. **Within a declared class, recovery is possible and implemented.** For every target
    whose next-output law is softmax-affine in a *public* feature map, `rephix
    text-recover` recovers an explicitly defined canonical parameterization from
-   sampled strings. It also reports a standard error and tests whether the target is
-   really in the class.
+   sampled strings, with a standard error. It also tests the class assumption. That
+   test can *reject* membership, but no finite set of observations can *prove* it.
+   The guarantee is therefore conditional: **if** the target is in the declared
+   class, the estimate converges to its canonical parameters.
 
 The second result is not a weaker restatement of the first. It is the strongest result
 the impossibility argument permits: identification up to the exact equivalence that the
@@ -34,10 +36,20 @@ output must equal one declared class string; any other string is a contract viol
 not a silently dropped sample. Transcripts are append-only JSONL with per-record
 SHA-256 checksums and a plan hash, so interrupted runs resume without requerying.
 
-In the experiments, the target and the evaluator run in different processes. Recovery
-runs under a Python audit hook that rejects every attempt to open the private target
-directory and logs every file it opens. The reload check runs under the same hook.
-Ground truth is read only after recovery exits.
+In the experiments (`examples/text_recovery_experiment.py`):
+
+* The oracle loads the private target into memory before recovery starts.
+* Recovery reaches the oracle through a line relay on a loopback socket.
+* While recovery, and later the standalone reload, run, the private directory has
+  mode `000`. A read from Python or native code fails at the operating-system level.
+* A Python audit hook logs every file opened from Python, every spawned process and
+  every chmod attempt. Spawned processes must equal the relay command.
+* Target parameters come from a per-run secret, not from the public seeds the
+  recovery process sees. The secret is published only after recovery exits.
+
+These measures prevent accidental access and make deliberate access conspicuous.
+They are not a defense against a same-user process that deliberately restores the
+directory's permissions. Ground truth is read only after recovery exits.
 
 ## The declared class
 
@@ -97,7 +109,8 @@ Implementation and assumptions:
 | Outputs are independent samples, not greedy | Status `deterministic_outputs_not_identifiable` if every context returned a single string |
 | Output strings map injectively to classes | Declared class strings must be distinct; an unknown string aborts the run |
 | Queried features span `S` | Numerical rank equals the theoretical `dim S` (`ngram`) and validation inputs must lie in the span |
-| Target is in the class | Parametric-bootstrap deviance test against the per-context saturated multinomial; rejected at `p ≤ alpha` (default 0.01, 99 replicates; fewer than `1/alpha − 1` replicates is refused because the test could never reject) |
+| Target is in the class (testable only on queried inputs) | Two-sided parametric-bootstrap test. The statistic is the deviance against per-context saturated multinomials on the fitted contexts **and** on held-out validation contexts the fit never saw (`--validation-contexts`, default 20). Each replicate redraws both sets and refits, so estimation error is part of the null distribution. A large statistic rejects the class; an improbably small one means the outputs are not independent samples. Each tail is tested at `alpha/2` (default `alpha` 0.01, 199 replicates). A replicate count that could never reject is refused |
+| Fit converged | Status `insufficient_evidence` otherwise |
 | Enough samples for the claimed precision | Relative standard error must be ≤ `--max-relative-standard-error` (default 0.1) |
 
 Only when every check passes is the status `recovered_in_class`. A rejected class test
@@ -106,8 +119,11 @@ in-class approximation, not recovery. Anything else is `insufficient_evidence`.
 
 **What would falsify the claim:** an in-class target whose canonical error exceeds its
 reported uncertainty far more often than the confidence level allows, or an
-out-of-class target labelled `recovered_in_class`. The pre-registered protocol tests
-both.
+out-of-class target that departs from the class *on queried or validation inputs*
+and is still labelled `recovered_in_class`. A target that departs only on inputs that
+were never queried cannot be detected by any method; the third impossibility result
+below says exactly this. The pre-registered protocol includes such a target
+(`ngram-blind-spot`) to show the limit, separately from the falsification tests.
 
 **Numerical precision:** the estimator works in float64. Sampled strings carry finite
 information, so recovery is always *within a statistical tolerance*. Bit-exact recovery
@@ -120,13 +136,17 @@ and appears as a small bias.
 
 `rephix text-identifiability` runs four checks. Results below were produced with seed 0.
 
-| Check | Construction | Observable difference | Parameter difference |
+| Check | Construction | What the observations show | What differs |
 | --- | --- | --- | --- |
-| Hidden-unit permutation | MLP language model and its permuted copy, all 36 contexts | max probability gap 2.2e-16 | relative distance 1.12 |
-| Transformer neuron permutation | Two-layer Qwen2 with MLP neurons permuted | max logit gap 0, identical sampled tokens | relative distance 0.21 |
-| Greedy decoding | `Theta` and `2.5 Theta`, all contexts | identical greedy outputs | output laws differ (mean TV 0.26) |
-| Finite budget | Order-3 target that differs from an order-2 target on one unqueried context | identical laws on all 24 queried prompts | trigger context TV 0.57 |
-| In-class control | Gauge-shifted parameters with the same law | max law gap 2.2e-16 | canonical gap 7.5e-16 |
+| Hidden-unit permutation | MLP language model and its permuted copy, all 36 contexts | max probability gap 2.2e-16 | parameters: relative distance 1.12 |
+| Transformer neuron permutation | Two-layer Qwen2 with MLP neurons permuted | max logit gap 0, identical sampled tokens | parameters: relative distance 0.21 |
+| Greedy decoding | `Theta` and `2.5 Theta`, all contexts | identical greedy outputs | output laws (mean TV 0.26) |
+| Finite budget | Order-3 target that differs from an order-2 target on one unqueried context | identical laws on all 24 queried prompts | law on the unqueried context (TV 0.86) |
+| In-class control | Canonical parameters computed from the law on 30 spanning queries | equal to the truth's canonical form within 1e-14 | nothing: the law on the 6 unqueried contexts is predicted within 3e-15 |
+
+The finite-budget construction uses a finite input space (216 contexts), so querying
+every context would defeat it. With unbounded prompt length, every finite query set
+leaves inputs unqueried, so the argument applies to any budget.
 
 1. *Symmetry.* Any family with a function-preserving reparameterization has this
    problem: permuting hidden units, rescaling around ReLU or normalization layers,

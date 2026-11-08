@@ -1,16 +1,22 @@
 """Pre-registered text-only recovery experiment with an isolated evaluator.
 
-Roles are separated by process and directory:
+Roles are separated by process, directory and file permissions:
 
-* builder/evaluator (this process) creates private targets and, after recovery has
-  finished, reads private ground truth to score the export;
-* oracle (child of recovery) reads private files and writes sampled strings only;
-* recovery (separate interpreter) runs ``rephix text-recover`` under a Python audit
-  hook that rejects every open of the private directory and logs all file access.
+* builder/evaluator (this process) creates private targets from a per-run secret and,
+  after recovery has exited, reads private ground truth to score the export;
+* oracle (started here) loads the private target into memory and then answers only
+  with sampled strings. Recovery reaches it through a line relay on a loopback socket;
+* recovery (separate interpreter) runs ``rephix text-recover`` while the private
+  directory has mode 000, so any read of it fails at the operating-system level,
+  including from native code. A Python audit hook additionally logs every file the
+  recovery process opens, every process it spawns and every chmod it attempts.
 
-Usage:
+Corpus text and public prompt pools are read from docs/ at the protocol's pinned
+``corpus_commit`` (not the working tree), so results are reproducible from git.
+
+Usage (POSIX):
   python examples/text_recovery_experiment.py --protocol examples/text_recovery_protocol.json \
-      --split dev --work /abs/work --output /abs/results.json
+      --split final --work /abs/work --output /abs/results.json
 """
 
 from __future__ import annotations
@@ -20,18 +26,22 @@ import hashlib
 import json
 import os
 import shutil
+import socket
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
 import numpy as np
 
+REPO = Path(__file__).resolve().parents[1]
+
 SANDBOX = r"""
 import json, os, sys
 forbidden = [os.path.realpath(p) for p in json.loads(os.environ['REPHIX_FORBID'])]
 log_path = os.environ['REPHIX_AUDIT_LOG']
-opened, denied, spawned = set(), [], []
+opened, denied, spawned, chmods = set(), [], [], []
 def hook(event, args):
     if event == 'open' and args and isinstance(args[0], (str, bytes, os.PathLike)):
         try:
@@ -44,6 +54,8 @@ def hook(event, args):
         opened.add(path)
     elif event == 'subprocess.Popen':
         spawned.append([os.fsdecode(a) for a in args[1]] if args[1] else [])
+    elif event in ('os.chmod', 'os.chown'):
+        chmods.append(repr(args[0]))
 sys.addaudithook(hook)
 from rephix.cli import main
 try:
@@ -52,9 +64,11 @@ finally:
     prefixes = (os.path.realpath(sys.prefix), os.path.realpath(sys.base_prefix))
     with open(log_path, 'w', encoding='utf-8') as handle:
         json.dump({'opened_outside_python': sorted(p for p in opened if not p.startswith(prefixes)),
-                   'denied': denied, 'spawned': spawned}, handle, indent=1)
+                   'denied': denied, 'spawned': spawned, 'chmod': chmods}, handle, indent=1)
 sys.exit(code)
 """
+
+CORPUS_ALPHABET = list("abcdefghijklmnopqrstuvwxyz ")
 
 
 def _sha(path):
@@ -67,28 +81,62 @@ def _softmax(logits):
     return exp / exp.sum(axis=-1, keepdims=True)
 
 
-CORPUS_ALPHABET = list("abcdefghijklmnopqrstuvwxyz ")
+class Docs:
+    """docs/*.md as stored at a pinned commit."""
+
+    def __init__(self, commit):
+        self.commit = commit
+        listing = subprocess.run(
+            ["git", "ls-tree", "--name-only", commit, "docs/"],
+            cwd=REPO,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.split()
+        self.names = sorted(n for n in listing if n.endswith(".md"))
+        self.texts = {
+            n: subprocess.run(
+                ["git", "show", f"{commit}:{n}"],
+                cwd=REPO,
+                check=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            ).stdout
+            for n in self.names
+        }
+
+    def lines(self):
+        result = []
+        for name in self.names:
+            for line in self.texts[name].splitlines():
+                words = "".join(c if c.isalnum() else " " for c in line).split()
+                if len(words) >= 4:
+                    result.append(words)
+        return result
 
 
-def _corpus(seed, repo):
+def _corpus(seed, docs):
     rng = np.random.default_rng(seed)
-    files = sorted((repo / "docs").glob("*.md"))
-    chosen = [files[i] for i in rng.choice(len(files), size=len(files) // 2, replace=False)]
-    text = " ".join(path.read_text(encoding="utf-8").lower() for path in chosen)
+    chosen = [
+        docs.names[i] for i in rng.choice(len(docs.names), size=len(docs.names) // 2, replace=False)
+    ]
+    text = " ".join(docs.texts[n].lower() for n in chosen)
     cleaned = "".join(ch if ch in CORPUS_ALPHABET else " " for ch in text)
-    return " ".join(cleaned.split()), [path.name for path in chosen]
+    return " ".join(cleaned.split()), chosen
 
 
-def _fit_corpus_target(seed, order, repo):
+def _fit_corpus_target(seed, order, docs):
     from rephix.text_recovery import NgramFeatures, fit_multinomial, span_basis
 
-    text, names = _corpus(seed, repo)
+    text, names = _corpus(seed, docs)
     features = NgramFeatures(CORPUS_ALPHABET, order)
-    size = len(CORPUS_ALPHABET)
     counts = {}
     for position in range(order, len(text)):
         context = text[position - order : position]
-        counts.setdefault(context, np.zeros(size))[features.index[text[position]]] += 1
+        counts.setdefault(context, np.zeros(len(CORPUS_ALPHABET)))[
+            features.index[text[position]]
+        ] += 1
     contexts = sorted(counts)
     design = features.features(contexts)
     basis, _ = span_basis(design, features.span_dimension())
@@ -96,47 +144,40 @@ def _fit_corpus_target(seed, order, repo):
     return gamma @ basis.T, {"corpus_files": names, "corpus_characters": len(text)}
 
 
-def _tiny_backbone(path, seed):
+def _tiny_backbone(path, seed, architecture, docs):
     import torch
     from tokenizers import Tokenizer
     from tokenizers.models import WordLevel
     from tokenizers.pre_tokenizers import Whitespace
-    from transformers import AutoModelForCausalLM, PreTrainedTokenizerFast, Qwen2Config
+    from transformers import AutoModelForCausalLM, GPT2Config, PreTrainedTokenizerFast, Qwen2Config
 
-    words = sorted({w for line in _prompt_pool_words() for w in line})
+    words = sorted({w for line in docs.lines() for w in line})
     vocab = {"[UNK]": 0, **{w: i + 1 for i, w in enumerate(words)}}
     backend = Tokenizer(WordLevel(vocab, unk_token="[UNK]"))
     backend.pre_tokenizer = Whitespace()
     tokenizer = PreTrainedTokenizerFast(tokenizer_object=backend, unk_token="[UNK]")
     torch.manual_seed(seed)
-    config = Qwen2Config(
-        vocab_size=len(vocab),
-        hidden_size=48,
-        intermediate_size=96,
-        num_hidden_layers=2,
-        num_attention_heads=4,
-        num_key_value_heads=2,
-        max_position_embeddings=128,
-        tie_word_embeddings=False,
-    )
+    if architecture == "tiny-gpt2":  # LayerNorm with bias: features lie on a hyperplane
+        config = GPT2Config(vocab_size=len(vocab), n_embd=48, n_layer=2, n_head=4, n_positions=128)
+    else:
+        config = Qwen2Config(
+            vocab_size=len(vocab),
+            hidden_size=48,
+            intermediate_size=96,
+            num_hidden_layers=2,
+            num_attention_heads=4,
+            num_key_value_heads=2,
+            max_position_embeddings=128,
+            tie_word_embeddings=False,
+        )
     AutoModelForCausalLM.from_config(config).save_pretrained(path)
     tokenizer.save_pretrained(path)
 
 
-def _prompt_pool_words():
-    lines = []
-    for path in sorted((Path(__file__).resolve().parents[1] / "docs").glob("*.md")):
-        for line in path.read_text(encoding="utf-8").splitlines():
-            words = [w for w in "".join(c if c.isalnum() else " " for c in line).split()]
-            if len(words) >= 4:
-                lines.append(words)
-    return lines
-
-
-def _prompt_pool(seed, count):
-    """Distinct public prompts: windows of documentation text."""
+def _prompt_pool(seed, count, docs):
+    """Distinct public prompts: windows of documentation text at the pinned commit."""
     rng = np.random.default_rng(seed)
-    lines = _prompt_pool_words()
+    lines = docs.lines()
     pool, seen = [], set()
     while len(pool) < count:
         words = lines[rng.integers(len(lines))]
@@ -155,13 +196,15 @@ def _hf_features(model_path, prompts):
     return BackboneFeatures(model_path, ["a", "b"]).features(prompts)
 
 
-def build_case(case, seed, root, repo, python):
+def build_case(case, seed, root, docs):
     private, public, recovery = root / "private", root / "public", root / "recovery"
     for path in (private, public, recovery):
         path.mkdir(parents=True)
-    rng = np.random.default_rng(seed)
+    # Private randomness comes from a per-run secret, never from the public seeds.
+    secret = int.from_bytes(os.urandom(8), "big")
+    rng = np.random.default_rng([secret, seed])
     family = case["family"]
-    truth = {}
+    truth = {"secret": secret}
     if family == "ngram":
         vocab = (
             CORPUS_ALPHABET
@@ -172,15 +215,14 @@ def build_case(case, seed, root, repo, python):
         target_order = case.get("target_order", order)
         prompt_length = case.get("prompt_length", max(order, target_order))
         if case.get("corpus"):
-            vocab = CORPUS_ALPHABET
-            theta, truth["corpus"] = _fit_corpus_target(seed, target_order, repo)
+            theta, truth["corpus"] = _fit_corpus_target(seed, target_order, docs)
         else:
-            width = target_order * len(vocab) + 1
-            theta = case.get("scale", 1.0) * rng.normal(size=(len(vocab), width))
+            theta = case.get("scale", 1.0) * rng.normal(
+                size=(len(vocab), target_order * len(vocab) + 1)
+            )
         arrays = {"theta": theta}
         if case.get("mlp_hidden"):
-            width = theta.shape[1]
-            arrays["w_in"] = rng.normal(size=(width, case["mlp_hidden"]))
+            arrays["w_in"] = rng.normal(size=(theta.shape[1], case["mlp_hidden"]))
             arrays["w_out"] = case["mlp_scale"] * rng.normal(size=(case["mlp_hidden"], len(vocab)))
         np.savez(private / "target.npz", **arrays)
         server = {
@@ -188,10 +230,11 @@ def build_case(case, seed, root, repo, python):
             "vocabulary": vocab,
             "order": target_order,
             "parameters": str(private / "target.npz"),
-            "seed": seed + 7,
+            "seed": int(rng.integers(2**62)),
             "greedy": case.get("greedy", False),
         }
-        # The undeclared-output boundary case relabels outputs in a proxy (see below).
+        if case.get("trigger"):
+            server["trigger"] = case["trigger"]
         features = {
             "kind": "ngram",
             "vocabulary": vocab,
@@ -205,16 +248,15 @@ def build_case(case, seed, root, repo, python):
                 "order": target_order,
                 "prompt_length": prompt_length,
                 "arrays": arrays,
+                "trigger": case.get("trigger"),
             }
         )
     else:
-        if case.get("backbone") == "tiny-qwen2":
-            backbone = public / "backbone"
-            _tiny_backbone(backbone, seed)
+        backbone = public / "backbone"
+        if case.get("backbone") in ("tiny-qwen2", "tiny-gpt2"):
+            _tiny_backbone(backbone, seed, case["backbone"], docs)
         else:
-            source = Path(os.path.expandvars(case["backbone_path"])).expanduser()
-            backbone = public / "backbone"
-            shutil.copytree(source, backbone)
+            shutil.copytree(Path(os.path.expandvars(case["backbone_path"])).expanduser(), backbone)
         labels = case["labels"]
         target_backbone = backbone
         if case.get("perturb_backbone"):
@@ -223,7 +265,7 @@ def build_case(case, seed, root, repo, python):
 
             target_backbone = private / "backbone"
             model = AutoModelForCausalLM.from_pretrained(backbone, dtype=torch.float32)
-            generator = torch.Generator().manual_seed(seed)
+            generator = torch.Generator().manual_seed(int(rng.integers(2**62)))
             with torch.no_grad():
                 for name, parameter in model.named_parameters():
                     if ".mlp." in name and parameter.ndim == 2:
@@ -238,17 +280,14 @@ def build_case(case, seed, root, repo, python):
                 ):
                     shutil.copy(backbone / name, target_backbone / name)
         pool = _prompt_pool(
-            seed, case["contexts"] + case["validation_contexts"] + case["test_contexts"]
+            seed, case["contexts"] + case["validation_contexts"] + case["test_contexts"], docs
         )
         train_pool = pool[: case["contexts"] + case["validation_contexts"]]
         test_pool = pool[len(train_pool) :]
         (public / "prompts.txt").write_text("\n".join(train_pool) + "\n", encoding="utf-8")
-        # Calibrate the private head so logits on public prompts have the requested spread.
         hidden = _hf_features(target_backbone, train_pool[:64])[:, :-1]
-        dim = hidden.shape[1]
-        direction = rng.normal(size=(len(labels), dim))
-        spread = (hidden @ direction.T).std()
-        weight = case.get("logit_scale", 1.5) * direction / spread
+        direction = rng.normal(size=(len(labels), hidden.shape[1]))
+        weight = case.get("logit_scale", 1.5) * direction / (hidden @ direction.T).std()
         bias = rng.normal(size=len(labels)) * 0.5
         bias -= (hidden @ weight.T + bias).mean(0)
         np.savez(private / "head.npz", weight=weight, bias=bias)
@@ -257,7 +296,7 @@ def build_case(case, seed, root, repo, python):
             "model": str(target_backbone),
             "head": str(private / "head.npz"),
             "labels": labels,
-            "seed": seed + 7,
+            "seed": int(rng.integers(2**62)),
             "greedy": case.get("greedy", False),
         }
         features = {"kind": "hf-backbone", "model": str(backbone), "labels": labels}
@@ -272,15 +311,105 @@ def build_case(case, seed, root, repo, python):
         )
     (private / "server.json").write_text(json.dumps(server), encoding="utf-8")
     (recovery / "features.json").write_text(json.dumps(features), encoding="utf-8")
-    argv = [python, "-m", "rephix", "text-target-serve", "--config", str(private / "server.json")]
-    if case.get("emit_unknown"):
-        argv = [python, str(Path(__file__).resolve()), "--relabel-proxy", json.dumps(argv)]
-    (recovery / "target.json").write_text(json.dumps({"argv": argv}), encoding="utf-8")
     return truth
 
 
-def run_recovery(case, root, python, budget_scale=1.0):
+class Oracle:
+    """Hosts the target process and relays string-only lines over loopback TCP."""
+
+    def __init__(self, root, python, relabel=False):
+        self.process = subprocess.Popen(
+            [
+                python,
+                "-m",
+                "rephix",
+                "text-target-serve",
+                "--config",
+                str(root / "private" / "server.json"),
+            ],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            bufsize=1,
+        )
+        self.hello = self.process.stdout.readline()  # target fully loaded
+        if not self.hello:
+            raise RuntimeError("oracle failed to start")
+        self.relabel = relabel
+        self.server = socket.create_server(("127.0.0.1", 0))
+        self.port = self.server.getsockname()[1]
+        self.lock = threading.Lock()
+        threading.Thread(target=self._serve, daemon=True).start()
+
+    def _serve(self):
+        while True:
+            try:
+                connection, _ = self.server.accept()
+            except OSError:
+                return
+            threading.Thread(target=self._bridge, args=(connection,), daemon=True).start()
+
+    def _bridge(self, connection):
+        with connection, connection.makefile("rw", encoding="utf-8", newline="\n") as stream:
+            stream.write(self.hello)
+            stream.flush()
+            for line in stream:
+                with self.lock:
+                    self.process.stdin.write(line)
+                    self.process.stdin.flush()
+                    reply = self.process.stdout.readline()
+                if self.relabel:  # boundary case: a string outside the declared classes
+                    data = json.loads(reply)
+                    data["outputs"] = [o + "!" if o == "a" else o for o in data["outputs"]]
+                    reply = json.dumps(data) + "\n"
+                stream.write(reply)
+                stream.flush()
+
+    def close(self):
+        self.server.close()
+        self.process.stdin.close()
+        self.process.wait(timeout=60)
+
+
+def relay(port):
+    """Target command given to recovery: copy lines between stdio and the oracle."""
+    sys.stdin.reconfigure(encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8")
+    with (
+        socket.create_connection(("127.0.0.1", int(port))) as connection,
+        connection.makefile("rw", encoding="utf-8", newline="\n") as stream,
+    ):
+        sys.stdout.write(stream.readline())
+        sys.stdout.flush()
+        for line in sys.stdin:
+            stream.write(line)
+            stream.flush()
+            sys.stdout.write(stream.readline())
+            sys.stdout.flush()
+
+
+def relabel_proxy(argv):
+    """Protocol v1 boundary case (kept so v1 runs remain reproducible)."""
+    child = subprocess.Popen(
+        argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, encoding="utf-8", bufsize=1
+    )
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stdout.write(child.stdout.readline())
+    sys.stdout.flush()
+    for line in sys.stdin:
+        child.stdin.write(line)
+        child.stdin.flush()
+        reply = json.loads(child.stdout.readline())
+        reply["outputs"] = [o + "!" if o == "a" else o for o in reply["outputs"]]
+        sys.stdout.write(json.dumps(reply) + "\n")
+        sys.stdout.flush()
+
+
+def run_recovery(case, root, python, oracle):
     recovery = root / "recovery"
+    target_argv = [python, "-I", str(Path(__file__).resolve()), "--relay", str(oracle.port)]
+    (recovery / "target.json").write_text(json.dumps({"argv": target_argv}), encoding="utf-8")
     argv = [
         "text-recover",
         "--features",
@@ -290,41 +419,40 @@ def run_recovery(case, root, python, budget_scale=1.0):
         "--output",
         str(recovery / "export"),
         "--samples-per-context",
-        str(int(case["samples_per_context"] * budget_scale)),
+        str(int(case["samples_per_context"])),
         "--validation-contexts",
         str(case["validation_contexts"]),
         "--bootstrap",
-        str(case.get("bootstrap", 99)),
+        str(case["bootstrap"]),
         "--seed",
         str(case["query_seed"]),
+        "--contexts",
+        str(case["contexts"]),
     ]
-    if case["family"] == "ngram":
-        argv += ["--contexts", str(case["contexts"])]
-    else:
-        argv += [
-            "--contexts-file",
-            str(root / "public" / "prompts.txt"),
-            "--contexts",
-            str(case["contexts"]),
-        ]
+    if case["family"] != "ngram":
+        argv += ["--contexts-file", str(root / "public" / "prompts.txt")]
     env = {
         **os.environ,
         "REPHIX_FORBID": json.dumps([str(root / "private")]),
         "REPHIX_AUDIT_LOG": str(recovery / "audit.json"),
         "PYTHONIOENCODING": "utf-8",
     }
+    os.chmod(root / "private", 0)  # OS-level boundary for the whole recovery run
     started = time.perf_counter()
-    result = subprocess.run(
-        [python, "-c", SANDBOX, *argv],
-        cwd=recovery,
-        env=env,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
+    try:
+        result = subprocess.run(
+            [python, "-c", SANDBOX, *argv],
+            cwd=recovery,
+            env=env,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+    finally:
+        os.chmod(root / "private", 0o700)
     seconds = time.perf_counter() - started
     audit = json.loads((recovery / "audit.json").read_text(encoding="utf-8"))
-    return result, seconds, audit
+    return result, seconds, audit, target_argv
 
 
 def evaluate(case, root, truth, python):
@@ -341,12 +469,12 @@ def evaluate(case, root, truth, python):
     classes = manifest["classes"]
     centre = np.eye(len(classes)) - 1.0 / len(classes)
     metrics = {"status": manifest["status"], "reasons": manifest["reasons"]}
-    transcript = root / "recovery" / "export" / "transcript.jsonl"
     queried = set()
-    with transcript.open(encoding="utf-8") as handle:
+    with (export / "transcript.jsonl").open(encoding="utf-8") as handle:
         next(handle)
         for line in handle:
             queried.add(json.loads(line)["prompt"])
+    trigger_prompts = []
     if case["family"] == "ngram":
         vocab, order = truth["vocabulary"], truth["order"]
         rng = np.random.default_rng(case["query_seed"] + 99991)
@@ -356,40 +484,73 @@ def evaluate(case, root, truth, python):
             (prompt,) = target_features.design_contexts(1, rng)
             if prompt not in queried and prompt not in test:
                 test.append(prompt)
-        tf = target_features.features(test)
-        logits = tf @ truth["theta"].T
-        if "w_in" in truth["arrays"]:
-            logits = logits + np.tanh(tf @ truth["arrays"]["w_in"]) @ truth["arrays"]["w_out"]
-        true_law = _softmax(logits)
-        recovered_features = NgramFeatures(
+        if truth.get("trigger"):
+            # Prompts ending in the trigger suffix after random prefixes of 1-4 tokens.
+            suffix = truth["trigger"]["suffix"]
+            while len(trigger_prompts) < 20:
+                (prefix,) = target_features.design_contexts(1, rng)
+                prompt = prefix[: int(rng.integers(1, len(prefix) + 1))] + suffix
+                if prompt not in queried and prompt not in trigger_prompts:
+                    trigger_prompts.append(prompt)
+
+        def true_law(prompts):
+            tf = target_features.features(prompts)
+            logits = tf @ truth["theta"].T
+            if "w_in" in truth["arrays"]:
+                logits = logits + np.tanh(tf @ truth["arrays"]["w_in"]) @ truth["arrays"]["w_out"]
+            if truth.get("trigger"):
+                trig = truth["trigger"]
+                for row, prompt in enumerate(prompts):
+                    if prompt.endswith(trig["suffix"]):
+                        logits[row, vocab.index(trig["class"])] += trig["delta"]
+            return _softmax(logits)
+
+        recovered = NgramFeatures(
             manifest["prior_knowledge"]["vocabulary"],
             manifest["prior_knowledge"]["order"],
             prompt_length=truth["prompt_length"],
-        ).features(test)
-        in_class = case["in_class"]
-        true_theta = truth["theta"] if in_class else None
+        )
+
+        def recovered_law(prompts, parameters=theta_hat):
+            return _softmax(recovered.features(prompts) @ parameters.T)
+
+        true_theta = truth["theta"] if case["canonical_truth"] else None
     else:
         test = truth["test_prompts"]
-        assert not set(test) & queried
-        hidden = _hf_features(truth["target_backbone"], test)
-        true_law = _softmax(hidden[:, :-1] @ truth["weight"].T + truth["bias"])
-        recovered_features = _hf_features(truth["public_backbone"], test)
-        in_class = case["in_class"]
+
+        def true_law(prompts):
+            hidden = _hf_features(truth["target_backbone"], prompts)
+            return _softmax(hidden[:, :-1] @ truth["weight"].T + truth["bias"])
+
+        public = {}
+
+        def recovered_law(prompts, parameters=theta_hat):
+            key = tuple(prompts)
+            if key not in public:
+                public[key] = _hf_features(truth["public_backbone"], prompts)
+            return _softmax(public[key] @ parameters.T)
+
         true_theta = (
-            np.concatenate([truth["weight"], truth["bias"][:, None]], 1) if in_class else None
+            np.concatenate([truth["weight"], truth["bias"][:, None]], 1)
+            if case["canonical_truth"]
+            else None
         )
-    law = _softmax(recovered_features @ theta_hat.T)
-    base_law = _softmax(recovered_features @ baseline.T)
-    marginal = np.full(len(classes), 1.0 / len(classes))
+    reference = true_law(test)
     metrics["test_contexts"] = len(test)
     metrics["test_contexts_disjoint_from_queries"] = not bool(set(test) & queried)
-    metrics["test_mean_total_variation"] = float(0.5 * np.abs(law - true_law).sum(1).mean())
+    metrics["test_mean_total_variation"] = float(
+        0.5 * np.abs(recovered_law(test) - reference).sum(1).mean()
+    )
     metrics["baseline_test_mean_total_variation"] = float(
-        0.5 * np.abs(base_law - true_law).sum(1).mean()
+        0.5 * np.abs(recovered_law(test, baseline) - reference).sum(1).mean()
     )
     metrics["uniform_test_mean_total_variation"] = float(
-        0.5 * np.abs(marginal - true_law).sum(1).mean()
+        0.5 * np.abs(1.0 / len(classes) - reference).sum(1).mean()
     )
+    if trigger_prompts:
+        metrics["trigger_mean_total_variation"] = float(
+            0.5 * np.abs(recovered_law(trigger_prompts) - true_law(trigger_prompts)).sum(1).mean()
+        )
     if true_theta is not None:
         truth_canonical = centre @ true_theta @ basis
         error = gamma - truth_canonical
@@ -400,77 +561,62 @@ def evaluate(case, root, truth, python):
             np.linalg.norm(centre @ baseline @ basis - truth_canonical) / norm
         )
         metrics["reported_relative_standard_error"] = manifest["estimated_relative_standard_error"]
-        # Truth outside the identified span would make the canonical comparison vacuous.
-        metrics["truth_outside_identified_span"] = (
-            float(
-                np.linalg.norm(centre @ true_theta - centre @ true_theta @ basis @ basis.T)
-                / np.linalg.norm(centre @ true_theta)
-            )
-            if case["family"] == "hf-backbone"
-            else 0.0
+        metrics["truth_outside_identified_span"] = float(
+            np.linalg.norm(centre @ true_theta - centre @ true_theta @ basis @ basis.T)
+            / np.linalg.norm(centre @ true_theta)
         )
         if se is not None:
             z = (error / np.where(se > 0, se, np.inf))[se > 0]
             metrics["ci95_coverage"] = float((np.abs(z) < 1.959964).mean())
+            metrics["ci95_coordinates"] = int(z.size)
             metrics["z_rms"] = float(np.sqrt((z**2).mean()))
-    # Independent reload in a fresh sandboxed interpreter with the private directory denied.
-    probe = test[: min(5, len(test))]
-    reload = []
-    env = {
-        **os.environ,
-        "REPHIX_FORBID": json.dumps([str(root / "private")]),
-        "REPHIX_AUDIT_LOG": str(root / "recovery" / "reload-audit.json"),
-        "PYTHONIOENCODING": "utf-8",
-    }
-    for prompt in probe:
-        out = subprocess.run(
-            [
-                python,
-                "-c",
-                SANDBOX,
-                "text-model",
-                "logprobs",
-                "--model",
-                str(export),
-                "--prompt",
-                prompt,
-            ],
-            env=env,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            check=True,
-        )
-        values = json.loads(out.stdout)["log_probabilities"]
-        reload.append([values[c] for c in classes])
-    expected = np.log(law[: len(probe)])
+    # Independent reload in a fresh sandboxed interpreter, private directory mode 000.
+    probes = test[: min(5, len(test))]
+    reload, audits = [], []
+    os.chmod(root / "private", 0)
+    try:
+        for index, prompt in enumerate(probes):
+            log = root / "recovery" / f"reload-audit-{index}.json"
+            env = {
+                **os.environ,
+                "REPHIX_FORBID": json.dumps([str(root / "private")]),
+                "REPHIX_AUDIT_LOG": str(log),
+                "PYTHONIOENCODING": "utf-8",
+            }
+            out = subprocess.run(
+                [
+                    python,
+                    "-c",
+                    SANDBOX,
+                    "text-model",
+                    "logprobs",
+                    "--model",
+                    str(export),
+                    "--prompt",
+                    prompt,
+                ],
+                env=env,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                check=True,
+            )
+            values = json.loads(out.stdout)["log_probabilities"]
+            reload.append([values[c] for c in classes])
+            audits.append(json.loads(log.read_text(encoding="utf-8")))
+    finally:
+        os.chmod(root / "private", 0o700)
+    expected = np.log(recovered_law(probes))
     metrics["reload_max_abs_logprob_difference"] = float(np.abs(np.array(reload) - expected).max())
-    reload_audit = json.loads((root / "recovery" / "reload-audit.json").read_text(encoding="utf-8"))
-    metrics["reload_denied_opens"] = len(reload_audit["denied"])
-    metrics["reload_spawned_processes"] = len(reload_audit["spawned"])
+    metrics["reload_denied_opens"] = sum(len(a["denied"]) for a in audits)
+    metrics["reload_spawned_processes"] = sum(len(a["spawned"]) for a in audits)
+    metrics["reload_probes_audited"] = len(audits)
     metrics["budget"] = manifest["budget"]
     metrics["design"] = manifest["design"]
     metrics["misspecification_test"] = manifest["misspecification_test"]
     metrics["transcript_sha256"] = manifest["transcript"]["sha256"]
     metrics["parameters_sha256"] = manifest["parameters_sha256"]
     return metrics
-
-
-def relabel_proxy(argv):
-    """Boundary case: a target that emits a string outside the declared classes."""
-    child = subprocess.Popen(
-        argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, encoding="utf-8", bufsize=1
-    )
-    sys.stdout.reconfigure(encoding="utf-8")
-    sys.stdout.write(child.stdout.readline())
-    sys.stdout.flush()
-    for line in sys.stdin:
-        child.stdin.write(line)
-        child.stdin.flush()
-        reply = json.loads(child.stdout.readline())
-        reply["outputs"] = [o + "!" if o == "a" else o for o in reply["outputs"]]
-        sys.stdout.write(json.dumps(reply) + "\n")
-        sys.stdout.flush()
 
 
 def main():
@@ -481,33 +627,48 @@ def main():
     parser.add_argument("--output")
     parser.add_argument("--cases", help="comma-separated case names")
     parser.add_argument("--keep", action="store_true", help="keep work directories")
+    parser.add_argument("--relay")
     parser.add_argument("--relabel-proxy")
     args = parser.parse_args()
+    if args.relay:
+        relay(args.relay)
+        return 0
     if args.relabel_proxy:
         relabel_proxy(json.loads(args.relabel_proxy))
         return 0
-    repo = Path(__file__).resolve().parents[1]
     protocol_path = Path(args.protocol).resolve()
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    docs = Docs(protocol["corpus_commit"])
     work = Path(args.work).resolve()
     work.mkdir(parents=True, exist_ok=True)
     python = sys.executable
     wanted = set(args.cases.split(",")) if args.cases else None
     results = {
-        "protocol": str(protocol_path.relative_to(repo))
-        if protocol_path.is_relative_to(repo)
-        else str(protocol_path),
+        "protocol": (
+            str(protocol_path.relative_to(REPO))
+            if protocol_path.is_relative_to(REPO)
+            else str(protocol_path)
+        ),
         "protocol_sha256": _sha(protocol_path),
+        "protocol_version": protocol.get("version"),
         "split": args.split,
         "git_commit": subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True
+            ["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True, text=True
         ).stdout.strip(),
+        "git_worktree_clean_for_src": not subprocess.run(
+            ["git", "status", "--porcelain", "src", "examples"],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+        ).stdout.strip(),
+        "corpus_commit": docs.commit,
+        "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "python": sys.version.split()[0],
         "numpy": np.__version__,
         "runs": [],
     }
     try:
-        import torch  # noqa: E401
+        import torch
         import transformers
 
         results["torch"], results["transformers"] = torch.__version__, transformers.__version__
@@ -524,11 +685,17 @@ def main():
             entry = {
                 "case": case["name"],
                 "seed": seed,
-                "in_class": case["in_class"],
-                "expected": case["expected_status"],
+                "expected": case["allowed_statuses"],
+                "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             }
-            truth = build_case(run_case, seed, root, repo, python)
-            completed, seconds, audit = run_recovery(run_case, root, python)
+            truth = build_case(run_case, seed, root, docs)
+            oracle = Oracle(root, python, relabel=case.get("emit_unknown", False))
+            try:
+                completed, seconds, audit, target_argv = run_recovery(
+                    run_case, root, python, oracle
+                )
+            finally:
+                oracle.close()
             entry["recovery_seconds"] = seconds
             entry["recovery_exit"] = completed.returncode
             entry["audit"] = {
@@ -538,6 +705,9 @@ def main():
                     p for p in audit["opened_outside_python"] if p.startswith(str(root / "private"))
                 ],
                 "spawned": audit["spawned"],
+                "spawned_only_the_target_relay": all(s == target_argv for s in audit["spawned"]),
+                "chmod_attempts": audit["chmod"],
+                "private_directory_mode_during_recovery": "000",
             }
             if completed.returncode:
                 entry["status"] = "error"
@@ -546,7 +716,9 @@ def main():
                 entry.update(evaluate(run_case, root, truth, python))
             if truth.get("corpus"):
                 entry["corpus"] = truth["corpus"]
-            entry["status_matches_expectation"] = entry["status"] == case["expected_status"]
+            entry["target_secret"] = truth["secret"]  # published only after recovery
+            entry["status_allowed"] = entry["status"] in case["allowed_statuses"]
+            entry["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             results["runs"].append(entry)
             print(
                 json.dumps(
@@ -560,7 +732,7 @@ def main():
                             "reported_relative_standard_error",
                             "ci95_coverage",
                             "test_mean_total_variation",
-                            "baseline_canonical_relative_l2_error",
+                            "trigger_mean_total_variation",
                         )
                     }
                 ),
@@ -568,6 +740,8 @@ def main():
             )
             if not args.keep:
                 shutil.rmtree(root)
+            Path(args.output).write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")
+    results["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     Path(args.output).write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")
     return 0
 

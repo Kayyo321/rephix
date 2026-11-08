@@ -102,7 +102,8 @@ def serve(config, stdin=None, stdout=None):
     target = _NgramTarget(config) if kind == "ngram" else _HfTarget(config)
     temperature = float(config.get("temperature", 1.0))
     greedy = bool(config.get("greedy", False))
-    rng = np.random.default_rng(int(config.get("seed", 0)))
+    seed = int(config.get("seed", 0))
+    requests = {}
     stdout.write(json.dumps({"protocol": PROTOCOL}) + "\n")
     stdout.flush()
     for line in stdin:
@@ -111,6 +112,14 @@ def serve(config, stdin=None, stdout=None):
         request = json.loads(line)
         prompt, n = request["prompt"], int(request["n"])
         logits = target.logits(prompt)
+        # A stream per (seed, prompt, repeat) keeps contexts independent and makes a
+        # restarted server reproduce, not reuse, its random streams.
+        import hashlib
+
+        digest = int.from_bytes(hashlib.sha256(prompt.encode("utf-8")).digest()[:8], "big")
+        repeat = requests.get(prompt, 0)
+        requests[prompt] = repeat + 1
+        rng = np.random.default_rng([seed, digest, repeat])
         if greedy:
             choices = np.full(n, int(np.argmax(logits)))
         else:

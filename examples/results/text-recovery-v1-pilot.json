@@ -1,0 +1,3115 @@
+{
+ "protocol": "examples/text_recovery_protocol.json",
+ "protocol_sha256": "443bf9eb90e40e569c0e260925aa3c040cc2aa7e5627026b5a8ca705750602d9",
+ "split": "final",
+ "git_commit": "061633fd17334e24e87d685e8937b6645d3d83b1",
+ "python": "3.13.5",
+ "numpy": "2.5.4",
+ "runs": [
+  {
+   "case": "ngram-random",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 1.7467377320008382,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.008779645753801342,
+   "baseline_test_mean_total_variation": 0.014450222226639576,
+   "uniform_test_mean_total_variation": 0.539401127306358,
+   "canonical_relative_l2_error": 0.0447122109040133,
+   "canonical_max_abs_error": 0.206912105908442,
+   "baseline_canonical_relative_l2_error": 0.06359334833198173,
+   "reported_relative_standard_error": 0.043587676703057784,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9455645161290323,
+   "z_rms": 1.0398159126587023,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 8000,
+    "sampled_outputs": 1152000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.87854441266961,
+    "smallest_retained_singular_value": 1.4942990162400052,
+    "condition_number": 7.949241941253979
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1432.522451010726,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1415.7590582593868,
+    "p_value": 0.34
+   },
+   "parameters_sha256": "2c7889041e1b417f4a4476a112b3e9b28ad803c2687d38bd88db3663eea46500",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 4.435339500001646,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.009698395157142421,
+   "baseline_test_mean_total_variation": 0.014525091163927624,
+   "uniform_test_mean_total_variation": 0.5911968626818689,
+   "canonical_relative_l2_error": 0.07058608417259213,
+   "canonical_max_abs_error": 0.6517533178432299,
+   "baseline_canonical_relative_l2_error": 0.08948495463226218,
+   "reported_relative_standard_error": 0.068489396175761,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9435483870967742,
+   "z_rms": 0.982113436471399,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 8000,
+    "sampled_outputs": 1152000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.903734192549205,
+    "smallest_retained_singular_value": 1.4539534509594978,
+    "condition_number": 8.187149447386815
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1364.4816276838965,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1410.6086630606426,
+    "p_value": 0.85
+   },
+   "parameters_sha256": "b4f8abae57244ec02def8416ce0821515991e713b7d6a25088faf3f4877fcb69",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.3935856219995912,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.00846457469157915,
+   "baseline_test_mean_total_variation": 0.012448535439077766,
+   "uniform_test_mean_total_variation": 0.5647916846593637,
+   "canonical_relative_l2_error": 0.0499191300866707,
+   "canonical_max_abs_error": 0.3734778228155377,
+   "baseline_canonical_relative_l2_error": 0.07573659304454863,
+   "reported_relative_standard_error": 0.05748261510544113,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9536290322580645,
+   "z_rms": 0.9885482999319256,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 8000,
+    "sampled_outputs": 1152000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.865987792136494,
+    "smallest_retained_singular_value": 1.3188565361856859,
+    "condition_number": 8.997178591126037
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1382.9974497433482,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1409.9145802950234,
+    "p_value": 0.7
+   },
+   "parameters_sha256": "a13cf8a75429d7805a49afafae2da2ce0b23e0d18b06ff34364de9dd8071e20e",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 1.5613284290011507,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.00969866950120122,
+   "baseline_test_mean_total_variation": 0.014507862825421363,
+   "uniform_test_mean_total_variation": 0.5361402415342073,
+   "canonical_relative_l2_error": 0.037888763515780625,
+   "canonical_max_abs_error": 0.15740022028018263,
+   "baseline_canonical_relative_l2_error": 0.06011085593089862,
+   "reported_relative_standard_error": 0.040279469970235224,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9455645161290323,
+   "z_rms": 1.0356278176107208,
+   "reload_max_abs_logprob_difference": 4.440892098500626e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 8000,
+    "sampled_outputs": 1152000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.91189031342445,
+    "smallest_retained_singular_value": 1.394933953428853,
+    "condition_number": 8.539393771399803
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1449.4693749172209,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1400.2423035429865,
+    "p_value": 0.2
+   },
+   "parameters_sha256": "e5c0863fc643aa8318683d988ef02c32993c4d3b5ab20e8b0cd0292f0c243e78",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 1.697978262000106,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.008127075736352,
+   "baseline_test_mean_total_variation": 0.014089137763056234,
+   "uniform_test_mean_total_variation": 0.5537706858326442,
+   "canonical_relative_l2_error": 0.05147950520439244,
+   "canonical_max_abs_error": 0.321931798285934,
+   "baseline_canonical_relative_l2_error": 0.07949162424793146,
+   "reported_relative_standard_error": 0.05091590086065941,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9375,
+   "z_rms": 1.0524170432572426,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 8000,
+    "sampled_outputs": 1152000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.909351429488447,
+    "smallest_retained_singular_value": 1.4445584199474215,
+    "condition_number": 8.244285080503646
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1409.6294685348362,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1416.8495610125722,
+    "p_value": 0.57
+   },
+   "parameters_sha256": "c578b67644b926e1cbe7f55666c1b99ae1bcd093364f01d400584bee52de3deb",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-low-budget",
+   "seed": 101,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 8.668384665999838,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-low-budget-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.036742904376318324,
+   "baseline_test_mean_total_variation": 0.052388484772068165,
+   "uniform_test_mean_total_variation": 0.539401127306358,
+   "canonical_relative_l2_error": 0.5260122700046167,
+   "canonical_max_abs_error": 6.1822091609083305,
+   "baseline_canonical_relative_l2_error": 0.2156124936593305,
+   "reported_relative_standard_error": 10.812089934875063,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9919354838709677,
+   "z_rms": 0.3808629121788973,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 500,
+    "sampled_outputs": 72000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.87854441266961,
+    "smallest_retained_singular_value": 1.4942990162400052,
+    "condition_number": 7.949241941253979
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1422.5721068137589,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1435.8126466738017,
+    "p_value": 0.58
+   },
+   "parameters_sha256": "dc075d0c7126a0e0144c6240d62714143f100c56b23e981771c7126986257f8f",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-low-budget",
+   "seed": 102,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 11.003000058999532,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-low-budget-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.03519894641878945,
+   "baseline_test_mean_total_variation": 0.05388836600657946,
+   "uniform_test_mean_total_variation": 0.5911968626818689,
+   "canonical_relative_l2_error": 0.9898465916649761,
+   "canonical_max_abs_error": 7.6449643338714095,
+   "baseline_canonical_relative_l2_error": 0.2882041882818023,
+   "reported_relative_standard_error": 20.056012887279387,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 1.0,
+   "z_rms": 0.060403365337583365,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 500,
+    "sampled_outputs": 72000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.903734192549205,
+    "smallest_retained_singular_value": 1.4539534509594978,
+    "condition_number": 8.187149447386815
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1475.5062681408851,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1410.6555207721171,
+    "p_value": 0.17
+   },
+   "parameters_sha256": "0f67d48d3e823e1cb1d606e23f6ec41cf0b914aca000073de54c3b099a20ca9e",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-low-budget",
+   "seed": 103,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 9.06552663399998,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-low-budget-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.03519276998807735,
+   "baseline_test_mean_total_variation": 0.04691433290747321,
+   "uniform_test_mean_total_variation": 0.5647916846593637,
+   "canonical_relative_l2_error": 1.2048373902937397,
+   "canonical_max_abs_error": 10.295414790893307,
+   "baseline_canonical_relative_l2_error": 0.24454006414721075,
+   "reported_relative_standard_error": 20.57001985612418,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 1.0,
+   "z_rms": 0.06396515564010048,
+   "reload_max_abs_logprob_difference": 4.440892098500626e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 500,
+    "sampled_outputs": 72000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.865987792136494,
+    "smallest_retained_singular_value": 1.3188565361856859,
+    "condition_number": 8.997178591126037
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1510.2567268802784,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1442.7095215710606,
+    "p_value": 0.13
+   },
+   "parameters_sha256": "91ea7f88ce809329cc20cdfd5a682480647cfe5482e2db46b1719a50a16974a3",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-low-budget",
+   "seed": 104,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 4.2326970850008365,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-low-budget-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.03797977831504902,
+   "baseline_test_mean_total_variation": 0.06004602508449763,
+   "uniform_test_mean_total_variation": 0.5361402415342073,
+   "canonical_relative_l2_error": 0.5381172446651677,
+   "canonical_max_abs_error": 4.1364658583457485,
+   "baseline_canonical_relative_l2_error": 0.21167606524627774,
+   "reported_relative_standard_error": 10.406849065160749,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9979838709677419,
+   "z_rms": 0.3270528051672665,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 500,
+    "sampled_outputs": 72000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.91189031342445,
+    "smallest_retained_singular_value": 1.394933953428853,
+    "condition_number": 8.539393771399803
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1514.1241100292134,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1441.2049012983366,
+    "p_value": 0.06
+   },
+   "parameters_sha256": "95b0f4dfcd91fe7a5ccd206fff8db790c72af675dc23b2ef78d28b4b2caadc14",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-low-budget",
+   "seed": 105,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 10.670682782998483,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-low-budget-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.03325045979446415,
+   "baseline_test_mean_total_variation": 0.048457676077802034,
+   "uniform_test_mean_total_variation": 0.5537706858326442,
+   "canonical_relative_l2_error": 0.21075729070816113,
+   "canonical_max_abs_error": 1.2707917117816137,
+   "baseline_canonical_relative_l2_error": 0.22852400795062133,
+   "reported_relative_standard_error": 0.20887641441554872,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9556451612903226,
+   "z_rms": 0.9864357833037393,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 500,
+    "sampled_outputs": 72000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.909351429488447,
+    "smallest_retained_singular_value": 1.4445584199474215,
+    "condition_number": 8.244285080503646
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1509.3210341140873,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1434.7617334894373,
+    "p_value": 0.06
+   },
+   "parameters_sha256": "c000440e9f18d6006044493979f7b2fe71fe58649ab40b602379d5b0e34c751e",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-4x-budget",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.371315835000132,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-4x-budget-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.0044062714474576705,
+   "baseline_test_mean_total_variation": 0.007034964810661317,
+   "uniform_test_mean_total_variation": 0.539401127306358,
+   "canonical_relative_l2_error": 0.02038967253520583,
+   "canonical_max_abs_error": 0.14471070497894045,
+   "baseline_canonical_relative_l2_error": 0.0387223967729012,
+   "reported_relative_standard_error": 0.02149086830509537,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9616935483870968,
+   "z_rms": 0.8957134315689187,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.87854441266961,
+    "smallest_retained_singular_value": 1.4942990162400052,
+    "condition_number": 7.949241941253979
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1285.2595077526869,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1389.5632757198969,
+    "p_value": 0.99
+   },
+   "parameters_sha256": "6c616f0c2940210758077829360c01f7c8eff3792620e514da1d3250403476fd",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-4x-budget",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.918943319000391,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-4x-budget-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.004101201570493568,
+   "baseline_test_mean_total_variation": 0.007657049084878091,
+   "uniform_test_mean_total_variation": 0.5911968626818689,
+   "canonical_relative_l2_error": 0.02936950648273568,
+   "canonical_max_abs_error": 0.15610801685799974,
+   "baseline_canonical_relative_l2_error": 0.0456854692990899,
+   "reported_relative_standard_error": 0.032010978129131264,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.967741935483871,
+   "z_rms": 0.9283357025667971,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.903734192549205,
+    "smallest_retained_singular_value": 1.4539534509594978,
+    "condition_number": 8.187149447386815
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1385.2837514004154,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1398.6660114041947,
+    "p_value": 0.65
+   },
+   "parameters_sha256": "2abfd111106357f12649675c95f663d9596f78cb69f70fa953cd3ea1367576b5",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-4x-budget",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.883239099999628,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-4x-budget-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.004232139105186784,
+   "baseline_test_mean_total_variation": 0.0063394978625751774,
+   "uniform_test_mean_total_variation": 0.5647916846593637,
+   "canonical_relative_l2_error": 0.035012834263495475,
+   "canonical_max_abs_error": 0.47844174424633623,
+   "baseline_canonical_relative_l2_error": 0.040612370169958466,
+   "reported_relative_standard_error": 0.030277136341575226,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9415322580645161,
+   "z_rms": 1.0407091385475014,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.865987792136494,
+    "smallest_retained_singular_value": 1.3188565361856859,
+    "condition_number": 8.997178591126037
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1356.4969645671622,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1398.0464163165766,
+    "p_value": 0.69
+   },
+   "parameters_sha256": "0345fccfab040cc1cbb8abf238df87d2ea55ea33912aa6c9384e6ed5f662ab4f",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-4x-budget",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.29906890500024,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-4x-budget-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.004510317004472834,
+   "baseline_test_mean_total_variation": 0.007891035408807388,
+   "uniform_test_mean_total_variation": 0.5361402415342073,
+   "canonical_relative_l2_error": 0.018495087796071584,
+   "canonical_max_abs_error": 0.07980683240204156,
+   "baseline_canonical_relative_l2_error": 0.031590615560824646,
+   "reported_relative_standard_error": 0.020099389565265937,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9737903225806451,
+   "z_rms": 0.9190838862913877,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.91189031342445,
+    "smallest_retained_singular_value": 1.394933953428853,
+    "condition_number": 8.539393771399803
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1307.9103581172435,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1391.965816386745,
+    "p_value": 0.98
+   },
+   "parameters_sha256": "64e42422326b02b7fb39c783e2df514f701c26d44048823c05f92bb60ea033f6",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-random-4x-budget",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 2.25677354400068,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-random-4x-budget-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.003841809898588487,
+   "baseline_test_mean_total_variation": 0.00691168152260716,
+   "uniform_test_mean_total_variation": 0.5537706858326442,
+   "canonical_relative_l2_error": 0.026052043563386775,
+   "canonical_max_abs_error": 0.14675487340101312,
+   "baseline_canonical_relative_l2_error": 0.04280553175368312,
+   "reported_relative_standard_error": 0.025257388740232183,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9415322580645161,
+   "z_rms": 0.9961805330380131,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.909351429488447,
+    "smallest_retained_singular_value": 1.4445584199474215,
+    "condition_number": 8.244285080503646
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1350.683447774461,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1400.342996474624,
+    "p_value": 0.81
+   },
+   "parameters_sha256": "382014ddc60697b84dffbfdd055939d08cd45a07107ee99cdc482cc2ede0b456",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-moderate",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.586684886000512,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-moderate-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.004499145571703985,
+   "baseline_test_mean_total_variation": 0.013574991320518648,
+   "uniform_test_mean_total_variation": 0.6704201782416225,
+   "canonical_relative_l2_error": 0.03701545531337794,
+   "canonical_max_abs_error": 0.30545922450725393,
+   "baseline_canonical_relative_l2_error": 0.08793437148200438,
+   "reported_relative_standard_error": 0.03732319161097056,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9495967741935484,
+   "z_rms": 1.0247384107107707,
+   "reload_max_abs_logprob_difference": 4.440892098500626e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.87854441266961,
+    "smallest_retained_singular_value": 1.4942990162400052,
+    "condition_number": 7.949241941253979
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1419.421124605797,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1418.242227680196,
+    "p_value": 0.49
+   },
+   "parameters_sha256": "675a7893b9aa978f87f7c6e47de107cacaf5991376b1b7412400bcf84e09b3e3",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-moderate",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 12.875314983999488,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-moderate-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.004611382758243672,
+   "baseline_test_mean_total_variation": 0.015917518241351885,
+   "uniform_test_mean_total_variation": 0.721187666234756,
+   "canonical_relative_l2_error": 0.13335552540349643,
+   "canonical_max_abs_error": 1.775788147661947,
+   "baseline_canonical_relative_l2_error": 0.15301531394923898,
+   "reported_relative_standard_error": 0.3390479560188817,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9979838709677419,
+   "z_rms": 0.6205584932234482,
+   "reload_max_abs_logprob_difference": 4.440892098500626e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.903734192549205,
+    "smallest_retained_singular_value": 1.4539534509594978,
+    "condition_number": 8.187149447386815
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1339.0746540677287,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1387.299348123929,
+    "p_value": 0.76
+   },
+   "parameters_sha256": "8f2f378846831e41ba17ba675ef35a16a3ecce63bd920335ac060c1400e208cf",
+   "status_matches_expectation": false,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-moderate",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 13.284973441001057,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-moderate-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "insufficient_evidence",
+   "reasons": [
+    "estimated canonical-parameter standard error exceeds the threshold"
+   ],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.003652884595612077,
+   "baseline_test_mean_total_variation": 0.00905354455106896,
+   "uniform_test_mean_total_variation": 0.6982796357826325,
+   "canonical_relative_l2_error": 0.12260374545362963,
+   "canonical_max_abs_error": 3.0243382993868035,
+   "baseline_canonical_relative_l2_error": 0.10571868306059845,
+   "reported_relative_standard_error": 0.2578782732238998,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9798387096774194,
+   "z_rms": 0.8333351052590383,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.865987792136494,
+    "smallest_retained_singular_value": 1.3188565361856859,
+    "condition_number": 8.997178591126037
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1468.1542582752609,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1398.6287477925562,
+    "p_value": 0.08
+   },
+   "parameters_sha256": "99678a31cb9107e30ff85e96dd7cac3567b81b2e7e2ab47ea01d1f6945d681e7",
+   "status_matches_expectation": false,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-moderate",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 7.235762150001392,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-moderate-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.00488734169032458,
+   "baseline_test_mean_total_variation": 0.017396861489448554,
+   "uniform_test_mean_total_variation": 0.6720034155320294,
+   "canonical_relative_l2_error": 0.06278150688599453,
+   "canonical_max_abs_error": 0.7730739144258849,
+   "baseline_canonical_relative_l2_error": 0.07756967613248979,
+   "reported_relative_standard_error": 0.04405224208571182,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9092741935483871,
+   "z_rms": 1.1930904006936218,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.91189031342445,
+    "smallest_retained_singular_value": 1.394933953428853,
+    "condition_number": 8.539393771399803
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1328.9968825525566,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1406.8079090484985,
+    "p_value": 0.92
+   },
+   "parameters_sha256": "fd2d987792583ed6697f63e2b708df70c1ccdce603a7f6117fbbb1a1da135564",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "ngram-moderate",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.4648680450009124,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 76,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/ngram-moderate-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 200,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.003629699282976646,
+   "baseline_test_mean_total_variation": 0.014079773702392223,
+   "uniform_test_mean_total_variation": 0.6898602470741712,
+   "canonical_relative_l2_error": 0.048401999950363324,
+   "canonical_max_abs_error": 0.41268716342502015,
+   "baseline_canonical_relative_l2_error": 0.09105891834684454,
+   "reported_relative_standard_error": 0.04701004608629537,
+   "truth_outside_identified_span": 0.0,
+   "ci95_coverage": 0.9415322580645161,
+   "z_rms": 1.0992035189676777,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 124,
+    "validation_contexts": 20,
+    "samples_per_context": 32000,
+    "sampled_outputs": 4608000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 31,
+    "expected_rank": 31,
+    "feature_width": 33,
+    "largest_singular_value": 11.909351429488447,
+    "smallest_retained_singular_value": 1.4445584199474215,
+    "condition_number": 8.244285080503646
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1337.060028697705,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1413.3933675919538,
+    "p_value": 0.96
+   },
+   "parameters_sha256": "ebb5ec0170c87afc8f35b9972c504eff26851fc181d141597d72777a252674b0",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tiny-qwen2",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.699821669000812,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tiny-qwen2-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.007909083688505833,
+   "baseline_test_mean_total_variation": 0.017235132606486615,
+   "uniform_test_mean_total_variation": 0.4245278235209417,
+   "canonical_relative_l2_error": 0.024903662747759684,
+   "canonical_max_abs_error": 0.014718617586946672,
+   "baseline_canonical_relative_l2_error": 0.05202526647674822,
+   "reported_relative_standard_error": 0.023485211700815536,
+   "truth_outside_identified_span": 1.5321929915427684e-15,
+   "ci95_coverage": 0.9285714285714286,
+   "z_rms": 1.071299558623083,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 400,
+    "validation_contexts": 20,
+    "samples_per_context": 1000,
+    "sampled_outputs": 420000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 49,
+    "expected_rank": null,
+    "feature_width": 49,
+    "largest_singular_value": 34.44172627698061,
+    "smallest_retained_singular_value": 9.599426308030608,
+    "condition_number": 3.587894231571697
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1059.1614731476473,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1056.906417276339,
+    "p_value": 0.48
+   },
+   "parameters_sha256": "fe4f61c1fb4c366c96a70d1d521eb6d306b63f70e21d792619856e7ea1340d5a",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tiny-qwen2",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.6461869590002607,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tiny-qwen2-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.007672238499846737,
+   "baseline_test_mean_total_variation": 0.01391237014219867,
+   "uniform_test_mean_total_variation": 0.39676167622888137,
+   "canonical_relative_l2_error": 0.02470161212627558,
+   "canonical_max_abs_error": 0.011893960453543032,
+   "baseline_canonical_relative_l2_error": 0.047945554791162026,
+   "reported_relative_standard_error": 0.024353029378692322,
+   "truth_outside_identified_span": 1.613691850836557e-15,
+   "ci95_coverage": 0.9591836734693877,
+   "z_rms": 1.006985169175836,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 400,
+    "validation_contexts": 20,
+    "samples_per_context": 1000,
+    "sampled_outputs": 420000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 49,
+    "expected_rank": null,
+    "feature_width": 49,
+    "largest_singular_value": 39.56611459260155,
+    "smallest_retained_singular_value": 10.165844819199224,
+    "condition_number": 3.8920636008408223
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 973.9223527189959,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1061.0440886421306,
+    "p_value": 0.97
+   },
+   "parameters_sha256": "5cf84824c3422a3acb8833125d44fcf026f80eb9c7ee117456eb3ee9ffabb297",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tiny-qwen2",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.730260479000208,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tiny-qwen2-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.0072197568789551725,
+   "baseline_test_mean_total_variation": 0.015171776504129732,
+   "uniform_test_mean_total_variation": 0.38880461690569357,
+   "canonical_relative_l2_error": 0.02414123334529622,
+   "canonical_max_abs_error": 0.01348295561820323,
+   "baseline_canonical_relative_l2_error": 0.04740103285198664,
+   "reported_relative_standard_error": 0.024177388697623495,
+   "truth_outside_identified_span": 1.789075667568569e-15,
+   "ci95_coverage": 0.9591836734693877,
+   "z_rms": 0.962507753665244,
+   "reload_max_abs_logprob_difference": 4.440892098500626e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 400,
+    "validation_contexts": 20,
+    "samples_per_context": 1000,
+    "sampled_outputs": 420000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 49,
+    "expected_rank": null,
+    "feature_width": 49,
+    "largest_singular_value": 40.076419407191565,
+    "smallest_retained_singular_value": 10.036839739490494,
+    "condition_number": 3.9929320829452624
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1054.6951164424945,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1050.6549642113982,
+    "p_value": 0.46
+   },
+   "parameters_sha256": "2e49825eef623e9ede631eabbc270cfb3df50a08d8f0f383683b7023d033be55",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tiny-qwen2",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 3.6761191800014785,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tiny-qwen2-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.006830381312135085,
+   "baseline_test_mean_total_variation": 0.014622836426808198,
+   "uniform_test_mean_total_variation": 0.3949224421842467,
+   "canonical_relative_l2_error": 0.021727375567696147,
+   "canonical_max_abs_error": 0.012212315465526771,
+   "baseline_canonical_relative_l2_error": 0.042841416423227245,
+   "reported_relative_standard_error": 0.02400625930278948,
+   "truth_outside_identified_span": 1.692560634280981e-15,
+   "ci95_coverage": 0.9693877551020408,
+   "z_rms": 0.910014259899339,
+   "reload_max_abs_logprob_difference": 6.661338147750939e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 400,
+    "validation_contexts": 20,
+    "samples_per_context": 1000,
+    "sampled_outputs": 420000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 49,
+    "expected_rank": null,
+    "feature_width": 49,
+    "largest_singular_value": 39.9628346491867,
+    "smallest_retained_singular_value": 9.945406494965729,
+    "condition_number": 4.018220338144601
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1057.4058516411167,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1059.4406721394012,
+    "p_value": 0.53
+   },
+   "parameters_sha256": "2bf4e1d68812f44d6c3902ad16c83c20cd8ce6795788f558eb4939e98fb2c5fa",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tiny-qwen2",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 4.537333373000365,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tiny-qwen2-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.0072923090898800134,
+   "baseline_test_mean_total_variation": 0.014166929050173716,
+   "uniform_test_mean_total_variation": 0.39655041981327416,
+   "canonical_relative_l2_error": 0.024056048803064393,
+   "canonical_max_abs_error": 0.013734719469493631,
+   "baseline_canonical_relative_l2_error": 0.044564298920396456,
+   "reported_relative_standard_error": 0.023443736434825224,
+   "truth_outside_identified_span": 1.7012446561204895e-15,
+   "ci95_coverage": 0.9336734693877551,
+   "z_rms": 1.0401499629216353,
+   "reload_max_abs_logprob_difference": 8.881784197001252e-16,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 400,
+    "validation_contexts": 20,
+    "samples_per_context": 1000,
+    "sampled_outputs": 420000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 49,
+    "expected_rank": null,
+    "feature_width": 49,
+    "largest_singular_value": 38.3305573526913,
+    "smallest_retained_singular_value": 10.001869366928421,
+    "condition_number": 3.832339330428851
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 1050.179842932564,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 1057.1703625853174,
+    "p_value": 0.57
+   },
+   "parameters_sha256": "060a6fb28cd28cfb42c481087817e38247e5819548f0f62681587d7876bcfbf3",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tinyllama-15m",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 21.806318491999264,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 85,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tinyllama-15m-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.006301887276080491,
+   "baseline_test_mean_total_variation": 0.014091612063710545,
+   "uniform_test_mean_total_variation": 0.3820565886664214,
+   "canonical_relative_l2_error": 0.029466156334306205,
+   "canonical_max_abs_error": 0.01536359856620051,
+   "baseline_canonical_relative_l2_error": 0.09675825346797687,
+   "reported_relative_standard_error": 0.03521214092166839,
+   "truth_outside_identified_span": 1.7144907725054929e-15,
+   "ci95_coverage": 0.9403114186851211,
+   "z_rms": 1.0384226604567106,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 1200,
+    "validation_contexts": 20,
+    "samples_per_context": 4000,
+    "sampled_outputs": 4880000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 289,
+    "expected_rank": null,
+    "feature_width": 289,
+    "largest_singular_value": 2811.6430660997303,
+    "smallest_retained_singular_value": 2.6329810562362757,
+    "condition_number": 1067.8554102925616
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 2779.8161065227014,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 2754.1375475979025,
+    "p_value": 0.33
+   },
+   "parameters_sha256": "58c7c411f010fe9745d4fe2cc259fb64deaad10eef31d3dca0a86d0d3e407b40",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tinyllama-15m",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 18.25333688700084,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 85,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tinyllama-15m-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.006041526541106487,
+   "baseline_test_mean_total_variation": 0.008921994487302284,
+   "uniform_test_mean_total_variation": 0.3410511786601532,
+   "canonical_relative_l2_error": 0.021621073501496255,
+   "canonical_max_abs_error": 0.020902405611000097,
+   "baseline_canonical_relative_l2_error": 0.02335450285690439,
+   "reported_relative_standard_error": 0.021613452142339173,
+   "truth_outside_identified_span": 2.0768167575247713e-15,
+   "ci95_coverage": 0.9593425605536332,
+   "z_rms": 0.9821107471355016,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 1200,
+    "validation_contexts": 20,
+    "samples_per_context": 4000,
+    "sampled_outputs": 4880000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 289,
+    "expected_rank": null,
+    "feature_width": 289,
+    "largest_singular_value": 2834.208824052057,
+    "smallest_retained_singular_value": 2.45188602453948,
+    "condition_number": 1155.9300863441995
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 2685.5600357843077,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 2745.5805805994414,
+    "p_value": 0.76
+   },
+   "parameters_sha256": "a19612254d0c1dba6dade22061434fdccb3ac9b4393ed95e8e80fe9b7ce112a2",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tinyllama-15m",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 19.55598090700005,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 85,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tinyllama-15m-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.005791070537032237,
+   "baseline_test_mean_total_variation": 0.009996351541844218,
+   "uniform_test_mean_total_variation": 0.36248223708147853,
+   "canonical_relative_l2_error": 0.0238304279466993,
+   "canonical_max_abs_error": 0.0195133836769954,
+   "baseline_canonical_relative_l2_error": 0.04328537352789704,
+   "reported_relative_standard_error": 0.025062200792564934,
+   "truth_outside_identified_span": 1.7279227168777986e-15,
+   "ci95_coverage": 0.9420415224913494,
+   "z_rms": 1.0371922232280684,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 1200,
+    "validation_contexts": 20,
+    "samples_per_context": 4000,
+    "sampled_outputs": 4880000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 289,
+    "expected_rank": null,
+    "feature_width": 289,
+    "largest_singular_value": 2842.504177652707,
+    "smallest_retained_singular_value": 2.651051841287491,
+    "condition_number": 1072.2175000064262
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 2591.8638090311138,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 2750.9295370675254,
+    "p_value": 0.95
+   },
+   "parameters_sha256": "fbd1ab0202859d0c2f297c4805d577b79bc3b50296d3d252b45b6af1c6f4770f",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tinyllama-15m",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 19.322740665998936,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 85,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tinyllama-15m-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.005997961142994029,
+   "baseline_test_mean_total_variation": 0.00793501491585515,
+   "uniform_test_mean_total_variation": 0.27339219015943317,
+   "canonical_relative_l2_error": 0.014016664543366242,
+   "canonical_max_abs_error": 0.024501881286263905,
+   "baseline_canonical_relative_l2_error": 0.01707364144237998,
+   "reported_relative_standard_error": 0.012830393430254765,
+   "truth_outside_identified_span": 1.4856928692744292e-15,
+   "ci95_coverage": 0.9532871972318339,
+   "z_rms": 0.9986105831221672,
+   "reload_max_abs_logprob_difference": 1.3322676295501878e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 1200,
+    "validation_contexts": 20,
+    "samples_per_context": 4000,
+    "sampled_outputs": 4880000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 289,
+    "expected_rank": null,
+    "feature_width": 289,
+    "largest_singular_value": 2790.8843452917704,
+    "smallest_retained_singular_value": 2.6843373496825453,
+    "condition_number": 1039.6921033870149
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 2737.2022244237246,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 2719.069002662593,
+    "p_value": 0.41
+   },
+   "parameters_sha256": "08117703c652e220fc1c19e68b8a83ededcb388767fb1d7d65bf58ed7ac0ac8b",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-tinyllama-15m",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 28.540584884000054,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 85,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-tinyllama-15m-105/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.006534601433982885,
+   "baseline_test_mean_total_variation": 0.010482436258153123,
+   "uniform_test_mean_total_variation": 0.2791626437262095,
+   "canonical_relative_l2_error": 0.0094335469333152,
+   "canonical_max_abs_error": 0.007020629183059013,
+   "baseline_canonical_relative_l2_error": 0.02556455701182667,
+   "reported_relative_standard_error": 0.018250044353553613,
+   "truth_outside_identified_span": 1.1069908597583379e-15,
+   "ci95_coverage": 0.9593425605536332,
+   "z_rms": 0.9720202198736927,
+   "reload_max_abs_logprob_difference": 1.5543122344752192e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 1200,
+    "validation_contexts": 20,
+    "samples_per_context": 4000,
+    "sampled_outputs": 4880000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 289,
+    "expected_rank": null,
+    "feature_width": 289,
+    "largest_singular_value": 2807.929940095457,
+    "smallest_retained_singular_value": 2.4257425706152573,
+    "condition_number": 1157.5547933692167
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 2733.3994632663625,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 2739.5887942572163,
+    "p_value": 0.57
+   },
+   "parameters_sha256": "54ec641511ef08fa3e99ee44636ef1b7b2df93b1841843e3238ffc840f543b56",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-smollm2-135m",
+   "seed": 101,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 344.00711164399945,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-smollm2-135m-101/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.00562709745719412,
+   "baseline_test_mean_total_variation": 0.005757189743367907,
+   "uniform_test_mean_total_variation": 0.24289593331777767,
+   "canonical_relative_l2_error": 0.04233378801168958,
+   "canonical_max_abs_error": 0.04144259341118328,
+   "baseline_canonical_relative_l2_error": 0.04287049240363652,
+   "reported_relative_standard_error": 0.04390553161393365,
+   "truth_outside_identified_span": 2.123161502913453e-15,
+   "ci95_coverage": 0.9506065857885615,
+   "z_rms": 0.9979857974439301,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 2400,
+    "validation_contexts": 20,
+    "samples_per_context": 5000,
+    "sampled_outputs": 12100000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 577,
+    "expected_rank": null,
+    "feature_width": 577,
+    "largest_singular_value": 2091.652366521931,
+    "smallest_retained_singular_value": 0.7184696678043814,
+    "condition_number": 2911.260503054985
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 5512.550156092453,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 5474.75156643611,
+    "p_value": 0.32
+   },
+   "parameters_sha256": "5b293848cb9f1074f192ef18248619f483d46219a7d5b347855edd230e4a5b87",
+   "status_matches_expectation": true,
+   "pilot_validity": "valid: completed before any source change during the run"
+  },
+  {
+   "case": "head-smollm2-135m",
+   "seed": 102,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 356.9353616869994,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-smollm2-135m-102/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.005541087258136422,
+   "baseline_test_mean_total_variation": 0.00827778136515301,
+   "uniform_test_mean_total_variation": 0.3252406820711331,
+   "canonical_relative_l2_error": 0.060371172738754975,
+   "canonical_max_abs_error": 0.0995383724832184,
+   "baseline_canonical_relative_l2_error": 0.08289489637945346,
+   "reported_relative_standard_error": 0.05187929413158485,
+   "truth_outside_identified_span": 2.2437507640521376e-15,
+   "ci95_coverage": 0.9428076256499134,
+   "z_rms": 1.0203700194628524,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 2400,
+    "validation_contexts": 20,
+    "samples_per_context": 5000,
+    "sampled_outputs": 12100000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 577,
+    "expected_rank": null,
+    "feature_width": 577,
+    "largest_singular_value": 2088.185964447918,
+    "smallest_retained_singular_value": 0.7023467559015197,
+    "condition_number": 2973.1552782180365
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 5448.631670184404,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 5477.822594525519,
+    "p_value": 0.64
+   },
+   "parameters_sha256": "5e26093c9ae2ccbe7a15c92d957d88ad7554046ea73c338310925e3d9b72cd7d",
+   "status_matches_expectation": true,
+   "pilot_validity": "uncertain: may have run after mid-run source edits (span tolerance, validation in the class test)"
+  },
+  {
+   "case": "head-smollm2-135m",
+   "seed": 103,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 294.9589021800002,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-smollm2-135m-103/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.00558475132908688,
+   "baseline_test_mean_total_variation": 0.007110004267412457,
+   "uniform_test_mean_total_variation": 0.2953035589529522,
+   "canonical_relative_l2_error": 0.054632286548891046,
+   "canonical_max_abs_error": 0.0758720444122854,
+   "baseline_canonical_relative_l2_error": 0.07367728865327497,
+   "reported_relative_standard_error": 0.04747706348622336,
+   "truth_outside_identified_span": 2.0900438457018358e-15,
+   "ci95_coverage": 0.9527729636048526,
+   "z_rms": 1.0026048609813198,
+   "reload_max_abs_logprob_difference": 1.5543122344752192e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 2400,
+    "validation_contexts": 20,
+    "samples_per_context": 5000,
+    "sampled_outputs": 12100000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 577,
+    "expected_rank": null,
+    "feature_width": 577,
+    "largest_singular_value": 2079.327568774478,
+    "smallest_retained_singular_value": 0.7180488101836047,
+    "condition_number": 2895.8025405582043
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 5421.151801575795,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 5485.536362608331,
+    "p_value": 0.67
+   },
+   "parameters_sha256": "88a45a908917716e9fa2d6dcba99d8ced0d8e28bad72ce39b1f521e282f5c6e3",
+   "status_matches_expectation": true,
+   "pilot_validity": "uncertain: may have run after mid-run source edits (span tolerance, validation in the class test)"
+  },
+  {
+   "case": "head-smollm2-135m",
+   "seed": 104,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 308.9565796200004,
+   "recovery_exit": 0,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 83,
+    "opened_under_private": [],
+    "spawned": [
+     [
+      "/home/dev/.local/share/rephix-local-20261106/venv/bin/python",
+      "-m",
+      "rephix",
+      "text-target-serve",
+      "--config",
+      "/tmp/claude-1001/-home-dev--claude-spares-spare-eauONF/4d6303f0-6a73-46ce-b6b9-f398301d8b60/scratchpad/final-work/head-smollm2-135m-104/private/server.json"
+     ]
+    ]
+   },
+   "status": "recovered_in_class",
+   "reasons": [],
+   "test_contexts": 100,
+   "test_contexts_disjoint_from_queries": true,
+   "test_mean_total_variation": 0.005389341292651366,
+   "baseline_test_mean_total_variation": 0.008812485469207307,
+   "uniform_test_mean_total_variation": 0.3274538810436086,
+   "canonical_relative_l2_error": 0.047727158702684014,
+   "canonical_max_abs_error": 0.04821850798944474,
+   "baseline_canonical_relative_l2_error": 0.07559459295192428,
+   "reported_relative_standard_error": 0.0532763665574812,
+   "truth_outside_identified_span": 2.513479993698886e-15,
+   "ci95_coverage": 0.9519064124783362,
+   "z_rms": 0.9803445610036657,
+   "reload_max_abs_logprob_difference": 1.7763568394002505e-15,
+   "reload_denied_opens": 0,
+   "reload_spawned_processes": 0,
+   "budget": {
+    "training_contexts": 2400,
+    "validation_contexts": 20,
+    "samples_per_context": 5000,
+    "sampled_outputs": 12100000,
+    "resumed_contexts": 0
+   },
+   "design": {
+    "rank": 577,
+    "expected_rank": null,
+    "feature_width": 577,
+    "largest_singular_value": 2090.7593602238376,
+    "smallest_retained_singular_value": 0.7076070689364123,
+    "condition_number": 2954.689759341168
+   },
+   "misspecification_test": {
+    "statistic": "deviance against per-context saturated multinomial",
+    "observed_deviance": 5537.133779111027,
+    "bootstrap_replicates": 99,
+    "bootstrap_median_deviance": 5463.076338444473,
+    "p_value": 0.29
+   },
+   "parameters_sha256": "c066f5b4b2161ab5acd166e82f4c6b27eff06ec3907cbb9a562237a4c02b2b31",
+   "status_matches_expectation": true,
+   "pilot_validity": "uncertain: may have run after mid-run source edits (span tolerance, validation in the class test)"
+  },
+  {
+   "case": "head-smollm2-135m",
+   "seed": 105,
+   "in_class": true,
+   "expected": "recovered_in_class",
+   "recovery_seconds": 0.10018972699981532,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-peaked",
+   "seed": 101,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10652117000063299,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-peaked",
+   "seed": 102,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.09874380200017185,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-peaked",
+   "seed": 103,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.12747716000012588,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-peaked",
+   "seed": 104,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10099015800005873,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-peaked",
+   "seed": 105,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.09782510100012587,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-corpus",
+   "seed": 101,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.098961749999944,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "corpus": {
+    "corpus_files": [
+     "SSM_RECOVERY.md",
+     "DIFFUSION_DENOISER_RECOVERY.md",
+     "OFFLINE_TRIAL.md",
+     "VAE_RECOVERY.md",
+     "FP8_RECOVERY.md",
+     "RWKV_RECOVERY.md",
+     "VLM_RECOVERY.md",
+     "GGUF_RECOVERY.md",
+     "QUERY_SELECTION.md",
+     "CNN_RECOVERY.md",
+     "EVIDENCE_STORAGE.md",
+     "COMPONENT_RECOVERY.md",
+     "LOGIT_SUBSPACE.md",
+     "TERMINAL.md",
+     "LFM2_RECOVERY.md",
+     "VALIDATION.md",
+     "WHISPER_RECOVERY.md",
+     "SUPPORT.md",
+     "ENCODER_RECOVERY.md",
+     "SPEECH_SEQ2SEQ_RECOVERY.md",
+     "SESSIONS.md",
+     "LAYER_STAGING.md",
+     "IDENTIFIABILITY.md"
+    ],
+    "corpus_characters": 103173
+   },
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-corpus",
+   "seed": 102,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.13167421700018167,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "corpus": {
+    "corpus_files": [
+     "ENDPOINT_HEAD_RECOVERY.md",
+     "IDENTIFICATION.md",
+     "EXPERIMENTS.md",
+     "IDENTIFIABILITY.md",
+     "ENCODEC_RECOVERY.md",
+     "DENSE_VISION_RECOVERY.md",
+     "TEXT_RECOVERY.md",
+     "SESSIONS.md",
+     "LOGIT_SUBSPACE.md",
+     "OFFLINE_TRIAL.md",
+     "GGUF_RECOVERY.md",
+     "COMPONENT_RECOVERY.md",
+     "ENCODER_RECOVERY.md",
+     "LFM2_RECOVERY.md",
+     "RWKV_RECOVERY.md",
+     "INSTALLATION.md",
+     "SWIN_RECOVERY.md",
+     "CNN_RECOVERY.md",
+     "LOCAL_RESULTS.md",
+     "VALIDATION.md",
+     "PASSIVE_LAYER_RECOVERY.md",
+     "VAE_RECOVERY.md",
+     "EVIDENCE_STORAGE.md"
+    ],
+    "corpus_characters": 151327
+   },
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-corpus",
+   "seed": 103,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.09886171100151842,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "corpus": {
+    "corpus_files": [
+     "LOGIT_SUBSPACE.md",
+     "CLOUD_RESULTS.md",
+     "INSTALLATION.md",
+     "PASSIVE_LAYER_RECOVERY.md",
+     "VISION_RECOVERY.md",
+     "SSM_RECOVERY.md",
+     "COMPONENT_RECOVERY.md",
+     "SUPPORT.md",
+     "SEQ2SEQ_RECOVERY.md",
+     "PRODUCTION_READINESS.md",
+     "LAYER_STAGING.md",
+     "WHISPER_RECOVERY.md",
+     "ENCODEC_RECOVERY.md",
+     "EXPERIMENTS.md",
+     "ENCODER_RECOVERY.md",
+     "LIVE_SESSION_RESULTS.md",
+     "DIFFUSION_DENOISER_RECOVERY.md",
+     "PAUSED_WORK.md",
+     "SESSION_RESULTS.md",
+     "LOCAL_RESULTS.md",
+     "RELEASE_0_3.md",
+     "GOAL.md",
+     "TEXT_RECOVERY.md"
+    ],
+    "corpus_characters": 152212
+   },
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-corpus",
+   "seed": 104,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.11947786400014593,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "corpus": {
+    "corpus_files": [
+     "LIVE_SESSION_RESULTS.md",
+     "LOCAL_RESULTS.md",
+     "ENCODEC_RECOVERY.md",
+     "DIFFUSION_DENOISER_RECOVERY.md",
+     "SESSION_RESULTS.md",
+     "INSTALLATION.md",
+     "CNN_RECOVERY.md",
+     "PRODUCTION_READINESS.md",
+     "GGUF_RECOVERY.md",
+     "IDENTIFIABILITY.md",
+     "SSM_RECOVERY.md",
+     "LAYER_RECOVERY.md",
+     "ENCODER_RECOVERY.md",
+     "ENDPOINT_HEAD_RECOVERY.md",
+     "COMPONENT_RECOVERY.md",
+     "VAE_RECOVERY.md",
+     "LAYER_STAGING.md",
+     "QUERY_SELECTION.md",
+     "VISION_RECOVERY.md",
+     "TEXT_RECOVERY.md",
+     "SWIN_RECOVERY.md",
+     "TERMINAL.md",
+     "FP8_RECOVERY.md"
+    ],
+    "corpus_characters": 147265
+   },
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-corpus",
+   "seed": 105,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10973157599983097,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "corpus": {
+    "corpus_files": [
+     "PAUSED_WORK.md",
+     "ENCODER_RECOVERY.md",
+     "ROADMAP.md",
+     "IDENTIFICATION.md",
+     "GOAL.md",
+     "LOCAL_RESULTS.md",
+     "SEQ2SEQ_RECOVERY.md",
+     "TEXT_RECOVERY.md",
+     "SESSIONS.md",
+     "PRODUCTION_READINESS.md",
+     "PASSIVE_LAYER_RECOVERY.md",
+     "ENCODEC_RECOVERY.md",
+     "TERMINAL.md",
+     "EVIDENCE_STORAGE.md",
+     "RWKV_RECOVERY.md",
+     "GGUF_RECOVERY.md",
+     "EXPERIMENTS.md",
+     "DIFFUSION_DENOISER_RECOVERY.md",
+     "CNN_RECOVERY.md",
+     "INSTALLATION.md",
+     "VLM_RECOVERY.md",
+     "LFM2_RECOVERY.md",
+     "LOGIT_SUBSPACE.md"
+    ],
+    "corpus_characters": 143793
+   },
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-order3-target",
+   "seed": 101,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10976809599924309,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-order3-target",
+   "seed": 102,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.1089013540004089,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-order3-target",
+   "seed": 103,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.11007632200016815,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-order3-target",
+   "seed": 104,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.11035977999927127,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-order3-target",
+   "seed": 105,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.11085237500083167,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-mlp-target",
+   "seed": 101,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10705040499851748,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-mlp-target",
+   "seed": 102,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10424220399909245,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-mlp-target",
+   "seed": 103,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10379550899961032,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-mlp-target",
+   "seed": 104,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.11095562300033635,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-mlp-target",
+   "seed": 105,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10945198000081291,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "head-perturbed-backbone",
+   "seed": 101,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.11960163199910312,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "head-perturbed-backbone",
+   "seed": 102,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.10750740000003134,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "head-perturbed-backbone",
+   "seed": 103,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.1071611440002016,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "head-perturbed-backbone",
+   "seed": 104,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.1129676019991166,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "head-perturbed-backbone",
+   "seed": 105,
+   "in_class": false,
+   "expected": "misspecified_approximation",
+   "recovery_seconds": 0.1115375879999192,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-greedy-target",
+   "seed": 101,
+   "in_class": true,
+   "expected": "deterministic_outputs_not_identifiable",
+   "recovery_seconds": 0.11104955300106667,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-greedy-target",
+   "seed": 102,
+   "in_class": true,
+   "expected": "deterministic_outputs_not_identifiable",
+   "recovery_seconds": 0.1048674369994842,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-greedy-target",
+   "seed": 103,
+   "in_class": true,
+   "expected": "deterministic_outputs_not_identifiable",
+   "recovery_seconds": 0.11036686899933557,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-greedy-target",
+   "seed": 104,
+   "in_class": true,
+   "expected": "deterministic_outputs_not_identifiable",
+   "recovery_seconds": 0.10966931700022542,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-greedy-target",
+   "seed": 105,
+   "in_class": true,
+   "expected": "deterministic_outputs_not_identifiable",
+   "recovery_seconds": 0.10447130200009269,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-undeclared-output",
+   "seed": 101,
+   "in_class": true,
+   "expected": "error",
+   "recovery_seconds": 0.10382325899990974,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": true,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-undeclared-output",
+   "seed": 102,
+   "in_class": true,
+   "expected": "error",
+   "recovery_seconds": 0.10410988500007079,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": true,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-undeclared-output",
+   "seed": 103,
+   "in_class": true,
+   "expected": "error",
+   "recovery_seconds": 0.1034110820000933,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": true,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-undeclared-output",
+   "seed": 104,
+   "in_class": true,
+   "expected": "error",
+   "recovery_seconds": 0.11988874999951804,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": true,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-undeclared-output",
+   "seed": 105,
+   "in_class": true,
+   "expected": "error",
+   "recovery_seconds": 0.11002301299959072,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": true,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-underdetermined",
+   "seed": 101,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10952828900008171,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-underdetermined",
+   "seed": 102,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10384474800048338,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-underdetermined",
+   "seed": 103,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10451880199980224,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-underdetermined",
+   "seed": 104,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.1104158890011604,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  },
+  {
+   "case": "ngram-underdetermined",
+   "seed": 105,
+   "in_class": true,
+   "expected": "insufficient_evidence",
+   "recovery_seconds": 0.10991918400031864,
+   "recovery_exit": 1,
+   "audit": {
+    "denied_private_opens": 0,
+    "opened_files_outside_python": 70,
+    "opened_under_private": [],
+    "spawned": []
+   },
+   "status": "error",
+   "error": "rephix: --bootstrap must satisfy (bootstrap + 1) * alpha / 2 >= 1",
+   "status_matches_expectation": false,
+   "pilot_validity": "invalid: failed on a source change made during the run (new bootstrap guard)"
+  }
+ ],
+ "torch": "2.10.0+cu128",
+ "transformers": "4.57.6",
+ "pilot_note": "Protocol v1 final split. The experiment imported rephix from the live working tree, and source edits made in response to the independent review during the run changed later runs. Runs are labelled by pilot_validity. Superseded by protocol v2, which runs from an immutable worktree."
+}
