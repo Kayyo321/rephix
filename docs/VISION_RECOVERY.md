@@ -2,6 +2,8 @@
 
 `recover-layers` can export Hugging Face ViT, DeiT, and ConvNeXT V1 and V2 classifiers from chosen inputs to their parameterized layers. This includes the two classifier heads in distilled DeiT. It uses the model configuration and layer outputs in their native coordinates. The local adapter loads the source checkpoint to serve the layer calls. An instrumented external runtime can instead supply the callback to `recover_from_layer_calls`.
 
+[Swin and Swin V2 recovery](SWIN_RECOVERY.md) also captures learned relative position state and Swin V1's persistent integer indices.
+
 ```bash
 rephix --threads 4 recover-layers --model models/vit --output runs/vit-recovered \
   --device cuda --dtype float64

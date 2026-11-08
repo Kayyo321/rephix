@@ -10,6 +10,19 @@ import tempfile
 from contextlib import nullcontext
 from pathlib import Path
 
+from .audio_encoder_recovery import (
+    AUDIO_ENCODER_TYPES,
+    AUDIO_MASK_MODELS,
+    WAVLM_POSITION_GATE,
+    audio_model_wrapper,
+    initialize_missing_audio_masks,
+    observe_audio_mask_embedding,
+    observe_wavlm_position_gate,
+    recover_audio_mask_embedding,
+    recover_wavlm_position_gate,
+    validate_audio_mask_embedding,
+    validate_wavlm_position_gate,
+)
 from .convnext_recovery import (
     CONVNEXT_GRN,
     CONVNEXT_LAYER_NORMS,
@@ -75,6 +88,28 @@ from .multimodal_operators import (
 )
 from .rms_probe import unit_float32_rms_amplitude
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
+from .storage_dtypes import apply_parameter_dtypes, source_parameter_dtypes
+from .swin_recovery import (
+    SWIN_ATTENTION,
+    SWINV2_ATTENTION,
+    observe_swin_bias,
+    observe_swin_index,
+    observe_swin_logit_scale,
+    recover_swin_bias,
+    recover_swin_index,
+    recover_swin_logit_scale,
+    validate_swin_bias,
+    validate_swin_index,
+    validate_swin_logit_scale,
+)
+from .weight_norm_recovery import (
+    WEIGHT_NORM_CONV1D,
+    WEIGHT_NORM_PARAMETRIZATIONS,
+    observe_weight_norm,
+    recover_weight_norm,
+    validate_weight_norm,
+    weight_norm_probe_dtype,
+)
 
 _HF_RMS_NORMS = {
     "transformers.models.llama.modeling_llama.LlamaRMSNorm",
@@ -147,7 +182,7 @@ _VISION_LANGUAGE_ASSETS = (
 )
 _PROBE_PLAN_VERSION = 1
 _JOURNAL_FILENAME = "observations.sqlite3"
-_BUFFER_KINDS = {"bart_logits_bias", "router_correction"}
+_BUFFER_KINDS = {"bart_logits_bias", "router_correction", "swin_relative_index"}
 _GPTOSS_KINDS = frozenset(GPTOSS_OPERATORS.values())
 
 
@@ -181,6 +216,19 @@ def _operator(torch, module, *, direct):
         return "llava_image_newline"
     if direct and qualified_name == GEMMA3_PROJECTOR:
         return "gemma3_projector"
+    if direct and qualified_name in AUDIO_MASK_MODELS:
+        return "audio_mask_embedding"
+    if direct and qualified_name == WAVLM_POSITION_GATE:
+        return "wavlm_position_gate"
+    if direct and qualified_name == SWIN_ATTENTION:
+        return "swin_relative_bias"
+    if direct and qualified_name == SWINV2_ATTENTION:
+        return "swin_logit_scale"
+    if direct and (
+        qualified_name == WEIGHT_NORM_PARAMETRIZATIONS
+        or (cls is torch.nn.Conv1d and hasattr(module, "weight_g"))
+    ):
+        return "weight_norm"
     if direct and qualified_name in CONVNEXT_LAYER_NORMS:
         return "convnext_norm"
     if direct and qualified_name == CONVNEXT_LAYER_SCALE:
@@ -190,7 +238,7 @@ def _operator(torch, module, *, direct):
     if direct and cls is torch.nn.GroupNorm:
         validate_group_norm(module)
         return "group_norm"
-    if direct and cls is torch.nn.Conv1d:
+    if direct and (cls is torch.nn.Conv1d or qualified_name == WEIGHT_NORM_CONV1D):
         from .convolution import validate_conv1d
 
         validate_conv1d(module)
@@ -240,6 +288,15 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
     bart_bias = direct and _qualified_name(model) == _BART + "BartForConditionalGeneration"
     correction_probes = []
     for path, module in model.named_modules() if direct else ():
+        if _qualified_name(module) == SWIN_ATTENTION:
+            validate_swin_index(module)
+            name = f"{path}.relative_position_index"
+            if name not in buffers or module.relative_position_index.device.type != "cpu":
+                raise ValueError(f"{path}: invalid persistent relative position index")
+            buffers.remove(name)
+            correction_probes.append(
+                (path, module, {"bias": module.relative_position_index}, "swin_relative_index")
+            )
         if _qualified_name(module) in CORRECTED_ROUTER_MODULES:
             name = f"{path}.{ROUTER_CORRECTION_BUFFER}" if path else ROUTER_CORRECTION_BUFFER
             correction = getattr(module, ROUTER_CORRECTION_BUFFER)
@@ -302,6 +359,21 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = pending.keys()
         elif kind == "gemma3_projector":
             validate_gemma3_projector(module, pending)
+            allowed = pending.keys()
+        elif kind == "audio_mask_embedding":
+            validate_audio_mask_embedding(module, pending)
+            allowed = pending.keys()
+        elif kind == "wavlm_position_gate":
+            validate_wavlm_position_gate(module, pending)
+            allowed = pending.keys()
+        elif kind == "swin_relative_bias":
+            validate_swin_bias(module, pending)
+            allowed = pending.keys()
+        elif kind == "swin_logit_scale":
+            validate_swin_logit_scale(module, pending)
+            allowed = pending.keys()
+        elif kind == "weight_norm":
+            validate_weight_norm(module, pending)
             allowed = pending.keys()
         elif kind == "convnext_norm":
             validate_convnext_norm(module, pending)
@@ -453,7 +525,7 @@ def recover_from_layer_calls(
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
 
     The oracle takes a CPU input tensor and returns the primitive's full output
-    tensor in the original coordinate order and floating-point dtype. Model
+    tensor in the original coordinate order and the probe's declared dtype. Model
     topology, parameter ties and normalization epsilon come from the skeleton.
     The callback can be served locally or by an instrumented external runtime.
 
@@ -468,6 +540,13 @@ def recover_from_layer_calls(
     The :image_newline probe exposes the token appended by LLaVA image packing.
     ConvNeXT :layer_scale probes use unit pre-scale features and a zero
     residual. :grn_scale exposes the weighted response before bias and residual.
+    Audio :masked_spec probes observe a chosen time mask. WavLM :position_gate
+    observes its constant with a saturated unit gate. Swin probes choose
+    :relative_position_bias row IDs, observe :relative_position_index as int64,
+    or expose :unclamped_logit_scale before exponentiation.
+    Weight normalization exposes :wn_scale from a chosen unit direction,
+    :wn_norms from its native norm, and :wn_direction with a chosen scale.
+    Low-precision weight-normalization probes use FP32 inputs and outputs.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -510,6 +589,8 @@ def recover_from_layer_calls(
             dtype = torch.float64 if kind == "ssm_mixer" else next(iter(pending.values())).dtype
             if kind in {"gemma_rms_norm", "native_router"}:
                 dtype = torch.float32
+            elif kind == "weight_norm":
+                dtype = weight_norm_probe_dtype(torch, module)
             elif kind == "post_multiply_rms_norm" and dtype != torch.float64:
                 dtype = torch.float32
 
@@ -601,6 +682,18 @@ def recover_from_layer_calls(
                 recover_llava_image_newline(module, pending, read)
             elif kind == "gemma3_projector":
                 recover_gemma3_projector(torch, module, read, batch_size)
+            elif kind == "audio_mask_embedding":
+                recover_audio_mask_embedding(module, pending, read)
+            elif kind == "wavlm_position_gate":
+                recover_wavlm_position_gate(module, pending, read)
+            elif kind == "swin_relative_bias":
+                recover_swin_bias(torch, module, pending, read, batch_size)
+            elif kind == "swin_relative_index":
+                recover_swin_index(torch, module, pending, read)
+            elif kind == "swin_logit_scale":
+                recover_swin_logit_scale(torch, module, pending, read)
+            elif kind == "weight_norm":
+                recover_weight_norm(torch, module, pending, read, batch_size)
             elif kind == "convnext_norm":
                 recover_convnext_norm(torch, module, pending, read)
             elif kind == "convnext_layer_scale":
@@ -666,8 +759,10 @@ def _observe_bart_logits_bias(torch, model, token):
 
 
 def _model_wrapper(config, causal, architecture=None):
-    is_vision = config.model_type in {"convnext", "convnextv2", "deit", "vit"}
-    is_speech = config.model_type in {"moonshine", "speech_to_text", "whisper"}
+    is_vision = config.model_type in {"convnext", "convnextv2", "deit", "swin", "swinv2", "vit"}
+    is_speech = (
+        config.model_type in {"moonshine", "speech_to_text", "whisper"} | AUDIO_ENCODER_TYPES
+    )
     is_encoder = (
         config.model_type in ENCODER_MODEL_TYPES
         and not config.is_decoder
@@ -680,6 +775,8 @@ def _model_wrapper(config, causal, architecture=None):
         from transformers import AutoModelForImageClassification
 
         wrapper = AutoModelForImageClassification
+    elif config.model_type in AUDIO_ENCODER_TYPES:
+        wrapper, _ = audio_model_wrapper(config)
     elif is_speech:
         from transformers import AutoModelForSpeechSeq2Seq
 
@@ -748,6 +845,8 @@ def _save_export_assets(tokenizer_class, config, source, destination, *, vision,
             shutil.copyfile(processor, destination / processor.name)
     if vision:
         return
+    if config.model_type in AUDIO_ENCODER_TYPES and not audio_model_wrapper(config)[1]:
+        return
     tokenizer_options = {}
     if config.model_type == "speech_to_text":
         tokenizer_options["use_fast"] = False
@@ -783,11 +882,44 @@ def _normalize_config_model_type(config, destination):
         write_json(path, values)
 
 
+def _serialized_weight_norm_aliases(source, candidate):
+    from .weight_audit import _inventory
+
+    weight_norm_names = [
+        name
+        for name in candidate.state_dict()
+        if name.endswith(("parametrizations.weight.original0", "parametrizations.weight.original1"))
+    ]
+    if not weight_norm_names:
+        return {}
+    names = _inventory(source).keys()
+    aliases = {}
+    for name in weight_norm_names:
+        for current, legacy in (
+            ("parametrizations.weight.original0", "weight_g"),
+            ("parametrizations.weight.original1", "weight_v"),
+        ):
+            if name.endswith(current):
+                stored = name.removesuffix(current) + legacy
+                if name not in names and stored in names:
+                    aliases[name] = stored
+    return aliases
+
+
 def _publish_checkpoint(candidate, output, report, write_assets):
+    import torch
+
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".rephix-recovery-", dir=output.parent) as temporary:
         staged = Path(temporary) / "checkpoint"
-        candidate.save_pretrained(staged, safe_serialization=True)
+        if report.get("export_parameter_dtypes"):
+            apply_parameter_dtypes(torch, candidate, report["export_parameter_dtypes"])
+        state = candidate.state_dict()
+        for current, stored in report.get("serialized_weight_norm_aliases", {}).items():
+            if current not in state or stored in state:
+                raise ValueError("invalid serialized weight-normalization parameter alias")
+            state[stored] = state.pop(current)
+        candidate.save_pretrained(staged, safe_serialization=True, state_dict=state)
         _normalize_config_model_type(candidate.config, staged)
         if write_assets is not None:
             write_assets(staged)
@@ -840,6 +972,7 @@ def export_recovered_model(
     architecture=None,
     stage_layers=False,
     evidence_dir=None,
+    restore_source_dtypes=False,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
@@ -883,7 +1016,11 @@ def export_recovered_model(
         torch_dtype=model_dtype,
         output_loading_info=True,
     )
-    if any(loading[key] for key in ("missing_keys", "mismatched_keys", "error_msgs")):
+    missing = loading["missing_keys"]
+    initialized_audio_masks = []
+    if config.model_type in AUDIO_ENCODER_TYPES:
+        initialized_audio_masks, missing = initialize_missing_audio_masks(torch, target, missing)
+    if missing or any(loading[key] for key in ("mismatched_keys", "error_msgs")):
         raise ValueError(f"source checkpoint did not fully load: {loading}")
     target.eval()
     stager = LayerStager(torch, device) if stage_layers and device != "cpu" else None
@@ -918,8 +1055,24 @@ def export_recovered_model(
         "ignored_source_keys": sorted(loading["unexpected_keys"]),
         "image_processor_exported" if is_vision else "tokenizer_exported": include_tokenizer,
     }
+    aliases = _serialized_weight_norm_aliases(source, candidate)
+    if aliases:
+        provenance["serialized_weight_norm_aliases"] = aliases
+    if initialized_audio_masks:
+        provenance["source_initialized_audio_masks"] = initialized_audio_masks
+    if restore_source_dtypes:
+        export_dtypes = source_parameter_dtypes(
+            torch, source, candidate, aliases, unstored_names=initialized_audio_masks
+        )
+        for name in initialized_audio_masks:
+            export_dtypes[name] = next(iter(export_dtypes.values()))
+        provenance["export_parameter_dtypes"] = export_dtypes
     if is_speech:
         provenance["audio_feature_extractor_exported"] = include_tokenizer
+        if config.model_type in AUDIO_ENCODER_TYPES:
+            _, ctc = audio_model_wrapper(config)
+            provenance["tokenizer_exported"] = include_tokenizer and ctc
+            provenance["audio_task"] = "ctc" if ctc else "features"
     if is_vision_language:
         provenance["multimodal_processor_exported"] = include_tokenizer
     if is_encoder:
@@ -977,6 +1130,12 @@ def export_recovered_model(
             return _observe_bart_logits_bias(torch, target, inputs.to(device))
         module = target.get_submodule(path)
         name = _qualified_name(module)
+        if name in AUDIO_MASK_MODELS:
+            if stager is not None:
+                stager.clear()
+                host_layer_calls += 1
+                return observe_audio_mask_embedding(torch, module, inputs)
+            return observe_audio_mask_embedding(torch, module, inputs.to(device))
         if name in LLAVA_IMAGE_NEWLINE_MODELS:
             if stager is not None:
                 stager.clear()
@@ -1005,6 +1164,18 @@ def export_recovered_model(
             return observe_clip_class_embedding(torch, module, inputs.to(device))
         if name == GEMMA3_PROJECTOR:
             return observe_gemma3_projector(module, inputs.to(device))
+        if name == WAVLM_POSITION_GATE:
+            return observe_wavlm_position_gate(torch, module, inputs.to(device))
+        if name == SWIN_ATTENTION:
+            if operation == "relative_position_index":
+                return observe_swin_index(torch, module, inputs.to(device))
+            return observe_swin_bias(torch, module, inputs.to(device))
+        if name == SWINV2_ATTENTION:
+            return observe_swin_logit_scale(torch, module, inputs.to(device))
+        if name == WEIGHT_NORM_PARAMETRIZATIONS or (
+            type(module) is torch.nn.Conv1d and hasattr(module, "weight_g")
+        ):
+            return observe_weight_norm(torch, module, inputs.to(device), operation)
         if name == CONVNEXT_LAYER_SCALE:
             return observe_convnext_scale(module, inputs.to(device))
         if name == CONVNEXT_GRN and operation == "grn_scale":
@@ -1156,6 +1327,7 @@ def _command(args):
         architecture=args.architecture,
         stage_layers=args.stage_layers,
         evidence_dir=args.evidence_dir,
+        restore_source_dtypes=args.restore_source_dtypes,
     )
 
 
@@ -1168,6 +1340,11 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument(
+        "--restore-source-dtypes",
+        action="store_true",
+        help="cast recovered parameters to their original stored dtypes before export",
+    )
     recover.add_argument(
         "--evidence-dir", help="durable layer observation bundle to create or resume"
     )

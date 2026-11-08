@@ -256,6 +256,53 @@ class LayerEvidenceTests(unittest.TestCase):
                     recovered(tokens).logits, original(tokens).logits, atol=1e-14, rtol=0
                 )
 
+    def test_restored_storage_dtypes_survive_source_free_replay(self):
+        import torch
+        from safetensors.torch import load_file, save_file
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, evidence, output, replay = (
+                root / name for name in ("source", "evidence", "output", "replay")
+            )
+            self._source(source)
+            weights = source / "model.safetensors"
+            state = {name: value.float() for name, value in load_file(weights).items()}
+            save_file(state, weights, metadata={"format": "pt"})
+            report = self._command(
+                [
+                    "recover-layers",
+                    "--model",
+                    str(source),
+                    "--output",
+                    str(output),
+                    "--evidence-dir",
+                    str(evidence),
+                    "--dtype",
+                    "float64",
+                    "--batch-size",
+                    "3",
+                    "--restore-source-dtypes",
+                ]
+            )
+            self.assertEqual(report["oracle_dtype"], "torch.float64")
+            self.assertEqual(set(report["export_parameter_dtypes"].values()), {"torch.float32"})
+            self.assertTrue(
+                all(
+                    value.dtype == torch.float32
+                    for value in load_file(output / weights.name).values()
+                )
+            )
+            self.assertEqual(compare_checkpoints(source, output)["fraction_exactly_equal"], 1)
+            self._capture(source, evidence, root / "changed-option", error="metadata")
+            shutil.rmtree(source)
+            replayed = self._replay(evidence, replay)
+            self.assertEqual(replayed["export_parameter_dtypes"], report["export_parameter_dtypes"])
+            self.assertEqual(compare_checkpoints(output, replay)["fraction_exactly_equal"], 1)
+            self.assertEqual(
+                (output / weights.name).read_bytes(), (replay / weights.name).read_bytes()
+            )
+
     def test_resume_rejects_changed_probe_options_or_source(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
