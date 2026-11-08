@@ -49,6 +49,25 @@ class TerminalCoreTests(unittest.TestCase):
 
 @unittest.skipUnless(importlib.util.find_spec("prompt_toolkit"), "needs terminal extra")
 class TerminalInteractionTests(unittest.TestCase):
+    def test_explicit_color_override_survives_toolkit_no_color_detection(self):
+        from prompt_toolkit.input.defaults import create_pipe_input
+        from prompt_toolkit.output import ColorDepth, DummyOutput
+
+        from rephix.terminal import build_application
+
+        with patch.dict(os.environ, {"NO_COLOR": "1"}), create_pipe_input() as pipe:
+            for preference in ("auto", "never", "always"):
+                app, _ = build_application(
+                    command_catalog(build_parser()),
+                    color=preference,
+                    input=pipe,
+                    output=DummyOutput(),
+                )
+                if preference == "always":
+                    self.assertNotEqual(app.color_depth, ColorDepth.DEPTH_1_BIT)
+                else:
+                    self.assertEqual(app.color_depth, ColorDepth.DEPTH_1_BIT)
+
     def test_typing_help_execution_and_exit(self):
         from prompt_toolkit.input.defaults import create_pipe_input
         from prompt_toolkit.output import DummyOutput

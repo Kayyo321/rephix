@@ -17,7 +17,7 @@ and release checks. [Release report](RELEASE_0_3.md)
 | Migration and recovery policy | Session schema 1 unchanged, raw layer schema 1 retained, new compressed schema 2, incompatible future schemas rejected; no implicit data/config migration | Compatibility/failure tests and INSTALLATION.md |
 | Failure handling and maintainability review | Reviewed journal codec/checksum/bounds, probe routing/binding, publication and installer state transitions; added runtime leases, safe deletion checks, interrupted update cleanup, malformed compact-flag rejection and clear Ctrl+C exit | Critical regression tests pass |
 | Supported platforms/Python/hardware/formats/access | SUPPORT.md, pyproject extras and model-family guides | Defined; interactive macOS/Windows and MPS limitations explicit |
-| Full local suite, native optional runtime | 345 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
+| Full local suite, native optional runtime | 346 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
 | Source and wheel packaging | Build succeeded; real 0.2-to-0.3 lifecycle with version checks, failed upgrade, rollback, inherited TUI extra, pruning, reinstall and retention/purge | Passed locally |
 | Cross-platform CI on release commit | Expanded core matrix (3.10/3.11/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | All 17 jobs passed at verified code commit 2a04ddc |
 | Disk discipline | Downloaded ConvNeXT, TinyLlama and TinyMistral source/candidate/evidence artifacts deleted after recording hashes and measurements; isolated lifecycle leaves zero environments | Verified locally |
@@ -49,7 +49,8 @@ and MPS model recovery remain explicitly unverified.
 
 Final interaction review also found and fixed a command-submission race: arguments
 are captured at F5, so immediate edits cannot change a pending command. The input
-regression demonstrably fails with the earlier mutable-argument behavior. All 345
+regression demonstrably fails with the earlier mutable-argument behavior. The explicit color override also has a regression check for the terminal library’s
+separate NO_COLOR detection. All 346
 local tests still pass; a follow-up CI run verifies this final interaction change.
 
 No user requirement is left as an unimplemented promise. Scientific limits remain:

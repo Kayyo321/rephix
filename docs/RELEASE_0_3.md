@@ -86,7 +86,7 @@ limit.
 
 ## Verification status
 
-All 345 local tests passed with zero skips, including the optional native FP8
+All 346 local tests passed with zero skips, including the optional native FP8
 runtime. Dependency consistency, source/wheel packaging, isolated lifecycle and
 the offline trial passed. All 17 [cross-platform CI jobs](https://github.com/Kayyo321/rephix/actions/runs/42496378427)
 passed on the verified code checkpoint. The complete requirement audit is in

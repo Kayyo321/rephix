@@ -65,6 +65,7 @@ def build_application(catalog, *, color="auto", theme="dark", input=None, output
     from prompt_toolkit.layout.containers import DynamicContainer
     from prompt_toolkit.layout.controls import FormattedTextControl
     from prompt_toolkit.output import ColorDepth
+    from prompt_toolkit.output.defaults import create_output
     from prompt_toolkit.styles import Style
     from prompt_toolkit.widgets import Frame, TextArea
 
@@ -327,13 +328,21 @@ def build_application(catalog, *, color="auto", theme="dark", input=None, output
         if not monochrome
         else Style.from_dict({"selected": "reverse bold", "brand": "bold"})
     )
+    color_depth = ColorDepth.DEPTH_1_BIT if monochrome else None
+    if color == "always":
+        output = output if output is not None else create_output()
+        color_depth = output.get_default_color_depth()
+        if color_depth == ColorDepth.DEPTH_1_BIT:
+            # NO_COLOR is also consumed by the toolkit's output factory. An
+            # explicit override needs a portable ANSI fallback at that layer.
+            color_depth = ColorDepth.DEPTH_4_BIT
     app = Application(
         layout=Layout(layout, focused_element=editor),
         key_bindings=keys,
         style=style,
         full_screen=True,
         mouse_support=False,
-        color_depth=ColorDepth.DEPTH_1_BIT if monochrome else None,
+        color_depth=color_depth,
         input=input,
         output=output,
     )

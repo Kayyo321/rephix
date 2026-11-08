@@ -36,7 +36,8 @@ q and j. The workbench does not capture the mouse.
 `--theme light` selects the light palette; the default is dark.
 
 `NO_COLOR=1` or `--color never` disables color and preserves a reverse-video
-selection marker. `--color always` overrides `NO_COLOR`. No Nerd Font, image protocol,
+selection marker. `--color always` overrides `NO_COLOR`, with a portable ANSI palette if the
+terminal library otherwise selects monochrome. No Nerd Font, image protocol,
 animation, or network connection is required. For screen readers, redirected output,
 or very small terminals, use the ordinary CLI or `ui --plain`.
 
