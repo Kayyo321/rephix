@@ -1,0 +1,1726 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "stabilityai/sd-vae-ft-mse",
+      "revision": "31f26fdeee1355a5c34592e401dd41e45d25a493",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "diffusers": "0.35.2",
+        "numpy": "2.5.4",
+        "pillow": "13.0.0",
+        "device": "cpu",
+        "dtype": "float32"
+      },
+      "class": "AutoencoderKL",
+      "reference_sha256": {
+        "config.json": "92d3dfb746fca211a2c9e019e285f8597412211728dce3c5bcf4eda0f2d62e7e",
+        "diffusion_pytorch_model.safetensors": "a1d993488569e928462932c8c38a0760b874d166399b14414135bd9c42df5815"
+      },
+      "candidate_sha256": {
+        "config.json": "ea19a7eb51f57523f708e0fa0bbc913bd17d52033e2f8b41b03387fe99821c76",
+        "diffusion_pytorch_model.safetensors": "a1d993488569e928462932c8c38a0760b874d166399b14414135bd9c42df5815"
+      },
+      "public_image_sha256": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "inactive_registered_state_observations": [],
+        "parameterized_modules_probed": 124,
+        "unique_parameter_elements_recovered": 83653863,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 83653863,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 576,
+        "probe_input_rows": 194427,
+        "observed_output_scalars": 708385855,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 576,
+        "evidence_observations_collected": 0,
+        "runtime": "diffusers",
+        "architecture": "AutoencoderKL",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "serialized_parameter_aliases": {
+          "encoder.mid_block.attentions.0.to_q.weight": "encoder.mid_block.attentions.0.query.weight",
+          "encoder.mid_block.attentions.0.to_q.bias": "encoder.mid_block.attentions.0.query.bias",
+          "encoder.mid_block.attentions.0.to_k.weight": "encoder.mid_block.attentions.0.key.weight",
+          "encoder.mid_block.attentions.0.to_k.bias": "encoder.mid_block.attentions.0.key.bias",
+          "encoder.mid_block.attentions.0.to_v.weight": "encoder.mid_block.attentions.0.value.weight",
+          "encoder.mid_block.attentions.0.to_v.bias": "encoder.mid_block.attentions.0.value.bias",
+          "encoder.mid_block.attentions.0.to_out.0.weight": "encoder.mid_block.attentions.0.proj_attn.weight",
+          "encoder.mid_block.attentions.0.to_out.0.bias": "encoder.mid_block.attentions.0.proj_attn.bias",
+          "decoder.mid_block.attentions.0.to_q.weight": "decoder.mid_block.attentions.0.query.weight",
+          "decoder.mid_block.attentions.0.to_q.bias": "decoder.mid_block.attentions.0.query.bias",
+          "decoder.mid_block.attentions.0.to_k.weight": "decoder.mid_block.attentions.0.key.weight",
+          "decoder.mid_block.attentions.0.to_k.bias": "decoder.mid_block.attentions.0.key.bias",
+          "decoder.mid_block.attentions.0.to_v.weight": "decoder.mid_block.attentions.0.value.weight",
+          "decoder.mid_block.attentions.0.to_v.bias": "decoder.mid_block.attentions.0.value.bias",
+          "decoder.mid_block.attentions.0.to_out.0.weight": "decoder.mid_block.attentions.0.proj_attn.weight",
+          "decoder.mid_block.attentions.0.to_out.0.bias": "decoder.mid_block.attentions.0.proj_attn.bias"
+        },
+        "export_parameter_dtypes": {
+          "encoder.conv_in.weight": "torch.float32",
+          "encoder.conv_in.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.norm1.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.norm1.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.conv1.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.conv1.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.norm2.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.norm2.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.conv2.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.0.conv2.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.norm1.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.norm1.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.conv1.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.conv1.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.norm2.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.norm2.bias": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.conv2.weight": "torch.float32",
+          "encoder.down_blocks.0.resnets.1.conv2.bias": "torch.float32",
+          "encoder.down_blocks.0.downsamplers.0.conv.weight": "torch.float32",
+          "encoder.down_blocks.0.downsamplers.0.conv.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.norm1.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.norm1.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv1.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv1.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.norm2.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.norm2.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv2.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv2.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv_shortcut.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.0.conv_shortcut.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.norm1.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.norm1.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.conv1.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.conv1.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.norm2.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.norm2.bias": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.conv2.weight": "torch.float32",
+          "encoder.down_blocks.1.resnets.1.conv2.bias": "torch.float32",
+          "encoder.down_blocks.1.downsamplers.0.conv.weight": "torch.float32",
+          "encoder.down_blocks.1.downsamplers.0.conv.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.norm1.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.norm1.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv1.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv1.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.norm2.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.norm2.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv2.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv2.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv_shortcut.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.0.conv_shortcut.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.norm1.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.norm1.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.conv1.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.conv1.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.norm2.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.norm2.bias": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.conv2.weight": "torch.float32",
+          "encoder.down_blocks.2.resnets.1.conv2.bias": "torch.float32",
+          "encoder.down_blocks.2.downsamplers.0.conv.weight": "torch.float32",
+          "encoder.down_blocks.2.downsamplers.0.conv.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.norm1.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.norm1.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.conv1.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.conv1.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.norm2.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.norm2.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.conv2.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.0.conv2.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.norm1.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.norm1.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.conv1.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.conv1.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.norm2.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.norm2.bias": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.conv2.weight": "torch.float32",
+          "encoder.down_blocks.3.resnets.1.conv2.bias": "torch.float32",
+          "encoder.mid_block.attentions.0.group_norm.weight": "torch.float32",
+          "encoder.mid_block.attentions.0.group_norm.bias": "torch.float32",
+          "encoder.mid_block.attentions.0.to_q.weight": "torch.float32",
+          "encoder.mid_block.attentions.0.to_q.bias": "torch.float32",
+          "encoder.mid_block.attentions.0.to_k.weight": "torch.float32",
+          "encoder.mid_block.attentions.0.to_k.bias": "torch.float32",
+          "encoder.mid_block.attentions.0.to_v.weight": "torch.float32",
+          "encoder.mid_block.attentions.0.to_v.bias": "torch.float32",
+          "encoder.mid_block.attentions.0.to_out.0.weight": "torch.float32",
+          "encoder.mid_block.attentions.0.to_out.0.bias": "torch.float32",
+          "encoder.mid_block.resnets.0.norm1.weight": "torch.float32",
+          "encoder.mid_block.resnets.0.norm1.bias": "torch.float32",
+          "encoder.mid_block.resnets.0.conv1.weight": "torch.float32",
+          "encoder.mid_block.resnets.0.conv1.bias": "torch.float32",
+          "encoder.mid_block.resnets.0.norm2.weight": "torch.float32",
+          "encoder.mid_block.resnets.0.norm2.bias": "torch.float32",
+          "encoder.mid_block.resnets.0.conv2.weight": "torch.float32",
+          "encoder.mid_block.resnets.0.conv2.bias": "torch.float32",
+          "encoder.mid_block.resnets.1.norm1.weight": "torch.float32",
+          "encoder.mid_block.resnets.1.norm1.bias": "torch.float32",
+          "encoder.mid_block.resnets.1.conv1.weight": "torch.float32",
+          "encoder.mid_block.resnets.1.conv1.bias": "torch.float32",
+          "encoder.mid_block.resnets.1.norm2.weight": "torch.float32",
+          "encoder.mid_block.resnets.1.norm2.bias": "torch.float32",
+          "encoder.mid_block.resnets.1.conv2.weight": "torch.float32",
+          "encoder.mid_block.resnets.1.conv2.bias": "torch.float32",
+          "encoder.conv_norm_out.weight": "torch.float32",
+          "encoder.conv_norm_out.bias": "torch.float32",
+          "encoder.conv_out.weight": "torch.float32",
+          "encoder.conv_out.bias": "torch.float32",
+          "decoder.conv_in.weight": "torch.float32",
+          "decoder.conv_in.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.norm1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.norm1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.conv1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.conv1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.norm2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.norm2.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.conv2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.0.conv2.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.norm1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.norm1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.conv1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.conv1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.norm2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.norm2.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.conv2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.1.conv2.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.norm1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.norm1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.conv1.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.conv1.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.norm2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.norm2.bias": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.conv2.weight": "torch.float32",
+          "decoder.up_blocks.0.resnets.2.conv2.bias": "torch.float32",
+          "decoder.up_blocks.0.upsamplers.0.conv.weight": "torch.float32",
+          "decoder.up_blocks.0.upsamplers.0.conv.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.norm1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.norm1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.conv1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.conv1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.norm2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.norm2.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.conv2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.0.conv2.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.norm1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.norm1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.conv1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.conv1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.norm2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.norm2.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.conv2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.1.conv2.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.norm1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.norm1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.conv1.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.conv1.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.norm2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.norm2.bias": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.conv2.weight": "torch.float32",
+          "decoder.up_blocks.1.resnets.2.conv2.bias": "torch.float32",
+          "decoder.up_blocks.1.upsamplers.0.conv.weight": "torch.float32",
+          "decoder.up_blocks.1.upsamplers.0.conv.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.norm1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.norm1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.norm2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.norm2.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv2.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv_shortcut.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.0.conv_shortcut.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.norm1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.norm1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.conv1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.conv1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.norm2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.norm2.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.conv2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.1.conv2.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.norm1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.norm1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.conv1.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.conv1.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.norm2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.norm2.bias": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.conv2.weight": "torch.float32",
+          "decoder.up_blocks.2.resnets.2.conv2.bias": "torch.float32",
+          "decoder.up_blocks.2.upsamplers.0.conv.weight": "torch.float32",
+          "decoder.up_blocks.2.upsamplers.0.conv.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.norm1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.norm1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.norm2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.norm2.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv2.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv_shortcut.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.0.conv_shortcut.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.norm1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.norm1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.conv1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.conv1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.norm2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.norm2.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.conv2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.1.conv2.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.norm1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.norm1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.conv1.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.conv1.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.norm2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.norm2.bias": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.conv2.weight": "torch.float32",
+          "decoder.up_blocks.3.resnets.2.conv2.bias": "torch.float32",
+          "decoder.mid_block.attentions.0.group_norm.weight": "torch.float32",
+          "decoder.mid_block.attentions.0.group_norm.bias": "torch.float32",
+          "decoder.mid_block.attentions.0.to_q.weight": "torch.float32",
+          "decoder.mid_block.attentions.0.to_q.bias": "torch.float32",
+          "decoder.mid_block.attentions.0.to_k.weight": "torch.float32",
+          "decoder.mid_block.attentions.0.to_k.bias": "torch.float32",
+          "decoder.mid_block.attentions.0.to_v.weight": "torch.float32",
+          "decoder.mid_block.attentions.0.to_v.bias": "torch.float32",
+          "decoder.mid_block.attentions.0.to_out.0.weight": "torch.float32",
+          "decoder.mid_block.attentions.0.to_out.0.bias": "torch.float32",
+          "decoder.mid_block.resnets.0.norm1.weight": "torch.float32",
+          "decoder.mid_block.resnets.0.norm1.bias": "torch.float32",
+          "decoder.mid_block.resnets.0.conv1.weight": "torch.float32",
+          "decoder.mid_block.resnets.0.conv1.bias": "torch.float32",
+          "decoder.mid_block.resnets.0.norm2.weight": "torch.float32",
+          "decoder.mid_block.resnets.0.norm2.bias": "torch.float32",
+          "decoder.mid_block.resnets.0.conv2.weight": "torch.float32",
+          "decoder.mid_block.resnets.0.conv2.bias": "torch.float32",
+          "decoder.mid_block.resnets.1.norm1.weight": "torch.float32",
+          "decoder.mid_block.resnets.1.norm1.bias": "torch.float32",
+          "decoder.mid_block.resnets.1.conv1.weight": "torch.float32",
+          "decoder.mid_block.resnets.1.conv1.bias": "torch.float32",
+          "decoder.mid_block.resnets.1.norm2.weight": "torch.float32",
+          "decoder.mid_block.resnets.1.norm2.bias": "torch.float32",
+          "decoder.mid_block.resnets.1.conv2.weight": "torch.float32",
+          "decoder.mid_block.resnets.1.conv2.bias": "torch.float32",
+          "decoder.conv_norm_out.weight": "torch.float32",
+          "decoder.conv_norm_out.bias": "torch.float32",
+          "decoder.conv_out.weight": "torch.float32",
+          "decoder.conv_out.bias": "torch.float32",
+          "quant_conv.weight": "torch.float32",
+          "quant_conv.bias": "torch.float32",
+          "post_quant_conv.weight": "torch.float32",
+          "post_quant_conv.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {},
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 0
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 248,
+        "candidate_tensors": 248,
+        "compared_tensors": 248,
+        "reference_elements": 83653863,
+        "candidate_elements": 83653863,
+        "compared_elements": 83653863,
+        "coverage": 1.0,
+        "exactly_equal_elements": 83653863,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 83653863,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "images": 9,
+        "input_panels": 3,
+        "exact_input_panels": 3,
+        "fields": {
+          "latent_mean": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "latent_logvar": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "posterior_sample": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_posterior_sample": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_encoder_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_chosen_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "native_forward": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          }
+        }
+      },
+      "reference_observations": [
+        {
+          "panel": "square_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              64,
+              64
+            ],
+            "dtype": "torch.float32",
+            "sha256": "2d6472871d6d406df16a88e03ce518b3d591f73a16b1632715acb2b28e9ee74b"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              8,
+              8
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9060b3975af171074defcce92f220228f212950e8b1b310cd16a6e169620d57d"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "675ed22c1635c98cdeabc6537bfc39a798980c3f426b46c0a93f237b63ecde65"
+            },
+            "latent_logvar": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6da231fc2ea2084c4b9c55837f5759fe76fec5888f99a305aaa4b18e02fbfcd7"
+            },
+            "posterior_sample": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "5e0c4b3a75652727349050fa3a985a715a56925fa03623a5df86cde893474005"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "45ee0f5ca6f4259ae09af99410973fa4781009c4b3be3f59737077bdbf58deba"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fe52f41704a212bb229b08745ad860353aeb5818d7a9d512cf52334ddd64143e"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "215d18f623b4b605bee8cf456702ad919ef708e24c268f72e74a1ac658644061"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "45ee0f5ca6f4259ae09af99410973fa4781009c4b3be3f59737077bdbf58deba"
+            }
+          }
+        },
+        {
+          "panel": "rectangular_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              80,
+              96
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c916a2f8a94564687ec1ebb304b80fcfb8d48a0857705752e16cd97244b4f203"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              10,
+              12
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4bda86cf02284b475aab2a71e14e95482c534977388fb723cc94de3a032813e2"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3517383d7dbb751b6b948f437caa117f485bafc7f6032864aa9346c570098cc3"
+            },
+            "latent_logvar": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c3f5c63e56988425a242a2de7e73eb581432ca7924e899215967a84bc90046a7"
+            },
+            "posterior_sample": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b0efdb8192cd4cfa819bdf74a4e21804c35840ff8e4c6ab897bcdb608c2d3551"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b08fca4c2af55a0f6f5046a24a335adce47633d75d134d7e4c59c8e1299ff60b"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e0690bdca240870b9fa565285e1c402221d123a41c7499f44c97a21611b6061d"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "bb28cd224afae85daab9434efbaf8e824b03be9abc37455cb31369982653c5f8"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b08fca4c2af55a0f6f5046a24a335adce47633d75d134d7e4c59c8e1299ff60b"
+            }
+          }
+        },
+        {
+          "panel": "public_image",
+          "input": {
+            "shape": [
+              1,
+              3,
+              128,
+              128
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1504e47d54cd59fd2c15cef2d18a6b3c6b26ae68f4088be19737dc559ddd7d39"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              1,
+              4,
+              16,
+              16
+            ],
+            "dtype": "torch.float32",
+            "sha256": "10355c749ae87b320112871268869d7f6aac6e4afd1031f4f352f76606bc9149"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6a76ffd2b050a3726ac30a72237fb4a178f2b4c517a5df010f2e8d7d6b1291c7"
+            },
+            "latent_logvar": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9e7efb36ff7e4ffbeef01ba7f287e0bc84538c27c2f2f07b25a91d53179fa952"
+            },
+            "posterior_sample": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8df3fb77e96ff95cae3c77b8d6b4c380cdf228dd1f95696a0f99d3afa1754059"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6c47472f09f41ad26bea42ffbb2264aea0cb3276d252be4a18b14ecff0838ecf"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2ae3dd6f0f5576ffdc885c27a5afe61cfb2e54f631637b8136b5436cdddbd03c"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "191cd84dedbe4062e6ee8b2d51ad995ecccbd56498d58e1e95d6908f456aa0da"
+            },
+            "native_forward": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6c47472f09f41ad26bea42ffbb2264aea0cb3276d252be4a18b14ecff0838ecf"
+            }
+          }
+        }
+      ],
+      "candidate_observations": [
+        {
+          "panel": "square_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              64,
+              64
+            ],
+            "dtype": "torch.float32",
+            "sha256": "2d6472871d6d406df16a88e03ce518b3d591f73a16b1632715acb2b28e9ee74b"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              8,
+              8
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9060b3975af171074defcce92f220228f212950e8b1b310cd16a6e169620d57d"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "675ed22c1635c98cdeabc6537bfc39a798980c3f426b46c0a93f237b63ecde65"
+            },
+            "latent_logvar": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6da231fc2ea2084c4b9c55837f5759fe76fec5888f99a305aaa4b18e02fbfcd7"
+            },
+            "posterior_sample": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "5e0c4b3a75652727349050fa3a985a715a56925fa03623a5df86cde893474005"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "45ee0f5ca6f4259ae09af99410973fa4781009c4b3be3f59737077bdbf58deba"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fe52f41704a212bb229b08745ad860353aeb5818d7a9d512cf52334ddd64143e"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "215d18f623b4b605bee8cf456702ad919ef708e24c268f72e74a1ac658644061"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "45ee0f5ca6f4259ae09af99410973fa4781009c4b3be3f59737077bdbf58deba"
+            }
+          }
+        },
+        {
+          "panel": "rectangular_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              80,
+              96
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c916a2f8a94564687ec1ebb304b80fcfb8d48a0857705752e16cd97244b4f203"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              10,
+              12
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4bda86cf02284b475aab2a71e14e95482c534977388fb723cc94de3a032813e2"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3517383d7dbb751b6b948f437caa117f485bafc7f6032864aa9346c570098cc3"
+            },
+            "latent_logvar": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c3f5c63e56988425a242a2de7e73eb581432ca7924e899215967a84bc90046a7"
+            },
+            "posterior_sample": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b0efdb8192cd4cfa819bdf74a4e21804c35840ff8e4c6ab897bcdb608c2d3551"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b08fca4c2af55a0f6f5046a24a335adce47633d75d134d7e4c59c8e1299ff60b"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e0690bdca240870b9fa565285e1c402221d123a41c7499f44c97a21611b6061d"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "bb28cd224afae85daab9434efbaf8e824b03be9abc37455cb31369982653c5f8"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b08fca4c2af55a0f6f5046a24a335adce47633d75d134d7e4c59c8e1299ff60b"
+            }
+          }
+        },
+        {
+          "panel": "public_image",
+          "input": {
+            "shape": [
+              1,
+              3,
+              128,
+              128
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1504e47d54cd59fd2c15cef2d18a6b3c6b26ae68f4088be19737dc559ddd7d39"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              1,
+              4,
+              16,
+              16
+            ],
+            "dtype": "torch.float32",
+            "sha256": "10355c749ae87b320112871268869d7f6aac6e4afd1031f4f352f76606bc9149"
+          },
+          "outputs": {
+            "latent_mean": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6a76ffd2b050a3726ac30a72237fb4a178f2b4c517a5df010f2e8d7d6b1291c7"
+            },
+            "latent_logvar": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9e7efb36ff7e4ffbeef01ba7f287e0bc84538c27c2f2f07b25a91d53179fa952"
+            },
+            "posterior_sample": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8df3fb77e96ff95cae3c77b8d6b4c380cdf228dd1f95696a0f99d3afa1754059"
+            },
+            "decoded_posterior_sample": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6c47472f09f41ad26bea42ffbb2264aea0cb3276d252be4a18b14ecff0838ecf"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2ae3dd6f0f5576ffdc885c27a5afe61cfb2e54f631637b8136b5436cdddbd03c"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "191cd84dedbe4062e6ee8b2d51ad995ecccbd56498d58e1e95d6908f456aa0da"
+            },
+            "native_forward": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6c47472f09f41ad26bea42ffbb2264aea0cb3276d252be4a18b14ecff0838ecf"
+            }
+          }
+        }
+      ],
+      "source_self_control": {
+        "images": 9,
+        "input_panels": 3,
+        "exact_input_panels": 3,
+        "fields": {
+          "latent_mean": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "latent_logvar": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "posterior_sample": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_posterior_sample": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_encoder_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_chosen_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "native_forward": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          }
+        }
+      },
+      "source_free_replay": {
+        "source_path_absent": true,
+        "cached_observations": 576,
+        "new_observations": 0,
+        "files_matching_sha256": 2
+      },
+      "initial_capture": {
+        "layer_calls": 576,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 576
+      },
+      "public_image_source": {
+        "dataset_id": "huggingface/documentation-images",
+        "revision": "dd11cba61e91b894782c9ea63fbd89456b758082",
+        "filename": "coco_sample.png"
+      },
+      "export_resume": {
+        "evidence_observations_cached": 576,
+        "evidence_observations_collected": 0
+      }
+    },
+    {
+      "schema_version": 1,
+      "model_id": "madebyollin/taesd",
+      "revision": "614f76814bbe30edbe2e627ace1c2234c81a2c0e",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "diffusers": "0.35.2",
+        "numpy": "2.5.4",
+        "pillow": "13.0.0",
+        "device": "cpu",
+        "dtype": "float32"
+      },
+      "class": "AutoencoderTiny",
+      "reference_sha256": {
+        "config.json": "3ebefd1aa96ac474cc6430fe6ea81febccf7ee82461715691ee9315c884adeef",
+        "diffusion_pytorch_model.safetensors": "db169d69145ec4ff064e49d99c95fa05d3eb04ee453de35824a6d0f325513549"
+      },
+      "candidate_sha256": {
+        "config.json": "b55d8643aaf3a95cca12c0a21578cdafedc459d05fac1f9778eb420499d1eb3c",
+        "diffusion_pytorch_model.safetensors": "db169d69145ec4ff064e49d99c95fa05d3eb04ee453de35824a6d0f325513549"
+      },
+      "public_image_sha256": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2",
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "inactive_registered_state_observations": [],
+        "parameterized_modules_probed": 70,
+        "unique_parameter_elements_recovered": 2445063,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 2445063,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 202,
+        "probe_input_rows": 39295,
+        "observed_output_scalars": 21452607,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 202,
+        "runtime": "diffusers",
+        "architecture": "AutoencoderTiny",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "serialized_parameter_aliases": {},
+        "export_parameter_dtypes": {
+          "encoder.layers.0.weight": "torch.float32",
+          "encoder.layers.0.bias": "torch.float32",
+          "encoder.layers.1.conv.0.weight": "torch.float32",
+          "encoder.layers.1.conv.0.bias": "torch.float32",
+          "encoder.layers.1.conv.2.weight": "torch.float32",
+          "encoder.layers.1.conv.2.bias": "torch.float32",
+          "encoder.layers.1.conv.4.weight": "torch.float32",
+          "encoder.layers.1.conv.4.bias": "torch.float32",
+          "encoder.layers.2.weight": "torch.float32",
+          "encoder.layers.3.conv.0.weight": "torch.float32",
+          "encoder.layers.3.conv.0.bias": "torch.float32",
+          "encoder.layers.3.conv.2.weight": "torch.float32",
+          "encoder.layers.3.conv.2.bias": "torch.float32",
+          "encoder.layers.3.conv.4.weight": "torch.float32",
+          "encoder.layers.3.conv.4.bias": "torch.float32",
+          "encoder.layers.4.conv.0.weight": "torch.float32",
+          "encoder.layers.4.conv.0.bias": "torch.float32",
+          "encoder.layers.4.conv.2.weight": "torch.float32",
+          "encoder.layers.4.conv.2.bias": "torch.float32",
+          "encoder.layers.4.conv.4.weight": "torch.float32",
+          "encoder.layers.4.conv.4.bias": "torch.float32",
+          "encoder.layers.5.conv.0.weight": "torch.float32",
+          "encoder.layers.5.conv.0.bias": "torch.float32",
+          "encoder.layers.5.conv.2.weight": "torch.float32",
+          "encoder.layers.5.conv.2.bias": "torch.float32",
+          "encoder.layers.5.conv.4.weight": "torch.float32",
+          "encoder.layers.5.conv.4.bias": "torch.float32",
+          "encoder.layers.6.weight": "torch.float32",
+          "encoder.layers.7.conv.0.weight": "torch.float32",
+          "encoder.layers.7.conv.0.bias": "torch.float32",
+          "encoder.layers.7.conv.2.weight": "torch.float32",
+          "encoder.layers.7.conv.2.bias": "torch.float32",
+          "encoder.layers.7.conv.4.weight": "torch.float32",
+          "encoder.layers.7.conv.4.bias": "torch.float32",
+          "encoder.layers.8.conv.0.weight": "torch.float32",
+          "encoder.layers.8.conv.0.bias": "torch.float32",
+          "encoder.layers.8.conv.2.weight": "torch.float32",
+          "encoder.layers.8.conv.2.bias": "torch.float32",
+          "encoder.layers.8.conv.4.weight": "torch.float32",
+          "encoder.layers.8.conv.4.bias": "torch.float32",
+          "encoder.layers.9.conv.0.weight": "torch.float32",
+          "encoder.layers.9.conv.0.bias": "torch.float32",
+          "encoder.layers.9.conv.2.weight": "torch.float32",
+          "encoder.layers.9.conv.2.bias": "torch.float32",
+          "encoder.layers.9.conv.4.weight": "torch.float32",
+          "encoder.layers.9.conv.4.bias": "torch.float32",
+          "encoder.layers.10.weight": "torch.float32",
+          "encoder.layers.11.conv.0.weight": "torch.float32",
+          "encoder.layers.11.conv.0.bias": "torch.float32",
+          "encoder.layers.11.conv.2.weight": "torch.float32",
+          "encoder.layers.11.conv.2.bias": "torch.float32",
+          "encoder.layers.11.conv.4.weight": "torch.float32",
+          "encoder.layers.11.conv.4.bias": "torch.float32",
+          "encoder.layers.12.conv.0.weight": "torch.float32",
+          "encoder.layers.12.conv.0.bias": "torch.float32",
+          "encoder.layers.12.conv.2.weight": "torch.float32",
+          "encoder.layers.12.conv.2.bias": "torch.float32",
+          "encoder.layers.12.conv.4.weight": "torch.float32",
+          "encoder.layers.12.conv.4.bias": "torch.float32",
+          "encoder.layers.13.conv.0.weight": "torch.float32",
+          "encoder.layers.13.conv.0.bias": "torch.float32",
+          "encoder.layers.13.conv.2.weight": "torch.float32",
+          "encoder.layers.13.conv.2.bias": "torch.float32",
+          "encoder.layers.13.conv.4.weight": "torch.float32",
+          "encoder.layers.13.conv.4.bias": "torch.float32",
+          "encoder.layers.14.weight": "torch.float32",
+          "encoder.layers.14.bias": "torch.float32",
+          "decoder.layers.0.weight": "torch.float32",
+          "decoder.layers.0.bias": "torch.float32",
+          "decoder.layers.2.conv.0.weight": "torch.float32",
+          "decoder.layers.2.conv.0.bias": "torch.float32",
+          "decoder.layers.2.conv.2.weight": "torch.float32",
+          "decoder.layers.2.conv.2.bias": "torch.float32",
+          "decoder.layers.2.conv.4.weight": "torch.float32",
+          "decoder.layers.2.conv.4.bias": "torch.float32",
+          "decoder.layers.3.conv.0.weight": "torch.float32",
+          "decoder.layers.3.conv.0.bias": "torch.float32",
+          "decoder.layers.3.conv.2.weight": "torch.float32",
+          "decoder.layers.3.conv.2.bias": "torch.float32",
+          "decoder.layers.3.conv.4.weight": "torch.float32",
+          "decoder.layers.3.conv.4.bias": "torch.float32",
+          "decoder.layers.4.conv.0.weight": "torch.float32",
+          "decoder.layers.4.conv.0.bias": "torch.float32",
+          "decoder.layers.4.conv.2.weight": "torch.float32",
+          "decoder.layers.4.conv.2.bias": "torch.float32",
+          "decoder.layers.4.conv.4.weight": "torch.float32",
+          "decoder.layers.4.conv.4.bias": "torch.float32",
+          "decoder.layers.6.weight": "torch.float32",
+          "decoder.layers.7.conv.0.weight": "torch.float32",
+          "decoder.layers.7.conv.0.bias": "torch.float32",
+          "decoder.layers.7.conv.2.weight": "torch.float32",
+          "decoder.layers.7.conv.2.bias": "torch.float32",
+          "decoder.layers.7.conv.4.weight": "torch.float32",
+          "decoder.layers.7.conv.4.bias": "torch.float32",
+          "decoder.layers.8.conv.0.weight": "torch.float32",
+          "decoder.layers.8.conv.0.bias": "torch.float32",
+          "decoder.layers.8.conv.2.weight": "torch.float32",
+          "decoder.layers.8.conv.2.bias": "torch.float32",
+          "decoder.layers.8.conv.4.weight": "torch.float32",
+          "decoder.layers.8.conv.4.bias": "torch.float32",
+          "decoder.layers.9.conv.0.weight": "torch.float32",
+          "decoder.layers.9.conv.0.bias": "torch.float32",
+          "decoder.layers.9.conv.2.weight": "torch.float32",
+          "decoder.layers.9.conv.2.bias": "torch.float32",
+          "decoder.layers.9.conv.4.weight": "torch.float32",
+          "decoder.layers.9.conv.4.bias": "torch.float32",
+          "decoder.layers.11.weight": "torch.float32",
+          "decoder.layers.12.conv.0.weight": "torch.float32",
+          "decoder.layers.12.conv.0.bias": "torch.float32",
+          "decoder.layers.12.conv.2.weight": "torch.float32",
+          "decoder.layers.12.conv.2.bias": "torch.float32",
+          "decoder.layers.12.conv.4.weight": "torch.float32",
+          "decoder.layers.12.conv.4.bias": "torch.float32",
+          "decoder.layers.13.conv.0.weight": "torch.float32",
+          "decoder.layers.13.conv.0.bias": "torch.float32",
+          "decoder.layers.13.conv.2.weight": "torch.float32",
+          "decoder.layers.13.conv.2.bias": "torch.float32",
+          "decoder.layers.13.conv.4.weight": "torch.float32",
+          "decoder.layers.13.conv.4.bias": "torch.float32",
+          "decoder.layers.14.conv.0.weight": "torch.float32",
+          "decoder.layers.14.conv.0.bias": "torch.float32",
+          "decoder.layers.14.conv.2.weight": "torch.float32",
+          "decoder.layers.14.conv.2.bias": "torch.float32",
+          "decoder.layers.14.conv.4.weight": "torch.float32",
+          "decoder.layers.14.conv.4.bias": "torch.float32",
+          "decoder.layers.16.weight": "torch.float32",
+          "decoder.layers.17.conv.0.weight": "torch.float32",
+          "decoder.layers.17.conv.0.bias": "torch.float32",
+          "decoder.layers.17.conv.2.weight": "torch.float32",
+          "decoder.layers.17.conv.2.bias": "torch.float32",
+          "decoder.layers.17.conv.4.weight": "torch.float32",
+          "decoder.layers.17.conv.4.bias": "torch.float32",
+          "decoder.layers.18.weight": "torch.float32",
+          "decoder.layers.18.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {},
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 202
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 134,
+        "candidate_tensors": 134,
+        "compared_tensors": 134,
+        "reference_elements": 2445063,
+        "candidate_elements": 2445063,
+        "compared_elements": 2445063,
+        "coverage": 1.0,
+        "exactly_equal_elements": 2445063,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 2445063,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "images": 9,
+        "input_panels": 3,
+        "exact_input_panels": 3,
+        "fields": {
+          "encoded_latents": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_encoder_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_chosen_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "native_forward": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          }
+        }
+      },
+      "reference_observations": [
+        {
+          "panel": "square_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              64,
+              64
+            ],
+            "dtype": "torch.float32",
+            "sha256": "2d6472871d6d406df16a88e03ce518b3d591f73a16b1632715acb2b28e9ee74b"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              8,
+              8
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9060b3975af171074defcce92f220228f212950e8b1b310cd16a6e169620d57d"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "064f198bf14706ec8379c4f612dbe745a68ff3a43f009b17489ce9fc4da9760f"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c9a40ed0f0461f18b1d8f8026c87b463606e4ae012ed9bc4d9789f8e93640351"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "0c08b2f3cf72843df25362f7169616902541f3057d2bbd3c05830581a7756461"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6f228f8e0b41756802a68f215f6baf614567fa0bd4d1eec67f3ea2cda0dfe485"
+            }
+          }
+        },
+        {
+          "panel": "rectangular_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              80,
+              96
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c916a2f8a94564687ec1ebb304b80fcfb8d48a0857705752e16cd97244b4f203"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              10,
+              12
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4bda86cf02284b475aab2a71e14e95482c534977388fb723cc94de3a032813e2"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3eab367401b35e94c6aff77a2946c353141d7005ec4cbbdcaf1956e5d44e52d2"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "5829404b3e6cce67327a546f1912244bcb79cc3b999a8831c891cf7d35857b02"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "60782e1c71a24f19c74274d69c821214494c4ba151c80480b5b92b2e4021cd65"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b3629ed12b3526e7162e27d974025211de4db285abf10b24b956d7d7e92299ab"
+            }
+          }
+        },
+        {
+          "panel": "public_image",
+          "input": {
+            "shape": [
+              1,
+              3,
+              128,
+              128
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1504e47d54cd59fd2c15cef2d18a6b3c6b26ae68f4088be19737dc559ddd7d39"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              1,
+              4,
+              16,
+              16
+            ],
+            "dtype": "torch.float32",
+            "sha256": "10355c749ae87b320112871268869d7f6aac6e4afd1031f4f352f76606bc9149"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e17225413adc702aebe59358371e3d426a4405657a9c4ce5fe0cd1f4ea2180ed"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "f28d7742b772bb0891257b9e3d0eaa1d02fb68ddbb44748aecde3c414d0fce58"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "dc63199c26499a7242fc478ce83f31d7f811b0a84c7d34e83f9f4af51484295e"
+            },
+            "native_forward": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8bc728f04513ee9845dd3a6b6c0c191b8426f48a3242cf884e7e28ee01019555"
+            }
+          }
+        }
+      ],
+      "candidate_observations": [
+        {
+          "panel": "square_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              64,
+              64
+            ],
+            "dtype": "torch.float32",
+            "sha256": "2d6472871d6d406df16a88e03ce518b3d591f73a16b1632715acb2b28e9ee74b"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              8,
+              8
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9060b3975af171074defcce92f220228f212950e8b1b310cd16a6e169620d57d"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                4,
+                4,
+                8,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "064f198bf14706ec8379c4f612dbe745a68ff3a43f009b17489ce9fc4da9760f"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c9a40ed0f0461f18b1d8f8026c87b463606e4ae012ed9bc4d9789f8e93640351"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "0c08b2f3cf72843df25362f7169616902541f3057d2bbd3c05830581a7756461"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                64,
+                64
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6f228f8e0b41756802a68f215f6baf614567fa0bd4d1eec67f3ea2cda0dfe485"
+            }
+          }
+        },
+        {
+          "panel": "rectangular_random",
+          "input": {
+            "shape": [
+              4,
+              3,
+              80,
+              96
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c916a2f8a94564687ec1ebb304b80fcfb8d48a0857705752e16cd97244b4f203"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              4,
+              4,
+              10,
+              12
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4bda86cf02284b475aab2a71e14e95482c534977388fb723cc94de3a032813e2"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                4,
+                4,
+                10,
+                12
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3eab367401b35e94c6aff77a2946c353141d7005ec4cbbdcaf1956e5d44e52d2"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "5829404b3e6cce67327a546f1912244bcb79cc3b999a8831c891cf7d35857b02"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "60782e1c71a24f19c74274d69c821214494c4ba151c80480b5b92b2e4021cd65"
+            },
+            "native_forward": {
+              "shape": [
+                4,
+                3,
+                80,
+                96
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b3629ed12b3526e7162e27d974025211de4db285abf10b24b956d7d7e92299ab"
+            }
+          }
+        },
+        {
+          "panel": "public_image",
+          "input": {
+            "shape": [
+              1,
+              3,
+              128,
+              128
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1504e47d54cd59fd2c15cef2d18a6b3c6b26ae68f4088be19737dc559ddd7d39"
+          },
+          "chosen_latent_input": {
+            "shape": [
+              1,
+              4,
+              16,
+              16
+            ],
+            "dtype": "torch.float32",
+            "sha256": "10355c749ae87b320112871268869d7f6aac6e4afd1031f4f352f76606bc9149"
+          },
+          "outputs": {
+            "encoded_latents": {
+              "shape": [
+                1,
+                4,
+                16,
+                16
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e17225413adc702aebe59358371e3d426a4405657a9c4ce5fe0cd1f4ea2180ed"
+            },
+            "decoded_encoder_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "f28d7742b772bb0891257b9e3d0eaa1d02fb68ddbb44748aecde3c414d0fce58"
+            },
+            "decoded_chosen_latents": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "dc63199c26499a7242fc478ce83f31d7f811b0a84c7d34e83f9f4af51484295e"
+            },
+            "native_forward": {
+              "shape": [
+                1,
+                3,
+                128,
+                128
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8bc728f04513ee9845dd3a6b6c0c191b8426f48a3242cf884e7e28ee01019555"
+            }
+          }
+        }
+      ],
+      "source_self_control": {
+        "images": 9,
+        "input_panels": 3,
+        "exact_input_panels": 3,
+        "fields": {
+          "encoded_latents": {
+            "coordinates": 3968,
+            "exact_coordinates": 3968,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_encoder_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "decoded_chosen_latents": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          },
+          "native_forward": {
+            "coordinates": 190464,
+            "exact_coordinates": 190464,
+            "max_abs_error": 0.0,
+            "rmse": 0.0
+          }
+        }
+      },
+      "source_free_replay": {
+        "source_path_absent": true,
+        "cached_observations": 202,
+        "new_observations": 0,
+        "files_matching_sha256": 2
+      },
+      "initial_capture": {
+        "layer_calls": 202,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 202
+      },
+      "public_image_source": {
+        "dataset_id": "huggingface/documentation-images",
+        "revision": "dd11cba61e91b894782c9ea63fbd89456b758082",
+        "filename": "coco_sample.png"
+      }
+    }
+  ]
+}

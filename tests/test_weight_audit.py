@@ -101,6 +101,38 @@ class WeightAuditTests(unittest.TestCase):
             report["dtype_mismatches"], {"wide": {"reference": "BF16", "candidate": "F32"}}
         )
 
+    def test_diffusers_single_and_indexed_layouts_preserve_raw_audit(self):
+        torch = self.torch
+        source = self.root / "diffusers"
+        source.mkdir()
+        _save(source / "diffusion_pytorch_model.safetensors", kernel=torch.arange(12).reshape(3, 4))
+        candidate = _shard(
+            self.root / "sharded",
+            {"kernel": torch.arange(12).reshape(3, 4)},
+        )
+        (candidate / "model.safetensors.index.json").rename(
+            candidate / "diffusion_pytorch_model.safetensors.index.json"
+        )
+        report = weight_audit.compare_checkpoints(source, candidate)
+        self.assertEqual(report["reference_elements"], 12)
+        self.assertEqual(report["fraction_exactly_equal"], 1)
+        self.assertEqual(report["coverage"], 1)
+        (candidate / "diffusion_pytorch_model.safetensors.index.json").write_text(
+            json.dumps({"weight_map": {"kernel": "../escape.safetensors"}}), encoding="utf-8"
+        )
+        with self.assertRaisesRegex(ValueError, "invalid shard path"):
+            weight_audit.compare_checkpoints(source, candidate)
+
+    def test_transformers_layout_precedence_is_preserved(self):
+        torch = self.torch
+        source = self.root / "combined"
+        source.mkdir()
+        _save(source / "model.safetensors", weight=torch.tensor([3.0]))
+        _save(source / "diffusion_pytorch_model.safetensors", different=torch.zeros(7))
+        result = weight_audit.compare_checkpoints(source, source / "model.safetensors")
+        self.assertEqual(result["reference_elements"], 1)
+        self.assertEqual(result["fraction_exactly_equal"], 1)
+
     def test_missing_mismatched_and_extra_tensors_use_full_reference_denominator(self):
         torch = self.torch
         directory = self.root / "reference"

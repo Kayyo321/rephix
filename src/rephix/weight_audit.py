@@ -64,12 +64,19 @@ def _shards(path):
             raise ValueError(f"Expected a local safetensors file or checkpoint directory: {path}")
         return {path: None}
 
-    index = path / "model.safetensors.index.json"
+    stem = "model"
+    if not any(
+        (path / filename).exists() or (path / filename).is_symlink()
+        for filename in ("model.safetensors", "model.safetensors.index.json")
+    ):
+        stem = "diffusion_pytorch_model"
+    index = path / f"{stem}.safetensors.index.json"
     if not index.exists() and not index.is_symlink():
-        single_file = path / "model.safetensors"
+        single_file = path / f"{stem}.safetensors"
         if not single_file.is_file():
             raise ValueError(
-                f"Expected model.safetensors or model.safetensors.index.json in {path}"
+                f"Expected model.safetensors or diffusion_pytorch_model.safetensors "
+                f"with an optional shard index in {path}"
             )
         return {single_file: None}
 

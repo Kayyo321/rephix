@@ -1456,6 +1456,8 @@ def replay_layer_evidence(evidence_dir, output):
     _check_output(output)
     _check_disjoint(evidence_dir, output)
     metadata, assets = open_bundle(evidence_dir)
+    if metadata.get("runtime") == "diffusers":
+        raise ValueError("Diffusers evidence requires replay-diffusion")
     if metadata.get("probe_plan_version") != _PROBE_PLAN_VERSION:
         raise ValueError("unsupported layer evidence probe plan version")
     torch, AutoConfig, causal, _ = _deps()

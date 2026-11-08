@@ -159,6 +159,7 @@ def build_parser():
 
     from . import (
         alignment,
+        diffusers_recovery,
         doctor,
         endpoint_head,
         experiments,
@@ -180,6 +181,7 @@ def build_parser():
         hf,
         projection,
         layer_recovery,
+        diffusers_recovery,
         gguf_recovery,
         mxfp4_safetensors,
         endpoint_head,

@@ -30,6 +30,8 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [RWKV recurrent language-model recovery](docs/RWKV_RECOVERY.md)
 - [SegFormer segmentation and DPT depth recovery](docs/DENSE_VISION_RECOVERY.md)
 - [Encodec audio-codec recovery](docs/ENCODEC_RECOVERY.md)
+- [Diffusers latent autoencoder recovery](docs/VAE_RECOVERY.md)
+- [Diffusers DDPM denoiser recovery](docs/DIFFUSION_DENOISER_RECOVERY.md)
 - [LFM2 text and vision-language recovery](docs/LFM2_RECOVERY.md)
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
@@ -103,6 +105,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |
 | `recover-layers` | Reconstruct a supported local text, [vision-language](docs/VLM_RECOVERY.md), vision, or speech model from chosen layer inputs | Parameter recovery with known architecture and direct layer access, with optional resumable evidence |
 | `replay-layers` | Rebuild a standalone checkpoint from a sealed [layer evidence bundle](docs/LAYER_RECOVERY.md#resume-and-replay-layer-probes) | Reuse recorded observations after removing the source checkpoint |
+| `recover-diffusion` | Reconstruct a supported native Diffusers component | Known architecture and chosen layer inputs, with native archive names and resumable evidence |
+| `replay-diffusion` | Rebuild a native Diffusers component from sealed evidence | Reuse observations and preserved scheduler assets after source removal |
 | `recover-projection` | Fit selected output weights using observed head inputs | White-box component recovery under an extra access assumption |
 | `sweep`, `report` | Compare bounded settings and export tables or plots | Reproducible validation comparisons with a separate final test |
 | `select-queries` | Rank new prompts by randomness, entropy, or disagreement | A query heuristic, not a recovery-accuracy measurement |
