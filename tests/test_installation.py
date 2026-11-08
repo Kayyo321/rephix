@@ -29,6 +29,8 @@ class InstallationTests(unittest.TestCase):
             wheelhouse=None,
             constraints=None,
             operation="install",
+            release=None,
+            force=True,
         )
         self.addCleanup(patch.stopall)
         patch.object(manager.venv.EnvBuilder, "create", lambda _, path: path.mkdir()).start()
@@ -204,6 +206,94 @@ class InstallationTests(unittest.TestCase):
             manager.uninstall(self.args)
         self.assertEqual((self.root / manager.MANIFEST).read_bytes(), before)
         self.assertEqual(sentinel.read_text(), "preserve")
+
+
+class ReleaseChannelTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.base = Path(self.temporary.name)
+        self.wheel_bytes = b"wheel bytes"
+        digest = __import__("hashlib").sha256(self.wheel_bytes).hexdigest()
+        self.release = {
+            "tag_name": "v9.8.7",
+            "draft": False,
+            "prerelease": False,
+            "html_url": "https://example.invalid/r",
+            "assets": [
+                {
+                    "name": "rephix-9.8.7-py3-none-any.whl",
+                    "size": len(self.wheel_bytes),
+                    "browser_download_url": "https://example.invalid/w",
+                },
+                {"name": "SHA256SUMS", "browser_download_url": "https://example.invalid/s"},
+            ],
+        }
+        self.files = {
+            "https://example.invalid/w": self.wheel_bytes,
+            "https://example.invalid/s": f"{digest}  rephix-9.8.7-py3-none-any.whl\n".encode(),
+        }
+
+        def fake_get(url, limit):
+            if url.endswith("/latest") or "/tags/" in url:
+                return json.dumps(self.release).encode()
+            return self.files[url]
+
+        patcher = patch.object(manager, "_http_get", side_effect=fake_get)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def test_latest_stable_release_resolves_and_verifies(self):
+        resolved = manager.resolve_release("latest")
+        self.assertEqual(resolved["version"], "9.8.7")
+        path, digest = manager.download_release(resolved, self.base)
+        self.assertEqual(path.read_bytes(), self.wheel_bytes)
+        self.assertEqual(len(digest), 64)
+
+    def test_checksum_mismatch_and_prereleases_are_rejected(self):
+        self.files["https://example.invalid/w"] = b"tampered"
+        self.release["assets"][0]["size"] = len(b"tampered")
+        with self.assertRaisesRegex(RuntimeError, "Integrity check failed"):
+            manager.download_release(manager.resolve_release("latest"), self.base)
+        self.assertEqual(list(self.base.iterdir()), [])
+        self.release["prerelease"] = True
+        with self.assertRaisesRegex(RuntimeError, "not a published stable release"):
+            manager.resolve_release("v9.8.7")
+        with self.assertRaisesRegex(ValueError, "latest or a tag"):
+            manager.resolve_release("main")
+
+    def test_install_requires_exactly_one_source_and_update_is_idempotent(self):
+        args = Namespace(
+            prefix=str(self.base / "m"),
+            wheel=None,
+            release=None,
+            extras=None,
+            wheelhouse=None,
+            constraints=None,
+            operation="install",
+        )
+        with self.assertRaisesRegex(ValueError, "exactly one"):
+            manager.install(args)
+        wheel = self.base / "rephix-9.8.7-py3-none-any.whl"
+        wheel.write_bytes(self.wheel_bytes)
+        with (
+            patch.object(manager.venv.EnvBuilder, "create", lambda _, path: path.mkdir()),
+            patch.object(manager, "_run", return_value="x==1"),
+            patch.object(manager, "_validate", return_value="9.8.7"),
+        ):
+            args.wheel = str(wheel)
+            first = manager.install(args)
+            args.operation, args.force = "update", False
+            again = manager.install(args)
+            self.assertTrue(again["already_current"])
+            self.assertEqual(again["active"], first["active"])
+            self.assertEqual(len(list((self.base / "m").glob("env-*"))), 1)
+            state = manager._read(self.base / "m")
+            state["slots"][first["active"]]["version"] = "0.3.0"
+            manager._save(self.base / "m", state)
+            report = manager.check_update(Namespace(prefix=str(self.base / "m"), release="latest"))
+            self.assertTrue(report["update_available"])
+            self.assertEqual(report["command"], "rephix installation update --release v9.8.7")
 
 
 if __name__ == "__main__":

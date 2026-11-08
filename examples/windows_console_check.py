@@ -38,9 +38,14 @@ CHECKS = []
 LONG_COMMAND = "demo --samples 200000 --features 240 --classes 60"
 
 
+PROGRESS = None  # Incremental results survive a job timeout.
+
+
 def check(name, passed, **evidence):
     CHECKS.append({"check": name, "passed": bool(passed), **evidence})
     print(("PASS " if passed else "FAIL ") + name, flush=True)
+    if PROGRESS is not None:
+        PROGRESS.write_text(json.dumps(CHECKS, indent=1, ensure_ascii=False), encoding="utf-8")
     return passed
 
 
@@ -334,7 +339,7 @@ def exit_echo(shell, marker):
     return f'echo "{marker}=$LASTEXITCODE"'
 
 
-def run_shell_command(term, shell, launcher, arguments, marker, timeout=120):
+def run_shell_command(term, shell, launcher, arguments, marker, timeout=60):
     term.type(invoke(shell, launcher, arguments) + "\r")
     term.type(exit_echo(shell, marker) + "\r")
     found = wait_until(lambda: re.search(rf"{marker}=(-?\d+)", term.text()), timeout)
@@ -349,7 +354,8 @@ def scenario_shells(ctx, Backend, label):
         term = Backend(shell_argv(shell), cwd=str(ctx["work"]))
         try:
             ready = wait_until(lambda: "READY>" in term.text(), 30)
-            check(f"{label}/{shell}: fresh shell prompt", ready, screen=term.text()[-400:])
+            if not check(f"{label}/{shell}: fresh shell prompt", ready, screen=term.text()[-400:]):
+                continue
             code = run_shell_command(term, shell, ctx["launcher"], "--version", "VER")
             check(
                 f"{label}/{shell}: --version through launcher",
@@ -389,10 +395,16 @@ def scenario_shells(ctx, Backend, label):
 def scenario_workbench(ctx, Backend, label):
     term = Backend(shell_argv("cmd"), rows=30, cols=110, cwd=str(ctx["work"]))
     try:
-        wait_until(lambda: "READY>" in term.text(), 30)
+        if not check(
+            f"{label}/ui: shell ready",
+            wait_until(lambda: "READY>" in term.text(), 30),
+            screen=term.text(),
+        ):
+            return
         term.type(invoke("cmd", ctx["launcher"], "ui") + "\r")
         opened = wait_until(lambda: "commands" in term.text() and "Ready" in term.text(), 60)
-        check(f"{label}/ui: opens full-screen workbench", opened, screen=term.text())
+        if not check(f"{label}/ui: opens full-screen workbench", opened, screen=term.text()):
+            return
         term.type("demo")
         filtered = wait_until(lambda: "recover planted" in term.text(), 10)
         check(f"{label}/ui: typing filters the command list", filtered, screen=term.text())
@@ -486,7 +498,9 @@ def scenario_plain_interrupt(ctx, Backend, label):
             continue
         term = Backend(shell_argv(shell), cwd=str(ctx["work"]))
         try:
-            wait_until(lambda: "READY>" in term.text(), 30)
+            if not wait_until(lambda: "READY>" in term.text(), 30):
+                check(f"{label}/{shell}: shell ready for interrupt test", False, screen=term.text())
+                continue
             term.type(invoke(shell, ctx["launcher"], LONG_COMMAND) + "\r")
             time.sleep(4)
             before = ctx["children"](term)
@@ -548,8 +562,8 @@ def scenario_resume(ctx):
     )
     arguments = (
         f'text-recover --features "{folder / "features.json"}" --target '
-        f'"{folder / "target.json"}" --output "{folder / "export"}" --contexts 120 '
-        f"--samples-per-context 150000 --bootstrap 19 --alpha 0.05"
+        f'"{folder / "target.json"}" --output "{folder / "export"}" --contexts 300 '
+        f"--samples-per-context 20000 --bootstrap 19 --alpha 0.05"
     )
     term = ConPty(shell_argv("cmd"), cwd=str(folder))
     try:
@@ -576,7 +590,7 @@ def scenario_resume(ctx):
             orphans=list(map(str, orphans)),
             screen=term.text()[-600:],
         )
-        code = run_shell_command(term, "cmd", ctx["launcher"], arguments, "RESUME", timeout=900)
+        code = run_shell_command(term, "cmd", ctx["launcher"], arguments, "RESUME", timeout=420)
         manifest = folder / "export" / "manifest.json"
         report = json.loads(manifest.read_text()) if manifest.is_file() else {}
         resumed = report.get("budget", {}).get("resumed_contexts", 0)
@@ -763,6 +777,8 @@ def main():
     work = Path(args.work_dir).resolve()
     if work.exists():
         raise SystemExit("use a new work directory")
+    global PROGRESS
+    PROGRESS = Path(args.output).resolve()
     unicode_dir = work / "data dir ü 数据"
     unicode_dir.mkdir(parents=True)
     (unicode_dir / "证据 ü.jsonl").write_text(
@@ -843,7 +859,7 @@ def main():
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=900,
+            timeout=600,
         )
         if result_file.is_file():
             for item in json.loads(result_file.read_text(encoding="utf-8")):

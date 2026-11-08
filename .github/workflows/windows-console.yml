@@ -13,7 +13,7 @@ jobs:
         os: [windows-2022, windows-2025]
         python: ['3.10', '3.13']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -2,7 +2,7 @@
 
 Layout (wide)::
 
-    rephix 0.3.0                                              ○ Ready
+    rephix 0.4.0                                              ○ Ready
     ──────────────────────────────────────────────────────────────────
      / filter commands       │  validate
                              │  Validate evidence JSONL and report …

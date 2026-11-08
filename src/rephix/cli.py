@@ -175,6 +175,7 @@ def build_parser():
         session,
         session_targets,
         terminal,
+        text_recovery,
         tiny,
         trace_calibration,
         trace_recovery,
@@ -200,6 +201,7 @@ def build_parser():
         session_targets,
         trace_calibration,
         trace_recovery,
+        text_recovery,
     ):
         module.add_subcommands(commands)
     return parser

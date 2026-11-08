@@ -59,6 +59,102 @@ def _regular(path):
     return path
 
 
+RELEASES_API = "https://api.github.com/repos/Kayyo321/rephix/releases"
+VERSION_TAG = re.compile(r"v(\d+)\.(\d+)\.(\d+)\Z")
+
+
+def _releases_api():
+    return os.environ.get("REPHIX_RELEASES_API", RELEASES_API).rstrip("/")
+
+
+def _http_get(url, limit):
+    import urllib.request
+
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "rephix-installer", "Accept": "application/vnd.github+json"}
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            data = response.read(limit + 1)
+    except OSError as exc:
+        raise RuntimeError(f"Cannot reach the release channel ({url}): {exc}") from exc
+    if len(data) > limit:
+        raise RuntimeError(f"Release download exceeds the expected size: {url}")
+    return data
+
+
+def _version_key(text):
+    match = VERSION_TAG.fullmatch("v" + text.strip().lstrip("v"))
+    if not match:
+        raise ValueError(f"Unsupported release version: {text!r}")
+    return tuple(int(part) for part in match.groups())
+
+
+def resolve_release(selector="latest"):
+    """Describe a published stable release and its wheel without downloading it.
+
+    ``latest`` uses the channel's latest-release endpoint, which never returns drafts
+    or prereleases. An explicit tag must also be a published, non-prerelease release.
+    """
+    api = _releases_api()
+    url = api + ("/latest" if selector == "latest" else "/tags/" + selector)
+    if selector != "latest" and not VERSION_TAG.fullmatch(selector):
+        raise ValueError("--release must be latest or a tag such as v0.4.0")
+    release = json.loads(_http_get(url, 4_000_000))
+    tag = release.get("tag_name")
+    if not isinstance(tag, str) or not VERSION_TAG.fullmatch(tag):
+        raise RuntimeError(f"Release channel returned an unsupported tag: {tag!r}")
+    if release.get("draft") or release.get("prerelease"):
+        raise RuntimeError(f"{tag} is not a published stable release.")
+    version = tag[1:]
+    assets = {a.get("name"): a for a in release.get("assets", []) if isinstance(a, dict)}
+    wheel = f"rephix-{version}-py3-none-any.whl"
+    missing = [name for name in (wheel, "SHA256SUMS") if name not in assets]
+    if missing:
+        raise RuntimeError(f"{tag} is missing release assets: {', '.join(missing)}")
+    return {
+        "tag": tag,
+        "version": version,
+        "wheel": wheel,
+        "wheel_url": assets[wheel]["browser_download_url"],
+        "wheel_size": assets[wheel].get("size"),
+        # GitHub computes this digest server-side, independently of SHA256SUMS.
+        "wheel_digest": assets[wheel].get("digest"),
+        "checksums_url": assets["SHA256SUMS"]["browser_download_url"],
+        "html_url": release.get("html_url"),
+    }
+
+
+def download_release(release, directory):
+    """Download the wheel and verify it against the release's SHA256SUMS."""
+    sums = _http_get(release["checksums_url"], 1_000_000).decode("utf-8")
+    expected = None
+    for line in sums.splitlines():
+        parts = line.split()
+        if len(parts) == 2 and parts[1].lstrip("*") == release["wheel"]:
+            expected = parts[0].lower()
+    if not expected or not re.fullmatch(r"[0-9a-f]{64}", expected):
+        raise RuntimeError(f"SHA256SUMS has no valid entry for {release['wheel']}")
+    data = _http_get(release["wheel_url"], 512_000_000)
+    actual = hashlib.sha256(data).hexdigest()
+    if actual != expected:
+        raise RuntimeError(
+            f"Integrity check failed for {release['wheel']}: expected {expected}, got {actual}. "
+            "No changes made."
+        )
+    digest = release.get("wheel_digest")
+    if digest is not None and digest != "sha256:" + actual:
+        raise RuntimeError(
+            f"Integrity check failed for {release['wheel']}: the release channel records "
+            f"{digest}. No changes made."
+        )
+    if release.get("wheel_size") is not None and release["wheel_size"] != len(data):
+        raise RuntimeError("Downloaded wheel size differs from the release metadata.")
+    path = Path(directory) / release["wheel"]
+    path.write_bytes(data)
+    return path, actual
+
+
 def _root(value):
     if not value:
         raise ValueError("Choose --prefix, or run the managed installation's launcher.")
@@ -234,18 +330,23 @@ except OSError as exc:
         + "\nexcept (OSError, ValueError, KeyError, TypeError) as exc:\n"
         "    sys.exit('Cannot read managed installation; use the external installer to inspect or recover it: ' + str(exc))\n"
     )
-    _atomic(root / "launch.py", launcher)
-    _atomic(root / "manager.py", Path(__file__).read_text(encoding="utf-8"))
+
+    def publish(path, text):
+        if not path.is_file() or path.read_text(encoding="utf-8") != text:
+            _atomic(path, text)
+
+    publish(root / "launch.py", launcher)
+    publish(root / "manager.py", Path(__file__).read_text(encoding="utf-8"))
     base = getattr(sys, "_base_executable", sys.executable)
     if os.name == "nt":
         if any(c in base for c in ('"', "%", "\n", "\r")):
             raise ValueError("Python path cannot be safely represented by the Windows launcher.")
-        _atomic(root / "rephix.cmd", f'@"{base}" "%~dp0launch.py" %*\n')
+        publish(root / "rephix.cmd", f'@"{base}" "%~dp0launch.py" %*\n')
     else:
         # A shell wrapper supports Python paths containing spaces without moving venvs.
         import shlex
 
-        _atomic(
+        publish(
             root / "rephix",
             "#!/bin/sh\nexec " + shlex.quote(base) + ' "$(dirname "$0")/launch.py" "$@"\n',
         )
@@ -265,6 +366,18 @@ def _report(root, state):
 
 
 def install(args):
+    release = getattr(args, "release", None)
+    if bool(release) == bool(args.wheel):
+        raise ValueError("Choose exactly one of --wheel PATH or --release latest|vX.Y.Z.")
+    if release:
+        resolved = resolve_release(release)
+        with tempfile.TemporaryDirectory(prefix="rephix-release-") as directory:
+            wheel, _ = download_release(resolved, directory)
+            args.wheel = str(wheel)
+            args.release = None
+            report = install(args)
+        report["release"] = {k: resolved[k] for k in ("tag", "wheel_url", "html_url")}
+        return report
     root = _root(args.prefix)
     wheel = _regular(Path(args.wheel).expanduser().resolve())
     if wheel.suffix != ".whl" or not wheel.name.startswith("rephix-"):
@@ -297,12 +410,22 @@ def install(args):
             raise ValueError("No active installation; use installation install.")
         if extras is None:
             extras = state["slots"][state["active"]]["extras"] if state["active"] else []
+        digest = hashlib.sha256(wheel.read_bytes()).hexdigest()
+        if (
+            args.operation == "update"
+            and not getattr(args, "force", False)
+            and state["slots"][state["active"]].get("wheel_sha256") == digest
+            and sorted(state["slots"][state["active"]]["extras"]) == sorted(extras)
+        ):
+            report = _report(root, state)
+            report["already_current"] = True
+            return report
         name = "env-" + uuid.uuid4().hex
         path = _slot(root, name)
         record = {
             "version": None,
             "wheel": wheel.name,
-            "wheel_sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
+            "wheel_sha256": digest,
             "extras": extras,
             "status": "preparing",
         }
@@ -355,7 +478,49 @@ def install(args):
             raise RuntimeError(
                 "Activation could not be confirmed; inspect the installation before retrying."
             ) from exc
-        return _report(root, state)
+        report = _report(root, state)
+        report["bootstrap_refreshed"] = _refresh_bootstrap(root, path)
+        return report
+
+
+def _refresh_bootstrap(root, environment):
+    """Adopt the activated version's manager and launcher; keep the .cmd stable.
+
+    cmd.exe rereads a running batch file by offset, so an unchanged rephix.cmd is
+    never rewritten. A failure leaves the previous, compatible bootstrap in place.
+    """
+    try:
+        _run(
+            [
+                _python(environment),
+                "-I",
+                "-c",
+                "import sys; from rephix import installation as i; "
+                "i._bootstrap(__import__('pathlib').Path(sys.argv[1]))",
+                str(root),
+            ]
+        )
+    except RuntimeError:
+        return False
+    return True
+
+
+def check_update(args):
+    root = _root(args.prefix)
+    state = _read(root)
+    if not state["active"]:
+        raise ValueError("No active installation.")
+    installed = state["slots"][state["active"]].get("version")
+    release = resolve_release(args.release)
+    newer = _version_key(release["version"]) > _version_key(installed)
+    return {
+        "installed": installed,
+        "available": release["version"],
+        "tag": release["tag"],
+        "update_available": newer,
+        "wheel_url": release["wheel_url"],
+        "command": "rephix installation update --release " + release["tag"] if newer else None,
+    }
 
 
 def inspect_installation(args):
@@ -462,6 +627,7 @@ def _commands(parser):
         ("install", install, "install a wheel in an isolated managed environment"),
         ("update", install, "validate a fresh environment before activating it"),
         ("inspect", inspect_installation, "show installation and retained user directories"),
+        ("check-update", check_update, "compare the active version with the release channel"),
         ("rollback", rollback, "activate the previous verified environment"),
         ("prune", prune, "remove obsolete environments, preserving rollback"),
         ("uninstall", uninstall, "remove software and optionally selected user directories"),
@@ -470,7 +636,15 @@ def _commands(parser):
         command.add_argument("--prefix", default=os.environ.get("REPHIX_INSTALL_ROOT"))
         command.set_defaults(func=function)
         if name in ("install", "update"):
-            command.add_argument("--wheel", required=True, help="local built Rephix wheel")
+            command.add_argument("--wheel", help="local built Rephix wheel")
+            command.add_argument(
+                "--release",
+                help="download a published stable release (latest or vX.Y.Z) and verify SHA256SUMS",
+            )
+            if name == "update":
+                command.add_argument(
+                    "--force", action="store_true", help="reinstall even if already current"
+                )
             command.add_argument(
                 "--extras", help="comma-separated extras; update inherits by default"
             )
@@ -478,6 +652,8 @@ def _commands(parser):
             command.add_argument(
                 "--wheelhouse", help="offline wheel directory; disables index access"
             )
+        elif name == "check-update":
+            command.add_argument("--release", default="latest")
         elif name == "inspect":
             command.add_argument("--verify", action="store_true")
         elif name == "prune":

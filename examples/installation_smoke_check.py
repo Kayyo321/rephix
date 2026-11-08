@@ -166,7 +166,10 @@ def evaluate(args):
             os.close(master)
             os.close(slave)
     # Reinstalling the same release with no extras argument inherits tui.
-    repeated = json.loads(launch("installation", "update", "--wheel", wheel))
+    # Repeating an update with the active wheel is an explicit no-op.
+    unchanged = json.loads(launch("installation", "update", "--wheel", wheel))
+    assert unchanged.get("already_current") is True
+    repeated = json.loads(launch("installation", "update", "--wheel", wheel, "--force"))
     assert repeated["slots"][repeated["active"]]["extras"] == ["tui"]
     plan = json.loads(launch("installation", "prune"))
     assert plan["would_remove"] == [initial["active"]]

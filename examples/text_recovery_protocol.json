@@ -1,0 +1,478 @@
+{
+ "title": "Rephix 0.4 text-only recovery protocol",
+ "registered": "2026-11-08, before any final-split seed was run; dev seeds 1 and 2 were used only to choose budgets",
+ "contract": "docs/TEXT_RECOVERY.md#observation-contract",
+ "decision_rule": {
+  "alpha": 0.01,
+  "bootstrap": 99,
+  "max_relative_standard_error": 0.1
+ },
+ "success_criteria": {
+  "S1_status": "every final run's status equals its case's expected_status (errors count as status 'error')",
+  "S2_accuracy": "every run with status recovered_in_class has canonical_relative_l2_error <= 0.10",
+  "S3_self_report": "every recovered run has canonical_relative_l2_error <= 2.5 * reported_relative_standard_error",
+  "S4_coverage": "pooled 95% interval coverage over recovered runs lies in [0.90, 0.99]",
+  "S5_behaviour": "every recovered run has test_mean_total_variation <= 0.02 on held-out contexts disjoint from queries",
+  "S6_baseline": "MLE canonical error below the plug-in baseline in at least 80% of recovered runs",
+  "S7_consistency": "median ratio of canonical error at full budget to error at 4x budget lies in [1.5, 2.7] (theory: 2); the 1/16 budget is expected to be flagged insufficient",
+  "S8_boundary": "no out-of-class, greedy, undeclared-output or underdetermined run is labelled recovered_in_class",
+  "S9_isolation": "zero opens of the private target directory by the recovery or reload processes, and every export reloads with max |log p difference| <= 1e-9"
+ },
+ "environment_variables": {
+  "REPHIX_MODELS": "directory with pinned snapshots tinyllama-15M and smollm2-135m"
+ },
+ "cases": [
+  {
+   "name": "ngram-random",
+   "purpose": "controlled whole-model target, 16 tokens, order 2",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-random-low-budget",
+   "purpose": "consistency: same targets at 1/16 budget",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "insufficient_evidence",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 500
+  },
+  {
+   "name": "ngram-random-4x-budget",
+   "purpose": "consistency: same targets at 4x budget",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 32000
+  },
+  {
+   "name": "ngram-moderate",
+   "purpose": "more peaked whole-model target (logit scale 1.5)",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.5,
+   "contexts": 124,
+   "samples_per_context": 32000
+  },
+  {
+   "name": "head-tiny-qwen2",
+   "purpose": "private head on a random public Qwen2 backbone",
+   "family": "hf-backbone",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 99,
+   "backbone": "tiny-qwen2",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 400,
+   "samples_per_context": 1000
+  },
+  {
+   "name": "head-tinyllama-15m",
+   "purpose": "private head on pretrained nickypro/tinyllama-15M@a97e01fa",
+   "family": "hf-backbone",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 99,
+   "backbone_path": "$REPHIX_MODELS/tinyllama-15M",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 1200,
+   "samples_per_context": 4000
+  },
+  {
+   "name": "head-smollm2-135m",
+   "purpose": "private head on pretrained HuggingFaceTB/SmolLM2-135M@93efa2f0",
+   "family": "hf-backbone",
+   "in_class": true,
+   "expected_status": "recovered_in_class",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 99,
+   "backbone_path": "$REPHIX_MODELS/smollm2-135m",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 2400,
+   "samples_per_context": 5000
+  },
+  {
+   "name": "ngram-peaked",
+   "purpose": "boundary: improbable outputs (logit scale 2.5) at practical budget",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "insufficient_evidence",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 2.5,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-corpus",
+   "purpose": "boundary: natural English character model with rare characters",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "insufficient_evidence",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "corpus": true,
+   "order": 2,
+   "prompt_length": 4,
+   "contexts": 212,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-order3-target",
+   "purpose": "out of class: target uses a third previous token",
+   "family": "ngram",
+   "in_class": false,
+   "expected_status": "misspecified_approximation",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "target_order": 3,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-mlp-target",
+   "purpose": "out of class: added tanh hidden layer",
+   "family": "ngram",
+   "in_class": false,
+   "expected_status": "misspecified_approximation",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "mlp_hidden": 8,
+   "mlp_scale": 0.3,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "head-perturbed-backbone",
+   "purpose": "out of class: private fine-tuned backbone differs from public prior",
+   "family": "hf-backbone",
+   "in_class": false,
+   "expected_status": "misspecified_approximation",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 99,
+   "backbone_path": "$REPHIX_MODELS/tinyllama-15M",
+   "perturb_backbone": 0.05,
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 1200,
+   "samples_per_context": 4000
+  },
+  {
+   "name": "ngram-greedy-target",
+   "purpose": "boundary: greedy decoding",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "deterministic_outputs_not_identifiable",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "greedy": true,
+   "contexts": 124,
+   "samples_per_context": 50
+  },
+  {
+   "name": "ngram-undeclared-output",
+   "purpose": "boundary: target emits a string outside the declared classes",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "error",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "emit_unknown": true,
+   "contexts": 124,
+   "samples_per_context": 200
+  },
+  {
+   "name": "ngram-underdetermined",
+   "purpose": "boundary: fewer contexts than the feature span",
+   "family": "ngram",
+   "in_class": true,
+   "expected_status": "insufficient_evidence",
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     101,
+     102,
+     103,
+     104,
+     105
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 99,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 12,
+   "samples_per_context": 8000
+  }
+ ]
+}

@@ -59,8 +59,12 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install build numpy
       - run: python -m build
-      - run: python -m pip install dist/rephix-0.3.0-py3-none-any.whl
-      - run: python examples/installation_smoke_check.py --wheel dist/rephix-0.3.0-py3-none-any.whl --work-dir lifecycle-trial --output lifecycle-result.json
+      - name: Install the built wheel and run the managed lifecycle check
+        shell: bash
+        run: |
+          wheel=$(ls dist/rephix-*-py3-none-any.whl)
+          python -m pip install "$wheel"
+          python examples/installation_smoke_check.py --wheel "$wheel" --work-dir lifecycle-trial --output lifecycle-result.json
       - uses: actions/upload-artifact@v4
         with:
           name: lifecycle-${{ matrix.os }}
