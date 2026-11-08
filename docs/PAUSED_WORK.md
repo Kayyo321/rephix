@@ -1,5 +1,8 @@
 # Recoverable pause: 2026-11-07
 
+Historical checkpoint. Work resumed at the user’s request on 2026-11-08.
+Current progress and remaining release gates are in [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md).
+
 Work stopped at the user's explicit request. The persistent reconstruction goal
 is paused, not complete. Resume only when the user asks to continue.
 

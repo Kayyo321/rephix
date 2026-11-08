@@ -20,7 +20,6 @@ from unittest.mock import patch
 from rephix.io import file_sha256, write_json
 from rephix.weight_audit import compare_checkpoints
 
-
 MODES = (
     ("full_raw", False, False),
     ("full_zlib", False, True),
@@ -50,7 +49,9 @@ def _journal_metrics(torch, path):
         schema, total = db.execute(
             "SELECT schema_version, total_calls FROM journal_metadata"
         ).fetchone()
-        rows = db.execute("SELECT dtype, shape, length(payload), encoding FROM responses").fetchall()
+        rows = db.execute(
+            "SELECT dtype, shape, length(payload), encoding FROM responses"
+        ).fetchall()
     decoded = sum(
         math.prod(json.loads(shape))
         * torch.empty((), dtype=getattr(torch, dtype.removeprefix("torch."))).element_size()
@@ -168,8 +169,11 @@ def _synthetic(torch, root, batch_size):
                     parameter.zero_()
             with LayerJournal(path, torch, binding=label, compression=compressed) as journal:
                 recovery = recover_from_layer_calls(
-                    candidate, observe, batch_size=batch_size,
-                    compact_convolutions=compact, _journal=journal,
+                    candidate,
+                    observe,
+                    batch_size=batch_size,
+                    compact_convolutions=compact,
+                    _journal=journal,
                 )
                 journal.finish()
             hashes = {name: _tensor_hash(value) for name, value in candidate.state_dict().items()}
@@ -177,24 +181,32 @@ def _synthetic(torch, root, batch_size):
                 output = candidate(inputs)
             if hashes != source_hashes or not torch.equal(output, expected):
                 raise AssertionError("synthetic recovery changed weights or outputs")
-            runs.append({
-                "mode": mode,
-                "recovery": recovery,
-                "journal": _journal_metrics(torch, path),
-                "weights_bitwise_equal": True,
-                "held_out_outputs_bitwise_equal": True,
-            })
+            runs.append(
+                {
+                    "mode": mode,
+                    "recovery": recovery,
+                    "journal": _journal_metrics(torch, path),
+                    "weights_bitwise_equal": True,
+                    "held_out_outputs_bitwise_equal": True,
+                }
+            )
         _ratios(runs)
-        results.append({
-            "case": label, "channels": channels, "groups": groups,
-            "kernel_size": [kernel, kernel], "runs": runs,
-        })
+        results.append(
+            {
+                "case": label,
+                "channels": channels,
+                "groups": groups,
+                "kernel_size": [kernel, kernel],
+                "runs": runs,
+            }
+        )
     return results
 
 
 def evaluate(args):
     import torch
     import transformers
+
     import rephix.layer_journal as journal_module
     import rephix.layer_recovery as recovery_module
 
@@ -213,8 +225,11 @@ def evaluate(args):
     for mode, compact, compressed in MODES:
         candidate, evidence = root / f"{mode}-candidate", root / f"{mode}-evidence"
         options = dict(
-            dtype="float64", device="cpu", batch_size=args.batch_size,
-            restore_source_dtypes=True, compact_convolutions=compact,
+            dtype="float64",
+            device="cpu",
+            batch_size=args.batch_size,
+            restore_source_dtypes=True,
+            compact_convolutions=compact,
             evidence_dir=evidence,
         )
 
@@ -224,6 +239,7 @@ def evaluate(args):
         interruption = None
         with patch.object(journal_module, "LayerJournal", side_effect=make_journal):
             if mode == "compact_zlib":
+
                 def interrupt_after_commits(model, call_layer, **keywords):
                     calls = 0
 
@@ -237,28 +253,35 @@ def evaluate(args):
 
                     return recover(model, oracle, **keywords)
 
-                with patch.object(recovery_module, "recover_from_layer_calls", interrupt_after_commits):
+                with patch.object(
+                    recovery_module, "recover_from_layer_calls", interrupt_after_commits
+                ):
                     try:
                         recovery_module.export_recovered_model(reference, candidate, **options)
                     except InterruptedError:
                         pass
                     else:
                         raise AssertionError("controlled interruption did not occur")
-                interruption = _journal_metrics(torch, evidence / "responses.sqlite3")
+                interruption = _journal_metrics(torch, evidence / "observations.sqlite3")
                 if interruption["response_count"] != args.interrupt_after or candidate.exists():
-                    raise AssertionError("interrupted capture did not retain exactly the committed prefix")
+                    raise AssertionError(
+                        "interrupted capture did not retain exactly the committed prefix"
+                    )
             report = recovery_module.export_recovered_model(reference, candidate, **options)
         audit = _sanitize(compare_checkpoints(reference, candidate))
         if audit["coverage"] != 1 or audit["fraction_exactly_equal"] != 1:
             raise AssertionError("real checkpoint recovery did not reproduce every stored value")
-        metrics = _journal_metrics(torch, evidence / "responses.sqlite3")
+        metrics = _journal_metrics(torch, evidence / "observations.sqlite3")
         if metrics["decoded_payload_bytes"] != report["evidence_decoded_payload_bytes"]:
             raise AssertionError("journal decoded-byte accounting mismatch")
         if metrics["stored_payload_bytes"] != report["evidence_stored_payload_bytes"]:
             raise AssertionError("journal stored-byte accounting mismatch")
         run = {
-            "mode": mode, "compact_convolutions": compact, "compression": compressed,
-            "recovery": _sanitize(report), "journal": metrics,
+            "mode": mode,
+            "compact_convolutions": compact,
+            "compression": compressed,
+            "recovery": _sanitize(report),
+            "journal": metrics,
             "raw_checkpoint_audit": audit,
             "checkpoint_sha256": _checkpoint_hashes(candidate),
             "held_out_behavior": _behavior(torch, candidate, inputs, logits, image),
@@ -297,14 +320,21 @@ def evaluate(args):
             hidden_source.rename(reference)
     _ratios(runs)
     return {
-        "schema_version": 1, "model_id": args.model_id, "revision": args.revision,
+        "schema_version": 1,
+        "model_id": args.model_id,
+        "revision": args.revision,
         "runtime": {
-            "python": platform.python_version(), "torch": str(torch.__version__),
-            "transformers": transformers.__version__, "device": "cpu", "threads": args.threads,
+            "python": platform.python_version(),
+            "torch": str(torch.__version__),
+            "transformers": transformers.__version__,
+            "device": "cpu",
+            "threads": args.threads,
         },
         "settings": {
-            "batch_size": args.batch_size, "probe_dtype": "float64",
-            "restore_source_dtypes": True, "interrupt_after_committed_responses": args.interrupt_after,
+            "batch_size": args.batch_size,
+            "probe_dtype": "float64",
+            "restore_source_dtypes": True,
+            "interrupt_after_committed_responses": args.interrupt_after,
         },
         "reference_sha256": reference_hashes,
         "held_out_input_sha256": {name: _tensor_hash(value) for name, value in inputs.items()},

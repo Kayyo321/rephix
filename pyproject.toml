@@ -13,6 +13,7 @@ license-files = ["LICENSE"]
 dependencies = ["numpy>=1.24"]
 
 [project.optional-dependencies]
+tui = ["prompt-toolkit>=3.0.52,<4"]
 hf = ["torch>=2.4", "transformers>=4.46,<5", "safetensors>=0.4"]
 diffusion = [
     "torch>=2.4",

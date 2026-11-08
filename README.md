@@ -36,6 +36,12 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
+## Interactive terminal
+
+Run `python -m pip install '.[tui]'` and `rephix ui` for the command workbench.
+[Keyboard controls and terminal support](docs/TERMINAL.md) ·
+[Measured compact evidence storage](docs/EVIDENCE_STORAGE.md)
+
 ## Start with a controlled experiment
 
 Requires Python 3.10 or later. Core commands need only NumPy.

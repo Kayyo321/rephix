@@ -172,6 +172,7 @@ def build_parser():
         query,
         session,
         session_targets,
+        terminal,
         tiny,
         trace_calibration,
         trace_recovery,
@@ -191,6 +192,7 @@ def build_parser():
         fp8_safetensors,
         doctor,
         tiny,
+        terminal,
         session,
         session_targets,
         trace_calibration,
@@ -216,6 +218,12 @@ def main(argv=None):
         result = args.func(args)
         if result is not None:
             print(json.dumps(result, indent=2, allow_nan=False))
+    except KeyboardInterrupt:
+        print(
+            "rephix: interrupted; resume using the saved evidence or session directory",
+            file=sys.stderr,
+        )
+        return 130
     except (OSError, ValueError, RuntimeError, ImportError) as exc:
         print(f"rephix: {exc}", file=sys.stderr)
         return 1
