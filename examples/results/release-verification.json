@@ -30,5 +30,12 @@
   },
   "wheel_sha256": "1104e71cbe179040eab7024866d458773a6a4b70f969139f9bfabb63a6e674c0",
   "lifecycle_result": "installation-lifecycle.json",
-  "cross_platform_ci": "pending"
+  "cross_platform_ci": {
+    "conclusion": "success",
+    "jobs": 17,
+    "run_id": 42496378427,
+    "head_sha": "2a04ddc5ef35adeff3d62f39302cd550d1619bee",
+    "evidence": "release-ci.json"
+  },
+  "temporary_native_overlay_removed": true
 }

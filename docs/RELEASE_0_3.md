@@ -79,12 +79,15 @@ trial. A live workbench lease also blocked uninstall without altering the manife
 [Terminal controls and verification](TERMINAL.md) cover dark/light palettes,
 monochrome mode, responsive panes, keyboard input ownership, help, subprocess output,
 interruption, terminal restoration, and the plain interface. Linux real-PTY checks
-passed at 40, 80 and 120 columns. Interactive Windows/macOS verification remains an
-explicit limit even when their automated core/lifecycle checks pass.
+passed at 40, 80 and 120 columns. macOS CI also passed lifecycle PTY launch, exit, normal line input and complete
+mode comparison. Full manual macOS/Windows console exploration remains an explicit
+limit.
 
 ## Verification status
 
-The full optional-runtime suite, source/wheel packaging, clean install checks and
-cross-platform CI results are recorded in [production readiness](PRODUCTION_READINESS.md).
-Release completion remains subject to those final current-commit gates. See
+All 345 local tests passed with zero skips, including the optional native FP8
+runtime. Dependency consistency, source/wheel packaging, isolated lifecycle and
+the offline trial passed. All 17 [cross-platform CI jobs](https://github.com/Kayyo321/rephix/actions/runs/42496378427)
+passed on the verified code checkpoint. The complete requirement audit is in
+[production readiness](PRODUCTION_READINESS.md). See
 [supported environments and scientific limits](SUPPORT.md) for the exact scope.

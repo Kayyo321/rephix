@@ -10,7 +10,7 @@ model endpoint.
 | Python | CPython 3.10–3.13 | Local release checks use 3.13.5; CI covers 3.10, 3.11, 3.12 and 3.13. Newer Python versions are unvalidated. |
 | Core operating systems | Linux, macOS, Windows with Python/NumPy wheels and writable local storage | Core CI matrix includes all three; current measured model and real-PTY runs are Linux. |
 | Managed installation | Standard-library venv/ensurepip, local Rephix wheels, a retained base Python | Isolated updates, rollback, scoped uninstall; local lifecycle measurements are Linux. CI includes lifecycle checks on all three operating systems. |
-| Interactive terminal | Optional prompt_toolkit 3.x, interactive stdin/stdout | Linux PTY launch, edits, resize, help, exit and terminal restoration verified. Windows/macOS interactive checks remain unverified; plain CLI remains available. |
+| Interactive terminal | Optional prompt_toolkit 3.x, interactive stdin/stdout | Linux PTY edits/resize/help and macOS lifecycle PTY launch/exit/cooked-input restoration verified. Full manual macOS and Windows console exploration remains unverified; plain CLI is available. |
 | Core dependencies | NumPy >=1.24 | No model runtime or downloads needed for affine demos and evidence validation. |
 | Transformers | Torch >=2.4, Transformers >=4.46,<5, safetensors >=0.4 | Release model suite uses Torch 2.10.0+cu128 and Transformers 4.57.6. Family APIs introduced after 4.46 require a version that includes them; broad family coverage is verified on 4.57.6. |
 | Diffusers | Diffusers >=0.35,<0.36, Torch, safetensors, huggingface-hub >=0.34,<1 | Native UNet2D, conditional UNet2D, AutoencoderKL and AutoencoderTiny; fixture and published pretrained results have separate reports. |

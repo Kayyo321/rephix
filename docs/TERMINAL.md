@@ -44,7 +44,8 @@ handling and terminal restoration. An outer POSIX guard also restores the comple
 mode snapshot around toolkit setup and execution. Verified locally in a real Linux PTY at 40, 80,
 and 120 columns: launch, editing, execution, help, resize, exit, and exact restoration
 of terminal modes. Automated input-routing tests also exercise help, command execution,
-and monochrome mode. Windows/macOS interactive verification remains pending.
+and monochrome mode. macOS CI also verified PTY launch, exit, cooked line input and restoration. Full
+manual macOS and Windows console exploration remains unverified.
 
 The lifecycle PTY check exercises a cooked input line after exit before comparing
 the complete terminal-mode snapshot. On macOS, the kernel sets the transient PENDIN

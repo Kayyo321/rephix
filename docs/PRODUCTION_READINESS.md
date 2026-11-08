@@ -1,15 +1,15 @@
 # Production readiness audit
 
-Active release goal, resumed 2026-11-08. History and earlier baseline commits remain
-preserved. Completion requires all user requirements and final current-commit gates,
-not merely a successful model trial. [Release report](RELEASE_0_3.md)
+Release audit completed 2026-11-08 for the verified implementation checkpoint. History and earlier baseline commits remain
+preserved. The audit covers every user requirement, current source hashes, measured results,
+and release checks. [Release report](RELEASE_0_3.md)
 
 | Requirement | Current evidence | Status |
 | --- | --- | --- |
 | Complete paused compact/compression work | Four-mode pinned ConvNeXT result, exact audits, interruption/resume, source-unavailable replay; Transformers/Diffusers integration tests | Verified locally |
 | Representative pretrained Llama/Mistral trials | TinyLlama 1.1B: 1,100,048,384 exact values; TinyMistral: 248,024,064 exact values; both 100% coverage, zero L2, exact 24-prompt logits and six continuations | Verified locally |
 | Honest access, metrics and limitations | RELEASE_0_3.md, EVIDENCE_STORAGE.md, SUPPORT.md; sign-symmetry controls with identical behavior and different raw coordinates | Documented with measured evidence |
-| Designed CLI experience | Optional terminal workbench with dark/light palettes, visible selection, editable arguments, help, output, interruption and plain mode | Linux PTY and automated tests verified |
+| Designed CLI experience | Optional terminal workbench with dark/light palettes, visible selection, editable arguments, help, output, interruption and plain mode | Linux PTY, macOS lifecycle PTY and cross-platform input tests verified |
 | Installation and required/optional dependencies | Standard-library bootstrap, wheel install, extras, constraints/offline wheelhouse, dependency checks and reconstruction smoke test | Isolated real lifecycle verified |
 | Safe updates and rollback | Fresh environment validation before atomic activation; failed wheel leaves manifest/version unchanged; previous environment retained; runtime lease prevents modifying active software | Unit and isolated lifecycle verified |
 | Clean removal and retention choices | Default data retention, individual purge flags, optional bootstrap removal, no external data deletion; shared lock remains as documented | Unit and isolated lifecycle verified |
@@ -19,9 +19,9 @@ not merely a successful model trial. [Release report](RELEASE_0_3.md)
 | Supported platforms/Python/hardware/formats/access | SUPPORT.md, pyproject extras and model-family guides | Defined; interactive macOS/Windows and MPS limitations explicit |
 | Full local suite, native optional runtime | 345 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
 | Source and wheel packaging | Build succeeded; real 0.2-to-0.3 lifecycle with version checks, failed upgrade, rollback, inherited TUI extra, pruning, reinstall and retention/purge | Passed locally |
-| Cross-platform CI on release commit | Expanded core matrix (3.10/3.11/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | Pending remote execution |
+| Cross-platform CI on release commit | Expanded core matrix (3.10/3.11/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | All 17 jobs passed at verified code commit 2a04ddc |
 | Disk discipline | Downloaded ConvNeXT, TinyLlama and TinyMistral source/candidate/evidence artifacts deleted after recording hashes and measurements; isolated lifecycle leaves zero environments | Verified locally |
-| Final requirement-by-requirement completion audit | Must inspect final CI results and final repository state before completion | Pending |
+| Final requirement-by-requirement completion audit | Source hashes, pinned measurements, lifecycle transitions, documentation links, package contents, CI job results, baseline ancestry and cleanup inspected | Passed |
 
 Machine-readable [local verification](../examples/results/release-verification.json)
 records code hashes, test count, wheel hash and checks. The
@@ -31,23 +31,25 @@ persistent installer lock is intentionally retained even with bootstrap removal;
 manual deletion of a reviewed, idle dedicated prefix removes that final record.
 
 The reusable Python environment is
-`/home/dev/.local/share/rephix-local-20261106/venv`. The complete optional native-runtime
-check temporarily uses `/tmp/rephix-native-runtime-final` for accelerate 1.12.0,
-Triton 3.6.0 and psutil. Remove that task-owned overlay after verification. Logs are
+`/home/dev/.local/share/rephix-local-20261106/venv`. The completed optional native-runtime
+check used `/tmp/rephix-native-runtime-final` for accelerate 1.12.0,
+Triton 3.6.0 and psutil. That task-owned overlay has been removed. Logs are
 in `/tmp/rephix-release-tests.log`, `/tmp/rephix-build.log`,
 `/tmp/rephix-lifecycle-check.log` and `/tmp/rephix-offline-check.log`.
 
-Initial remote CI passed all nine core jobs, CPU model integration and packaging.
-The macOS lifecycle harness initially stopped draining its PTY and timed out on
-exit. After draining output, comparison found only Darwin’s transient
-PENDIN bit (0x20000000), which XNU sets when canonical input is restored. The
-harness now verifies a cooked input round trip and then compares every mode
-without masking bits. The application also snapshots all POSIX modes around
-toolkit setup. A follow-up run must verify the complete check.
-Windows lifecycle passed on the second run. Installer pip checks now use isolated Python startup and
-venv bootstrap errors have a tested, clear CLI failure.
+The final code check passed all 17 jobs in [GitHub validation run 42496378427](https://github.com/Kayyo321/rephix/actions/runs/42496378427): twelve core platform/Python combinations, three real lifecycle jobs, CPU model integration and packaging. [CI evidence](../examples/results/release-ci.json) records job IDs, conclusions and the exact verified commit. Final release-report changes are documentation and evidence only; runtime source hashes remain those verified locally and in CI.
 
-Remaining work: inspect the current commit's full cross-platform CI, fix any failures,
-and perform the final completion audit. Do not treat scientific limitations as
-unimplemented guarantees: universal original-weight recovery from text remains
-unproven and is not promised by this release.
+Earlier macOS attempts exposed a PTY harness that needed continuous output draining,
+then Darwin's kernel-owned PENDIN state (0x20000000), set when canonical input is
+restored. The final harness verifies a cooked input round trip and compares every
+mode without masking bits. The application also restores a complete POSIX snapshot
+around toolkit setup. This full check passed on macOS and Linux. Windows lifecycle
+and all Windows core/input-routing jobs passed; a real interactive Windows console
+and MPS model recovery remain explicitly unverified.
+
+No user requirement is left as an unimplemented promise. Scientific limits remain:
+original weights are not generally identifiable from ordinary text or endpoint
+behavior, supported primitive access must be available, and untested hardware and
+interactive paths are outside the verified scope. See SUPPORT.md for the complete
+contract. All task-owned model downloads, recovered models and native-runtime
+verification overlays were deleted after their evidence was recorded.
