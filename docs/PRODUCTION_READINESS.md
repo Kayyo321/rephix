@@ -9,7 +9,7 @@ and release checks. [Release report](RELEASE_0_3.md)
 | Complete paused compact/compression work | Four-mode pinned ConvNeXT result, exact audits, interruption/resume, source-unavailable replay; Transformers/Diffusers integration tests | Verified locally |
 | Representative pretrained Llama/Mistral trials | TinyLlama 1.1B: 1,100,048,384 exact values; TinyMistral: 248,024,064 exact values; both 100% coverage, zero L2, exact 24-prompt logits and six continuations | Verified locally |
 | Honest access, metrics and limitations | RELEASE_0_3.md, EVIDENCE_STORAGE.md, SUPPORT.md; sign-symmetry controls with identical behavior and different raw coordinates | Documented with measured evidence |
-| Designed CLI experience | Optional terminal workbench with dark/light palettes, visible selection, editable arguments, help, output, interruption and plain mode | Linux PTY, macOS lifecycle PTY and cross-platform input tests verified |
+| Designed CLI experience | Optional terminal workbench with searchable commands, dark/light palettes, visible selection, editable arguments, help, output, interruption and plain mode | Linux PTY, macOS lifecycle PTY and cross-platform input tests verified |
 | Installation and required/optional dependencies | Standard-library bootstrap, wheel install, extras, constraints/offline wheelhouse, dependency checks and reconstruction smoke test | Isolated real lifecycle verified |
 | Safe updates and rollback | Fresh environment validation before atomic activation; failed wheel leaves manifest/version unchanged; previous environment retained; runtime lease prevents modifying active software | Unit and isolated lifecycle verified |
 | Clean removal and retention choices | Default data retention, individual purge flags, optional bootstrap removal, no external data deletion; shared lock remains as documented | Unit and isolated lifecycle verified |
@@ -48,7 +48,7 @@ and all Windows core/input-routing jobs passed; a real interactive Windows conso
 and MPS model recovery remain explicitly unverified.
 
 Final interaction review also found and fixed a command-submission race: arguments
-are captured at F5, so immediate edits cannot change a pending command. The input
+are captured at the run keypress (Enter or F5), so immediate edits cannot change a pending command. The input
 regression demonstrably fails with the earlier mutable-argument behavior. The explicit color override also has a regression check for the terminal library’s
 separate NO_COLOR detection. All 346
 local tests still pass; the final CI run passed all 17 jobs with this interaction change.

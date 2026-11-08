@@ -5,18 +5,32 @@ checkout, then run `rephix ui`. The underlying commands still print JSON and kee
 their existing command-line syntax. `rephix ui --plain` prints a linear command
 catalog without requiring a terminal or the optional interface dependency.
 
-The workbench uses a restrained dark palette, a command list beside output on wide
-screens, and a single output pane on smaller screens. Command arguments remain
-editable at every size. At 90 columns or wider, use Tab to focus the command list,
-arrows or j/k to select, and Enter to edit. Draft arguments are preserved when moving
-between commands. At narrower sizes, type a command or use the plain catalog to
-find one. F1 opens help for the command in the editor; Escape closes help.
+The workbench is a quiet, borderless layout: a searchable command list on the
+left, and the selected command's description, its argument field and output on the
+right. A status marker in the header always pairs a symbol with its color:
+`○ Ready`, `● Running · 4s`, `■ Stopping…`, `✓ Done`, `✗ Exit 2`.
+
+| Key | Where | Action |
+| --- | --- | --- |
+| type | command list | filter by name or description; the best match is selected |
+| ↑ ↓ / Ctrl+P Ctrl+N, PgUp PgDn | command list | choose a command |
+| Enter | command list | open the command's argument field |
+| Enter (or F5) | argument field | run the command |
+| F1 | anywhere | show or hide the command's options (its `--help`) |
+| Tab / Shift+Tab | anywhere | move between list, arguments and output |
+| Esc | anywhere | close options, step back, or clear the filter |
+| Ctrl+C | anywhere | stop a running command; quit when idle |
+
+Below 80 columns the list and the command become two pages: Enter opens a command
+and Esc returns to the list. Below 48×12 the workbench asks for a larger window.
+Draft arguments are kept per command while you browse. Argument errors, such as an
+unclosed quote, appear under the field instead of starting a run.
 
 Managed installation changes require exiting the workbench first so its runtime
 lease can protect the active environment. Run those commands through the stable
 launcher described in [installation](INSTALLATION.md).
 
-F5 captures the displayed arguments at the keypress, so subsequent edits affect
+Enter or F5 captures the displayed arguments at the keypress, so subsequent edits affect
 only a future run. It executes that captured command through the same Python installation as the
 workbench. Arguments use shell-style quoting, but no shell is invoked: pipelines,
 variable expansion, and shell substitutions are not supported. Quote paths with
@@ -30,10 +44,10 @@ quitting; committed evidence stays available for the command's normal resume pat
 On Windows, stopping terminates the child process, so unfinished work depends on
 its durable checkpoint boundaries. On POSIX, Ctrl+Z suspends the interface and
 restores terminal modes until resumed; a running child may continue. Ctrl+C exits
-when idle; q exits from the command list. Text input owns printable keys, including
-q and j. The workbench does not capture the mouse.
+when idle. The list's filter and the argument field own printable keys. The
+workbench does not capture the mouse, so terminal text selection keeps working.
 
-`--theme light` selects the light palette; the default is dark.
+The terminal keeps its own background. `--theme light` selects foreground tones for light backgrounds; the default suits dark ones.
 
 `NO_COLOR=1` or `--color never` disables color and preserves a reverse-video
 selection marker. `--color always` overrides `NO_COLOR`, with a portable ANSI palette if the
