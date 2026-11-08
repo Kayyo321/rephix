@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "model_id": "Locutusque/TinyMistral-248M-v2",
+  "revision": "0f57b17cb317bb322c7c1466b669c681f80c058f",
+  "reference_sha256": {
+    "added_tokens.json": "bd4d880147b82aaee6cced1d221cd86ee96911f1a3597d40e6fce1bc7f4501c4",
+    "config.json": "3fd5e79887d6b3a31677f060e94d0e0ea3f10233073d35a68e01e46e0ef2f3b7",
+    "generation_config.json": "741acba7f5e235dac0e6865ecc212bbadb1ab1d6d853de7d759268cb62aaf2b4",
+    "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+    "model.safetensors": "87a38bb09fe841db01bf56a9e4852120cdbe5f6af6343e6d6ad375d26e786071",
+    "special_tokens_map.json": "fecc3d273dcdff004b310b848778033b3e77c77250c597e3eb81cfa865af211d",
+    "tokenizer.json": "32cc70286ddeed2887ba94994b79197abb64aae6aad9f3a30f26be77d789ca7c",
+    "tokenizer_config.json": "8807df55f00d5d76c078569f96f2d518905c676fea5673dd7a26cc8259184048",
+    "vocab.json": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7"
+  },
+  "candidate_sha256": {
+    "config.json": "7112b7f4caf62b441a0bd74bea41b13dd48a58de90825397adceff9dffcd962c",
+    "generation_config.json": "cd22f08997eb2353c809a1d9b523c42c924247eb8619aa3e408bba3448f6e270",
+    "layer-recovery.json": "23f86505c8bff28fb0788a1d12dbda0e68835fb6df42e7422e993ef23815f9ba",
+    "model.safetensors": "87a38bb09fe841db01bf56a9e4852120cdbe5f6af6343e6d6ad375d26e786071",
+    "special_tokens_map.json": "264187ca57250286d70a46168537296f8c8b4c0a088508ee5a51a1f9ce0b4ab4",
+    "tokenizer.json": "62481c195c9b1f74f09f2d3bf250bcb5006d05b7750e6a2a8ca00987b0b536e6",
+    "tokenizer_config.json": "ae9f466c26319a22d03667f171e578ec68aba68b09bdcfd697a70b76b7f5217c"
+  },
+  "python": "3.13.5",
+  "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cu128",
+  "transformers": "4.57.6",
+  "device": "cuda",
+  "measured_logit_dtype": "torch.float32",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "recovery": {
+    "observation_mode": "chosen_inputs_to_individual_layers",
+    "inactive_registered_state_observations": [],
+    "parameterized_modules_probed": 111,
+    "unique_parameter_elements_recovered": 248024064,
+    "persistent_buffer_elements_recovered": 0,
+    "individually_identified_parameter_elements": 248024064,
+    "embedding_gauges": [],
+    "relative_bias_mode": "embedding",
+    "relative_bias_gauges": [],
+    "state_space_decays": [],
+    "gemma_rms_rounding": [],
+    "router_rounding": [],
+    "layer_calls": 635,
+    "probe_input_rows": 155934,
+    "observed_output_scalars": 248024064,
+    "probe_batch_size": 256,
+    "model_type": "mistral",
+    "architecture": "MistralForCausalLM",
+    "oracle_device": "cuda",
+    "oracle_dtype": "torch.float64",
+    "oracle_placement": "resident",
+    "ignored_source_keys": [],
+    "tokenizer_exported": true,
+    "export_parameter_dtypes": {
+      "model.embed_tokens.weight": "torch.float32",
+      "model.layers.0.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.0.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.0.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.0.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.0.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.0.mlp.up_proj.weight": "torch.float32",
+      "model.layers.0.mlp.down_proj.weight": "torch.float32",
+      "model.layers.0.input_layernorm.weight": "torch.float32",
+      "model.layers.0.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.1.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.1.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.1.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.1.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.1.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.1.mlp.up_proj.weight": "torch.float32",
+      "model.layers.1.mlp.down_proj.weight": "torch.float32",
+      "model.layers.1.input_layernorm.weight": "torch.float32",
+      "model.layers.1.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.2.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.2.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.2.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.2.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.2.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.2.mlp.up_proj.weight": "torch.float32",
+      "model.layers.2.mlp.down_proj.weight": "torch.float32",
+      "model.layers.2.input_layernorm.weight": "torch.float32",
+      "model.layers.2.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.3.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.3.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.3.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.3.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.3.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.3.mlp.up_proj.weight": "torch.float32",
+      "model.layers.3.mlp.down_proj.weight": "torch.float32",
+      "model.layers.3.input_layernorm.weight": "torch.float32",
+      "model.layers.3.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.4.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.4.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.4.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.4.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.4.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.4.mlp.up_proj.weight": "torch.float32",
+      "model.layers.4.mlp.down_proj.weight": "torch.float32",
+      "model.layers.4.input_layernorm.weight": "torch.float32",
+      "model.layers.4.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.5.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.5.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.5.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.5.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.5.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.5.mlp.up_proj.weight": "torch.float32",
+      "model.layers.5.mlp.down_proj.weight": "torch.float32",
+      "model.layers.5.input_layernorm.weight": "torch.float32",
+      "model.layers.5.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.6.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.6.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.6.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.6.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.6.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.6.mlp.up_proj.weight": "torch.float32",
+      "model.layers.6.mlp.down_proj.weight": "torch.float32",
+      "model.layers.6.input_layernorm.weight": "torch.float32",
+      "model.layers.6.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.7.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.7.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.7.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.7.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.7.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.7.mlp.up_proj.weight": "torch.float32",
+      "model.layers.7.mlp.down_proj.weight": "torch.float32",
+      "model.layers.7.input_layernorm.weight": "torch.float32",
+      "model.layers.7.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.8.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.8.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.8.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.8.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.8.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.8.mlp.up_proj.weight": "torch.float32",
+      "model.layers.8.mlp.down_proj.weight": "torch.float32",
+      "model.layers.8.input_layernorm.weight": "torch.float32",
+      "model.layers.8.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.9.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.9.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.9.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.9.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.9.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.9.mlp.up_proj.weight": "torch.float32",
+      "model.layers.9.mlp.down_proj.weight": "torch.float32",
+      "model.layers.9.input_layernorm.weight": "torch.float32",
+      "model.layers.9.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.10.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.10.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.10.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.10.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.10.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.10.mlp.up_proj.weight": "torch.float32",
+      "model.layers.10.mlp.down_proj.weight": "torch.float32",
+      "model.layers.10.input_layernorm.weight": "torch.float32",
+      "model.layers.10.post_attention_layernorm.weight": "torch.float32",
+      "model.layers.11.self_attn.q_proj.weight": "torch.float32",
+      "model.layers.11.self_attn.k_proj.weight": "torch.float32",
+      "model.layers.11.self_attn.v_proj.weight": "torch.float32",
+      "model.layers.11.self_attn.o_proj.weight": "torch.float32",
+      "model.layers.11.mlp.gate_proj.weight": "torch.float32",
+      "model.layers.11.mlp.up_proj.weight": "torch.float32",
+      "model.layers.11.mlp.down_proj.weight": "torch.float32",
+      "model.layers.11.input_layernorm.weight": "torch.float32",
+      "model.layers.11.post_attention_layernorm.weight": "torch.float32",
+      "model.norm.weight": "torch.float32",
+      "lm_head.weight": "torch.float32"
+    },
+    "oracle_staged_groups": 0,
+    "oracle_peak_staged_state_bytes": 0,
+    "oracle_host_layer_calls": 0
+  },
+  "raw_checkpoint_audit": {
+    "atol": 1e-08,
+    "rtol": 1e-05,
+    "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+    "reference_tensors": 111,
+    "candidate_tensors": 111,
+    "compared_tensors": 111,
+    "reference_elements": 248024064,
+    "candidate_elements": 248024064,
+    "compared_elements": 248024064,
+    "coverage": 1.0,
+    "exactly_equal_elements": 248024064,
+    "fraction_exactly_equal": 1.0,
+    "within_tolerance_elements": 248024064,
+    "fraction_within_tolerance": 1.0,
+    "relative_l2": 0.0,
+    "zero_filled_relative_l2": 0.0,
+    "missing_tensors": [],
+    "extra_tensors": [],
+    "shape_mismatches": {},
+    "dtype_mismatches": {},
+    "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+  },
+  "raw_checkpoint_audit_error": null,
+  "repacked_reference_audit": null,
+  "held_out_prompts": [
+    {
+      "family": 4,
+      "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1akilogram\u3001bicycle\u3001zeppelin"
+    },
+    {
+      "family": 0,
+      "text": "Write a four-word complaint from the perspective of a wagon misplaced under a jasmine."
+    },
+    {
+      "family": 0,
+      "text": "Write a four-word complaint from the perspective of a avocado misplaced under a kiosk."
+    },
+    {
+      "family": 4,
+      "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1awagon\u3001walnut\u3001zeppelin"
+    },
+    {
+      "family": 5,
+      "text": "Rename the commit 'make abacus run 596 times before loading pavilion' using a conventional commit."
+    },
+    {
+      "family": 3,
+      "text": "Ein locomotive kostet 665 Euro. Wie viel kosten 153 St\u00fcck nach einem Rabatt von 536 Prozent?"
+    },
+    {
+      "family": 2,
+      "text": "SELECT department, COUNT(*) FROM diagram_glacier GROUP BY department HAVING COUNT(*) > 615 ORDER BY"
+    },
+    {
+      "family": 5,
+      "text": "Rename the commit 'make diagram run 629 times before loading tractor' using a conventional commit."
+    },
+    {
+      "family": 2,
+      "text": "SELECT department, COUNT(*) FROM seagull_zircon GROUP BY department HAVING COUNT(*) > 576 ORDER BY"
+    },
+    {
+      "family": 0,
+      "text": "Write a four-word complaint from the perspective of a tapestry misplaced under a entropy."
+    },
+    {
+      "family": 1,
+      "text": "A enamel travels at 248 knots for 236 minutes. Convert that distance to meters."
+    },
+    {
+      "family": 4,
+      "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1aorchid\u3001quail\u3001kilogram"
+    },
+    {
+      "family": 1,
+      "text": "A kilogram travels at 462 knots for 285 minutes. Convert that distance to meters."
+    },
+    {
+      "family": 4,
+      "text": "\u6b21\u306e\u8a00\u8449\u3092\u6bd4\u8f03\u3057\u3066\u3001\u9055\u3044\u3092\u65e5\u672c\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\uff1ajigsaw\u3001chess\u3001pepper"
+    },
+    {
+      "family": 3,
+      "text": "Ein volcano kostet 466 Euro. Wie viel kosten 278 St\u00fcck nach einem Rabatt von 397 Prozent?"
+    },
+    {
+      "family": 2,
+      "text": "SELECT department, COUNT(*) FROM ukulele_locomotive GROUP BY department HAVING COUNT(*) > 619 ORDER BY"
+    },
+    {
+      "family": 1,
+      "text": "A utopia travels at 596 knots for 503 minutes. Convert that distance to meters."
+    },
+    {
+      "family": 3,
+      "text": "Ein jigsaw kostet 468 Euro. Wie viel kosten 534 St\u00fcck nach einem Rabatt von 78 Prozent?"
+    },
+    {
+      "family": 1,
+      "text": "A diagram travels at 231 knots for 320 minutes. Convert that distance to meters."
+    },
+    {
+      "family": 3,
+      "text": "Ein utopia kostet 387 Euro. Wie viel kosten 143 St\u00fcck nach einem Rabatt von 614 Prozent?"
+    },
+    {
+      "family": 2,
+      "text": "SELECT department, COUNT(*) FROM ukulele_zeppelin GROUP BY department HAVING COUNT(*) > 635 ORDER BY"
+    },
+    {
+      "family": 0,
+      "text": "Write a four-word complaint from the perspective of a isotope misplaced under a xylophone."
+    },
+    {
+      "family": 5,
+      "text": "Rename the commit 'make orchid run 587 times before loading carpet' using a conventional commit."
+    },
+    {
+      "family": 5,
+      "text": "Rename the commit 'make otter run 353 times before loading neuron' using a conventional commit."
+    }
+  ],
+  "recovered_behavior": {
+    "prompt_count": 24,
+    "logit_rmse": 0.0,
+    "logit_max_abs_error": 0.0,
+    "mean_kl_nats": 0.0,
+    "next_token_top1_matches": 24,
+    "exact_greedy_matches": 6,
+    "greedy_prompts": 6,
+    "max_new_tokens": 8
+  },
+  "function_preserving_sign_control": {
+    "parameter_scope": "unique loaded parameter elements, after tying",
+    "reference_elements": 248024064,
+    "atol": 1e-08,
+    "rtol": 1e-05,
+    "fraction_exactly_equal": 0.00010321982305716916,
+    "fraction_within_tolerance": 0.00010338512959774742,
+    "relative_l2": 1.8136025100193622,
+    "max_worst_case_tolerance_fraction_for_either_target": 0.5000517812658695,
+    "behavior": {
+      "prompt_count": 24,
+      "logit_rmse": 0.0,
+      "logit_max_abs_error": 0.0,
+      "mean_kl_nats": 0.0,
+      "next_token_top1_matches": 24,
+      "exact_greedy_matches": 6,
+      "greedy_prompts": 6,
+      "max_new_tokens": 8
+    }
+  },
+  "evaluation_seconds": 6.198420167999984
+}

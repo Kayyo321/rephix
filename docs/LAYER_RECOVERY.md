@@ -49,7 +49,10 @@ rephix --threads 4 replay-layers --evidence-dir probes --output replayed
 
 Once the last observation is committed, Rephix seals the bundle before exporting the checkpoint. A sealed bundle can rebuild the checkpoint even if the first export was interrupted or the source has been deleted. It contains a checksummed observation database and the saved model configuration, plus the selected tokenizer or preprocessor assets. Replay verifies that the complete probe sequence is present and consumes it without making oracle calls. Replay reconstructs the model on CPU. T5-family attention-only bias probes and Mamba decay probes also need the original oracle device backend for their numerical transforms.
 
-The evidence database stores full responses at the observation precision. Spatial convolution responses include every output position, so a high-precision journal can be many times larger than the source archive. Allow room for the source, evidence bundle, and exported model. The report distinguishes `evidence_observations_cached` from `evidence_observations_collected` for the current invocation.
+The evidence database defaults to full responses at the observation precision.
+New journals losslessly compress responses when smaller; opt-in
+`--compact-convolutions` reduces regular convolution observation size.
+See [measured evidence storage and compatibility](EVIDENCE_STORAGE.md). Spatial convolution responses include every output position, so a high-precision journal can be many times larger than the source archive. Allow room for the source, evidence bundle, and exported model. The report distinguishes `evidence_observations_cached` from `evidence_observations_collected` for the current invocation.
 
 Native Diffusers components use [`recover-diffusion` and `replay-diffusion`](VAE_RECOVERY.md), preserving their archive layout and runtime configuration. Their evidence uses a runtime marker so replay selects the corresponding model scaffold.
 

@@ -36,6 +36,13 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
+[Version 0.3 release measurements and verification](docs/RELEASE_0_3.md).
+
+## Installation and support
+
+[Install, update, roll back, and uninstall](docs/INSTALLATION.md) ·
+[Supported environments and access requirements](docs/SUPPORT.md)
+
 ## Interactive terminal
 
 Run `python -m pip install '.[tui]'` and `rephix ui` for the command workbench.

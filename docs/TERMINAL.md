@@ -12,6 +12,10 @@ arrows or j/k to select, and Enter to edit. Draft arguments are preserved when m
 between commands. At narrower sizes, type a command or use the plain catalog to
 find one. F1 opens help for the command in the editor; Escape closes help.
 
+Managed installation changes require exiting the workbench first so its runtime
+lease can protect the active environment. Run those commands through the stable
+launcher described in [installation](INSTALLATION.md).
+
 F5 executes the displayed arguments through the same Python installation as the
 workbench. Arguments use shell-style quoting, but no shell is invoked: pipelines,
 variable expansion, and shell substitutions are not supported. Quote paths with

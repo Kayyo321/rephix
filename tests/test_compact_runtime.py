@@ -96,6 +96,19 @@ class CompactRuntimeTests(unittest.TestCase):
                 report["evidence_stored_payload_bytes"], report["evidence_decoded_payload_bytes"]
             )
 
+    def test_invalid_compact_flags_fail_before_reading_models_or_writing_output(self):
+        from rephix.diffusers_recovery import recover_diffusion_model
+        from rephix.layer_recovery import export_recovered_model
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for recover in (export_recovered_model, recover_diffusion_model):
+                for value in ("false", 1, None):
+                    with self.subTest(recover=recover.__name__, value=value):
+                        with self.assertRaisesRegex(ValueError, "must be a boolean"):
+                            recover(root / "missing", root / "output", compact_convolutions=value)
+                        self.assertEqual(list(root.iterdir()), [])
+
     def test_transformers_compact_capture_resume_and_replay(self):
         self._exercise("transformers")
 

@@ -1,59 +1,43 @@
-# Production readiness work
+# Production readiness audit
 
-Active user goal, resumed 2026-11-08. Preserve history and existing user artifacts.
-Completion requires the entire release scope below; a passing focused test does not
-prove readiness. The original research roadmap and pause checkpoint remain history.
+Active release goal, resumed 2026-11-08. History and earlier baseline commits remain
+preserved. Completion requires all user requirements and final current-commit gates,
+not merely a successful model trial. [Release report](RELEASE_0_3.md)
 
-## Delivered and measured
+| Requirement | Current evidence | Status |
+| --- | --- | --- |
+| Complete paused compact/compression work | Four-mode pinned ConvNeXT result, exact audits, interruption/resume, source-unavailable replay; Transformers/Diffusers integration tests | Verified locally |
+| Representative pretrained Llama/Mistral trials | TinyLlama 1.1B: 1,100,048,384 exact values; TinyMistral: 248,024,064 exact values; both 100% coverage, zero L2, exact 24-prompt logits and six continuations | Verified locally |
+| Honest access, metrics and limitations | RELEASE_0_3.md, EVIDENCE_STORAGE.md, SUPPORT.md; sign-symmetry controls with identical behavior and different raw coordinates | Documented with measured evidence |
+| Designed CLI experience | Optional terminal workbench with dark/light palettes, visible selection, editable arguments, help, output, interruption and plain mode | Linux PTY and automated tests verified |
+| Installation and required/optional dependencies | Standard-library bootstrap, wheel install, extras, constraints/offline wheelhouse, dependency checks and reconstruction smoke test | Isolated real lifecycle verified |
+| Safe updates and rollback | Fresh environment validation before atomic activation; failed wheel leaves manifest/version unchanged; previous environment retained; runtime lease prevents modifying active software | Unit and isolated lifecycle verified |
+| Clean removal and retention choices | Default data retention, individual purge flags, optional bootstrap removal, no external data deletion; shared lock remains as documented | Unit and isolated lifecycle verified |
+| Versions, diagnosis and help | --version, --help, doctor, installation inspect --verify; missing dependencies and unsupported schema errors | CLI and clean installation verified |
+| Migration and recovery policy | Session schema 1 unchanged, raw layer schema 1 retained, new compressed schema 2, incompatible future schemas rejected; no implicit data/config migration | Compatibility/failure tests and INSTALLATION.md |
+| Failure handling and maintainability review | Reviewed journal codec/checksum/bounds, probe routing/binding, publication and installer state transitions; added runtime leases, safe deletion checks, interrupted update cleanup, malformed compact-flag rejection and clear Ctrl+C exit | Critical regression tests pass |
+| Supported platforms/Python/hardware/formats/access | SUPPORT.md, pyproject extras and model-family guides | Defined; interactive macOS/Windows and MPS limitations explicit |
+| Full local suite, native optional runtime | 343 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
+| Source and wheel packaging | Build succeeded; real 0.2-to-0.3 lifecycle with version checks, failed upgrade, rollback, inherited TUI extra, pruning, reinstall and retention/purge | Passed locally |
+| Cross-platform CI on release commit | Expanded core matrix (3.10/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | Pending remote execution |
+| Disk discipline | Downloaded ConvNeXT, TinyLlama and TinyMistral source/candidate/evidence artifacts deleted after recording hashes and measurements; isolated lifecycle leaves zero environments | Verified locally |
+| Final requirement-by-requirement completion audit | Must inspect final CI results and final repository state before completion | Pending |
 
-- Fixed the draft storage experiment's SQLite database filename. Verified against
-  current imports: Transformers imports `LayerJournal` inside its functions, so
-  patching `layer_journal.LayerJournal` is correct; the historical pause note's
-  proposed imported-module patch was inaccurate for the current source.
-- Completed four-mode pinned ConvNeXT measurement: 100% stored numeric equality,
-  207 queries in every mode, 17-response interruption/resume, source-unavailable
-  replay with identical checkpoint hashes. Compact/zlib physical database is
-  20,017,152 bytes versus full/raw 65,191,936. See EVIDENCE_STORAGE.md and the JSON.
-- Deleted only this task's disposable downloaded source, candidate models and
-  databases after recording the measurement. No existing user data was removed.
-- Added compact-mode integration tests for Transformers and Diffusers: incompatible
-  resume rejection preserves database bytes, interrupted prefix reuse, full stored
-  equality, and source-free replay.
-- Added optional terminal workbench, command catalog, contextual help, argument
-  editor, subprocess output and interruption; preserves ordinary CLI JSON behavior.
-  See TERMINAL.md for controls, accessibility options, verification and limits.
-- Linux real-PTY smoke check passed: command execution, help, 40/80/120-column
-  resizing, clean exit, exact termios restoration. Automated input-routing and
-  display-control sanitization checks passed.
+Machine-readable [local verification](../examples/results/release-verification.json)
+records code hashes, test count, wheel hash and checks. The
+[lifecycle result](../examples/results/installation-lifecycle.json) records hashes
+of retained user artifacts and all verified lifecycle transitions. The small
+persistent installer lock is intentionally retained even with bootstrap removal;
+manual deletion of a reviewed, idle dedicated prefix removes that final record.
 
-## Remaining release gates
+The reusable Python environment is
+`/home/dev/.local/share/rephix-local-20261106/venv`. The complete optional native-runtime
+check temporarily uses `/tmp/rephix-native-runtime-check` for accelerate 1.12.0,
+Triton 3.6.0 and psutil. Remove that task-owned overlay after verification. Logs are
+in `/tmp/rephix-release-tests.log`, `/tmp/rephix-build.log`,
+`/tmp/rephix-lifecycle-check.log` and `/tmp/rephix-offline-check.log`.
 
-- Implement and document safe installation, update/rollback and uninstallation
-  commands, explicit data-retention/removal choices, and migration policy.
-- Exercise complete installation/update/uninstallation in clean isolated environments,
-  including failed upgrades, existing-data preservation, and optional dependencies.
-- Expand representative reproducible model trials to Llama and Mistral; pin revisions,
-  distinguish pretrained checkpoints from synthetic fixtures, report exact/tolerant
-  weight coverage and behavior under stated internal-access assumptions, then delete
-  newly downloaded weights. Gated access is an external constraint if encountered.
-- Finish correctness and maintainability review of critical persistence, publication,
-  subprocess lifecycle and failure paths. Add tests when they change confidence.
-- Verify latest full suite with all supported optional dependencies, packaging, wheel
-  smoke checks and applicable CI. Record skips precisely and investigate failures.
-- Define supported Python/platform/dependency/hardware/model-format matrix. Run
-  cross-platform checks where available; do not turn untested support into claims.
-- Audit every user requirement against final evidence before declaring completion.
-
-## Working environment
-
-Reusable environment: `/home/dev/.local/share/rephix-local-20261106/venv`.
-This task added prompt-toolkit 3.0.52, Diffusers 0.35.x and GGUF 0.19.x there for
-verification. Initial baseline: 328 tests, 21 skipped, passed. Current suite: 334 tests passed
-with one skip for the optional accelerate/Triton native FP8 runtime. Ruff lint
-and formatting passed. Source archive and wheel build passed. A clean wheel
-installation outside the checkout passed version, plain catalog, demo, doctor,
-`pip check` and `pip uninstall`, with import absence verified after removal.
-This is package-manager verification; dedicated lifecycle commands remain open. Logs for current
-verification are in `/tmp/rephix-full-tests.log` and `/tmp/rephix-build.log`.
-Model weights should remain disposable; evidence JSON and measured reports belong
-in the repository. Full internal layer access does not establish text-only recovery.
+Remaining work: inspect the current commit's full cross-platform CI, fix any failures,
+and perform the final completion audit. Do not treat scientific limitations as
+unimplemented guarantees: universal original-weight recovery from text remains
+unproven and is not promised by this release.

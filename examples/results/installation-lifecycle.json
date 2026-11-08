@@ -1,0 +1,39 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
+  "initial_version": "0.2.0",
+  "updated_version": "0.3.0",
+  "initial_wheel_sha256": "b696724082cb0c6ab2538492df14781b83240bfb062979273b70e8f5bd18ca14",
+  "updated_wheel_sha256": "a98c476553f811c4205b3fdbb05154eeae116148b43b04439c02ff03fc8e14ac",
+  "failed_upgrade_preserved_manifest_and_version": true,
+  "updates_preserved_user_file_sha256": {
+    "data/existing-user-artifact": "827857db5f34bc7c972d753ba012bcc0b7a9af92798a6914103407113612dcb3",
+    "config/existing-user-artifact": "137a931ca13669beeb3b071559e8774bb09fa948de14bcbffba0fc3096f95790",
+    "evidence/existing-user-artifact": "2e1222b4a0e49612ea3f15679b8a89a43a02c58e404c6b8c72d0e3d02e75d84a",
+    "checkpoints/existing-user-artifact": "76ede11cae339573889c28a89e27d75bcc50469bea12704d97a5e2b4f8584192"
+  },
+  "inherited_extras": [
+    "tui"
+  ],
+  "rollback_validated": true,
+  "active_workbench_blocked_uninstall": true,
+  "prune_retained_current_and_previous": true,
+  "default_uninstall_retained": [
+    "data",
+    "config",
+    "evidence",
+    "checkpoints"
+  ],
+  "reinstall_preserved_data": true,
+  "explicit_purge_removed": [
+    "data",
+    "config",
+    "evidence",
+    "checkpoints"
+  ],
+  "unrelated_user_file_retained": true,
+  "explicit_bootstrap_removal_verified": true,
+  "commands_checked": 23,
+  "temporary_environments_remaining": 0,
+  "windows": false
+}

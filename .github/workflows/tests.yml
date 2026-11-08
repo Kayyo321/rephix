@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python: ['3.10', '3.12']
+        python: ['3.10', '3.12', '3.13']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +46,24 @@ jobs:
             runs/ci-offline/trial.md
             runs/ci-offline/test.json
             runs/ci-offline/comparison/
+  lifecycle:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install build numpy
+      - run: python -m build
+      - run: python -m pip install dist/rephix-0.3.0-py3-none-any.whl
+      - run: python examples/installation_smoke_check.py --wheel dist/rephix-0.3.0-py3-none-any.whl --work-dir lifecycle-trial --output lifecycle-result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lifecycle-${{ matrix.os }}
+          path: lifecycle-result.json
   package:
     runs-on: ubuntu-latest
     steps:

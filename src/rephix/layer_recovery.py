@@ -602,7 +602,9 @@ def _vision_embeddings(module, read):
     }
 
 
-def _validate_probe_options(batch_size, relative_bias_mode):
+def _validate_probe_options(batch_size, relative_bias_mode, compact_convolutions=False):
+    if not isinstance(compact_convolutions, bool):
+        raise ValueError("compact_convolutions must be a boolean")
     if isinstance(batch_size, bool) or not isinstance(batch_size, int) or batch_size < 1:
         raise ValueError("probe batch size must be a positive integer")
     if relative_bias_mode not in ("embedding", "attention"):
@@ -654,6 +656,8 @@ def recover_from_layer_calls(
     fused gate nonlinearities and bias addition. Encodec :codebook_embed uses
     native decode IDs. Optional :inactive_state/<name> paths explicitly read
     selected registered buffers that never participate in native inference.
+    Compact regular convolutions use :conv_kernel_position and return a
+    (batch, output channels) slice from one complete receptive field.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -676,7 +680,7 @@ def recover_from_layer_calls(
     """
     import torch
 
-    _validate_probe_options(batch_size, relative_bias_mode)
+    _validate_probe_options(batch_size, relative_bias_mode, compact_convolutions)
     plan = _plan(
         torch,
         model,
@@ -1154,7 +1158,7 @@ def export_recovered_model(
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
-    _validate_probe_options(batch_size, relative_bias_mode)
+    _validate_probe_options(batch_size, relative_bias_mode, compact_convolutions)
     if not (source / "config.json").is_file():
         raise ValueError("layer recovery requires a local Transformers directory with config.json")
     _check_output(output)

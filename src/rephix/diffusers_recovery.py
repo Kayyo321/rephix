@@ -205,7 +205,7 @@ def recover_diffusion_model(
 ):
     """Reconstruct a local native Diffusers component from its layer responses."""
     source, output = Path(source), Path(output)
-    _validate_probe_options(batch_size, "embedding")
+    _validate_probe_options(batch_size, "embedding", compact_convolutions)
     _check_output(output)
     _check_disjoint(source, output)
     if evidence_dir is not None:
