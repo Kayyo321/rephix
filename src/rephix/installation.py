@@ -335,7 +335,7 @@ def _retire(path):
     path.replace(retired)
     subprocess.Popen(
         [
-            getattr(sys, "_base_executable", sys.executable),
+            _base_python(),
             "-I",
             "-c",
             "import os, sys, time\n"
@@ -351,7 +351,41 @@ def _retire(path):
     return str(retired)
 
 
-def _bootstrap(root):
+def _base_python():
+    """The interpreter outside any virtual environment.
+
+    Inside a venv, Python 3.10 and earlier report the venv's own interpreter as
+    sys._base_executable on POSIX, so derive it from pyvenv.cfg instead.
+    """
+    if sys.prefix == sys.base_prefix:
+        return sys.executable
+    base = getattr(sys, "_base_executable", None)
+    venv_root = Path(sys.prefix).resolve()
+    if base and venv_root not in Path(base).resolve().parents:
+        return base
+    config = venv_root / "pyvenv.cfg"
+    home = None
+    for line in config.read_text(encoding="utf-8").splitlines():
+        key, _, value = line.partition("=")
+        if key.strip() == "home":
+            home = Path(value.strip())
+    names = (
+        ["python.exe"]
+        if os.name == "nt"
+        else [
+            f"python{sys.version_info[0]}.{sys.version_info[1]}",
+            f"python{sys.version_info[0]}",
+            "python",
+        ]
+    )
+    for name in names:
+        candidate = (home or Path(sys.base_prefix)) / name
+        if candidate.is_file():
+            return str(candidate)
+    raise RuntimeError("Cannot determine the base Python of this virtual environment.")
+
+
+def _bootstrap(root, base=None):
     # Stable launcher runs with the base Python, so Windows can remove inactive
     # environments without holding their python.exe open. It forwards signals
     # to the child by sharing the terminal's foreground process group.
@@ -426,7 +460,7 @@ except OSError as exc:
 
     publish(root / "launch.py", launcher)
     publish(root / "manager.py", Path(__file__).read_text(encoding="utf-8"))
-    base = getattr(sys, "_base_executable", sys.executable)
+    base = base or _base_python()
     if os.name == "nt":
         if any(c in base for c in ('"', "%", "\n", "\r")):
             raise ValueError("Python path cannot be safely represented by the Windows launcher.")
@@ -603,8 +637,9 @@ def _refresh_bootstrap(root, environment):
                 "-I",
                 "-c",
                 "import sys; from rephix import installation as i; "
-                "i._bootstrap(__import__('pathlib').Path(sys.argv[1]))",
+                "i._bootstrap(__import__('pathlib').Path(sys.argv[1]), base=sys.argv[2])",
                 str(root),
+                _base_python(),
             ]
         )
     except RuntimeError:

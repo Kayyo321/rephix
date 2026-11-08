@@ -36,7 +36,15 @@ RESULTS = []
 CATEGORIES = ("data", "config", "evidence", "checkpoints")
 
 
+LAST = {}
+
+
 def record(name, passed, **evidence):
+    if not passed and LAST:
+        evidence.setdefault("last_command", LAST.get("argv"))
+        evidence.setdefault("last_exit", LAST.get("exit"))
+        evidence.setdefault("last_stdout", LAST.get("stdout", "")[-800:])
+        evidence.setdefault("last_stderr", LAST.get("stderr", "")[-1500:])
     RESULTS.append({"check": name, "passed": bool(passed), **evidence})
     print(("PASS " if passed else "FAIL ") + name, flush=True)
     return passed
@@ -57,6 +65,12 @@ def run(argv, env=None, cwd=None, expect=0):
         cwd=cwd,
     )
     ok = completed.returncode == expect and "Traceback" not in completed.stderr
+    LAST.update(
+        argv=[str(a) for a in argv],
+        exit=completed.returncode,
+        stdout=completed.stdout,
+        stderr=completed.stderr,
+    )
     return ok, completed
 
 

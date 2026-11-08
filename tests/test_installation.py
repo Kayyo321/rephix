@@ -208,6 +208,27 @@ class InstallationTests(unittest.TestCase):
         self.assertEqual(sentinel.read_text(), "preserve")
 
 
+class BasePythonTests(unittest.TestCase):
+    def test_base_python_from_inside_a_venv_is_outside_it(self):
+        import venv
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "env"
+            venv.EnvBuilder(with_pip=False).create(root)
+            python = root / ("Scripts/python.exe" if manager.os.name == "nt" else "bin/python")
+            source = Path(manager.__file__).read_text(encoding="utf-8")
+            script = Path(directory) / "probe.py"
+            source = source.replace('if __name__ == "__main__":', "if False:")
+            script.write_text(source + "\nprint(_base_python())\n", encoding="utf-8")
+            result = subprocess.run(
+                [str(python), "-I", str(script)], capture_output=True, text=True, check=True
+            )
+            base = Path(result.stdout.strip()).resolve()
+            self.assertNotIn(root.resolve(), base.parents)
+            self.assertTrue(base.is_file())
+            self.assertTrue(Path(manager._base_python()).is_file())
+
+
 class ReleaseChannelTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
