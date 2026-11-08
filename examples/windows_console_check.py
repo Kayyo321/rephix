@@ -295,43 +295,50 @@ class Conhost:
         self.interrupt_path = "GenerateConsoleCtrlEvent(CTRL_C_EVENT)"
 
     def resize(self, rows, cols):
-        out = self.main
-        steps = []
-        try:
-            info = CSBI()
-            kernel32.GetConsoleScreenBufferInfo(out, ctypes.byref(info))
-            largest = kernel32.GetLargestConsoleWindowSize(out)
-            most_cols, most_rows = largest & 0xFFFF, (largest >> 16) & 0xFFFF
-            cols, rows = min(cols, most_cols or cols), min(rows, most_rows or rows)
-            width = info.srWindow.Right - info.srWindow.Left + 1
-            height = info.srWindow.Bottom - info.srWindow.Top + 1
-            # Shrink the window first so the buffer can change, then grow the window.
-            first = SMALL_RECT(0, 0, min(width, cols) - 1, min(height, rows) - 1)
-            steps.append(bool(kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(first))))
-            steps.append(
-                bool(
-                    kernel32.SetConsoleScreenBufferSize(
-                        out,
-                        COORD(cols, max(rows, info.dwSize.Y if info.dwSize.Y > height else rows)),
-                    )
-                )
+        """Resize like a user dragging the window edge: conhost reflows both the main
+        and the VT alternate buffer, which reject direct buffer-size calls (error 87)."""
+        user32 = ctypes.WinDLL("user32", use_last_error=True)
+
+        class FONT(ctypes.Structure):
+            _fields_ = [("nFont", wintypes.DWORD), ("dwFontSize", COORD)]
+
+        hwnd = kernel32.GetConsoleWindow()
+        font = FONT()
+        kernel32.GetCurrentConsoleFont(self.main, False, ctypes.byref(font))
+        width, height = font.dwFontSize.X or 8, font.dwFontSize.Y or 16
+        rect = wintypes.RECT(0, 0, cols * width + user32.GetSystemMetrics(2), rows * height)
+        style, exstyle = user32.GetWindowLongW(hwnd, -16), user32.GetWindowLongW(hwnd, -20)
+        user32.AdjustWindowRectEx(ctypes.byref(rect), style, False, exstyle)
+        moved = bool(
+            user32.SetWindowPos(
+                hwnd,
+                None,
+                0,
+                0,
+                rect.right - rect.left,
+                rect.bottom - rect.top,
+                0x0002 | 0x0004 | 0x0010,
             )
-            window = SMALL_RECT(0, 0, cols - 1, rows - 1)
-            steps.append(bool(kernel32.SetConsoleWindowInfo(out, True, ctypes.byref(window))))
+        )
+        time.sleep(0.5)
+        out = self._handle("CONOUT$")
+        try:
             after = CSBI()
             kernel32.GetConsoleScreenBufferInfo(out, ctypes.byref(after))
             self.last_resize = {
+                "method": "SetWindowPos on the console window",
                 "requested": [cols, rows],
-                "largest": [most_cols, most_rows],
-                "steps": steps,
+                "font": [width, height],
+                "moved": moved,
                 "error": ctypes.get_last_error(),
+                "hwnd": bool(hwnd),
                 "window": [
                     after.srWindow.Right - after.srWindow.Left + 1,
                     after.srWindow.Bottom - after.srWindow.Top + 1,
                 ],
             }
         finally:
-            pass
+            kernel32.CloseHandle(out)
 
     def alive(self):
         return self.process.poll() is None
