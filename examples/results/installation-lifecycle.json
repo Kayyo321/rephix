@@ -18,6 +18,7 @@
   ],
   "rollback_validated": true,
   "active_workbench_blocked_uninstall": true,
+  "terminal_cooked_input_and_restoration_verified": true,
   "prune_retained_current_and_previous": true,
   "default_uninstall_retained": [
     "data",

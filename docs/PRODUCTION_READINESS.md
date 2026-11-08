@@ -39,9 +39,11 @@ in `/tmp/rephix-release-tests.log`, `/tmp/rephix-build.log`,
 
 Initial remote CI passed all nine core jobs, CPU model integration and packaging.
 The macOS lifecycle harness initially stopped draining its PTY and timed out on
-exit. After draining output, it exposed a full terminal-mode restoration mismatch.
-The application now snapshots all POSIX terminal modes before toolkit setup and
-restores them on exit. A follow-up run must verify that stricter restoration check.
+exit. After draining output, comparison found only Darwin’s transient
+PENDIN bit (0x20000000), which XNU sets when canonical input is restored. The
+harness now verifies a cooked input round trip and then compares every mode
+without masking bits. The application also snapshots all POSIX modes around
+toolkit setup. A follow-up run must verify the complete check.
 Windows lifecycle passed on the second run. Installer pip checks now use isolated Python startup and
 venv bootstrap errors have a tested, clear CLI failure.
 

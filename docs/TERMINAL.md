@@ -45,3 +45,9 @@ mode snapshot around toolkit setup and execution. Verified locally in a real Lin
 and 120 columns: launch, editing, execution, help, resize, exit, and exact restoration
 of terminal modes. Automated input-routing tests also exercise help, command execution,
 and monochrome mode. Windows/macOS interactive verification remains pending.
+
+The lifecycle PTY check exercises a cooked input line after exit before comparing
+the complete terminal-mode snapshot. On macOS, the kernel sets the transient PENDIN
+state when canonical input is restored and clears it on the next input; this is
+[defined by XNU](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/tty.c).
+The test checks actual line input and every mode field without masking that state.

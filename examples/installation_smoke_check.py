@@ -144,6 +144,14 @@ def evaluate(args):
             runtime_lease_verified = True
             os.write(master, b"\x03")
             assert child.wait(timeout=10) == 0
+            # Darwin sets the kernel-owned PENDIN state when canonical input is
+            # restored (XNU bsd/kern/tty.c). Exercise the next shell-like input
+            # round trip so the kernel consumes that transient state, then check
+            # the entire snapshot without masking any mode bits.
+            probe = b"rephix terminal restored\n"
+            os.write(master, probe)
+            assert select.select([slave], [], [], 2)[0], "Cooked terminal input did not return"
+            assert os.read(slave, len(probe)) == probe
             restored_modes = termios.tcgetattr(slave)
             assert restored_modes == original_modes, (
                 f"Terminal modes changed: {original_modes!r} -> {restored_modes!r}"
@@ -202,6 +210,7 @@ def evaluate(args):
         "inherited_extras": ["tui"],
         "rollback_validated": True,
         "active_workbench_blocked_uninstall": runtime_lease_verified,
+        "terminal_cooked_input_and_restoration_verified": runtime_lease_verified,
         "prune_retained_current_and_previous": True,
         "default_uninstall_retained": retained["retained"],
         "reinstall_preserved_data": True,
