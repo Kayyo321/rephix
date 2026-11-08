@@ -1,52 +1,75 @@
 # Install, update, recover, and remove Rephix
 
-Rephix 0.3 supports ordinary Python virtual-environment installations and a managed
+Rephix 0.4 supports ordinary Python virtual-environment installations and a managed
 installation with transactional updates. Use a dedicated user-owned directory for
-the managed installation. Administrative privileges are unnecessary. The bootstrap
-requires Python with `venv` and `ensurepip`; on Linux distributions that split these
-out, install the distribution's Python venv package first.
+the managed installation. Administrative privileges are unnecessary. The installer
+requires Python 3.10+ with `venv` and `ensurepip`; on Linux distributions that split
+these out, install the distribution's Python venv package first.
 
-## Build and install
+## Install a published release
 
-From a checkout of the desired release tag or commit:
+Every GitHub release publishes the wheel, the source distribution, the standalone
+standard-library installer `rephix-installer.py`, `BUILD-INFO.json` (version and exact
+commit) and `SHA256SUMS`. The wheel is pure Python (`py3-none-any`), so the same
+artifact serves Linux, macOS and Windows on x86-64 and ARM64.
+
+```bash
+curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.0/rephix-installer.py
+curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.0/SHA256SUMS
+sha256sum --check --ignore-missing SHA256SUMS   # macOS: shasum -a 256 -c --ignore-missing
+python3 rephix-installer.py install --prefix "$HOME/.local/share/rephix-app" \
+  --release latest --extras tui
+"$HOME/.local/share/rephix-app/rephix" --version
+```
+
+On Windows PowerShell:
+
+```powershell
+$base = "https://github.com/Kayyo321/rephix/releases/download/v0.4.0"
+Invoke-WebRequest "$base/rephix-installer.py" -OutFile rephix-installer.py
+Invoke-WebRequest "$base/SHA256SUMS" -OutFile SHA256SUMS
+(Get-FileHash rephix-installer.py -Algorithm SHA256).Hash.ToLower()   # compare with SHA256SUMS
+py -3 rephix-installer.py install --prefix "$env:LOCALAPPDATA\Rephix" --release latest --extras tui
+& "$env:LOCALAPPDATA\Rephix\rephix.exe" --version
+```
+
+`--release latest` asks the GitHub Releases API for the latest **stable** release (the
+`/releases/latest` endpoint never returns drafts or prereleases). `--release v0.4.0`
+selects a specific stable release. The installer downloads the wheel, checks it
+against both the release's `SHA256SUMS` and the asset digest GitHub records
+server-side, and installs only on agreement. Any mismatch, unreachable channel, or
+missing asset stops with an error before anything changes. `REPHIX_RELEASES_API`
+overrides the channel URL for mirrors and tests. Provenance attestations can be
+checked with `gh attestation verify rephix-0.4.0-py3-none-any.whl --repo Kayyo321/rephix`.
+
+The managed launcher is `PREFIX/rephix` on POSIX and `PREFIX\rephix.exe` on Windows.
+The `.exe` is pip's standard console launcher, so Ctrl+C reaches Rephix directly.
+`PREFIX\rephix.cmd` remains for existing scripts, but `cmd.exe` asks "Terminate
+batch job (Y/N)?" after Ctrl+C through a batch file, so prefer `rephix.exe`.
+`python PREFIX/launch.py ...` is the cross-platform equivalent. Add PREFIX to PATH
+yourself if you want: the installer never changes PATH, shell startup files or the
+Windows user environment. The launcher uses the base Python that created the install;
+keep it installed. Do not move the managed directory (virtual environments contain
+absolute paths). Reinstall at a new prefix instead.
+
+For core-only use, omit `--extras`. Available extras are `tui`, `hf`, `diffusion`,
+`gguf`, and `analysis`. CPU is sufficient for local fixtures. For GPU use, prepare a
+compatible Torch wheelhouse or constraints file according to the
+[official PyTorch installation instructions](https://pytorch.org/get-started/locally/).
+The installer does not choose a GPU driver or install system software.
+
+### From a local wheel or checkout
+
+`--wheel PATH` installs a wheel you built or downloaded yourself, for example from a
+checkout of a release tag:
 
 ```bash
 python -m venv .build-env
-# POSIX; on Windows use .build-env\Scripts\python.exe below
 .build-env/bin/python -m pip install build
 .build-env/bin/python -m build
-python src/rephix/installation.py install \
-  --prefix "$HOME/.local/share/rephix-app" \
-  --wheel dist/rephix-0.3.0-py3-none-any.whl --extras tui,hf
-"$HOME/.local/share/rephix-app/rephix" --version
-"$HOME/.local/share/rephix-app/rephix" doctor --require-hf
-"$HOME/.local/share/rephix-app/rephix" ui
+python src/rephix/installation.py install --prefix "$HOME/.local/share/rephix-app" \
+  --wheel dist/rephix-0.4.0-py3-none-any.whl --extras tui,hf
 ```
-
-For core-only affine recovery, omit `--extras`. Available extras are `tui`, `hf`,
-`diffusion`, `gguf`, and `analysis`. CPU is sufficient for local fixtures; model
-operations need enough RAM for source, destination, and probe temporaries.
-For GPU use, prepare a compatible Torch wheelhouse or constraints file according
-to the [official PyTorch installation instructions](https://pytorch.org/get-started/locally/).
-The installer doesn't choose a GPU driver or install system software.
-
-On Windows PowerShell the equivalent bootstrap is:
-
-```powershell
-python -m venv .build-env
-.build-env\Scripts\python.exe -m pip install build
-.build-env\Scripts\python.exe -m build
-python src\rephix\installation.py install `
-  --prefix "$env:LOCALAPPDATA\Rephix" `
-  --wheel dist\rephix-0.3.0-py3-none-any.whl --extras tui,hf
-& "$env:LOCALAPPDATA\Rephix\rephix.cmd" --version
-```
-
-The stable launcher is `PREFIX/rephix` on POSIX or `PREFIX\rephix.cmd` on Windows.
-You can add PREFIX to PATH, or invoke it by absolute path. It uses the base Python
-that created the install; keep that Python installed. The cross-platform equivalent
-is `python PREFIX/launch.py ...`. Do not move the managed directory: virtual
-environments contain absolute paths. Reinstall at a new prefix instead.
 
 The bootstrap itself uses only the standard library. It creates a fresh environment
 at its final location, installs the wheel and selected dependencies, checks dependency
@@ -58,21 +81,44 @@ location. Keep the original wheel and an offline wheelhouse for portable reprodu
 
 To pin dependencies, supply `--constraints /absolute/constraints.txt`. To prohibit
 index access, also supply `--wheelhouse /absolute/wheels`. Prepare the wheelhouse
-using `python -m pip download 'dist/rephix-0.3.0-py3-none-any.whl[tui,hf]' --dest wheels`.
+using `python -m pip download 'dist/rephix-0.4.0-py3-none-any.whl[tui,hf]' --dest wheels`.
 Record its files and hashes if exact environment reproduction is required. Without
 constraints or a wheelhouse, dependencies resolve within the release's declared
 ranges, so repeated installations can select different compatible dependency builds.
 
 ## Update and rollback
 
-Build the next release wheel outside PREFIX, stop active model writers, and run:
+Stop active model writers, then:
 
 ```bash
-rephix installation inspect --verify
-rephix installation update --wheel /absolute/releases/rephix-NEXT-py3-none-any.whl
+rephix installation check-update          # installed vs latest stable release
+rephix installation update --release latest
 rephix --version
 rephix doctor
 ```
+
+`update --wheel /absolute/rephix-X-py3-none-any.whl` installs a wheel you supply.
+Updating to the release that is already active, with the same extras, is reported as
+`already_current` and changes nothing; add `--force` to rebuild the environment anyway.
+After a successful update, the launcher and manager files in PREFIX are refreshed from
+the new version. An unchanged `rephix.cmd` is never rewritten, because `cmd.exe`
+rereads a running batch file. A running `rephix.exe` is renamed aside and replaced,
+never overwritten in place.
+
+### Upgrading from 0.2 or 0.3
+
+* **pip installation of 0.2.0 (the previous public release):**
+  `python -m pip install --upgrade rephix-0.4.0-py3-none-any.whl` in the same
+  environment, after verifying the wheel against `SHA256SUMS`. Existing evidence files
+  and outputs need no migration.
+* **Managed installation of 0.3.0:** the 0.3 manager has no release discovery. Either
+  run the 0.4 installer against the existing prefix, which updates and adopts the 0.4
+  manager:
+  `python rephix-installer.py update --prefix PREFIX --release latest`,
+  or download and verify the 0.4.0 wheel and run
+  `PREFIX/rephix installation update --wheel /absolute/rephix-0.4.0-py3-none-any.whl`.
+  The second route keeps the 0.3 manager until a later update through the 0.4
+  installer. Both routes keep the manifest at schema 1, so 0.3 rollback still works.
 
 Use the managed launcher's full path if it isn't on PATH. Update inherits the active
 installation's extras unless `--extras` is supplied; `--extras ''` selects core only.
@@ -106,10 +152,11 @@ is rejected before deactivation; use the stable launcher or external bootstrap.
 
 ## Data formats and migration
 
-Installation manifest schema 1 and session journal schema 1 are supported. Existing
+Installation manifest schema 1 and session journal schema 1 are supported; 0.4 adds
+optional slot fields that 0.3 managers ignore. Existing
 layer evidence schema 1 is read and resumed in place; new layer journals use schema
 2 with lossless compression. Bundle manifests remain schema 1. No migration of user
-sessions, evidence or configuration is needed for 0.2-to-0.3 updates, and the installer
+sessions, evidence or configuration is needed for 0.2/0.3-to-0.4 updates, and the installer
 does not open or rewrite those files. Unsupported future schemas fail explicitly.
 
 Application rollback switches software and dependencies; it doesn't reverse user
@@ -145,8 +192,10 @@ other Python installations, and unrelated files inside PREFIX are retained. Soft
 removal disables new launches before deleting environments; rerun uninstall after
 an interruption or filesystem error. User directories remain separate from software.
 By default the small bootstrap, manifest and coordination lock remain for inspection,
-retry and reinstall. `--remove-bootstrap` also removes the launcher, manager and
-manifest. A persistent coordination lock remains to prevent concurrent operations
+retry and reinstall. `--remove-bootstrap` also removes the launchers, manager and
+manifest. On Windows a launcher that is still running (for example `rephix.exe`
+running this very command) is renamed aside and deleted by a short helper once it
+exits; the report lists it under `deferred_removal`. A persistent coordination lock remains to prevent concurrent operations
 from opening different lock files. After reviewing retained files and stopping all
 operations, manually remove the dedicated prefix to remove that final record. If
 you removed the bootstrap while retaining data, install into a new prefix and use

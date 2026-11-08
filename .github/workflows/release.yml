@@ -51,6 +51,50 @@ jobs:
           path: release-assets/
           if-no-files-found: error
 
+  lifecycle:
+    # The same bytes the release will carry, through every lifecycle stage per OS.
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ['3.10', '3.13']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/checkout@v4
+        with:
+          ref: 553bfea6999ec979a602fc7096d4110bb7d320ac
+          path: old-0.3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-assets
+          path: release-assets
+      - name: Previous releases (published 0.2.0 bytes; 0.3.0 from its verified commit)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v0.2.0 --repo "${{ github.repository }}" -p 'rephix-0.2.0-py3-none-any.whl' -D old-0.2
+          python -c "import hashlib,sys;d=hashlib.sha256(open('old-0.2/rephix-0.2.0-py3-none-any.whl','rb').read()).hexdigest();sys.exit(d!='870e1d3d51d816e3599bea9d714792c2275e9b154198cd5ce3062bc2a905e2c5')"
+          test "$(git -C old-0.3 rev-parse HEAD)" = 553bfea6999ec979a602fc7096d4110bb7d320ac
+          python -m pip install build
+          python -m build --wheel --outdir old-0.3-dist old-0.3
+      - name: Install, upgrade, fail, uninstall and reinstall
+        shell: bash
+        run: python -I examples/release_lifecycle_check.py --assets release-assets --old-wheel-02 old-0.2/rephix-0.2.0-py3-none-any.whl --old-wheel-03 old-0.3-dist/rephix-0.3.0-py3-none-any.whl --installer-03 old-0.3/src/rephix/installation.py --work-dir "$RUNNER_TEMP/lifecycle" --channel mirror --output lifecycle-${{ matrix.os }}-${{ matrix.python }}.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifecycle-${{ matrix.os }}-${{ matrix.python }}
+          path: lifecycle-*.json
+
   verify-published:
     if: github.event_name == 'release'
     strategy:

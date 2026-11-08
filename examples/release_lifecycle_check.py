@@ -69,7 +69,9 @@ def bin_path(venv, name):
 
 
 def launcher(prefix):
-    return prefix / ("rephix.cmd" if os.name == "nt" else "rephix")
+    if os.name == "nt":
+        return prefix / ("rephix.exe" if (prefix / "rephix.exe").is_file() else "rephix.cmd")
+    return prefix / "rephix"
 
 
 class Mirror:

@@ -366,9 +366,24 @@ else:
     lease = (root / '.installation.lock').open('a+b')
     try:
         if os.name == 'nt':
-            import msvcrt
-            lease.seek(0)
-            msvcrt.locking(lease.fileno(), msvcrt.LK_NBRLCK, 1)
+            # msvcrt.locking has no shared mode on Windows (LK_NBRLCK is exclusive),
+            # which made concurrent launches fail. LockFileEx without
+            # LOCKFILE_EXCLUSIVE_LOCK takes a shared lease on the byte the
+            # installation manager locks exclusively.
+            import ctypes, msvcrt
+            from ctypes import wintypes
+            class OVERLAPPED(ctypes.Structure):
+                _fields_ = [('Internal', ctypes.c_void_p), ('InternalHigh', ctypes.c_void_p),
+                            ('Offset', wintypes.DWORD), ('OffsetHigh', wintypes.DWORD),
+                            ('hEvent', wintypes.HANDLE)]
+            kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+            kernel32.LockFileEx.argtypes = [wintypes.HANDLE, wintypes.DWORD, wintypes.DWORD,
+                                            wintypes.DWORD, wintypes.DWORD,
+                                            ctypes.POINTER(OVERLAPPED)]
+            kernel32.LockFileEx.restype = wintypes.BOOL
+            if not kernel32.LockFileEx(msvcrt.get_osfhandle(lease.fileno()), 1, 0, 1, 0,
+                                       ctypes.byref(OVERLAPPED())):
+                raise OSError(ctypes.get_last_error(), 'lease unavailable')
         else:
             import fcntl
             fcntl.flock(lease, fcntl.LOCK_SH | fcntl.LOCK_NB)

@@ -216,6 +216,9 @@ class Conhost:
             raise OSError(f"AttachConsole failed: {ctypes.get_last_error()}")
         kernel32.SetConsoleCtrlHandler(None, True)  # this driver ignores Ctrl+C events
         self.last_resize = None
+        self.interrupt_path = None
+        # The VT alternate buffer cannot be resized directly; keep the main buffer.
+        self.main = self._handle("CONOUT$")
         self.resize(rows, cols)
 
     def _handle(self, name):
@@ -284,11 +287,16 @@ class Conhost:
             self._records([(vk, char, 0)])
 
     def interrupt(self):
-        # The genuine console signal path for processes with processed input enabled.
+        # A real Ctrl+C keypress: conhost raises CTRL_C_EVENT when processed input is on.
+        self._records([(0x43, "\x03", 0x0008)])
+        self.interrupt_path = "key event"
+
+    def signal(self):
         kernel32.GenerateConsoleCtrlEvent(0, 0)
+        self.interrupt_path = "GenerateConsoleCtrlEvent"
 
     def resize(self, rows, cols):
-        out = self._handle("CONOUT$")
+        out = self.main
         steps = []
         try:
             info = CSBI()
@@ -324,7 +332,7 @@ class Conhost:
                 ],
             }
         finally:
-            kernel32.CloseHandle(out)
+            pass
 
     def alive(self):
         return self.process.poll() is None
@@ -557,7 +565,10 @@ def scenario_plain_interrupt(ctx, Backend, label):
             time.sleep(2)
             before = ctx["children"](term)
             term.interrupt()
-            message = wait_until(lambda: "interrupted" in term.text(), 30)
+            message = wait_until(lambda: "interrupted" in term.text(), 10)
+            if not message and hasattr(term, "signal"):
+                term.signal()
+                message = wait_until(lambda: "interrupted" in term.text(), 20)
             prompt = wait_until(lambda: "Terminate batch job" in term.text(), 3)
             if prompt:
                 term.type("Y\r")
@@ -565,6 +576,7 @@ def scenario_plain_interrupt(ctx, Backend, label):
             leftover = ctx["children"](term)
             evidence = dict(
                 screen=term.text()[-800:],
+                interrupt_path=getattr(term, "interrupt_path", None) or "VT input ^C",
                 children_before=list(map(str, before)),
                 children_after=list(map(str, leftover)),
             )
@@ -664,6 +676,37 @@ def scenario_resume(ctx):
         )
     finally:
         term.close()
+
+
+def scenario_concurrent(ctx):
+    """Two commands through the launcher at once (e.g. a target server and a client)."""
+    launcher = str(ctx["launcher"])
+    long_running = subprocess.Popen(
+        [launcher, *LONG_COMMAND.split()], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE
+    )
+    try:
+        time.sleep(3)
+        second = subprocess.run([launcher, "--version"], capture_output=True, text=True)
+        check(
+            "concurrency: a second command runs while another is active",
+            second.returncode == 0 and second.stdout.strip() == ctx["version"],
+            stderr=second.stderr[-300:],
+        )
+        blocked = subprocess.run(
+            [launcher, "installation", "prune"], capture_output=True, text=True
+        )
+        check(
+            "concurrency: installation changes are refused while a command runs",
+            blocked.returncode == 1 and "running" in blocked.stderr,
+            stderr=blocked.stderr[-300:],
+        )
+    finally:
+        import psutil
+
+        for child in psutil.Process(long_running.pid).children(recursive=True):
+            child.kill()
+        long_running.kill()
+        long_running.wait()
 
 
 def scenario_redirected(ctx):
@@ -895,6 +938,7 @@ def main():
         ("conpty shells", lambda: scenario_shells(ctx, ConPty, "conpty")),
         ("conpty workbench", lambda: scenario_workbench(ctx, ConPty, "conpty")),
         ("conpty interrupt", lambda: scenario_plain_interrupt(ctx, ConPty, "conpty")),
+        ("concurrency", lambda: scenario_concurrent(ctx)),
         ("resume", lambda: scenario_resume(ctx)),
         ("redirected", lambda: scenario_redirected(ctx)),
     ):
