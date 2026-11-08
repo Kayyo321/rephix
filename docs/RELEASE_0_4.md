@@ -1,10 +1,6 @@
-# Rephix 0.4.0 release candidate
+# Rephix 0.4.0 (prerelease)
 
-**Status: release candidate; publication blocked.** One mandatory gate, MPS
-verification, cannot be completed without Apple silicon hardware that has a usable
-Metal device. No such machine or runner was available (see [MPS](#mps-apple-silicon)).
-Everything else listed below was implemented and verified. The candidate artifacts are
-staged in a draft GitHub release that is not visible to users.
+**Status: published as a prerelease (`v0.4.0`, commit `bee193f`). Stable publication is blocked.** The one mandatory gate still open is end-to-end MPS verification, which needs Apple silicon hardware that has a usable Metal device. Install by tag with `--release v0.4.0`; `--release latest` does not select prereleases. Everything else is verified on the published bytes, and the post-publication verification workflow passed on Linux, macOS and Windows.
 
 ## What changed
 
@@ -46,7 +42,7 @@ staged in a draft GitHub release that is not visible to users.
 | MPS | **Blocked: no usable Metal device available** | [probe record](../examples/results/mps-runner-probe.json), `mps` workflow |
 | Full Windows console operation | Verified for the stated matrix: Server 2022 and 2025 × Python 3.10 and 3.13, cmd, PowerShell 5.1 and 7, ConPTY and conhost; 87–89 checks each, all passing. Three named host limitations are listed as not exercised | [TERMINAL.md](TERMINAL.md#windows-console-verification), [evidence](../examples/results/release-0.4/) |
 | Install, upgrade, failure, uninstall, reinstall | Verified on Linux, macOS and Windows with Python 3.10 and 3.13, using the candidate bytes and a mirror of the release channel; all checks pass. Windows 3.10 used the stock pip 23.0.1 | [evidence](../examples/results/release-0.4/) |
-| Publication and post-publication checks | Not done; blocked by the MPS gate | — |
+| Publication | Published as a prerelease (`v0.4.0`); post-publication verification passed on all three operating systems (`verify-release` workflow). Stable publication waits for the MPS gate | [release page](https://github.com/Kayyo321/rephix/releases/tag/v0.4.0) |
 
 ## MPS (Apple silicon)
 

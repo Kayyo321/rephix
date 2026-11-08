@@ -2,8 +2,8 @@
 
 ## 0.4.0 (release candidate, 2026-11-08)
 
-Publication is blocked by one gate: MPS verification needs Apple silicon hardware that
-was not available. See [the 0.4 release notes](RELEASE_0_4.md).
+Published as a prerelease. Stable publication is blocked by one gate: MPS verification
+needs Apple silicon hardware that was not available. See [the 0.4 release notes](RELEASE_0_4.md).
 
 | Requirement | Evidence | Status |
 | --- | --- | --- |
@@ -14,7 +14,7 @@ was not available. See [the 0.4 release notes](RELEASE_0_4.md).
 | Native Windows console | ConPTY and conhost on Server 2022/2025, Python 3.10/3.13, cmd, PowerShell 5.1 and 7; 87–89 checks per combination, all passing, with named host limitations | Verified ([details](TERMINAL.md#windows-console-verification)) |
 | Install, upgrade, failure, uninstall, reinstall | Candidate bytes on Linux/macOS/Windows × Python 3.10/3.13: all lifecycle checks pass (30 on POSIX, 31 on Windows), including real 0.2.0 (pip) and 0.3.0 (managed) upgrades | Verified before publication |
 | Release automation | Build-once workflow with SHA256SUMS, BUILD-INFO and provenance; publish-time verification only | Validated by workflow_dispatch runs |
-| Publication and post-publication verification | Not performed | Blocked by MPS |
+| Publication and post-publication verification | Prerelease `v0.4.0` published; verified from public assets on Linux, macOS and Windows | Stable blocked by MPS |
 
 Evidence files: [`examples/results/release-0.4/`](../examples/results/release-0.4/).
 
