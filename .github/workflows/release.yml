@@ -162,7 +162,7 @@ jobs:
           if [ "$RUNNER_OS" = Windows ]; then L="$RUNNER_TEMP/rephix app/rephix.exe"; else L="$RUNNER_TEMP/rephix app/rephix"; fi
           test "v$("$L" --version)" = "$TAG"
           "$L" demo > /dev/null
-          "$L" installation check-update
+          "$L" installation check-update --release "$TAG"
           "$L" installation uninstall
       - name: The stable channel resolves to this release when it is marked latest
         if: ${{ !github.event.release.prerelease }}

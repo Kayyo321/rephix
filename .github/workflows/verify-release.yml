@@ -1,0 +1,63 @@
+name: verify published release
+# Re-verifies a published release from its public assets: checksums, provenance
+# attestations, the tag's commit, installation by tag on each OS, and the update
+# check. Runs on publication and on demand (for example, to re-verify an existing
+# release with this workflow version).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag to verify, such as v0.4.0
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download the published assets and verify their checksums
+        shell: bash
+        run: |
+          mkdir published && cd published
+          gh release download "$TAG" --repo "${{ github.repository }}"
+          sha256sum --check SHA256SUMS
+      - name: Every asset has a provenance attestation from this repository's release workflow
+        shell: bash
+        run: |
+          cd published
+          for f in *; do
+            [ "$f" = SHA256SUMS ] && continue
+            gh attestation verify "$f" --repo "${{ github.repository }}" \
+              --signer-workflow "${{ github.repository }}/.github/workflows/release.yml"
+          done
+      - name: The tag points at the commit the assets were built from
+        shell: bash
+        run: |
+          built=$(python -c "import json;print(json.load(open('published/BUILD-INFO.json'))['commit'])")
+          tagged=$(gh api "repos/${{ github.repository }}/commits/$TAG" --jq .sha)
+          echo "built=$built tagged=$tagged"
+          test "$built" = "$tagged"
+          test "$(python -c "import json;print(json.load(open('published/BUILD-INFO.json'))['tag'])")" = "$TAG"
+      - name: Install the published tag through the published installer, run, check update, uninstall
+        shell: bash
+        run: |
+          python published/rephix-installer.py install --prefix "$RUNNER_TEMP/rephix app" --release "$TAG" --extras tui
+          if [ "$RUNNER_OS" = Windows ]; then L="$RUNNER_TEMP/rephix app/rephix.exe"; else L="$RUNNER_TEMP/rephix app/rephix"; fi
+          test "v$("$L" --version)" = "$TAG"
+          "$L" demo > /dev/null
+          "$L" installation check-update --release "$TAG"
+          "$L" installation uninstall
