@@ -84,17 +84,41 @@ def evaluate(args):
     assert launch("--version").strip() == updated_version
     runtime_lease_verified = False
     if os.name != "nt":
+        import fcntl
         import pty
+        import select
+        import signal
+        import struct
         import termios
+        import threading
         import time
 
         master, slave = pty.openpty()
+        original_modes = termios.tcgetattr(slave)
+        fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack("HHHH", 24, 100, 0, 0))
+        stopped = threading.Event()
+        terminal_output = bytearray()
+
+        def drain_terminal():
+            while not stopped.is_set():
+                try:
+                    if select.select([master], [], [], 0.05)[0]:
+                        chunk = os.read(master, 65536)
+                        if not chunk:
+                            break
+                        terminal_output.extend(chunk)
+                except OSError:
+                    break
+
+        reader = threading.Thread(target=drain_terminal, daemon=True)
+        reader.start()
         child = subprocess.Popen(
             [base, str(prefix / "launch.py"), "ui", "--color", "never"],
             stdin=slave,
             stdout=slave,
             stderr=slave,
             env={**os.environ, "TERM": "xterm-256color"},
+            start_new_session=True,
         )
         try:
             for _ in range(100):
@@ -110,11 +134,15 @@ def evaluate(args):
             assert (prefix / "installation.json").read_bytes() == before_busy
             runtime_lease_verified = True
             os.write(master, b"\x03")
-            assert child.wait(timeout=5) == 0
+            assert child.wait(timeout=10) == 0
+            assert termios.tcgetattr(slave) == original_modes
+            assert b"Traceback" not in terminal_output
         finally:
             if child.poll() is None:
-                child.kill()
+                os.killpg(child.pid, signal.SIGKILL)
                 child.wait()
+            stopped.set()
+            reader.join(timeout=1)
             os.close(master)
             os.close(slave)
     # Reinstalling the same release with no extras argument inherits tui.

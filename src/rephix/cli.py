@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -226,7 +227,7 @@ def main(argv=None):
             file=sys.stderr,
         )
         return 130
-    except (OSError, ValueError, RuntimeError, ImportError) as exc:
+    except (OSError, ValueError, RuntimeError, ImportError, subprocess.SubprocessError) as exc:
         print(f"rephix: {exc}", file=sys.stderr)
         return 1
     return 0

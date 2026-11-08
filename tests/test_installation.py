@@ -1,7 +1,10 @@
 """Critical installation transitions, failures, locking, and deletion boundaries."""
 
+import contextlib
+import io
 import json
 import shutil
+import subprocess
 import tempfile
 import unittest
 from argparse import Namespace
@@ -59,6 +62,33 @@ class InstallationTests(unittest.TestCase):
         self.assertEqual(unrelated.read_text(), "keep this too")
         for category in ("data", "config", "checkpoints"):
             self.assertEqual((self.root / category / "keep").read_text(), category)
+
+    def test_venv_bootstrap_failure_is_a_clear_cli_error(self):
+        from rephix.cli import main
+
+        error = subprocess.CalledProcessError(1, ["python", "-m", "ensurepip"])
+        output = io.StringIO()
+        with (
+            patch.object(manager.venv.EnvBuilder, "create", side_effect=error),
+            contextlib.redirect_stderr(output),
+        ):
+            self.assertEqual(
+                main(
+                    [
+                        "installation",
+                        "install",
+                        "--prefix",
+                        str(self.root),
+                        "--wheel",
+                        str(self.wheel),
+                    ]
+                ),
+                1,
+            )
+        self.assertIn("rephix:", output.getvalue())
+        self.assertNotIn("Traceback", output.getvalue())
+        self.assertIsNone(manager._read(self.root)["active"])
+        self.assertEqual(manager._read(self.root)["slots"], {})
 
     def test_bootstrap_can_be_removed_while_preserving_user_files(self):
         self.install()

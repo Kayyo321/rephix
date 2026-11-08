@@ -17,7 +17,7 @@ not merely a successful model trial. [Release report](RELEASE_0_3.md)
 | Migration and recovery policy | Session schema 1 unchanged, raw layer schema 1 retained, new compressed schema 2, incompatible future schemas rejected; no implicit data/config migration | Compatibility/failure tests and INSTALLATION.md |
 | Failure handling and maintainability review | Reviewed journal codec/checksum/bounds, probe routing/binding, publication and installer state transitions; added runtime leases, safe deletion checks, interrupted update cleanup, malformed compact-flag rejection and clear Ctrl+C exit | Critical regression tests pass |
 | Supported platforms/Python/hardware/formats/access | SUPPORT.md, pyproject extras and model-family guides | Defined; interactive macOS/Windows and MPS limitations explicit |
-| Full local suite, native optional runtime | 343 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
+| Full local suite, native optional runtime | 344 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
 | Source and wheel packaging | Build succeeded; real 0.2-to-0.3 lifecycle with version checks, failed upgrade, rollback, inherited TUI extra, pruning, reinstall and retention/purge | Passed locally |
 | Cross-platform CI on release commit | Expanded core matrix (3.10/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | Pending remote execution |
 | Disk discipline | Downloaded ConvNeXT, TinyLlama and TinyMistral source/candidate/evidence artifacts deleted after recording hashes and measurements; isolated lifecycle leaves zero environments | Verified locally |
@@ -36,6 +36,13 @@ check temporarily uses `/tmp/rephix-native-runtime-check` for accelerate 1.12.0,
 Triton 3.6.0 and psutil. Remove that task-owned overlay after verification. Logs are
 in `/tmp/rephix-release-tests.log`, `/tmp/rephix-build.log`,
 `/tmp/rephix-lifecycle-check.log` and `/tmp/rephix-offline-check.log`.
+
+Initial remote CI passed all nine core jobs, CPU model integration and packaging.
+The macOS lifecycle harness stopped draining its PTY and timed out on exit; the
+harness now drains output continuously and checks terminal-mode restoration.
+A follow-up run must verify this fix and the Windows lifecycle (cancelled by the
+first matrix failure). Installer pip checks now use isolated Python startup and
+venv bootstrap errors have a tested, clear CLI failure.
 
 Remaining work: inspect the current commit's full cross-platform CI, fix any failures,
 and perform the final completion audit. Do not treat scientific limitations as

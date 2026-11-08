@@ -173,7 +173,7 @@ def _run(argv):
 
 def _validate(path):
     python = _python(path)
-    _run([python, "-m", "pip", "check"])
+    _run([python, "-I", "-m", "pip", "check"])
     version = _run([python, "-I", "-m", "rephix", "--version"])
     report = json.loads(_run([python, "-I", "-m", "rephix", "demo"]))
     if report["full_logits"]["parameter_relative_error"] > 1e-10:
@@ -302,6 +302,7 @@ def install(args):
             venv.EnvBuilder(with_pip=True).create(path)
             command = [
                 _python(path),
+                "-I",
                 "-m",
                 "pip",
                 "install",
@@ -317,7 +318,7 @@ def install(args):
             record["version"] = _validate(path)
             _atomic(
                 path / "requirements.lock.txt",
-                _run([_python(path), "-m", "pip", "freeze", "--all"]) + "\n",
+                _run([_python(path), "-I", "-m", "pip", "freeze", "--all"]) + "\n",
             )
             record["status"] = "ready"
         except BaseException:
