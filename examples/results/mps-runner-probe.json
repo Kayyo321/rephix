@@ -1,0 +1,58 @@
+{
+ "purpose": "Find an authorized machine with a usable Metal device for MPS verification",
+ "date": "2026-11-08",
+ "result": "No usable MPS device available to this project",
+ "probes": [
+  {
+   "where": "GitHub-hosted macos-15 (standard arm64)",
+   "run": "https://github.com/Kayyo321/rephix/actions/runs/42501418856",
+   "chip": "Apple M1 (Virtual)",
+   "macos": "15.8.2",
+   "torch": "2.15.0",
+   "mps_built": true,
+   "mps_available": false,
+   "reason": "torch warning: Skipping device Apple Paravirtual device that does not support Metal 2.0"
+  },
+  {
+   "where": "GitHub-hosted macos-26 (standard arm64)",
+   "run": "https://github.com/Kayyo321/rephix/actions/runs/42501418856",
+   "chip": "Apple M1 (Virtual)",
+   "macos": "26.7.2",
+   "torch": "2.15.0",
+   "mps_built": true,
+   "mps_available": false,
+   "reason": "same paravirtual GPU"
+  },
+  {
+   "where": "GitHub-hosted macos-15-xlarge and macos-latest-xlarge (larger arm64)",
+   "run": "https://github.com/Kayyo321/rephix/actions/runs/42501638607",
+   "chip": "Apple M2 Pro (Virtual)",
+   "torch": "2.15.0",
+   "mps_built": true,
+   "mps_available": false,
+   "reason": "same paravirtual GPU"
+  },
+  {
+   "where": "GitHub-hosted macos-14 and macos-14-xlarge",
+   "result": "jobs cancelled by the platform before starting"
+  },
+  {
+   "where": "Self-hosted runners registered for Kayyo321/rephix",
+   "result": "none (0 runners)"
+  },
+  {
+   "where": "Saved SSH hosts and cloud environments of this account",
+   "result": "none with macOS; cloud environments are hosted Linux"
+  },
+  {
+   "where": "Local workstation",
+   "result": "Linux x86-64 with NVIDIA RTX 5080; no Metal"
+  }
+ ],
+ "what_was_verified_instead": [
+  "explicit unavailable-MPS error and CPU behaviour on real macOS (mps workflow, unavailable-on-virtual-gpu job)",
+  "CPU-fallback detection and reporting logic (tests/test_mps_device.py)",
+  "harness wiring of examples/mps_check.py via --dry-run-cpu (not MPS evidence)"
+ ],
+ "to_finish": "Register an Apple silicon Mac (macOS 13+, non-virtualized GPU) as a self-hosted runner with labels self-hosted, macOS, ARM64 and dispatch the mps workflow with self_hosted=true; or run python examples/mps_check.py on such a Mac and attach the JSON."
+}

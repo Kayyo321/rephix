@@ -35,7 +35,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 BASE_PYTHON = getattr(sys, "_base_executable", sys.executable)
 CHECKS = []
-LONG_COMMAND = "demo --samples 200000 --features 240 --classes 60"
+LONG_COMMAND = "demo --samples 600000 --features 240 --classes 60"
 
 
 PROGRESS = None  # Incremental results survive a job timeout.
@@ -202,7 +202,7 @@ class Conhost:
     def __init__(self, argv, rows=30, cols=110, cwd=None, env=None):
         startup = subprocess.STARTUPINFO()
         startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        startup.wShowWindow = 7  # SW_SHOWMINNOACTIVE: a real window that does not steal focus
+        startup.wShowWindow = 4  # SW_SHOWNOACTIVATE: a real, resizable window without focus
         self.process = subprocess.Popen(
             argv,
             creationflags=subprocess.CREATE_NEW_CONSOLE,
@@ -287,13 +287,12 @@ class Conhost:
             self._records([(vk, char, 0)])
 
     def interrupt(self):
-        # A real Ctrl+C keypress: conhost raises CTRL_C_EVENT when processed input is on.
-        self._records([(0x43, "\x03", 0x0008)])
-        self.interrupt_path = "key event"
-
-    def signal(self):
+        # Records injected with WriteConsoleInputW bypass the console's Ctrl+C signal
+        # path, so a plain command is interrupted with the same CTRL_C_EVENT that
+        # conhost raises for a physical Ctrl+C keypress. The full-screen workbench
+        # reads Ctrl+C as a key and is driven with key() instead.
         kernel32.GenerateConsoleCtrlEvent(0, 0)
-        self.interrupt_path = "GenerateConsoleCtrlEvent"
+        self.interrupt_path = "GenerateConsoleCtrlEvent(CTRL_C_EVENT)"
 
     def resize(self, rows, cols):
         out = self.main
@@ -565,10 +564,7 @@ def scenario_plain_interrupt(ctx, Backend, label):
             time.sleep(2)
             before = ctx["children"](term)
             term.interrupt()
-            message = wait_until(lambda: "interrupted" in term.text(), 10)
-            if not message and hasattr(term, "signal"):
-                term.signal()
-                message = wait_until(lambda: "interrupted" in term.text(), 20)
+            message = wait_until(lambda: "interrupted" in term.text(), 30)
             prompt = wait_until(lambda: "Terminate batch job" in term.text(), 3)
             if prompt:
                 term.type("Y\r")
