@@ -19,7 +19,7 @@ and release checks. [Release report](RELEASE_0_3.md)
 | Supported platforms/Python/hardware/formats/access | SUPPORT.md, pyproject extras and model-family guides | Defined; interactive macOS/Windows and MPS limitations explicit |
 | Full local suite, native optional runtime | 346 tests, zero skips, including GPU native FP8; dependency consistency, Ruff lint/format, offline trial | Passed |
 | Source and wheel packaging | Build succeeded; real 0.2-to-0.3 lifecycle with version checks, failed upgrade, rollback, inherited TUI extra, pruning, reinstall and retention/purge | Passed locally |
-| Cross-platform CI on release commit | Expanded core matrix (3.10/3.11/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | All 17 jobs passed at verified code commit 2a04ddc |
+| Cross-platform CI on release commit | Expanded core matrix (3.10/3.11/3.12/3.13, Linux/macOS/Windows), three lifecycle jobs, CPU model integration, packaging | All 17 jobs passed at verified code commit 531a995 |
 | Disk discipline | Downloaded ConvNeXT, TinyLlama and TinyMistral source/candidate/evidence artifacts deleted after recording hashes and measurements; isolated lifecycle leaves zero environments | Verified locally |
 | Final requirement-by-requirement completion audit | Source hashes, pinned measurements, lifecycle transitions, documentation links, package contents, CI job results, baseline ancestry and cleanup inspected | Passed |
 
@@ -32,12 +32,12 @@ manual deletion of a reviewed, idle dedicated prefix removes that final record.
 
 The reusable Python environment is
 `/home/dev/.local/share/rephix-local-20261106/venv`. The completed optional native-runtime
-check used `/tmp/rephix-native-runtime-final` for accelerate 1.12.0,
+check used `/tmp/rephix-release-native` for accelerate 1.12.0,
 Triton 3.6.0 and psutil. That task-owned overlay has been removed. Logs are
 in `/tmp/rephix-release-tests.log`, `/tmp/rephix-build.log`,
 `/tmp/rephix-lifecycle-check.log` and `/tmp/rephix-offline-check.log`.
 
-The final code check passed all 17 jobs in [GitHub validation run 42496378427](https://github.com/Kayyo321/rephix/actions/runs/42496378427): twelve core platform/Python combinations, three real lifecycle jobs, CPU model integration and packaging. [CI evidence](../examples/results/release-ci.json) records job IDs, conclusions and the exact verified commit. Final release-report changes are documentation and evidence only; runtime source hashes remain those verified locally and in CI.
+The final code check passed all 17 jobs in [GitHub validation run 42497553708](https://github.com/Kayyo321/rephix/actions/runs/42497553708): twelve core platform/Python combinations, three real lifecycle jobs, CPU model integration and packaging. [CI evidence](../examples/results/release-ci.json) records job IDs, conclusions and the exact verified commit. Final release-report changes are documentation and evidence only; runtime source hashes remain those verified locally and in CI.
 
 Earlier macOS attempts exposed a PTY harness that needed continuous output draining,
 then Darwin's kernel-owned PENDIN state (0x20000000), set when canonical input is
@@ -51,7 +51,7 @@ Final interaction review also found and fixed a command-submission race: argumen
 are captured at F5, so immediate edits cannot change a pending command. The input
 regression demonstrably fails with the earlier mutable-argument behavior. The explicit color override also has a regression check for the terminal library’s
 separate NO_COLOR detection. All 346
-local tests still pass; a follow-up CI run verifies this final interaction change.
+local tests still pass; the final CI run passed all 17 jobs with this interaction change.
 
 No user requirement is left as an unimplemented promise. Scientific limits remain:
 original weights are not generally identifiable from ordinary text or endpoint

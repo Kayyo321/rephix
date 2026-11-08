@@ -33,12 +33,10 @@
   "cross_platform_ci": {
     "conclusion": "success",
     "jobs": 17,
-    "run_id": 42496378427,
-    "head_sha": "2a04ddc5ef35adeff3d62f39302cd550d1619bee",
-    "evidence": "release-ci.json",
-    "followup_command_snapshot_check": "pending",
-    "followup_color_override_check": "pending"
+    "run_id": 42497553708,
+    "head_sha": "531a995cdd081c05a6ba60ef0ae334deb9c7dfa4",
+    "evidence": "release-ci.json"
   },
-  "temporary_native_overlay_removed": false,
+  "temporary_native_overlay_removed": true,
   "terminal_command_snapshot_regression": "previous mutable-argument behavior fails; immutable submission passes"
 }
