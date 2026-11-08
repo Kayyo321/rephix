@@ -17,7 +17,8 @@ These results do not establish recovery from text or ordinary endpoint responses
 | [TinyLlama 1.1B Chat](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/tree/fe8a4ea1ffedaf415f4da2f062534de366a451e6) | 1,100,048,384 | BF16 | 1,718 | 100% / 100% / 100% | 0 |
 | [TinyMistral 248M v2](https://huggingface.co/Locutusque/TinyMistral-248M-v2/tree/0f57b17cb317bb322c7c1466b669c681f80c058f) | 248,024,064 | FP64, restored to FP32 | 635 | 100% / 100% / 100% | 0 |
 
-Each export was independently reloaded. All full-vocabulary next-token logits matched
+Each export was independently reloaded using its recorded oracle precision.
+The evaluator captured next-token logits in FP32 for metric comparison. All full-vocabulary next-token logits matched
 exactly on 24 held-out prompts, and greedy continuations matched on all six selected
 prompts (up to eight tokens). Tokenizer assets were exported. Audit tolerance was
 `abs(candidate-reference) <= 1e-8 + 1e-5 * abs(reference)`, with every reference tensor

@@ -47,6 +47,11 @@ around toolkit setup. This full check passed on macOS and Linux. Windows lifecyc
 and all Windows core/input-routing jobs passed; a real interactive Windows console
 and MPS model recovery remain explicitly unverified.
 
+Final interaction review also found and fixed a command-submission race: arguments
+are captured at F5, so immediate edits cannot change a pending command. The input
+regression demonstrably fails with the earlier mutable-argument behavior. All 345
+local tests still pass; a follow-up CI run verifies this final interaction change.
+
 No user requirement is left as an unimplemented promise. Scientific limits remain:
 original weights are not generally identifiable from ordinary text or endpoint
 behavior, supported primitive access must be available, and untested hardware and

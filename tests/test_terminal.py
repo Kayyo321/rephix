@@ -62,8 +62,10 @@ class TerminalInteractionTests(unittest.TestCase):
                 )
                 task = asyncio.create_task(app.run_async())
                 await asyncio.sleep(0.1)
-                pipe.send_text("\x01\x0b--version")  # Edit, not a global shortcut.
-                pipe.send_text("\x1b[15~")  # F5.
+                pipe.send_text("\x01\x0bdemo --seed 42")
+                await asyncio.sleep(0.05)
+                # Same input batch: edits after F5 must not change the submitted command.
+                pipe.send_text("\x1b[15~ --classes 1")
                 for _ in range(100):
                     await asyncio.sleep(0.05)
                     if state.status.startswith("Complete"):

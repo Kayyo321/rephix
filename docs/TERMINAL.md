@@ -16,7 +16,8 @@ Managed installation changes require exiting the workbench first so its runtime
 lease can protect the active environment. Run those commands through the stable
 launcher described in [installation](INSTALLATION.md).
 
-F5 executes the displayed arguments through the same Python installation as the
+F5 captures the displayed arguments at the keypress, so subsequent edits affect
+only a future run. It executes that captured command through the same Python installation as the
 workbench. Arguments use shell-style quoting, but no shell is invoked: pipelines,
 variable expansion, and shell substitutions are not supported. Quote paths with
 spaces; use forward slashes for Windows paths. Read the arguments before running

@@ -163,16 +163,16 @@ def build_application(catalog, *, color="auto", theme="dark", input=None, output
         )
         get_app().invalidate()
 
-    async def execute():
+    async def execute(command_text):
         nonlocal process
         try:
-            argv = command_arguments(editor.text)
+            argv = command_arguments(command_text)
         except ValueError as exc:
             state.status = str(exc)
             state.running = False
             return
         state.status = "Running  /  Ctrl+C requests a stop; committed state remains recoverable"
-        append("\n$ rephix " + editor.text + "\n")
+        append("\n$ rephix " + command_text + "\n")
         try:
             process = await asyncio.create_subprocess_exec(
                 *argv,
@@ -215,7 +215,7 @@ def build_application(catalog, *, color="auto", theme="dark", input=None, output
     def run(event):
         if not state.running:
             state.running = True
-            event.app.create_background_task(execute())
+            event.app.create_background_task(execute(editor.text))
 
     @keys.add("c-c")
     def stop(event):

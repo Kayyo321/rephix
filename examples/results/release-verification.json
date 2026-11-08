@@ -4,7 +4,7 @@
   "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
   "unit_tests": 345,
   "skipped": 0,
-  "test_log_sha256": "f11b80b9b1ac1152d423beb06c61b210e5aa14de7238b3b933876b8c080b5e2e",
+  "test_log_sha256": "fef53a344c2f60d3a76afaf3bcc35b445042061f78f652a49c13f9b9ef71438f",
   "dependency_consistency": "passed",
   "ruff_lint": "passed",
   "ruff_format": "passed",
@@ -22,20 +22,22 @@
   "tested_source_sha256": {
     "src/rephix/installation.py": "a7124a03e86b8f6257aa0824704b13a4ced78738396a76f6df34b49f71ffc3ff",
     "src/rephix/cli.py": "5d26ca848463820336473f997f2f12577b7d21b1fc9d485b132ec6e4f0295965",
-    "src/rephix/terminal.py": "7d986f84ebba26c8d8e1cd62380ea6276d2de351ffea34146e010ec351545184",
+    "src/rephix/terminal.py": "91ca96a9c789551f3160f335d415305a628d025054767c672d4b1ba49b509065",
     "src/rephix/layer_journal.py": "c3185f0e051da092eca9dbb504e9376b11085ebffb5f24c4819692be59fde5b0",
     "src/rephix/convolution.py": "a220aa79df3889e25782b390a4d94e3a7ca279eea52a2da10e32b55668859192",
     "src/rephix/layer_recovery.py": "264df045868cf819f8cc2f30fd00592b1a318bf2b685a7a56fa1758b12f3c44b",
     "src/rephix/diffusers_recovery.py": "d861f085ddadfa31336134819b5de296fe3b2a16c5bad4c5d63d2b1c57beb3ed"
   },
-  "wheel_sha256": "1104e71cbe179040eab7024866d458773a6a4b70f969139f9bfabb63a6e674c0",
+  "wheel_sha256": "f928b8fe01ef1a9ef2792297df36360a31f5d6698018d8fd285e83768a894efc",
   "lifecycle_result": "installation-lifecycle.json",
   "cross_platform_ci": {
     "conclusion": "success",
     "jobs": 17,
     "run_id": 42496378427,
     "head_sha": "2a04ddc5ef35adeff3d62f39302cd550d1619bee",
-    "evidence": "release-ci.json"
+    "evidence": "release-ci.json",
+    "followup_command_snapshot_check": "pending"
   },
-  "temporary_native_overlay_removed": true
+  "temporary_native_overlay_removed": false,
+  "terminal_command_snapshot_regression": "previous mutable-argument behavior fails; immutable submission passes"
 }

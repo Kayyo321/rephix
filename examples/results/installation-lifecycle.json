@@ -4,7 +4,7 @@
   "initial_version": "0.2.0",
   "updated_version": "0.3.0",
   "initial_wheel_sha256": "b696724082cb0c6ab2538492df14781b83240bfb062979273b70e8f5bd18ca14",
-  "updated_wheel_sha256": "1104e71cbe179040eab7024866d458773a6a4b70f969139f9bfabb63a6e674c0",
+  "updated_wheel_sha256": "f928b8fe01ef1a9ef2792297df36360a31f5d6698018d8fd285e83768a894efc",
   "failed_upgrade_preserved_manifest_and_version": true,
   "corrupt_manifest_failed_without_traceback": true,
   "updates_preserved_user_file_sha256": {
