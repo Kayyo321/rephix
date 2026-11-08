@@ -4,60 +4,42 @@ from __future__ import annotations
 
 import os
 
-from . import __version__
-
 LOGO = (
     "┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱",
     "┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳ ",
     "╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲",
 )
-TAGLINE = "evidence in · understanding out"
-
-# Teal to blue, left to right; tuned to read on dark and light backgrounds.
-GRADIENT = {
-    "dark": ((0x7D, 0xD3, 0xC0), (0x7A, 0x9C, 0xF0)),
-    "light": ((0x0F, 0x76, 0x6E), (0x2B, 0x4F, 0xB8)),
-}
+X_COLUMN = 18  # The "X" occupies columns 18-20 of every row.
+X_GRADIENT = ("#ff9a1f", "#ff5a1f", "#e5202a")  # Orange at the top to red at the bottom.
+LETTERS = {"dark": "#ffffff", "light": "#1f2c35"}  # White, or ink on light backgrounds.
 
 
-def column_colors(theme="dark"):
-    """One ``#rrggbb`` per logo column."""
-    (r0, g0, b0), (r1, g1, b1) = GRADIENT[theme]
-    width = max(len(line) for line in LOGO)
-    colors = []
-    for x in range(width):
-        t = x / max(width - 1, 1)
-        rgb = (round(a + (b - a) * t) for a, b in ((r0, r1), (g0, g1), (b0, b1)))
-        colors.append("#" + "".join(f"{c:02x}" for c in rgb))
-    return colors
+def cell_color(row, column, theme="dark"):
+    return X_GRADIENT[row] if column >= X_COLUMN else LETTERS[theme]
 
 
 def fragments(theme="dark", indent=""):
-    """prompt_toolkit formatted text: gradient logo, then a muted tagline."""
-    colors = column_colors(theme)
+    """prompt_toolkit formatted text for the logo."""
     result = []
-    for line in LOGO:
+    for row, line in enumerate(LOGO):
         result.append(("", indent))
-        result += [(f"{colors[x]} bold", char) for x, char in enumerate(line)]
+        result += [(f"{cell_color(row, x, theme)} bold", char) for x, char in enumerate(line)]
         result.append(("", "\n"))
-    result += [("", "\n" + indent), ("class:muted", f"{TAGLINE}  ·  v{__version__}")]
     return result
 
 
 def render(color=True, theme="dark", indent="  "):
     """ANSI (truecolor) or plain text for terminals."""
     if not color:
-        lines = [indent + line for line in LOGO]
-        return "\n".join([*lines, "", f"{indent}{TAGLINE}  ·  v{__version__}"])
-    colors = column_colors(theme)
+        return "\n".join(indent + line for line in LOGO)
     out = []
-    for line in LOGO:
+    for row, line in enumerate(LOGO):
         cells = []
         for x, char in enumerate(line):
-            r, g, b = (int(colors[x][i : i + 2], 16) for i in (1, 3, 5))
+            hex_color = cell_color(row, x, theme)
+            r, g, b = (int(hex_color[i : i + 2], 16) for i in (1, 3, 5))
             cells.append(f"\x1b[1;38;2;{r};{g};{b}m{char}" if char != " " else " ")
         out.append(indent + "".join(cells) + "\x1b[0m")
-    out += ["", f"{indent}\x1b[2m{TAGLINE}  ·  v{__version__}\x1b[0m"]
     return "\n".join(out)
 
 

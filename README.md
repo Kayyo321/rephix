@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/Kayyo321/rephix/main/docs/assets/rephix-splash.png" alt="rephix — evidence in, understanding out" width="460"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Kayyo321/rephix/main/docs/assets/rephix-splash.png" alt="rephix" width="460"></p>
 
 [![tests](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml/badge.svg)](https://github.com/Kayyo321/rephix/actions/workflows/tests.yml)
 

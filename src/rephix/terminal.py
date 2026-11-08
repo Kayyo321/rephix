@@ -267,11 +267,11 @@ def build_application(
     from prompt_toolkit.output.defaults import create_output
     from prompt_toolkit.widgets import TextArea
 
-    from .splash import LOGO, TAGLINE
+    from .splash import LOGO
     from .splash import fragments as splash_fragments
 
     def splash_plain():
-        return [("class:title", "\n".join(LOGO) + "\n\n"), ("class:muted", TAGLINE)]
+        return [("class:title", "\n".join(LOGO))]
 
     monochrome = color == "never" or (color == "auto" and bool(os.environ.get("NO_COLOR")))
     state = WorkbenchState(catalog)
@@ -618,7 +618,7 @@ def build_application(
             lambda: [
                 ("", "\n"),
                 *(splash_fragments(theme) if not monochrome else splash_plain()),
-                ("", "\n\n"),
+                ("", "\n"),
                 ("class:faint", "Nothing has run yet. Type arguments above and press ⏎."),
             ]
         )
