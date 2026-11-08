@@ -160,6 +160,7 @@ def build_parser():
 
     from . import (
         alignment,
+        create,
         diffusers_recovery,
         doctor,
         endpoint_head,
@@ -202,6 +203,7 @@ def build_parser():
         trace_calibration,
         trace_recovery,
         text_recovery,
+        create,
     ):
         module.add_subcommands(commands)
     return parser

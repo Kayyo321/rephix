@@ -1,0 +1,97 @@
+{
+  "protocol": "rephix-create-benchmarks/1",
+  "registered_before_final_runs": true,
+  "pilot_policy": "Engineering pilots used seeds >= 100 on the Darwin corpus only, to fix defects (step scaling, batching, split granularity). Final runs use the seeds below; no final result is re-run with a different seed or setting after it is seen.",
+  "hardware": "1x NVIDIA RTX 5080 16 GB, 32 GB RAM (measured); CPU smoke profile on the same host with CUDA hidden",
+  "models": {
+    "smollm2-135m": {"repo": "HuggingFaceTB/SmolLM2-135M", "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2", "family": "llama"},
+    "smollm2-135m-instruct": {"repo": "HuggingFaceTB/SmolLM2-135M-Instruct", "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac", "family": "llama"},
+    "qwen2.5-0.5b-instruct": {"repo": "Qwen/Qwen2.5-0.5B-Instruct", "revision": "7ae557604adf67be50417f59c2c2f167def9a775", "family": "qwen2"},
+    "gpt2": {"repo": "openai-community/gpt2", "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e", "family": "gpt2 (source only; not a supported base)"}
+  },
+  "texts": {
+    "darwin-origin": {"gutenberg": 1228, "sha256": "362142cb7c6f90850477520cfe2a62fe423ae92ea8eb6d9cd8b30ddb39de60b9", "use": "corpus-only (thesis-like formal prose)"},
+    "austen-pride": {"gutenberg": 1342, "sha256": "3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75", "use": "style for the planted source edit (evaluator only)"}
+  },
+  "budgets": {
+    "profile": "rtx5080-16gb",
+    "steps": 300,
+    "eval_every": 50,
+    "regions": 12,
+    "rank": 16,
+    "identify_steps": 150,
+    "generation": {"temperature": 0.8, "max_new_tokens": 96, "contexts": 24},
+    "equal_across_methods": "data, splits, steps, batch size, retain weight, prior weight and evaluation are identical; trainable parameter counts differ by method and are reported"
+  },
+  "methods": {
+    "structured": "Create Mode default: regions and subspaces from structural inference",
+    "random-subspace": "ablation: the same regions, random orthonormal initial subspaces",
+    "random-regions": "ablation without the structural stage: random regions and random subspaces, same count and rank",
+    "lora": "baseline: LoRA rank 8 on every q/k/v/o/gate/up/down map",
+    "lora-matched": "baseline: LoRA with the structured run's rank on the same number of random regions (matched trainable parameters)",
+    "sft": "baseline: ordinary full-parameter supervised fine-tuning"
+  },
+  "experiments": {
+    "E1_planted_same_architecture": {
+      "base": "smollm2-135m",
+      "source": "base + a rank-4 edit confined to one secret linear map, trained by the evaluator on austen-pride windows (300 steps). The region is drawn by a per-seed secret RNG over all 210 maps; reconstruction never sees it.",
+      "evidence": "480 template prompts; one source continuation each (temperature 1.0, 128 new tokens), as passages with known context",
+      "isolation": "source directory mode 000 during reconstruction; Python audit hook logs every opened path; the run fails if any source path is opened",
+      "seeds": [0, 1, 2],
+      "methods": ["structured", "random-subspace", "random-regions", "lora", "lora-matched", "sft"],
+      "evaluator_metrics": ["KL(source || model) per token on test contexts", "rank of the planted region in the structural ranking", "region-class test status and best region", "relative error and cosine of Δ·X on held-out inputs of the planted region"]
+    },
+    "E2_different_architecture": {
+      "bases": ["smollm2-135m", "qwen2.5-0.5b-instruct"],
+      "source": "gpt2 (different family and tokenizer)",
+      "evidence": "the E1 prompt set; one gpt2 continuation each (temperature 1.0, 128 new tokens)",
+      "seeds": {"smollm2-135m": [0, 1, 2], "qwen2.5-0.5b-instruct": [0]},
+      "methods": {"smollm2-135m": ["structured", "random-regions", "lora", "sft"], "qwen2.5-0.5b-instruct": ["structured", "lora"]},
+      "evaluator_metrics": ["NLL of model generations under the source (source as judge)"],
+      "not_applicable": "source parameter comparison: no shared parameter space"
+    },
+    "E3_known_structure": {
+      "planted_region": "E1 localization and Δ·X error",
+      "declared_class_head": {"base": "smollm2-135m", "labels": 4, "contexts": 60, "samples_per_context": 300, "conditions": ["sampled", "greedy", "wrong-backbone-layer"]},
+      "expand_and_cluster": {"teachers": "tanh, d_in in {4, 8}, width in {2, 4}, 3 teachers each, uniform inputs on [-sqrt3, sqrt3], 3000 points", "students": 10, "expansion": 4, "controls": ["expansion 1", "ReLU teacher with tanh students", "output noise sd 0.05 of output sd"], "string_extension": {"teacher": "tanh d_in 4, width 3, 5 classes", "samples_per_input": [20, 1000], "control": "argmax (greedy) labels"}}
+    },
+    "E4_underdetermined_and_misspecified": {
+      "permuted_equivalent_source": "E1 seed-0 source with the MLP neurons of the planted layer permuted: identical function, different coordinates",
+      "out_of_class_source": "base + rank-4 edits in three regions of different layers (seed 0)",
+      "missing_context": "E1 seed-0 evidence with every context dropped (output-only passages)",
+      "sparse_corpus": "the first 300 words of darwin-origin",
+      "greedy_only": "E3 declared-class head, greedy condition"
+    },
+    "E5_corpus_only": {
+      "corpus": "darwin-origin",
+      "bases": ["smollm2-135m", "qwen2.5-0.5b-instruct"],
+      "seeds": {"smollm2-135m": [0, 1, 2], "qwen2.5-0.5b-instruct": [0]},
+      "methods": {"smollm2-135m": ["structured", "random-subspace", "random-regions", "lora", "sft"], "qwen2.5-0.5b-instruct": ["structured", "lora"]},
+      "instructed": {"prompt": "Preserve the formal voice and paragraph structure", "base": "smollm2-135m", "seeds": [0, 1, 2], "method": "structured"},
+      "metrics": ["test NLL", "style distance on held-out sections and new topics", "base-model NLL of generations", "8-gram overlap and longest copied run", "fact cloze", "retain KL"]
+    },
+    "E6_tools_and_visible_reasoning": {
+      "base": "smollm2-135m-instruct",
+      "source": "scripted agent (different architecture: a program) with 5 tools, visible reasoning and final answers",
+      "evidence": "600 conversations",
+      "seeds": [0, 1],
+      "methods": ["structured", "lora", "sft"],
+      "metrics": ["tool schema validity", "selection", "argument exact match", "closed-loop mock task outcome", "visible reasoning token F1", "final answer correctness"]
+    }
+  },
+  "acceptance": {
+    "A1_selection_beats_random_regions": "mean over seeds of test NLL(random-regions) − test NLL(structured) > 0.005 nats/token and structured better in every seed (E1, E2-smollm, E5-smollm)",
+    "A2_subspaces_beat_random_subspaces": "same rule for random-subspace (E1, E5-smollm)",
+    "A3_trial_edit_prediction": "Spearman(region score, measured validation gain) > 0.3 and top-vs-random permutation p < 0.05 in each structured run",
+    "A4_planted_localization": "planted region ranked within the top 12 of 210 in at least 2 of 3 seeds (chance 5.7% per seed)",
+    "A5_no_false_recovery": "out-of-class source never receives explained_by_single_region; no run reports partial recovery for the permuted source's coordinates without the conditional label",
+    "A6_behavioral": "structured test-NLL improvement interval above zero in every E1, E2, E5 and E6 run",
+    "A7_retention": "fact cloze accuracy drop <= 0.10 and held-out retain KL <= 0.05 nats/token for structured runs",
+    "A8_export": "every export passes schema, confinement and fresh-process reload checks",
+    "A9_corpus_generalization": "structured new-topic style distance below the base's, with mean 8-gram overlap < 0.05",
+    "A10_tools": "structured schema validity >= 0.9 and mock-task success above the base",
+    "A11_declared_head": "sampled condition recovered_in_class with relative canonical error < 0.2; greedy condition deterministic_outputs_not_identifiable; wrong-layer condition reported (rejection expected but not guaranteed)",
+    "A12_expand_and_cluster": "at expansion 4, at least half of the teachers recovered with the true width and max cosine distance < 0.01; the expansion-1 and ReLU controls do not exceed the main condition's success rate",
+    "reporting": "Every criterion is reported as passed or failed, including failures; no seed is dropped."
+  }
+}
