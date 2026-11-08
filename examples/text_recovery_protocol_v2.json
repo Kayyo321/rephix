@@ -1,0 +1,606 @@
+{
+ "title": "Rephix 0.4 text-only recovery protocol, version 2",
+ "version": 2,
+ "registered": "2026-11-08, committed alone before any v2 final-split run; v2 final seeds 201-205 have never been run",
+ "supersedes": "version 1 (examples/text_recovery_protocol.json). v1 final runs serve as development data for v2; they are reported as a pilot in docs/TEXT_RECOVERY_RESULTS.md, including runs contaminated by mid-run code changes",
+ "changes_from_v1": [
+  "class test adds held-out validation contexts and is two-sided (alpha/2 per tail; under-dispersed outputs are rejected)",
+  "float32 backbone features use span tolerance 1e-5 (LayerNorm hyperplane); new LayerNorm case head-tiny-gpt2",
+  "private directory is mode 000 during recovery and reload; oracle preloaded behind a loopback relay",
+  "target parameters drawn from a per-run secret, published only after recovery",
+  "corpus and prompt pools read from docs at corpus_commit",
+  "status expectations are allowed-status sets; main in-class cases require at least 4 of 5 recoveries (each run has about a 1% false-rejection rate)",
+  "new pre-registered limitation case ngram-blind-spot",
+  "experiment runs from an immutable git worktree at the registration commit"
+ ],
+ "corpus_commit": "6aa8d55875f7679a1837b9773811c00d21ecc6c1",
+ "contract": "docs/TEXT_RECOVERY.md#observation-contract",
+ "decision_rule": {
+  "alpha": 0.01,
+  "two_sided": true,
+  "bootstrap": 199,
+  "max_relative_standard_error": 0.1,
+  "validation_contexts": 20
+ },
+ "success_criteria": {
+  "S1_status": "every final run's status is in its case's allowed set; an error must contain the case's error_contains text",
+  "S2_recovery_rate": "cases with min_recovered have at least that many recovered runs out of 5",
+  "S3_accuracy": "every recovered run with canonical truth has canonical_relative_l2_error <= 0.10",
+  "S4_self_report": "every such run has canonical_relative_l2_error <= 2.5 * reported_relative_standard_error",
+  "S5_coverage": "coordinate-pooled 95% interval coverage over such runs lies in [0.90, 0.99]",
+  "S6_behaviour": "every recovered run except ngram-blind-spot has test_mean_total_variation <= 0.02 on held-out contexts disjoint from queries",
+  "S7_baseline": "MLE canonical error below the plug-in baseline in at least 80% of such runs",
+  "S8_consistency": "median ratio of canonical error at 8000 to 32000 samples per context (paired seeds) lies in [1.5, 2.7] (theory: 2)",
+  "S9_no_false_recovery": "no out-of-class (order3, mlp, perturbed), greedy, undeclared-output or underdetermined run is recovered_in_class",
+  "S10_isolation": "zero denied or private opens, recovery spawned only the relay, no chmod attempts, every reload probe audited with no spawned processes, max reload |log p difference| <= 1e-9",
+  "S11_blind_spot": "ngram-blind-spot is recovered in >= 4/5 runs while its trigger-context mean TV is >= 0.3 (demonstrates that class membership is assumed, not proven)"
+ },
+ "environment_variables": {
+  "REPHIX_MODELS": "directory with pinned snapshots tinyllama-15M and smollm2-135m"
+ },
+ "cases": [
+  {
+   "name": "ngram-random",
+   "purpose": "whole-model log-linear target, 16 tokens, order 2",
+   "family": "ngram",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-random-low-budget",
+   "purpose": "consistency: 1/16 budget must be flagged",
+   "family": "ngram",
+   "allowed_statuses": [
+    "insufficient_evidence"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 500
+  },
+  {
+   "name": "ngram-random-4x-budget",
+   "purpose": "consistency: 4x budget",
+   "family": "ngram",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 32000
+  },
+  {
+   "name": "ngram-moderate",
+   "purpose": "peakier target (logit scale 1.5); v1 recovered 3/5 at this budget",
+   "family": "ngram",
+   "allowed_statuses": [
+    "recovered_in_class",
+    "insufficient_evidence"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.5,
+   "contexts": 124,
+   "samples_per_context": 32000
+  },
+  {
+   "name": "head-tiny-qwen2",
+   "purpose": "private head on a random public Qwen2 (RMSNorm) backbone",
+   "family": "hf-backbone",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "backbone": "tiny-qwen2",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 400,
+   "samples_per_context": 1000
+  },
+  {
+   "name": "head-tiny-gpt2",
+   "purpose": "private head on a random public GPT-2 (LayerNorm with bias) backbone",
+   "family": "hf-backbone",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "backbone": "tiny-gpt2",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 400,
+   "samples_per_context": 1000
+  },
+  {
+   "name": "head-tinyllama-15m",
+   "purpose": "private head on pretrained nickypro/tinyllama-15M@a97e01fa",
+   "family": "hf-backbone",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "backbone_path": "$REPHIX_MODELS/tinyllama-15M",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 1200,
+   "samples_per_context": 4000
+  },
+  {
+   "name": "head-smollm2-135m",
+   "purpose": "private head on pretrained HuggingFaceTB/SmolLM2-135M@93efa2f0",
+   "family": "hf-backbone",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "backbone_path": "$REPHIX_MODELS/smollm2-135m",
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 2400,
+   "samples_per_context": 5000
+  },
+  {
+   "name": "ngram-peaked",
+   "purpose": "boundary: improbable outputs (logit scale 2.5) at practical budget",
+   "family": "ngram",
+   "allowed_statuses": [
+    "insufficient_evidence",
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 2.5,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-corpus",
+   "purpose": "boundary: natural English character model with rare characters",
+   "family": "ngram",
+   "allowed_statuses": [
+    "insufficient_evidence",
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "corpus": true,
+   "order": 2,
+   "prompt_length": 4,
+   "contexts": 212,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-order3-target",
+   "purpose": "out of class: target uses a third previous token",
+   "family": "ngram",
+   "allowed_statuses": [
+    "misspecified_approximation"
+   ],
+   "canonical_truth": false,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "target_order": 3,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-mlp-target",
+   "purpose": "out of class: added tanh hidden layer",
+   "family": "ngram",
+   "allowed_statuses": [
+    "misspecified_approximation"
+   ],
+   "canonical_truth": false,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "mlp_hidden": 8,
+   "mlp_scale": 0.3,
+   "contexts": 124,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "head-perturbed-backbone",
+   "purpose": "out of class: private fine-tuned backbone differs from the public prior",
+   "family": "hf-backbone",
+   "allowed_statuses": [
+    "misspecified_approximation"
+   ],
+   "canonical_truth": false,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 100,
+   "bootstrap": 199,
+   "backbone_path": "$REPHIX_MODELS/tinyllama-15M",
+   "perturb_backbone": 0.05,
+   "labels": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta"
+   ],
+   "contexts": 1200,
+   "samples_per_context": 4000
+  },
+  {
+   "name": "ngram-greedy-target",
+   "purpose": "boundary: greedy decoding",
+   "family": "ngram",
+   "allowed_statuses": [
+    "deterministic_outputs_not_identifiable"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "greedy": true,
+   "contexts": 124,
+   "samples_per_context": 50
+  },
+  {
+   "name": "ngram-undeclared-output",
+   "purpose": "boundary: target emits a string outside the declared classes",
+   "family": "ngram",
+   "allowed_statuses": [
+    "error"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "error_contains": "not exactly one public class string",
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "emit_unknown": true,
+   "contexts": 124,
+   "samples_per_context": 200
+  },
+  {
+   "name": "ngram-underdetermined",
+   "purpose": "boundary: fewer contexts than the feature span",
+   "family": "ngram",
+   "allowed_statuses": [
+    "insufficient_evidence"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "contexts": 12,
+   "samples_per_context": 8000
+  },
+  {
+   "name": "ngram-blind-spot",
+   "purpose": "limitation: an out-of-class departure on one never-queried 4-token prompt is undetectable",
+   "family": "ngram",
+   "allowed_statuses": [
+    "recovered_in_class"
+   ],
+   "canonical_truth": true,
+   "seeds": {
+    "dev": [
+     1,
+     2
+    ],
+    "final": [
+     201,
+     202,
+     203,
+     204,
+     205
+    ]
+   },
+   "validation_contexts": 20,
+   "test_contexts": 200,
+   "bootstrap": 199,
+   "min_recovered": 4,
+   "vocab_size": 16,
+   "order": 2,
+   "prompt_length": 4,
+   "scale": 1.0,
+   "trigger": {
+    "suffix": "ponm",
+    "class": "a",
+    "delta": 8.0
+   },
+   "contexts": 124,
+   "samples_per_context": 8000
+  }
+ ]
+}
