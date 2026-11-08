@@ -6,6 +6,8 @@
 
 [ResNet and EfficientNet recovery](CNN_RECOVERY.md) includes their stored BatchNorm statistics and integer counters.
 
+[SegFormer and DPT recovery](DENSE_VISION_RECOVERY.md) preserves segmentation and depth-estimation heads and compares every dense output coordinate.
+
 ```bash
 rephix --threads 4 recover-layers --model models/vit --output runs/vit-recovered \
   --device cuda --dtype float64

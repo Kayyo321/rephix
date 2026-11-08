@@ -1,0 +1,1301 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "nvidia/segformer-b0-finetuned-ade-512-512",
+      "revision": "489d5cd81a0b59fab9b7ea758d3548ebe99677da",
+      "reference_sha256": {
+        "config.json": "209caa9091e4632f7c8883c11170cd08ad29af68b23c09590aa4a5befb1a2a7f",
+        "model.safetensors": "6ae39addd01de6b1b8bde2cf677d43a5cd733424b8d186de3f95d1c51fee23f9",
+        "preprocessor_config.json": "8039d1d210abaa7117ad78e58cdfd6141a2ec72c03dae891b3cd76737e422c6c"
+      },
+      "candidate_sha256": {
+        "config.json": "2a0f31936e09fb32fb00d2b971bef9c0f9ce14e2ab78cd7010671e72bb6995d0",
+        "model.safetensors": "6ae39addd01de6b1b8bde2cf677d43a5cd733424b8d186de3f95d1c51fee23f9",
+        "preprocessor_config.json": "8039d1d210abaa7117ad78e58cdfd6141a2ec72c03dae891b3cd76737e422c6c"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "dtype": "float64"
+      },
+      "image_sha256": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2",
+      "reference_class": "SegformerForSemanticSegmentation",
+      "candidate_class": "SegformerForSemanticSegmentation",
+      "output_field": "logits",
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 208,
+        "candidate_tensors": 208,
+        "compared_tensors": 208,
+        "reference_elements": 3753207,
+        "candidate_elements": 3753207,
+        "compared_elements": 3753207,
+        "coverage": 1.0,
+        "exactly_equal_elements": 3753207,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 3753207,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "inactive_registered_state_observations": [],
+        "parameterized_modules_probed": 103,
+        "unique_parameter_elements_recovered": 3752694,
+        "persistent_buffer_elements_recovered": 513,
+        "individually_identified_parameter_elements": 3752694,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 226,
+        "probe_input_rows": 21091,
+        "observed_output_scalars": 5534231,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 226,
+        "model_type": "segformer",
+        "architecture": "SegformerForSemanticSegmentation",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "export_parameter_dtypes": {
+          "segformer.encoder.patch_embeddings.0.proj.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.0.proj.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.0.layer_norm.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.0.layer_norm.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.1.proj.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.1.proj.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.1.layer_norm.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.1.layer_norm.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.2.proj.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.2.proj.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.2.layer_norm.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.2.layer_norm.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.3.proj.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.3.proj.bias": "torch.float32",
+          "segformer.encoder.patch_embeddings.3.layer_norm.weight": "torch.float32",
+          "segformer.encoder.patch_embeddings.3.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.0.0.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.0.0.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.0.0.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.0.0.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.0.0.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.0.0.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.0.0.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.0.1.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.0.1.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.0.1.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.0.1.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.0.1.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.0.1.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.0.1.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.1.0.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.1.0.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.1.0.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.1.0.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.1.0.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.1.0.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.1.0.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.1.1.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.1.1.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.1.1.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.1.1.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.1.1.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.1.1.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.1.1.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.2.0.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.2.0.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.2.0.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.2.0.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.2.0.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.2.0.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.2.0.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.2.1.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.2.1.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.sr.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.sr.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.layer_norm.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.self.layer_norm.bias": "torch.float32",
+          "segformer.encoder.block.2.1.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.2.1.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.2.1.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.2.1.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.2.1.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.3.0.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.3.0.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.3.0.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.3.0.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.3.0.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.3.0.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.3.0.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.3.0.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.block.3.1.layer_norm_1.weight": "torch.float32",
+          "segformer.encoder.block.3.1.layer_norm_1.bias": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.query.weight": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.query.bias": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.key.weight": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.key.bias": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.value.weight": "torch.float32",
+          "segformer.encoder.block.3.1.attention.self.value.bias": "torch.float32",
+          "segformer.encoder.block.3.1.attention.output.dense.weight": "torch.float32",
+          "segformer.encoder.block.3.1.attention.output.dense.bias": "torch.float32",
+          "segformer.encoder.block.3.1.layer_norm_2.weight": "torch.float32",
+          "segformer.encoder.block.3.1.layer_norm_2.bias": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dense1.weight": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dense1.bias": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dwconv.dwconv.weight": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dwconv.dwconv.bias": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dense2.weight": "torch.float32",
+          "segformer.encoder.block.3.1.mlp.dense2.bias": "torch.float32",
+          "segformer.encoder.layer_norm.0.weight": "torch.float32",
+          "segformer.encoder.layer_norm.0.bias": "torch.float32",
+          "segformer.encoder.layer_norm.1.weight": "torch.float32",
+          "segformer.encoder.layer_norm.1.bias": "torch.float32",
+          "segformer.encoder.layer_norm.2.weight": "torch.float32",
+          "segformer.encoder.layer_norm.2.bias": "torch.float32",
+          "segformer.encoder.layer_norm.3.weight": "torch.float32",
+          "segformer.encoder.layer_norm.3.bias": "torch.float32",
+          "decode_head.linear_c.0.proj.weight": "torch.float32",
+          "decode_head.linear_c.0.proj.bias": "torch.float32",
+          "decode_head.linear_c.1.proj.weight": "torch.float32",
+          "decode_head.linear_c.1.proj.bias": "torch.float32",
+          "decode_head.linear_c.2.proj.weight": "torch.float32",
+          "decode_head.linear_c.2.proj.bias": "torch.float32",
+          "decode_head.linear_c.3.proj.weight": "torch.float32",
+          "decode_head.linear_c.3.proj.bias": "torch.float32",
+          "decode_head.linear_fuse.weight": "torch.float32",
+          "decode_head.batch_norm.weight": "torch.float32",
+          "decode_head.batch_norm.bias": "torch.float32",
+          "decode_head.classifier.weight": "torch.float32",
+          "decode_head.classifier.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {
+          "decode_head.batch_norm.running_mean": "torch.float32",
+          "decode_head.batch_norm.running_var": "torch.float32"
+        },
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 226
+      },
+      "held_out_behavior": {
+        "images": 9,
+        "output_coordinates": 24038400,
+        "exact_output_coordinates": 24038400,
+        "output_max_abs_error": 0.0,
+        "output_rmse": 0.0,
+        "processed_image_pixels_equal": true,
+        "segmentation_pixels": 160256,
+        "segmentation_argmax_matches": 160256
+      },
+      "reference_observations": [
+        {
+          "label": "native_0",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "ac1570b3299345606c0e66c42e17f8a03b766eb3236e17789ff0ecc4e36dcdb8",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "c262ed9d3b252fb67774c18c07fdb40b6db7b20084b1305ae8fb7bef1e03865b"
+        },
+        {
+          "label": "native_1",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "a5501475d435d9cb3c5277e4d6bd4aaa6141d762994170135280a6081ac02d11",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "4bd6db24120542ae21959e83d68b32e5dbd9f212b806009f637bcfc809771712"
+        },
+        {
+          "label": "native_2",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "2faa7ef148e1e7d5172ab0d8be119687e9e1680323d85f5ce0264cfaf48a9c4c",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "73bc851c5bc27c3f725f325e109114cfec8ebe14febaed0c146d115e4ade50f2"
+        },
+        {
+          "label": "native_3",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "c031e85f107e58404c7ac02a641a61837f68c159872494e55bf8443c54565449",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "b4a994ef42f9f5d8c3795825edcf20073898c03fbf5b8ce81c049bfa860945d8"
+        },
+        {
+          "label": "rectangular_0",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "3015b69bc4e4ece8f95e4eab5f7d0c21eca6d12b086ec783a83307dda5954e8a",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "48ddbcadd7d277f58a9362398bb7fefc8a3a5d031b4bf53245eb481de7d74a97"
+        },
+        {
+          "label": "rectangular_1",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "082382eb71bbd67886c6ed7826cdb518bed74282910e3b3c6b66f050a60a1435",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "a8be39cb4f2c90ea5b31c23232bae08510125aba056f5777c87a7ebbf60fd160"
+        },
+        {
+          "label": "rectangular_2",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "e77edd458e53d375d22e173d6ff6fbba83ab9a528df9725365498e68ff72d3f2",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "596daced120a5112b6264a4a9dd63d9f5a071b101fed31252299a6b74c351cfb"
+        },
+        {
+          "label": "rectangular_3",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "c1e848973f2b3d269e91a7084b7aecd0df0410273144ec5126d56d92b2c6ab69",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "9c3886153278ce8b92ac320b913eb1a91bc7a7f26184225ab0411a51203394aa"
+        },
+        {
+          "label": "processed_image",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "ac6f8abd216e0ffa8eb1d20f5fa11bd349b533f6d233d0563a7d49be88237530",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "d6ac0a3e83e140243c691ebc39842e7e6d71f8905626c551540fa9f5de78ea80"
+        }
+      ],
+      "candidate_observations": [
+        {
+          "label": "native_0",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "ac1570b3299345606c0e66c42e17f8a03b766eb3236e17789ff0ecc4e36dcdb8",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "c262ed9d3b252fb67774c18c07fdb40b6db7b20084b1305ae8fb7bef1e03865b"
+        },
+        {
+          "label": "native_1",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "a5501475d435d9cb3c5277e4d6bd4aaa6141d762994170135280a6081ac02d11",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "4bd6db24120542ae21959e83d68b32e5dbd9f212b806009f637bcfc809771712"
+        },
+        {
+          "label": "native_2",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "2faa7ef148e1e7d5172ab0d8be119687e9e1680323d85f5ce0264cfaf48a9c4c",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "73bc851c5bc27c3f725f325e109114cfec8ebe14febaed0c146d115e4ade50f2"
+        },
+        {
+          "label": "native_3",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "c031e85f107e58404c7ac02a641a61837f68c159872494e55bf8443c54565449",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "b4a994ef42f9f5d8c3795825edcf20073898c03fbf5b8ce81c049bfa860945d8"
+        },
+        {
+          "label": "rectangular_0",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "3015b69bc4e4ece8f95e4eab5f7d0c21eca6d12b086ec783a83307dda5954e8a",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "48ddbcadd7d277f58a9362398bb7fefc8a3a5d031b4bf53245eb481de7d74a97"
+        },
+        {
+          "label": "rectangular_1",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "082382eb71bbd67886c6ed7826cdb518bed74282910e3b3c6b66f050a60a1435",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "a8be39cb4f2c90ea5b31c23232bae08510125aba056f5777c87a7ebbf60fd160"
+        },
+        {
+          "label": "rectangular_2",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "e77edd458e53d375d22e173d6ff6fbba83ab9a528df9725365498e68ff72d3f2",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "596daced120a5112b6264a4a9dd63d9f5a071b101fed31252299a6b74c351cfb"
+        },
+        {
+          "label": "rectangular_3",
+          "pixel_shape": [
+            1,
+            3,
+            544,
+            576
+          ],
+          "pixel_sha256": "c1e848973f2b3d269e91a7084b7aecd0df0410273144ec5126d56d92b2c6ab69",
+          "output_shape": [
+            1,
+            150,
+            136,
+            144
+          ],
+          "output_sha256": "9c3886153278ce8b92ac320b913eb1a91bc7a7f26184225ab0411a51203394aa"
+        },
+        {
+          "label": "processed_image",
+          "pixel_shape": [
+            1,
+            3,
+            512,
+            512
+          ],
+          "pixel_sha256": "ac6f8abd216e0ffa8eb1d20f5fa11bd349b533f6d233d0563a7d49be88237530",
+          "output_shape": [
+            1,
+            150,
+            128,
+            128
+          ],
+          "output_sha256": "d6ac0a3e83e140243c691ebc39842e7e6d71f8905626c551540fa9f5de78ea80"
+        }
+      ],
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 226,
+        "files_matching_sha256": 3
+      },
+      "processed_image_source": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/coco_sample.png"
+    },
+    {
+      "schema_version": 1,
+      "model_id": "Intel/dpt-swinv2-tiny-256",
+      "revision": "f7f350e1a10a5ea58671b68ab5f49dc18ec00483",
+      "reference_sha256": {
+        "config.json": "92fff7d47306383d7c4dcebb4bbb21768a726ad140d2f349eb88ee7e5a59a2fc",
+        "model.safetensors": "b11e8b50dee40e953a1c38c9d9330e3bf5512247389b87b74d0c47c263b64983",
+        "preprocessor_config.json": "cf0ed4e440e7e75774475f688eadcc94d31d33dfd8067072610e16aa02e804b1"
+      },
+      "candidate_sha256": {
+        "config.json": "e80f583a6b8b3a1ec7540256da5794b2462c47fedb7ef99987d91f3f6f4e26c3",
+        "model.safetensors": "b11e8b50dee40e953a1c38c9d9330e3bf5512247389b87b74d0c47c263b64983",
+        "preprocessor_config.json": "cf0ed4e440e7e75774475f688eadcc94d31d33dfd8067072610e16aa02e804b1"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "dtype": "float64"
+      },
+      "image_sha256": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2",
+      "reference_class": "DPTForDepthEstimation",
+      "candidate_class": "DPTForDepthEstimation",
+      "output_field": "predicted_depth",
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 291,
+        "candidate_tensors": 291,
+        "compared_tensors": 291,
+        "reference_elements": 40930795,
+        "candidate_elements": 40930795,
+        "compared_elements": 40930795,
+        "coverage": 1.0,
+        "exactly_equal_elements": 40930795,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 40930795,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "inactive_registered_state_observations": [],
+        "parameterized_modules_probed": 167,
+        "unique_parameter_elements_recovered": 40930795,
+        "persistent_buffer_elements_recovered": 0,
+        "individually_identified_parameter_elements": 40930795,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 421,
+        "probe_input_rows": 103148,
+        "observed_output_scalars": 145658603,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 421,
+        "model_type": "dpt",
+        "architecture": "DPTForDepthEstimation",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "export_parameter_dtypes": {
+          "backbone.embeddings.patch_embeddings.projection.weight": "torch.float32",
+          "backbone.embeddings.patch_embeddings.projection.bias": "torch.float32",
+          "backbone.embeddings.norm.weight": "torch.float32",
+          "backbone.embeddings.norm.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.0.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.0.blocks.1.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.0.downsample.reduction.weight": "torch.float32",
+          "backbone.encoder.layers.0.downsample.norm.weight": "torch.float32",
+          "backbone.encoder.layers.0.downsample.norm.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.0.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.1.blocks.1.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.1.downsample.reduction.weight": "torch.float32",
+          "backbone.encoder.layers.1.downsample.norm.weight": "torch.float32",
+          "backbone.encoder.layers.1.downsample.norm.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.0.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.1.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.2.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.3.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.4.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.2.blocks.5.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.2.downsample.reduction.weight": "torch.float32",
+          "backbone.encoder.layers.2.downsample.norm.weight": "torch.float32",
+          "backbone.encoder.layers.2.downsample.norm.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.0.layernorm_after.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.logit_scale": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.continuous_position_bias_mlp.0.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.continuous_position_bias_mlp.0.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.continuous_position_bias_mlp.2.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.query.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.query.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.key.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.value.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.self.value.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.attention.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.layernorm_before.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.layernorm_before.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.intermediate.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.intermediate.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.output.dense.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.output.dense.bias": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.layernorm_after.weight": "torch.float32",
+          "backbone.encoder.layers.3.blocks.1.layernorm_after.bias": "torch.float32",
+          "neck.convs.0.weight": "torch.float32",
+          "neck.convs.1.weight": "torch.float32",
+          "neck.convs.2.weight": "torch.float32",
+          "neck.convs.3.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.projection.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.projection.bias": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer1.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer1.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer1.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer1.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer2.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer2.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer2.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.0.residual_layer2.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.1.projection.weight": "torch.float32",
+          "neck.fusion_stage.layers.1.projection.bias": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer1.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer1.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer1.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer1.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer2.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer2.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer2.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.1.residual_layer2.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.2.projection.weight": "torch.float32",
+          "neck.fusion_stage.layers.2.projection.bias": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer1.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer1.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer1.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer1.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer2.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer2.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer2.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.2.residual_layer2.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.3.projection.weight": "torch.float32",
+          "neck.fusion_stage.layers.3.projection.bias": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer1.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer1.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer1.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer1.convolution2.bias": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer2.convolution1.weight": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer2.convolution1.bias": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer2.convolution2.weight": "torch.float32",
+          "neck.fusion_stage.layers.3.residual_layer2.convolution2.bias": "torch.float32",
+          "head.head.0.weight": "torch.float32",
+          "head.head.0.bias": "torch.float32",
+          "head.head.2.weight": "torch.float32",
+          "head.head.2.bias": "torch.float32",
+          "head.head.4.weight": "torch.float32",
+          "head.head.4.bias": "torch.float32"
+        },
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 421
+      },
+      "held_out_behavior": {
+        "images": 9,
+        "output_coordinates": 696320,
+        "exact_output_coordinates": 696320,
+        "output_max_abs_error": 0.0,
+        "output_rmse": 0.0,
+        "processed_image_pixels_equal": true
+      },
+      "reference_observations": [
+        {
+          "label": "native_0",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "0076f308b4cd200bfcfd828fc72beea53fdcf02381f29fefbeb5734ae5c8135e",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "03ef1a08177199ecd34a8ccf7c562150fed5814ea1f397d4cb139980f3201f89"
+        },
+        {
+          "label": "native_1",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "1976a37f6e0305c7acebaf00826cbaf239f4f75a16e67d1b934d8d85f0c08e71",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "385becffd1b4795f4238dde98f1a846bc32f249d6c2bab0329256d117b332710"
+        },
+        {
+          "label": "native_2",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "3b773629915344a3e7d98524757097c158c154d222c226d2fa176b3a4c1619c4",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "c930689e01b28006a8e408930dca063f1f5d3b942a702846023873043bf0c8c6"
+        },
+        {
+          "label": "native_3",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "8fd8143ae6a191f1c649d72ec927e2d32175bba24a3a358b38376e2cf2eb8356",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "d46e2febc757fe612786b42a465a0b2b871dbf7dfec55056506333c87c401c0a"
+        },
+        {
+          "label": "rectangular_0",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "7836401e3475ba9022bc318a8a5d75a5002b1b9d97487b9299f049f27196cfe6",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "7f9f69e0d5e93621fbe26a984708de21b4327d6ed585ccfc7d279b8ef229b514"
+        },
+        {
+          "label": "rectangular_1",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "a47725abd562fd25c702f594be0e5e71373a18228fb740211738a7c028cb4edf",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "f25a991a77cde10c7491214641c5cd8d4b66a66097657ef50ecc6d3d53039f6b"
+        },
+        {
+          "label": "rectangular_2",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "3037d33f89096cdc2909b6e0a9492c87e76a704b377adb7b8cb8fbd69f85fef7",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "0a35a151a0bed18df1b11aae77627d14f4d79c9bd606f72cee1b1711cd3a657e"
+        },
+        {
+          "label": "rectangular_3",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "78b4fca56e671781ea2d07ad6be5586459e06848999725c2da005a9edf7f6643",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "8dc34be167598ae5b7cf0c5eb8283b585a1991ccaf94df8c699abf71b1e418e7"
+        },
+        {
+          "label": "processed_image",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "df091a69424fbb29f242f63927936a4fc7314c7f1b7b9a6eee8526d79a5b5b89",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "c099219a6af2745fd7bc8d7fc04e03e556112736569ab79b06129697b7b598c0"
+        }
+      ],
+      "candidate_observations": [
+        {
+          "label": "native_0",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "0076f308b4cd200bfcfd828fc72beea53fdcf02381f29fefbeb5734ae5c8135e",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "03ef1a08177199ecd34a8ccf7c562150fed5814ea1f397d4cb139980f3201f89"
+        },
+        {
+          "label": "native_1",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "1976a37f6e0305c7acebaf00826cbaf239f4f75a16e67d1b934d8d85f0c08e71",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "385becffd1b4795f4238dde98f1a846bc32f249d6c2bab0329256d117b332710"
+        },
+        {
+          "label": "native_2",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "3b773629915344a3e7d98524757097c158c154d222c226d2fa176b3a4c1619c4",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "c930689e01b28006a8e408930dca063f1f5d3b942a702846023873043bf0c8c6"
+        },
+        {
+          "label": "native_3",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "8fd8143ae6a191f1c649d72ec927e2d32175bba24a3a358b38376e2cf2eb8356",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "d46e2febc757fe612786b42a465a0b2b871dbf7dfec55056506333c87c401c0a"
+        },
+        {
+          "label": "rectangular_0",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "7836401e3475ba9022bc318a8a5d75a5002b1b9d97487b9299f049f27196cfe6",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "7f9f69e0d5e93621fbe26a984708de21b4327d6ed585ccfc7d279b8ef229b514"
+        },
+        {
+          "label": "rectangular_1",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "a47725abd562fd25c702f594be0e5e71373a18228fb740211738a7c028cb4edf",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "f25a991a77cde10c7491214641c5cd8d4b66a66097657ef50ecc6d3d53039f6b"
+        },
+        {
+          "label": "rectangular_2",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "3037d33f89096cdc2909b6e0a9492c87e76a704b377adb7b8cb8fbd69f85fef7",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "0a35a151a0bed18df1b11aae77627d14f4d79c9bd606f72cee1b1711cd3a657e"
+        },
+        {
+          "label": "rectangular_3",
+          "pixel_shape": [
+            1,
+            3,
+            288,
+            320
+          ],
+          "pixel_sha256": "78b4fca56e671781ea2d07ad6be5586459e06848999725c2da005a9edf7f6643",
+          "output_shape": [
+            1,
+            288,
+            320
+          ],
+          "output_sha256": "8dc34be167598ae5b7cf0c5eb8283b585a1991ccaf94df8c699abf71b1e418e7"
+        },
+        {
+          "label": "processed_image",
+          "pixel_shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "pixel_sha256": "df091a69424fbb29f242f63927936a4fc7314c7f1b7b9a6eee8526d79a5b5b89",
+          "output_shape": [
+            1,
+            256,
+            256
+          ],
+          "output_sha256": "c099219a6af2745fd7bc8d7fc04e03e556112736569ab79b06129697b7b598c0"
+        }
+      ],
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 421,
+        "files_matching_sha256": 3
+      },
+      "processed_image_source": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/coco_sample.png"
+    }
+  ]
+}

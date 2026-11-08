@@ -53,7 +53,7 @@ class LayerRecoveryTests(unittest.TestCase):
         def fail(*_):
             self.fail("invalid recovery plan should be rejected before probing")
 
-        model = torch.nn.Sequential(torch.nn.Linear(2, 2), torch.nn.ConvTranspose1d(2, 2, 1))
+        model = torch.nn.Sequential(torch.nn.Linear(2, 2), torch.nn.Bilinear(2, 2, 2))
         with self.assertRaisesRegex(ValueError, "unsupported parameterized operator"):
             recover_from_layer_calls(model, fail)
         model = torch.nn.Linear(2, 2)

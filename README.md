@@ -28,6 +28,8 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Swin and Swin V2 recovery](docs/SWIN_RECOVERY.md)
 - [ResNet and EfficientNet recovery](docs/CNN_RECOVERY.md)
 - [RWKV recurrent language-model recovery](docs/RWKV_RECOVERY.md)
+- [SegFormer segmentation and DPT depth recovery](docs/DENSE_VISION_RECOVERY.md)
+- [Encodec audio-codec recovery](docs/ENCODEC_RECOVERY.md)
 - [LFM2 text and vision-language recovery](docs/LFM2_RECOVERY.md)
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)

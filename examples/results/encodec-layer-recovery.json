@@ -1,0 +1,4251 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "facebook/encodec_24khz",
+      "revision": "c1dbe2ae3f1de713481a3b3e7c47f357092ee040",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "dtype": "torch.float32"
+      },
+      "sampling_rate": 24000,
+      "audio_channels": 1,
+      "bandwidths_kbps": [
+        1.5,
+        24.0
+      ],
+      "reference_sha256": {
+        "config.json": "cd7da7da3b3b34daee262e213e3daa24dc01b4fdc3aadd38ed760f0d6f955871",
+        "model.safetensors": "37a7cb100f71a29e6c1d815aca8666a1d7ea8885ebe44c306c751a5103559d57",
+        "preprocessor_config.json": "fcb3805e597e786d4067706e602f6688524640f8d3396790e2e09b5942fcbdfb"
+      },
+      "candidate_sha256": {
+        "config.json": "f51120f6fb5b7068268474b392c7aa45822c4a782e4f49042a6bf88b6e51a3ac",
+        "model.safetensors": "37a7cb100f71a29e6c1d815aca8666a1d7ea8885ebe44c306c751a5103559d57",
+        "preprocessor_config.json": "fcb3805e597e786d4067706e602f6688524640f8d3396790e2e09b5942fcbdfb"
+      },
+      "recovery": {
+        "observation_mode": "chosen_layer_inputs_and_explicit_registered_state",
+        "inactive_registered_state_observations": [
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.16.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.16.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.16.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.17.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.17.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.17.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.18.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.18.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.18.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.19.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.19.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.19.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.20.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.20.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.20.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.21.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.21.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.21.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.22.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.22.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.22.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.23.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.23.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.23.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.24.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.24.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.24.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.25.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.25.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.25.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.26.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.26.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.26.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.27.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.27.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.27.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.28.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.28.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.28.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.29.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.29.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.29.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.30.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.30.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.30.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.31.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.31.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.31.codebook",
+            "buffer": "inited",
+            "elements": 1
+          }
+        ],
+        "parameterized_modules_probed": 74,
+        "unique_parameter_elements_recovered": 14851810,
+        "persistent_buffer_elements_recovered": 8421408,
+        "individually_identified_parameter_elements": 14851810,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 384,
+        "probe_input_rows": 112498,
+        "observed_output_scalars": 23283747,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 157,
+        "evidence_observations_collected": 227,
+        "model_type": "encodec",
+        "architecture": "EncodecModel",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "tokenizer_exported": false,
+        "serialized_weight_norm_aliases": {
+          "encoder.layers.0.conv.parametrizations.weight.original0": "encoder.layers.0.conv.weight_g",
+          "encoder.layers.0.conv.parametrizations.weight.original1": "encoder.layers.0.conv.weight_v",
+          "encoder.layers.1.block.1.conv.parametrizations.weight.original0": "encoder.layers.1.block.1.conv.weight_g",
+          "encoder.layers.1.block.1.conv.parametrizations.weight.original1": "encoder.layers.1.block.1.conv.weight_v",
+          "encoder.layers.1.block.3.conv.parametrizations.weight.original0": "encoder.layers.1.block.3.conv.weight_g",
+          "encoder.layers.1.block.3.conv.parametrizations.weight.original1": "encoder.layers.1.block.3.conv.weight_v",
+          "encoder.layers.1.shortcut.conv.parametrizations.weight.original0": "encoder.layers.1.shortcut.conv.weight_g",
+          "encoder.layers.1.shortcut.conv.parametrizations.weight.original1": "encoder.layers.1.shortcut.conv.weight_v",
+          "encoder.layers.3.conv.parametrizations.weight.original0": "encoder.layers.3.conv.weight_g",
+          "encoder.layers.3.conv.parametrizations.weight.original1": "encoder.layers.3.conv.weight_v",
+          "encoder.layers.4.block.1.conv.parametrizations.weight.original0": "encoder.layers.4.block.1.conv.weight_g",
+          "encoder.layers.4.block.1.conv.parametrizations.weight.original1": "encoder.layers.4.block.1.conv.weight_v",
+          "encoder.layers.4.block.3.conv.parametrizations.weight.original0": "encoder.layers.4.block.3.conv.weight_g",
+          "encoder.layers.4.block.3.conv.parametrizations.weight.original1": "encoder.layers.4.block.3.conv.weight_v",
+          "encoder.layers.4.shortcut.conv.parametrizations.weight.original0": "encoder.layers.4.shortcut.conv.weight_g",
+          "encoder.layers.4.shortcut.conv.parametrizations.weight.original1": "encoder.layers.4.shortcut.conv.weight_v",
+          "encoder.layers.6.conv.parametrizations.weight.original0": "encoder.layers.6.conv.weight_g",
+          "encoder.layers.6.conv.parametrizations.weight.original1": "encoder.layers.6.conv.weight_v",
+          "encoder.layers.7.block.1.conv.parametrizations.weight.original0": "encoder.layers.7.block.1.conv.weight_g",
+          "encoder.layers.7.block.1.conv.parametrizations.weight.original1": "encoder.layers.7.block.1.conv.weight_v",
+          "encoder.layers.7.block.3.conv.parametrizations.weight.original0": "encoder.layers.7.block.3.conv.weight_g",
+          "encoder.layers.7.block.3.conv.parametrizations.weight.original1": "encoder.layers.7.block.3.conv.weight_v",
+          "encoder.layers.7.shortcut.conv.parametrizations.weight.original0": "encoder.layers.7.shortcut.conv.weight_g",
+          "encoder.layers.7.shortcut.conv.parametrizations.weight.original1": "encoder.layers.7.shortcut.conv.weight_v",
+          "encoder.layers.9.conv.parametrizations.weight.original0": "encoder.layers.9.conv.weight_g",
+          "encoder.layers.9.conv.parametrizations.weight.original1": "encoder.layers.9.conv.weight_v",
+          "encoder.layers.10.block.1.conv.parametrizations.weight.original0": "encoder.layers.10.block.1.conv.weight_g",
+          "encoder.layers.10.block.1.conv.parametrizations.weight.original1": "encoder.layers.10.block.1.conv.weight_v",
+          "encoder.layers.10.block.3.conv.parametrizations.weight.original0": "encoder.layers.10.block.3.conv.weight_g",
+          "encoder.layers.10.block.3.conv.parametrizations.weight.original1": "encoder.layers.10.block.3.conv.weight_v",
+          "encoder.layers.10.shortcut.conv.parametrizations.weight.original0": "encoder.layers.10.shortcut.conv.weight_g",
+          "encoder.layers.10.shortcut.conv.parametrizations.weight.original1": "encoder.layers.10.shortcut.conv.weight_v",
+          "encoder.layers.12.conv.parametrizations.weight.original0": "encoder.layers.12.conv.weight_g",
+          "encoder.layers.12.conv.parametrizations.weight.original1": "encoder.layers.12.conv.weight_v",
+          "encoder.layers.15.conv.parametrizations.weight.original0": "encoder.layers.15.conv.weight_g",
+          "encoder.layers.15.conv.parametrizations.weight.original1": "encoder.layers.15.conv.weight_v",
+          "decoder.layers.0.conv.parametrizations.weight.original0": "decoder.layers.0.conv.weight_g",
+          "decoder.layers.0.conv.parametrizations.weight.original1": "decoder.layers.0.conv.weight_v",
+          "decoder.layers.3.conv.parametrizations.weight.original0": "decoder.layers.3.conv.weight_g",
+          "decoder.layers.3.conv.parametrizations.weight.original1": "decoder.layers.3.conv.weight_v",
+          "decoder.layers.4.block.1.conv.parametrizations.weight.original0": "decoder.layers.4.block.1.conv.weight_g",
+          "decoder.layers.4.block.1.conv.parametrizations.weight.original1": "decoder.layers.4.block.1.conv.weight_v",
+          "decoder.layers.4.block.3.conv.parametrizations.weight.original0": "decoder.layers.4.block.3.conv.weight_g",
+          "decoder.layers.4.block.3.conv.parametrizations.weight.original1": "decoder.layers.4.block.3.conv.weight_v",
+          "decoder.layers.4.shortcut.conv.parametrizations.weight.original0": "decoder.layers.4.shortcut.conv.weight_g",
+          "decoder.layers.4.shortcut.conv.parametrizations.weight.original1": "decoder.layers.4.shortcut.conv.weight_v",
+          "decoder.layers.6.conv.parametrizations.weight.original0": "decoder.layers.6.conv.weight_g",
+          "decoder.layers.6.conv.parametrizations.weight.original1": "decoder.layers.6.conv.weight_v",
+          "decoder.layers.7.block.1.conv.parametrizations.weight.original0": "decoder.layers.7.block.1.conv.weight_g",
+          "decoder.layers.7.block.1.conv.parametrizations.weight.original1": "decoder.layers.7.block.1.conv.weight_v",
+          "decoder.layers.7.block.3.conv.parametrizations.weight.original0": "decoder.layers.7.block.3.conv.weight_g",
+          "decoder.layers.7.block.3.conv.parametrizations.weight.original1": "decoder.layers.7.block.3.conv.weight_v",
+          "decoder.layers.7.shortcut.conv.parametrizations.weight.original0": "decoder.layers.7.shortcut.conv.weight_g",
+          "decoder.layers.7.shortcut.conv.parametrizations.weight.original1": "decoder.layers.7.shortcut.conv.weight_v",
+          "decoder.layers.9.conv.parametrizations.weight.original0": "decoder.layers.9.conv.weight_g",
+          "decoder.layers.9.conv.parametrizations.weight.original1": "decoder.layers.9.conv.weight_v",
+          "decoder.layers.10.block.1.conv.parametrizations.weight.original0": "decoder.layers.10.block.1.conv.weight_g",
+          "decoder.layers.10.block.1.conv.parametrizations.weight.original1": "decoder.layers.10.block.1.conv.weight_v",
+          "decoder.layers.10.block.3.conv.parametrizations.weight.original0": "decoder.layers.10.block.3.conv.weight_g",
+          "decoder.layers.10.block.3.conv.parametrizations.weight.original1": "decoder.layers.10.block.3.conv.weight_v",
+          "decoder.layers.10.shortcut.conv.parametrizations.weight.original0": "decoder.layers.10.shortcut.conv.weight_g",
+          "decoder.layers.10.shortcut.conv.parametrizations.weight.original1": "decoder.layers.10.shortcut.conv.weight_v",
+          "decoder.layers.12.conv.parametrizations.weight.original0": "decoder.layers.12.conv.weight_g",
+          "decoder.layers.12.conv.parametrizations.weight.original1": "decoder.layers.12.conv.weight_v",
+          "decoder.layers.13.block.1.conv.parametrizations.weight.original0": "decoder.layers.13.block.1.conv.weight_g",
+          "decoder.layers.13.block.1.conv.parametrizations.weight.original1": "decoder.layers.13.block.1.conv.weight_v",
+          "decoder.layers.13.block.3.conv.parametrizations.weight.original0": "decoder.layers.13.block.3.conv.weight_g",
+          "decoder.layers.13.block.3.conv.parametrizations.weight.original1": "decoder.layers.13.block.3.conv.weight_v",
+          "decoder.layers.13.shortcut.conv.parametrizations.weight.original0": "decoder.layers.13.shortcut.conv.weight_g",
+          "decoder.layers.13.shortcut.conv.parametrizations.weight.original1": "decoder.layers.13.shortcut.conv.weight_v",
+          "decoder.layers.15.conv.parametrizations.weight.original0": "decoder.layers.15.conv.weight_g",
+          "decoder.layers.15.conv.parametrizations.weight.original1": "decoder.layers.15.conv.weight_v"
+        },
+        "export_parameter_dtypes": {
+          "encoder.layers.0.conv.bias": "torch.float32",
+          "encoder.layers.0.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.0.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.1.block.1.conv.bias": "torch.float32",
+          "encoder.layers.1.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.1.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.1.block.3.conv.bias": "torch.float32",
+          "encoder.layers.1.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.1.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.1.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.1.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.1.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.3.conv.bias": "torch.float32",
+          "encoder.layers.3.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.3.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.4.block.1.conv.bias": "torch.float32",
+          "encoder.layers.4.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.4.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.4.block.3.conv.bias": "torch.float32",
+          "encoder.layers.4.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.4.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.4.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.4.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.4.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.6.conv.bias": "torch.float32",
+          "encoder.layers.6.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.6.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.7.block.1.conv.bias": "torch.float32",
+          "encoder.layers.7.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.7.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.7.block.3.conv.bias": "torch.float32",
+          "encoder.layers.7.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.7.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.7.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.7.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.7.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.9.conv.bias": "torch.float32",
+          "encoder.layers.9.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.9.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.10.block.1.conv.bias": "torch.float32",
+          "encoder.layers.10.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.10.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.10.block.3.conv.bias": "torch.float32",
+          "encoder.layers.10.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.10.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.10.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.10.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.10.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.12.conv.bias": "torch.float32",
+          "encoder.layers.12.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.12.conv.parametrizations.weight.original1": "torch.float32",
+          "encoder.layers.13.lstm.weight_ih_l0": "torch.float32",
+          "encoder.layers.13.lstm.weight_hh_l0": "torch.float32",
+          "encoder.layers.13.lstm.bias_ih_l0": "torch.float32",
+          "encoder.layers.13.lstm.bias_hh_l0": "torch.float32",
+          "encoder.layers.13.lstm.weight_ih_l1": "torch.float32",
+          "encoder.layers.13.lstm.weight_hh_l1": "torch.float32",
+          "encoder.layers.13.lstm.bias_ih_l1": "torch.float32",
+          "encoder.layers.13.lstm.bias_hh_l1": "torch.float32",
+          "encoder.layers.15.conv.bias": "torch.float32",
+          "encoder.layers.15.conv.parametrizations.weight.original0": "torch.float32",
+          "encoder.layers.15.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.0.conv.bias": "torch.float32",
+          "decoder.layers.0.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.0.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.1.lstm.weight_ih_l0": "torch.float32",
+          "decoder.layers.1.lstm.weight_hh_l0": "torch.float32",
+          "decoder.layers.1.lstm.bias_ih_l0": "torch.float32",
+          "decoder.layers.1.lstm.bias_hh_l0": "torch.float32",
+          "decoder.layers.1.lstm.weight_ih_l1": "torch.float32",
+          "decoder.layers.1.lstm.weight_hh_l1": "torch.float32",
+          "decoder.layers.1.lstm.bias_ih_l1": "torch.float32",
+          "decoder.layers.1.lstm.bias_hh_l1": "torch.float32",
+          "decoder.layers.3.conv.bias": "torch.float32",
+          "decoder.layers.3.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.3.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.4.block.1.conv.bias": "torch.float32",
+          "decoder.layers.4.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.4.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.4.block.3.conv.bias": "torch.float32",
+          "decoder.layers.4.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.4.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.4.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.4.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.4.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.6.conv.bias": "torch.float32",
+          "decoder.layers.6.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.6.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.7.block.1.conv.bias": "torch.float32",
+          "decoder.layers.7.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.7.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.7.block.3.conv.bias": "torch.float32",
+          "decoder.layers.7.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.7.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.7.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.7.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.7.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.9.conv.bias": "torch.float32",
+          "decoder.layers.9.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.9.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.10.block.1.conv.bias": "torch.float32",
+          "decoder.layers.10.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.10.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.10.block.3.conv.bias": "torch.float32",
+          "decoder.layers.10.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.10.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.10.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.10.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.10.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.12.conv.bias": "torch.float32",
+          "decoder.layers.12.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.12.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.13.block.1.conv.bias": "torch.float32",
+          "decoder.layers.13.block.1.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.13.block.1.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.13.block.3.conv.bias": "torch.float32",
+          "decoder.layers.13.block.3.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.13.block.3.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.13.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.13.shortcut.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.13.shortcut.conv.parametrizations.weight.original1": "torch.float32",
+          "decoder.layers.15.conv.bias": "torch.float32",
+          "decoder.layers.15.conv.parametrizations.weight.original0": "torch.float32",
+          "decoder.layers.15.conv.parametrizations.weight.original1": "torch.float32"
+        },
+        "export_buffer_dtypes": {
+          "quantizer.layers.0.codebook.inited": "torch.float32",
+          "quantizer.layers.0.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.0.codebook.embed": "torch.float32",
+          "quantizer.layers.0.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.1.codebook.inited": "torch.float32",
+          "quantizer.layers.1.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.1.codebook.embed": "torch.float32",
+          "quantizer.layers.1.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.2.codebook.inited": "torch.float32",
+          "quantizer.layers.2.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.2.codebook.embed": "torch.float32",
+          "quantizer.layers.2.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.3.codebook.inited": "torch.float32",
+          "quantizer.layers.3.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.3.codebook.embed": "torch.float32",
+          "quantizer.layers.3.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.4.codebook.inited": "torch.float32",
+          "quantizer.layers.4.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.4.codebook.embed": "torch.float32",
+          "quantizer.layers.4.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.5.codebook.inited": "torch.float32",
+          "quantizer.layers.5.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.5.codebook.embed": "torch.float32",
+          "quantizer.layers.5.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.6.codebook.inited": "torch.float32",
+          "quantizer.layers.6.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.6.codebook.embed": "torch.float32",
+          "quantizer.layers.6.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.7.codebook.inited": "torch.float32",
+          "quantizer.layers.7.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.7.codebook.embed": "torch.float32",
+          "quantizer.layers.7.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.8.codebook.inited": "torch.float32",
+          "quantizer.layers.8.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.8.codebook.embed": "torch.float32",
+          "quantizer.layers.8.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.9.codebook.inited": "torch.float32",
+          "quantizer.layers.9.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.9.codebook.embed": "torch.float32",
+          "quantizer.layers.9.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.10.codebook.inited": "torch.float32",
+          "quantizer.layers.10.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.10.codebook.embed": "torch.float32",
+          "quantizer.layers.10.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.11.codebook.inited": "torch.float32",
+          "quantizer.layers.11.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.11.codebook.embed": "torch.float32",
+          "quantizer.layers.11.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.12.codebook.inited": "torch.float32",
+          "quantizer.layers.12.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.12.codebook.embed": "torch.float32",
+          "quantizer.layers.12.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.13.codebook.inited": "torch.float32",
+          "quantizer.layers.13.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.13.codebook.embed": "torch.float32",
+          "quantizer.layers.13.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.14.codebook.inited": "torch.float32",
+          "quantizer.layers.14.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.14.codebook.embed": "torch.float32",
+          "quantizer.layers.14.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.15.codebook.inited": "torch.float32",
+          "quantizer.layers.15.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.15.codebook.embed": "torch.float32",
+          "quantizer.layers.15.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.16.codebook.inited": "torch.float32",
+          "quantizer.layers.16.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.16.codebook.embed": "torch.float32",
+          "quantizer.layers.16.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.17.codebook.inited": "torch.float32",
+          "quantizer.layers.17.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.17.codebook.embed": "torch.float32",
+          "quantizer.layers.17.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.18.codebook.inited": "torch.float32",
+          "quantizer.layers.18.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.18.codebook.embed": "torch.float32",
+          "quantizer.layers.18.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.19.codebook.inited": "torch.float32",
+          "quantizer.layers.19.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.19.codebook.embed": "torch.float32",
+          "quantizer.layers.19.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.20.codebook.inited": "torch.float32",
+          "quantizer.layers.20.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.20.codebook.embed": "torch.float32",
+          "quantizer.layers.20.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.21.codebook.inited": "torch.float32",
+          "quantizer.layers.21.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.21.codebook.embed": "torch.float32",
+          "quantizer.layers.21.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.22.codebook.inited": "torch.float32",
+          "quantizer.layers.22.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.22.codebook.embed": "torch.float32",
+          "quantizer.layers.22.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.23.codebook.inited": "torch.float32",
+          "quantizer.layers.23.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.23.codebook.embed": "torch.float32",
+          "quantizer.layers.23.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.24.codebook.inited": "torch.float32",
+          "quantizer.layers.24.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.24.codebook.embed": "torch.float32",
+          "quantizer.layers.24.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.25.codebook.inited": "torch.float32",
+          "quantizer.layers.25.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.25.codebook.embed": "torch.float32",
+          "quantizer.layers.25.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.26.codebook.inited": "torch.float32",
+          "quantizer.layers.26.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.26.codebook.embed": "torch.float32",
+          "quantizer.layers.26.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.27.codebook.inited": "torch.float32",
+          "quantizer.layers.27.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.27.codebook.embed": "torch.float32",
+          "quantizer.layers.27.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.28.codebook.inited": "torch.float32",
+          "quantizer.layers.28.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.28.codebook.embed": "torch.float32",
+          "quantizer.layers.28.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.29.codebook.inited": "torch.float32",
+          "quantizer.layers.29.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.29.codebook.embed": "torch.float32",
+          "quantizer.layers.29.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.30.codebook.inited": "torch.float32",
+          "quantizer.layers.30.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.30.codebook.embed": "torch.float32",
+          "quantizer.layers.30.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.31.codebook.inited": "torch.float32",
+          "quantizer.layers.31.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.31.codebook.embed": "torch.float32",
+          "quantizer.layers.31.codebook.embed_avg": "torch.float32"
+        },
+        "audio_feature_extractor_exported": true,
+        "audio_task": "codec",
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 227
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 252,
+        "candidate_tensors": 252,
+        "compared_tensors": 252,
+        "reference_elements": 23273218,
+        "candidate_elements": 23273218,
+        "compared_elements": 23273218,
+        "coverage": 1.0,
+        "exactly_equal_elements": 23273218,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 23273218,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "cases": 12,
+        "exact_processor_outputs": 12,
+        "exact_audio_scale_sequences": 12,
+        "exact_padding_values": 12,
+        "code_coordinates": 12512,
+        "exact_code_coordinates": 12512,
+        "exact_code_sequences": 12,
+        "decoded_coordinates": 233280,
+        "exact_decoded_coordinates": 233280,
+        "exact_decoded_waveforms": 12,
+        "decoded_max_abs_error": 0.0,
+        "decoded_rmse": 0.0
+      },
+      "reference_observations": [
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 8880,
+          "waveform_sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                8880
+              ],
+              "dtype": "torch.int32",
+              "sha256": "7d0663e6789fcfc963c5c9045ba908c367b82db7d388561c9dac992b28ae654f"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                8880
+              ],
+              "dtype": "torch.float32",
+              "sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              28
+            ],
+            "dtype": "torch.int64",
+            "sha256": "deece8eba56bb1189ebd4acdfcfcae1e9b0d64ca4117b5d61920cdd841da39ce"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              8880
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f83922c99eec7bf6dc4c6ec88498455df87ac99228a00b8c296c9250ab610786"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 8880,
+          "waveform_sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                8880
+              ],
+              "dtype": "torch.int32",
+              "sha256": "7d0663e6789fcfc963c5c9045ba908c367b82db7d388561c9dac992b28ae654f"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                8880
+              ],
+              "dtype": "torch.float32",
+              "sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              28
+            ],
+            "dtype": "torch.int64",
+            "sha256": "382e5cf778e08b65d50130941fc0c886ffb5dcca0d4259ff3aea5fe18f837a52"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              8880
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c43c3e62f313fe6d5dce42c6c47c22c29fa67d47da712e3d39c1354b1e1cee5f"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 12240,
+          "waveform_sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                12240
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4f5e94581ac499a195c252e2be026b2933e6885c2fb76f9abf6e6cb300762c3d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                12240
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              39
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24507643b5265d7e5c727ebe68950715f525a62b385d324bc90dec445be8b80e"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              12240
+            ],
+            "dtype": "torch.float32",
+            "sha256": "41cce01df100a232728fa3c3796058611b3f64fe135524e276d5d1bba64722c0"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 12240,
+          "waveform_sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                12240
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4f5e94581ac499a195c252e2be026b2933e6885c2fb76f9abf6e6cb300762c3d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                12240
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              39
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e1a2a813ff061be938761fbc661bfa941c88da89bbda64e5489d78455b66eaff"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              12240
+            ],
+            "dtype": "torch.float32",
+            "sha256": "cab173603671370296595c72a13072906e86c37ccbfbb3a7f4cfaf3bd2742d03"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 16080,
+          "waveform_sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                16080
+              ],
+              "dtype": "torch.int32",
+              "sha256": "677fd54bd54d7632e130a8ee5f3a82d81379a28c1c2fac02ece243f167087907"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                16080
+              ],
+              "dtype": "torch.float32",
+              "sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              51
+            ],
+            "dtype": "torch.int64",
+            "sha256": "a1be04fa7c57c85401d2f1cdb14cd043d8fcaab3762f718869e5139c71a49cdf"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              16080
+            ],
+            "dtype": "torch.float32",
+            "sha256": "490b61dbc1adc3450639de131aef95f7853fdf828632ad703ca4904b8f4af540"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 16080,
+          "waveform_sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                16080
+              ],
+              "dtype": "torch.int32",
+              "sha256": "677fd54bd54d7632e130a8ee5f3a82d81379a28c1c2fac02ece243f167087907"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                16080
+              ],
+              "dtype": "torch.float32",
+              "sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              51
+            ],
+            "dtype": "torch.int64",
+            "sha256": "54260930a8a238a8945c5559e32536aabff8ecbb21b9a474ddfc3a95f0b5035f"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              16080
+            ],
+            "dtype": "torch.float32",
+            "sha256": "934a9cfbae8f7ada36f2c4edab72c51fe63a1768eabb1b456a45fca24097e0c3"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 21360,
+          "waveform_sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                21360
+              ],
+              "dtype": "torch.int32",
+              "sha256": "860bb6a39626f8d0d062e2ce9677de1b4a2e5e8c926d2c84816dc088a1f270b5"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                21360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              67
+            ],
+            "dtype": "torch.int64",
+            "sha256": "40f87b0b010b5031b7e984a2b04e89b84b9f670f9b1c93caa695f3c5dfe0e5bd"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              21360
+            ],
+            "dtype": "torch.float32",
+            "sha256": "ad62693f3d27df426f670a01a0e97f723e0e922e3f1ac0261ad6fde7c336b7d9"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 21360,
+          "waveform_sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                21360
+              ],
+              "dtype": "torch.int32",
+              "sha256": "860bb6a39626f8d0d062e2ce9677de1b4a2e5e8c926d2c84816dc088a1f270b5"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                21360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              67
+            ],
+            "dtype": "torch.int64",
+            "sha256": "76507d20de89b9ac5e261ff9daab87aad76fba7cc1efc225870bbbec85b8f916"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              21360
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f3a1aab1f6663e37d9b4f517e48a9a8b1d62d001c39aba4a180afe38fe8b05ae"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 26640,
+          "waveform_sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                26640
+              ],
+              "dtype": "torch.int32",
+              "sha256": "e357c31bb7958893da57b8cbacbca0153ceabfc783763626220eeebb398ee1ea"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                26640
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              84
+            ],
+            "dtype": "torch.int64",
+            "sha256": "c54fcc011ef2d868a0b7dbb3da7c6fe95277588e7ab8c7d498ee077a130dd765"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              26640
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9ec66e205305dd87fd5f9aa00235a9fa193288dba71a073d3dae12b3d0263c18"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 26640,
+          "waveform_sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                26640
+              ],
+              "dtype": "torch.int32",
+              "sha256": "e357c31bb7958893da57b8cbacbca0153ceabfc783763626220eeebb398ee1ea"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                26640
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              84
+            ],
+            "dtype": "torch.int64",
+            "sha256": "cc21940686e44dd94e59e623a93bff28cf4516da7045392452bb45b3667ad533"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              26640
+            ],
+            "dtype": "torch.float32",
+            "sha256": "dafb3c785b667217f3e108ea532fc849852999bfee2d03f063ac49f0e287171c"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 31440,
+          "waveform_sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                31440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "caa4b64217af9d94e95c743c8db1c3259e6aed2bbf9ba447079401380c4636b0"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                31440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              99
+            ],
+            "dtype": "torch.int64",
+            "sha256": "cedc3210bba6910080229ef64da6e62fc684ae57d246e60143789fb22d31b445"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              31440
+            ],
+            "dtype": "torch.float32",
+            "sha256": "08dca4739bf30f962fcd5fe6a9fc8b11894b1553168a1a2d0932c51cf348dd35"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 31440,
+          "waveform_sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                31440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "caa4b64217af9d94e95c743c8db1c3259e6aed2bbf9ba447079401380c4636b0"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                31440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              99
+            ],
+            "dtype": "torch.int64",
+            "sha256": "772fe62cbacd57d779c08cf0823c837c96c40f4b8b4efa1f63c2b361f7cb0ac4"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              31440
+            ],
+            "dtype": "torch.float32",
+            "sha256": "dc5474b1744fb94213afe32659ce6714cf3e52ef70707ef5b166b5225d97b058"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        }
+      ],
+      "candidate_observations": [
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 8880,
+          "waveform_sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                8880
+              ],
+              "dtype": "torch.int32",
+              "sha256": "7d0663e6789fcfc963c5c9045ba908c367b82db7d388561c9dac992b28ae654f"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                8880
+              ],
+              "dtype": "torch.float32",
+              "sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              28
+            ],
+            "dtype": "torch.int64",
+            "sha256": "deece8eba56bb1189ebd4acdfcfcae1e9b0d64ca4117b5d61920cdd841da39ce"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              8880
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f83922c99eec7bf6dc4c6ec88498455df87ac99228a00b8c296c9250ab610786"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 8880,
+          "waveform_sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                8880
+              ],
+              "dtype": "torch.int32",
+              "sha256": "7d0663e6789fcfc963c5c9045ba908c367b82db7d388561c9dac992b28ae654f"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                8880
+              ],
+              "dtype": "torch.float32",
+              "sha256": "04191da341dc21df9b1848614faf7912c797b5ba89358300846c8f0c445289bc"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              28
+            ],
+            "dtype": "torch.int64",
+            "sha256": "382e5cf778e08b65d50130941fc0c886ffb5dcca0d4259ff3aea5fe18f837a52"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              8880
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c43c3e62f313fe6d5dce42c6c47c22c29fa67d47da712e3d39c1354b1e1cee5f"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 12240,
+          "waveform_sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                12240
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4f5e94581ac499a195c252e2be026b2933e6885c2fb76f9abf6e6cb300762c3d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                12240
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              39
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24507643b5265d7e5c727ebe68950715f525a62b385d324bc90dec445be8b80e"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              12240
+            ],
+            "dtype": "torch.float32",
+            "sha256": "41cce01df100a232728fa3c3796058611b3f64fe135524e276d5d1bba64722c0"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 12240,
+          "waveform_sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                12240
+              ],
+              "dtype": "torch.int32",
+              "sha256": "4f5e94581ac499a195c252e2be026b2933e6885c2fb76f9abf6e6cb300762c3d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                12240
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6988b76305fabb723518acd49a5853dc925ff345e114eac305c58cfc7fb9fcb2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              39
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e1a2a813ff061be938761fbc661bfa941c88da89bbda64e5489d78455b66eaff"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              12240
+            ],
+            "dtype": "torch.float32",
+            "sha256": "cab173603671370296595c72a13072906e86c37ccbfbb3a7f4cfaf3bd2742d03"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 16080,
+          "waveform_sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                16080
+              ],
+              "dtype": "torch.int32",
+              "sha256": "677fd54bd54d7632e130a8ee5f3a82d81379a28c1c2fac02ece243f167087907"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                16080
+              ],
+              "dtype": "torch.float32",
+              "sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              51
+            ],
+            "dtype": "torch.int64",
+            "sha256": "a1be04fa7c57c85401d2f1cdb14cd043d8fcaab3762f718869e5139c71a49cdf"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              16080
+            ],
+            "dtype": "torch.float32",
+            "sha256": "490b61dbc1adc3450639de131aef95f7853fdf828632ad703ca4904b8f4af540"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 16080,
+          "waveform_sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                16080
+              ],
+              "dtype": "torch.int32",
+              "sha256": "677fd54bd54d7632e130a8ee5f3a82d81379a28c1c2fac02ece243f167087907"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                16080
+              ],
+              "dtype": "torch.float32",
+              "sha256": "67543d7019ec1bfcea5a1f593192ee3e5bdd8005a06f1599e9cb7147dcac8a84"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              51
+            ],
+            "dtype": "torch.int64",
+            "sha256": "54260930a8a238a8945c5559e32536aabff8ecbb21b9a474ddfc3a95f0b5035f"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              16080
+            ],
+            "dtype": "torch.float32",
+            "sha256": "934a9cfbae8f7ada36f2c4edab72c51fe63a1768eabb1b456a45fca24097e0c3"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 21360,
+          "waveform_sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                21360
+              ],
+              "dtype": "torch.int32",
+              "sha256": "860bb6a39626f8d0d062e2ce9677de1b4a2e5e8c926d2c84816dc088a1f270b5"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                21360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              67
+            ],
+            "dtype": "torch.int64",
+            "sha256": "40f87b0b010b5031b7e984a2b04e89b84b9f670f9b1c93caa695f3c5dfe0e5bd"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              21360
+            ],
+            "dtype": "torch.float32",
+            "sha256": "ad62693f3d27df426f670a01a0e97f723e0e922e3f1ac0261ad6fde7c336b7d9"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 21360,
+          "waveform_sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                21360
+              ],
+              "dtype": "torch.int32",
+              "sha256": "860bb6a39626f8d0d062e2ce9677de1b4a2e5e8c926d2c84816dc088a1f270b5"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                21360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d154849bba6be4b898bfbff6be3525d3646db07bab7741c2955359257669a0c2"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              67
+            ],
+            "dtype": "torch.int64",
+            "sha256": "76507d20de89b9ac5e261ff9daab87aad76fba7cc1efc225870bbbec85b8f916"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              21360
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f3a1aab1f6663e37d9b4f517e48a9a8b1d62d001c39aba4a180afe38fe8b05ae"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 26640,
+          "waveform_sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                26640
+              ],
+              "dtype": "torch.int32",
+              "sha256": "e357c31bb7958893da57b8cbacbca0153ceabfc783763626220eeebb398ee1ea"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                26640
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              84
+            ],
+            "dtype": "torch.int64",
+            "sha256": "c54fcc011ef2d868a0b7dbb3da7c6fe95277588e7ab8c7d498ee077a130dd765"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              26640
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9ec66e205305dd87fd5f9aa00235a9fa193288dba71a073d3dae12b3d0263c18"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 26640,
+          "waveform_sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                26640
+              ],
+              "dtype": "torch.int32",
+              "sha256": "e357c31bb7958893da57b8cbacbca0153ceabfc783763626220eeebb398ee1ea"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                26640
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7443eb421bf4b2e077f72128f8766d53fdeca680ecaa49208a9d7fd546d632ce"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              84
+            ],
+            "dtype": "torch.int64",
+            "sha256": "cc21940686e44dd94e59e623a93bff28cf4516da7045392452bb45b3667ad533"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              26640
+            ],
+            "dtype": "torch.float32",
+            "sha256": "dafb3c785b667217f3e108ea532fc849852999bfee2d03f063ac49f0e287171c"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 1.5,
+          "input_samples": 31440,
+          "waveform_sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                31440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "caa4b64217af9d94e95c743c8db1c3259e6aed2bbf9ba447079401380c4636b0"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                31440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              2,
+              99
+            ],
+            "dtype": "torch.int64",
+            "sha256": "cedc3210bba6910080229ef64da6e62fc684ae57d246e60143789fb22d31b445"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              31440
+            ],
+            "dtype": "torch.float32",
+            "sha256": "08dca4739bf30f962fcd5fe6a9fc8b11894b1553168a1a2d0932c51cf348dd35"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 31440,
+          "waveform_sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                31440
+              ],
+              "dtype": "torch.int32",
+              "sha256": "caa4b64217af9d94e95c743c8db1c3259e6aed2bbf9ba447079401380c4636b0"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                1,
+                31440
+              ],
+              "dtype": "torch.float32",
+              "sha256": "76ac509af3d44f33a1e0b27ac15af06b15be9bcada01b0ad40c6ff2f836963cd"
+            }
+          },
+          "codes": {
+            "shape": [
+              1,
+              1,
+              32,
+              99
+            ],
+            "dtype": "torch.int64",
+            "sha256": "772fe62cbacd57d779c08cf0823c837c96c40f4b8b4efa1f63c2b361f7cb0ac4"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              1,
+              31440
+            ],
+            "dtype": "torch.float32",
+            "sha256": "dc5474b1744fb94213afe32659ce6714cf3e52ef70707ef5b166b5225d97b058"
+          },
+          "scales": [
+            null
+          ],
+          "last_frame_pad_length": 0
+        }
+      ],
+      "inactive_state_control": {
+        "reference": {
+          "changed_registered_values": 4227104,
+          "codes_unchanged": true,
+          "decoded_audio_unchanged": true
+        },
+        "candidate": {
+          "changed_registered_values": 4227104,
+          "codes_unchanged": true,
+          "decoded_audio_unchanged": true
+        }
+      },
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 384,
+        "files_matching_sha256": 3
+      }
+    },
+    {
+      "schema_version": 1,
+      "model_id": "facebook/encodec_48khz",
+      "revision": "c3def8e7185ac8c8efdce6eb8c4a651e487a503e",
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "dtype": "torch.float32"
+      },
+      "sampling_rate": 48000,
+      "audio_channels": 2,
+      "bandwidths_kbps": [
+        3.0,
+        24.0
+      ],
+      "reference_sha256": {
+        "config.json": "4a914ed15ed5a69e19932d05b0c51f2d22c68ffac70e959a757594cb0cd6e2a7",
+        "model.safetensors": "47a15ffbaf7bb76176d0833e10590de0a8988a7848748608cefc36a1c88adfdc",
+        "preprocessor_config.json": "df1268bac588b486545baa1d0b6c9c32366c817efbd113158b4c2ef74f6eefeb"
+      },
+      "candidate_sha256": {
+        "config.json": "02c06f8a882777a597e00c5269e10b5289863d17e7374da1c2d04a7d5a50230e",
+        "model.safetensors": "47a15ffbaf7bb76176d0833e10590de0a8988a7848748608cefc36a1c88adfdc",
+        "preprocessor_config.json": "df1268bac588b486545baa1d0b6c9c32366c817efbd113158b4c2ef74f6eefeb"
+      },
+      "recovery": {
+        "observation_mode": "chosen_layer_inputs_and_explicit_registered_state",
+        "inactive_registered_state_observations": [
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.0.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.1.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.2.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.3.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.4.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.5.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.6.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.7.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.8.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.9.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.10.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.11.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.12.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.13.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.14.codebook",
+            "buffer": "inited",
+            "elements": 1
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "cluster_size",
+            "elements": 1024
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "embed_avg",
+            "elements": 131072
+          },
+          {
+            "module": "quantizer.layers.15.codebook",
+            "buffer": "inited",
+            "elements": 1
+          }
+        ],
+        "parameterized_modules_probed": 74,
+        "unique_parameter_elements_recovered": 14856294,
+        "persistent_buffer_elements_recovered": 4210704,
+        "individually_identified_parameter_elements": 14856294,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 290,
+        "probe_input_rows": 69394,
+        "observed_output_scalars": 19081562,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 290,
+        "model_type": "encodec",
+        "architecture": "EncodecModel",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "tokenizer_exported": false,
+        "export_parameter_dtypes": {
+          "encoder.layers.0.conv.weight": "torch.float32",
+          "encoder.layers.0.conv.bias": "torch.float32",
+          "encoder.layers.0.norm.weight": "torch.float32",
+          "encoder.layers.0.norm.bias": "torch.float32",
+          "encoder.layers.1.block.1.conv.weight": "torch.float32",
+          "encoder.layers.1.block.1.conv.bias": "torch.float32",
+          "encoder.layers.1.block.1.norm.weight": "torch.float32",
+          "encoder.layers.1.block.1.norm.bias": "torch.float32",
+          "encoder.layers.1.block.3.conv.weight": "torch.float32",
+          "encoder.layers.1.block.3.conv.bias": "torch.float32",
+          "encoder.layers.1.block.3.norm.weight": "torch.float32",
+          "encoder.layers.1.block.3.norm.bias": "torch.float32",
+          "encoder.layers.1.shortcut.conv.weight": "torch.float32",
+          "encoder.layers.1.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.1.shortcut.norm.weight": "torch.float32",
+          "encoder.layers.1.shortcut.norm.bias": "torch.float32",
+          "encoder.layers.3.conv.weight": "torch.float32",
+          "encoder.layers.3.conv.bias": "torch.float32",
+          "encoder.layers.3.norm.weight": "torch.float32",
+          "encoder.layers.3.norm.bias": "torch.float32",
+          "encoder.layers.4.block.1.conv.weight": "torch.float32",
+          "encoder.layers.4.block.1.conv.bias": "torch.float32",
+          "encoder.layers.4.block.1.norm.weight": "torch.float32",
+          "encoder.layers.4.block.1.norm.bias": "torch.float32",
+          "encoder.layers.4.block.3.conv.weight": "torch.float32",
+          "encoder.layers.4.block.3.conv.bias": "torch.float32",
+          "encoder.layers.4.block.3.norm.weight": "torch.float32",
+          "encoder.layers.4.block.3.norm.bias": "torch.float32",
+          "encoder.layers.4.shortcut.conv.weight": "torch.float32",
+          "encoder.layers.4.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.4.shortcut.norm.weight": "torch.float32",
+          "encoder.layers.4.shortcut.norm.bias": "torch.float32",
+          "encoder.layers.6.conv.weight": "torch.float32",
+          "encoder.layers.6.conv.bias": "torch.float32",
+          "encoder.layers.6.norm.weight": "torch.float32",
+          "encoder.layers.6.norm.bias": "torch.float32",
+          "encoder.layers.7.block.1.conv.weight": "torch.float32",
+          "encoder.layers.7.block.1.conv.bias": "torch.float32",
+          "encoder.layers.7.block.1.norm.weight": "torch.float32",
+          "encoder.layers.7.block.1.norm.bias": "torch.float32",
+          "encoder.layers.7.block.3.conv.weight": "torch.float32",
+          "encoder.layers.7.block.3.conv.bias": "torch.float32",
+          "encoder.layers.7.block.3.norm.weight": "torch.float32",
+          "encoder.layers.7.block.3.norm.bias": "torch.float32",
+          "encoder.layers.7.shortcut.conv.weight": "torch.float32",
+          "encoder.layers.7.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.7.shortcut.norm.weight": "torch.float32",
+          "encoder.layers.7.shortcut.norm.bias": "torch.float32",
+          "encoder.layers.9.conv.weight": "torch.float32",
+          "encoder.layers.9.conv.bias": "torch.float32",
+          "encoder.layers.9.norm.weight": "torch.float32",
+          "encoder.layers.9.norm.bias": "torch.float32",
+          "encoder.layers.10.block.1.conv.weight": "torch.float32",
+          "encoder.layers.10.block.1.conv.bias": "torch.float32",
+          "encoder.layers.10.block.1.norm.weight": "torch.float32",
+          "encoder.layers.10.block.1.norm.bias": "torch.float32",
+          "encoder.layers.10.block.3.conv.weight": "torch.float32",
+          "encoder.layers.10.block.3.conv.bias": "torch.float32",
+          "encoder.layers.10.block.3.norm.weight": "torch.float32",
+          "encoder.layers.10.block.3.norm.bias": "torch.float32",
+          "encoder.layers.10.shortcut.conv.weight": "torch.float32",
+          "encoder.layers.10.shortcut.conv.bias": "torch.float32",
+          "encoder.layers.10.shortcut.norm.weight": "torch.float32",
+          "encoder.layers.10.shortcut.norm.bias": "torch.float32",
+          "encoder.layers.12.conv.weight": "torch.float32",
+          "encoder.layers.12.conv.bias": "torch.float32",
+          "encoder.layers.12.norm.weight": "torch.float32",
+          "encoder.layers.12.norm.bias": "torch.float32",
+          "encoder.layers.13.lstm.weight_ih_l0": "torch.float32",
+          "encoder.layers.13.lstm.weight_hh_l0": "torch.float32",
+          "encoder.layers.13.lstm.bias_ih_l0": "torch.float32",
+          "encoder.layers.13.lstm.bias_hh_l0": "torch.float32",
+          "encoder.layers.13.lstm.weight_ih_l1": "torch.float32",
+          "encoder.layers.13.lstm.weight_hh_l1": "torch.float32",
+          "encoder.layers.13.lstm.bias_ih_l1": "torch.float32",
+          "encoder.layers.13.lstm.bias_hh_l1": "torch.float32",
+          "encoder.layers.15.conv.weight": "torch.float32",
+          "encoder.layers.15.conv.bias": "torch.float32",
+          "encoder.layers.15.norm.weight": "torch.float32",
+          "encoder.layers.15.norm.bias": "torch.float32",
+          "decoder.layers.0.conv.weight": "torch.float32",
+          "decoder.layers.0.conv.bias": "torch.float32",
+          "decoder.layers.0.norm.weight": "torch.float32",
+          "decoder.layers.0.norm.bias": "torch.float32",
+          "decoder.layers.1.lstm.weight_ih_l0": "torch.float32",
+          "decoder.layers.1.lstm.weight_hh_l0": "torch.float32",
+          "decoder.layers.1.lstm.bias_ih_l0": "torch.float32",
+          "decoder.layers.1.lstm.bias_hh_l0": "torch.float32",
+          "decoder.layers.1.lstm.weight_ih_l1": "torch.float32",
+          "decoder.layers.1.lstm.weight_hh_l1": "torch.float32",
+          "decoder.layers.1.lstm.bias_ih_l1": "torch.float32",
+          "decoder.layers.1.lstm.bias_hh_l1": "torch.float32",
+          "decoder.layers.3.conv.weight": "torch.float32",
+          "decoder.layers.3.conv.bias": "torch.float32",
+          "decoder.layers.3.norm.weight": "torch.float32",
+          "decoder.layers.3.norm.bias": "torch.float32",
+          "decoder.layers.4.block.1.conv.weight": "torch.float32",
+          "decoder.layers.4.block.1.conv.bias": "torch.float32",
+          "decoder.layers.4.block.1.norm.weight": "torch.float32",
+          "decoder.layers.4.block.1.norm.bias": "torch.float32",
+          "decoder.layers.4.block.3.conv.weight": "torch.float32",
+          "decoder.layers.4.block.3.conv.bias": "torch.float32",
+          "decoder.layers.4.block.3.norm.weight": "torch.float32",
+          "decoder.layers.4.block.3.norm.bias": "torch.float32",
+          "decoder.layers.4.shortcut.conv.weight": "torch.float32",
+          "decoder.layers.4.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.4.shortcut.norm.weight": "torch.float32",
+          "decoder.layers.4.shortcut.norm.bias": "torch.float32",
+          "decoder.layers.6.conv.weight": "torch.float32",
+          "decoder.layers.6.conv.bias": "torch.float32",
+          "decoder.layers.6.norm.weight": "torch.float32",
+          "decoder.layers.6.norm.bias": "torch.float32",
+          "decoder.layers.7.block.1.conv.weight": "torch.float32",
+          "decoder.layers.7.block.1.conv.bias": "torch.float32",
+          "decoder.layers.7.block.1.norm.weight": "torch.float32",
+          "decoder.layers.7.block.1.norm.bias": "torch.float32",
+          "decoder.layers.7.block.3.conv.weight": "torch.float32",
+          "decoder.layers.7.block.3.conv.bias": "torch.float32",
+          "decoder.layers.7.block.3.norm.weight": "torch.float32",
+          "decoder.layers.7.block.3.norm.bias": "torch.float32",
+          "decoder.layers.7.shortcut.conv.weight": "torch.float32",
+          "decoder.layers.7.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.7.shortcut.norm.weight": "torch.float32",
+          "decoder.layers.7.shortcut.norm.bias": "torch.float32",
+          "decoder.layers.9.conv.weight": "torch.float32",
+          "decoder.layers.9.conv.bias": "torch.float32",
+          "decoder.layers.9.norm.weight": "torch.float32",
+          "decoder.layers.9.norm.bias": "torch.float32",
+          "decoder.layers.10.block.1.conv.weight": "torch.float32",
+          "decoder.layers.10.block.1.conv.bias": "torch.float32",
+          "decoder.layers.10.block.1.norm.weight": "torch.float32",
+          "decoder.layers.10.block.1.norm.bias": "torch.float32",
+          "decoder.layers.10.block.3.conv.weight": "torch.float32",
+          "decoder.layers.10.block.3.conv.bias": "torch.float32",
+          "decoder.layers.10.block.3.norm.weight": "torch.float32",
+          "decoder.layers.10.block.3.norm.bias": "torch.float32",
+          "decoder.layers.10.shortcut.conv.weight": "torch.float32",
+          "decoder.layers.10.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.10.shortcut.norm.weight": "torch.float32",
+          "decoder.layers.10.shortcut.norm.bias": "torch.float32",
+          "decoder.layers.12.conv.weight": "torch.float32",
+          "decoder.layers.12.conv.bias": "torch.float32",
+          "decoder.layers.12.norm.weight": "torch.float32",
+          "decoder.layers.12.norm.bias": "torch.float32",
+          "decoder.layers.13.block.1.conv.weight": "torch.float32",
+          "decoder.layers.13.block.1.conv.bias": "torch.float32",
+          "decoder.layers.13.block.1.norm.weight": "torch.float32",
+          "decoder.layers.13.block.1.norm.bias": "torch.float32",
+          "decoder.layers.13.block.3.conv.weight": "torch.float32",
+          "decoder.layers.13.block.3.conv.bias": "torch.float32",
+          "decoder.layers.13.block.3.norm.weight": "torch.float32",
+          "decoder.layers.13.block.3.norm.bias": "torch.float32",
+          "decoder.layers.13.shortcut.conv.weight": "torch.float32",
+          "decoder.layers.13.shortcut.conv.bias": "torch.float32",
+          "decoder.layers.13.shortcut.norm.weight": "torch.float32",
+          "decoder.layers.13.shortcut.norm.bias": "torch.float32",
+          "decoder.layers.15.conv.weight": "torch.float32",
+          "decoder.layers.15.conv.bias": "torch.float32",
+          "decoder.layers.15.norm.weight": "torch.float32",
+          "decoder.layers.15.norm.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {
+          "quantizer.layers.0.codebook.inited": "torch.float32",
+          "quantizer.layers.0.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.0.codebook.embed": "torch.float32",
+          "quantizer.layers.0.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.1.codebook.inited": "torch.float32",
+          "quantizer.layers.1.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.1.codebook.embed": "torch.float32",
+          "quantizer.layers.1.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.2.codebook.inited": "torch.float32",
+          "quantizer.layers.2.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.2.codebook.embed": "torch.float32",
+          "quantizer.layers.2.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.3.codebook.inited": "torch.float32",
+          "quantizer.layers.3.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.3.codebook.embed": "torch.float32",
+          "quantizer.layers.3.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.4.codebook.inited": "torch.float32",
+          "quantizer.layers.4.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.4.codebook.embed": "torch.float32",
+          "quantizer.layers.4.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.5.codebook.inited": "torch.float32",
+          "quantizer.layers.5.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.5.codebook.embed": "torch.float32",
+          "quantizer.layers.5.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.6.codebook.inited": "torch.float32",
+          "quantizer.layers.6.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.6.codebook.embed": "torch.float32",
+          "quantizer.layers.6.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.7.codebook.inited": "torch.float32",
+          "quantizer.layers.7.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.7.codebook.embed": "torch.float32",
+          "quantizer.layers.7.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.8.codebook.inited": "torch.float32",
+          "quantizer.layers.8.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.8.codebook.embed": "torch.float32",
+          "quantizer.layers.8.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.9.codebook.inited": "torch.float32",
+          "quantizer.layers.9.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.9.codebook.embed": "torch.float32",
+          "quantizer.layers.9.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.10.codebook.inited": "torch.float32",
+          "quantizer.layers.10.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.10.codebook.embed": "torch.float32",
+          "quantizer.layers.10.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.11.codebook.inited": "torch.float32",
+          "quantizer.layers.11.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.11.codebook.embed": "torch.float32",
+          "quantizer.layers.11.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.12.codebook.inited": "torch.float32",
+          "quantizer.layers.12.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.12.codebook.embed": "torch.float32",
+          "quantizer.layers.12.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.13.codebook.inited": "torch.float32",
+          "quantizer.layers.13.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.13.codebook.embed": "torch.float32",
+          "quantizer.layers.13.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.14.codebook.inited": "torch.float32",
+          "quantizer.layers.14.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.14.codebook.embed": "torch.float32",
+          "quantizer.layers.14.codebook.embed_avg": "torch.float32",
+          "quantizer.layers.15.codebook.inited": "torch.float32",
+          "quantizer.layers.15.codebook.cluster_size": "torch.float32",
+          "quantizer.layers.15.codebook.embed": "torch.float32",
+          "quantizer.layers.15.codebook.embed_avg": "torch.float32"
+        },
+        "audio_feature_extractor_exported": true,
+        "audio_task": "codec",
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 290
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 224,
+        "candidate_tensors": 224,
+        "compared_tensors": 224,
+        "reference_elements": 19066998,
+        "candidate_elements": 19066998,
+        "compared_elements": 19066998,
+        "coverage": 1.0,
+        "exactly_equal_elements": 19066998,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 19066998,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "held_out_behavior": {
+        "cases": 12,
+        "exact_processor_outputs": 12,
+        "exact_audio_scale_sequences": 12,
+        "exact_padding_values": 12,
+        "code_coordinates": 37800,
+        "exact_code_coordinates": 37800,
+        "exact_code_sequences": 12,
+        "decoded_coordinates": 1532160,
+        "exact_decoded_coordinates": 1532160,
+        "exact_decoded_waveforms": 12,
+        "decoded_max_abs_error": 0.0,
+        "decoded_rmse": 0.0
+      },
+      "reference_observations": [
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 17760,
+          "waveform_sha256": "952b6cc8d8311c6e2d2c8e3a6b22177ad2050d634a7c81cdb4be1dd2d8d37818",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "23e341499361259f7c1316d8b117a64aa1eaa61f65a90bc963074b7968b9c8ce"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fec9afb531a8e036eba1d81651896e1b2c1f78b0234dbadc8e7549563f09407b"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0040af06bae42bd428bdcdbdd99412256208116d75cc83fb7e1eb5dad6af552d"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "167604adfc7272b69cafc7cc8f338ae7b96da9537b3a30029505fd8af443854b"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 17760,
+          "waveform_sha256": "952b6cc8d8311c6e2d2c8e3a6b22177ad2050d634a7c81cdb4be1dd2d8d37818",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "23e341499361259f7c1316d8b117a64aa1eaa61f65a90bc963074b7968b9c8ce"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fec9afb531a8e036eba1d81651896e1b2c1f78b0234dbadc8e7549563f09407b"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "6811ee292e4a013e38f7db9ac6820438c13d7fbfbe75289bad7913eb367a436f"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6723b4c20a471e2b6862456097ed73695971a0b064fe286d85f4d302fb72392c"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 24480,
+          "waveform_sha256": "9bc885e90b2e61ef17bdfaf88880a6c4047b3dd234afc7106cd958c5f53e1607",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1f5b2804e86a9d2eedd512ef7fb520904062d3cac518fde53a28858c2e196b5d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6ee9261aaff3aa5a1fea8e3b8fce76225f2a634f6dc8d06a1f77c8c389280abf"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "84bed6efd2176c77642551f772c76c59da0361b3db413dfae8efebf5846b3695"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1c7e11e12e4b988a6000b1b646f4101839338bd536eb1f7a10470e2468e63d88"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b01eeb9f937c5a86e4a878cd4e45c82ccc751d936ab568cb66387efe3d2df916"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 24480,
+          "waveform_sha256": "9bc885e90b2e61ef17bdfaf88880a6c4047b3dd234afc7106cd958c5f53e1607",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1f5b2804e86a9d2eedd512ef7fb520904062d3cac518fde53a28858c2e196b5d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6ee9261aaff3aa5a1fea8e3b8fce76225f2a634f6dc8d06a1f77c8c389280abf"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "9b7da755046b6734bb4ffc48f8577007d326fd7e25eb33d67b58f0316c70f394"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "af00f70ddb91c8b4dbc4b6482ff99a7b041d3e584ef834caebc7be1a426c88e3"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b01eeb9f937c5a86e4a878cd4e45c82ccc751d936ab568cb66387efe3d2df916"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 32160,
+          "waveform_sha256": "e57f2625e6437d2e40b5fee66f9c1e20d8ff29cb28b14c278c0bb8b6a5012527",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8d145989ff014d6c45b0395ab9c0c200fc410e4f79ab50c65bc854363a7c632e"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "84ba767928967a73eed33565a40eb6e668adbababe9957363feee5dbb3da3ee7"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "6fd8e373e00ad27712286313bc2f2455f4dbf220bcbc986e5ec6305dbdbe6e62"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "ad8094eaf5698d238620a63ad74a10b25c6acec83e90b8f896196713feb61022"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "96a004809210b73b0e68105a00706fd9944b86470a2ee3da5b53cb6a41cc46ab"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 32160,
+          "waveform_sha256": "e57f2625e6437d2e40b5fee66f9c1e20d8ff29cb28b14c278c0bb8b6a5012527",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8d145989ff014d6c45b0395ab9c0c200fc410e4f79ab50c65bc854363a7c632e"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "84ba767928967a73eed33565a40eb6e668adbababe9957363feee5dbb3da3ee7"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "3b69d6ac54b936f551217e1336a112bd112eecb08e5534b0e6c700ec50e0f2cb"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "d46eb20e1861bc84f537bbf19876f1207f91917e0a868ee26cab9fa703edd5e9"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "96a004809210b73b0e68105a00706fd9944b86470a2ee3da5b53cb6a41cc46ab"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 42720,
+          "waveform_sha256": "5011eecfd19119a43943f5a00c5f69b707fd9e39577ba0eb20d51b57fc277647",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "262cd275d3fd3afe2d203a174e346fc1791502cecf4f5c78fed3a15ed3400276"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8d554ad63fd16566ac240bc570b824515b6a050d425586b31dff96a5e1f68854"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "82ab3c1dc5bcd46d705970b64d6dc40e2df6ea7ad52e28f73aaa89bdcf05bcba"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "17ec6fe57eeaed53453bedcdfefaec997ed45f7faa7f6f015d4dbbf57ba7bc65"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e8692d2e2cb1ecd66a1198b8260ad4c153aabdcbec9b1f181562cd5784705028"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 42720,
+          "waveform_sha256": "5011eecfd19119a43943f5a00c5f69b707fd9e39577ba0eb20d51b57fc277647",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "262cd275d3fd3afe2d203a174e346fc1791502cecf4f5c78fed3a15ed3400276"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8d554ad63fd16566ac240bc570b824515b6a050d425586b31dff96a5e1f68854"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "10f9fa6b3ecedabb322f79373e3e489502c1a073fb88582aaf3d6cf4328b2dbb"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4db6fde0cecd5cb5b8d82550e64bfc3977b1e6baf5811e8da2f815e2519935b4"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e8692d2e2cb1ecd66a1198b8260ad4c153aabdcbec9b1f181562cd5784705028"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 53280,
+          "waveform_sha256": "3c7d64964fab09ce7c35bdaec4f2c73d5bfb3724161ed10d35528b59f9215d6c",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "bb4c722c15572b52c685056c156ff8c5ce0016e0cc422c7dce406ff061d8b005"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d143fd14b0ebcc32634e46394e07a541068923fa732211aaa9f628b366369e6b"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "98187a648cae7dab1814065ab9aab43506001948eeca524e4901b33f697278e9"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "06e03ebf1e99c5c0f24a96ccd243dab11571a983fc99abeb5012d9666aed0241"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2082ea68f3fa9c69cca6d3d8a35164576412b05ce8ef7bd82b7d9c70183bbaba"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "448f66d10d9a094fb3f8c874909f705f83bae843d0304bea3d4ff98ef7a0d1d0"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 53280,
+          "waveform_sha256": "3c7d64964fab09ce7c35bdaec4f2c73d5bfb3724161ed10d35528b59f9215d6c",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "bb4c722c15572b52c685056c156ff8c5ce0016e0cc422c7dce406ff061d8b005"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d143fd14b0ebcc32634e46394e07a541068923fa732211aaa9f628b366369e6b"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0b8e0345c1c89e7981af834b4007c6c09f343d4000500cf82bf6833c2d09f1f6"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c3c46d9b03de13b0ece118ddfbefae458a7d933fea2bd083d9ba84e754c5c2c3"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2082ea68f3fa9c69cca6d3d8a35164576412b05ce8ef7bd82b7d9c70183bbaba"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "448f66d10d9a094fb3f8c874909f705f83bae843d0304bea3d4ff98ef7a0d1d0"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 62880,
+          "waveform_sha256": "04fb0af303159e6b2f9601c03607266e4a668e0b4b3eb3cd2a9412f94374072a",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "42e32e164651f78a24fab20707ad15a0e8159dab6a33ef0195a3d7353f7cc1a9"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a8edfe2db3838d8de1e4628b78d6eea06b96c87f9b815273a9a164b005d6e058"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e52b1715574d021b0dac4a1db029609e284eb0133fd39092a5e6dcc7e7d94b61"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "d509ef47ccdbc38f79b9b10d18fb821b37667b6c3a81d56f4b4dedf4571aca1b"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d7d82a4bb68c5bd421328df849e0b800f2a82c883c31b3a8409f0bde83a3cca9"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7b742756fc11b83d6dd9cf7b7fffec768d69e6af87fac05c2907a95a5111b462"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 62880,
+          "waveform_sha256": "04fb0af303159e6b2f9601c03607266e4a668e0b4b3eb3cd2a9412f94374072a",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "42e32e164651f78a24fab20707ad15a0e8159dab6a33ef0195a3d7353f7cc1a9"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a8edfe2db3838d8de1e4628b78d6eea06b96c87f9b815273a9a164b005d6e058"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0c1107ab7c8ee02090fb4aa2eb5db07df7dfa3f4e1c33459417fa354934ebe7e"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "aeab7335f9a99359c18de79b208e8175796ea85bd23c06feef99c7ae0eca77c0"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d7d82a4bb68c5bd421328df849e0b800f2a82c883c31b3a8409f0bde83a3cca9"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7b742756fc11b83d6dd9cf7b7fffec768d69e6af87fac05c2907a95a5111b462"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        }
+      ],
+      "candidate_observations": [
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 17760,
+          "waveform_sha256": "952b6cc8d8311c6e2d2c8e3a6b22177ad2050d634a7c81cdb4be1dd2d8d37818",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "23e341499361259f7c1316d8b117a64aa1eaa61f65a90bc963074b7968b9c8ce"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fec9afb531a8e036eba1d81651896e1b2c1f78b0234dbadc8e7549563f09407b"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0040af06bae42bd428bdcdbdd99412256208116d75cc83fb7e1eb5dad6af552d"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "167604adfc7272b69cafc7cc8f338ae7b96da9537b3a30029505fd8af443854b"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "silence",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 17760,
+          "waveform_sha256": "952b6cc8d8311c6e2d2c8e3a6b22177ad2050d634a7c81cdb4be1dd2d8d37818",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "23e341499361259f7c1316d8b117a64aa1eaa61f65a90bc963074b7968b9c8ce"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fec9afb531a8e036eba1d81651896e1b2c1f78b0234dbadc8e7549563f09407b"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "6811ee292e4a013e38f7db9ac6820438c13d7fbfbe75289bad7913eb367a436f"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6723b4c20a471e2b6862456097ed73695971a0b064fe286d85f4d302fb72392c"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 24480,
+          "waveform_sha256": "9bc885e90b2e61ef17bdfaf88880a6c4047b3dd234afc7106cd958c5f53e1607",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1f5b2804e86a9d2eedd512ef7fb520904062d3cac518fde53a28858c2e196b5d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6ee9261aaff3aa5a1fea8e3b8fce76225f2a634f6dc8d06a1f77c8c389280abf"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "84bed6efd2176c77642551f772c76c59da0361b3db413dfae8efebf5846b3695"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "1c7e11e12e4b988a6000b1b646f4101839338bd536eb1f7a10470e2468e63d88"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b01eeb9f937c5a86e4a878cd4e45c82ccc751d936ab568cb66387efe3d2df916"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "impulse",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 24480,
+          "waveform_sha256": "9bc885e90b2e61ef17bdfaf88880a6c4047b3dd234afc7106cd958c5f53e1607",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "1f5b2804e86a9d2eedd512ef7fb520904062d3cac518fde53a28858c2e196b5d"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6ee9261aaff3aa5a1fea8e3b8fce76225f2a634f6dc8d06a1f77c8c389280abf"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "9b7da755046b6734bb4ffc48f8577007d326fd7e25eb33d67b58f0316c70f394"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "af00f70ddb91c8b4dbc4b6482ff99a7b041d3e584ef834caebc7be1a426c88e3"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b01eeb9f937c5a86e4a878cd4e45c82ccc751d936ab568cb66387efe3d2df916"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 32160,
+          "waveform_sha256": "e57f2625e6437d2e40b5fee66f9c1e20d8ff29cb28b14c278c0bb8b6a5012527",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8d145989ff014d6c45b0395ab9c0c200fc410e4f79ab50c65bc854363a7c632e"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "84ba767928967a73eed33565a40eb6e668adbababe9957363feee5dbb3da3ee7"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "6fd8e373e00ad27712286313bc2f2455f4dbf220bcbc986e5ec6305dbdbe6e62"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "ad8094eaf5698d238620a63ad74a10b25c6acec83e90b8f896196713feb61022"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "96a004809210b73b0e68105a00706fd9944b86470a2ee3da5b53cb6a41cc46ab"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "tone",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 32160,
+          "waveform_sha256": "e57f2625e6437d2e40b5fee66f9c1e20d8ff29cb28b14c278c0bb8b6a5012527",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "8d145989ff014d6c45b0395ab9c0c200fc410e4f79ab50c65bc854363a7c632e"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "84ba767928967a73eed33565a40eb6e668adbababe9957363feee5dbb3da3ee7"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "3b69d6ac54b936f551217e1336a112bd112eecb08e5534b0e6c700ec50e0f2cb"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "d46eb20e1861bc84f537bbf19876f1207f91917e0a868ee26cab9fa703edd5e9"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "96a004809210b73b0e68105a00706fd9944b86470a2ee3da5b53cb6a41cc46ab"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 42720,
+          "waveform_sha256": "5011eecfd19119a43943f5a00c5f69b707fd9e39577ba0eb20d51b57fc277647",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "262cd275d3fd3afe2d203a174e346fc1791502cecf4f5c78fed3a15ed3400276"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8d554ad63fd16566ac240bc570b824515b6a050d425586b31dff96a5e1f68854"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "82ab3c1dc5bcd46d705970b64d6dc40e2df6ea7ad52e28f73aaa89bdcf05bcba"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "17ec6fe57eeaed53453bedcdfefaec997ed45f7faa7f6f015d4dbbf57ba7bc65"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e8692d2e2cb1ecd66a1198b8260ad4c153aabdcbec9b1f181562cd5784705028"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "chirp",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 42720,
+          "waveform_sha256": "5011eecfd19119a43943f5a00c5f69b707fd9e39577ba0eb20d51b57fc277647",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                48000
+              ],
+              "dtype": "torch.int32",
+              "sha256": "262cd275d3fd3afe2d203a174e346fc1791502cecf4f5c78fed3a15ed3400276"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                48000
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8d554ad63fd16566ac240bc570b824515b6a050d425586b31dff96a5e1f68854"
+            }
+          },
+          "codes": {
+            "shape": [
+              2,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "10f9fa6b3ecedabb322f79373e3e489502c1a073fb88582aaf3d6cf4328b2dbb"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              48000
+            ],
+            "dtype": "torch.float32",
+            "sha256": "4db6fde0cecd5cb5b8d82550e64bfc3977b1e6baf5811e8da2f815e2519935b4"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e8692d2e2cb1ecd66a1198b8260ad4c153aabdcbec9b1f181562cd5784705028"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 53280,
+          "waveform_sha256": "3c7d64964fab09ce7c35bdaec4f2c73d5bfb3724161ed10d35528b59f9215d6c",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "bb4c722c15572b52c685056c156ff8c5ce0016e0cc422c7dce406ff061d8b005"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d143fd14b0ebcc32634e46394e07a541068923fa732211aaa9f628b366369e6b"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "98187a648cae7dab1814065ab9aab43506001948eeca524e4901b33f697278e9"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "06e03ebf1e99c5c0f24a96ccd243dab11571a983fc99abeb5012d9666aed0241"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2082ea68f3fa9c69cca6d3d8a35164576412b05ce8ef7bd82b7d9c70183bbaba"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "448f66d10d9a094fb3f8c874909f705f83bae843d0304bea3d4ff98ef7a0d1d0"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "mixture",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 53280,
+          "waveform_sha256": "3c7d64964fab09ce7c35bdaec4f2c73d5bfb3724161ed10d35528b59f9215d6c",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "bb4c722c15572b52c685056c156ff8c5ce0016e0cc422c7dce406ff061d8b005"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d143fd14b0ebcc32634e46394e07a541068923fa732211aaa9f628b366369e6b"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0b8e0345c1c89e7981af834b4007c6c09f343d4000500cf82bf6833c2d09f1f6"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c3c46d9b03de13b0ece118ddfbefae458a7d933fea2bd083d9ba84e754c5c2c3"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2082ea68f3fa9c69cca6d3d8a35164576412b05ce8ef7bd82b7d9c70183bbaba"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "448f66d10d9a094fb3f8c874909f705f83bae843d0304bea3d4ff98ef7a0d1d0"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 3.0,
+          "input_samples": 62880,
+          "waveform_sha256": "04fb0af303159e6b2f9601c03607266e4a668e0b4b3eb3cd2a9412f94374072a",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "42e32e164651f78a24fab20707ad15a0e8159dab6a33ef0195a3d7353f7cc1a9"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a8edfe2db3838d8de1e4628b78d6eea06b96c87f9b815273a9a164b005d6e058"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              2,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e52b1715574d021b0dac4a1db029609e284eb0133fd39092a5e6dcc7e7d94b61"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "d509ef47ccdbc38f79b9b10d18fb821b37667b6c3a81d56f4b4dedf4571aca1b"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d7d82a4bb68c5bd421328df849e0b800f2a82c883c31b3a8409f0bde83a3cca9"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7b742756fc11b83d6dd9cf7b7fffec768d69e6af87fac05c2907a95a5111b462"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        },
+        {
+          "signal": "noise",
+          "bandwidth_kbps": 24.0,
+          "input_samples": 62880,
+          "waveform_sha256": "04fb0af303159e6b2f9601c03607266e4a668e0b4b3eb3cd2a9412f94374072a",
+          "processor_outputs": {
+            "padding_mask": {
+              "shape": [
+                1,
+                95520
+              ],
+              "dtype": "torch.int32",
+              "sha256": "42e32e164651f78a24fab20707ad15a0e8159dab6a33ef0195a3d7353f7cc1a9"
+            },
+            "input_values": {
+              "shape": [
+                1,
+                2,
+                95520
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a8edfe2db3838d8de1e4628b78d6eea06b96c87f9b815273a9a164b005d6e058"
+            }
+          },
+          "codes": {
+            "shape": [
+              3,
+              1,
+              16,
+              150
+            ],
+            "dtype": "torch.int64",
+            "sha256": "0c1107ab7c8ee02090fb4aa2eb5db07df7dfa3f4e1c33459417fa354934ebe7e"
+          },
+          "decoded_audio": {
+            "shape": [
+              1,
+              2,
+              95520
+            ],
+            "dtype": "torch.float32",
+            "sha256": "aeab7335f9a99359c18de79b208e8175796ea85bd23c06feef99c7ae0eca77c0"
+          },
+          "scales": [
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d7d82a4bb68c5bd421328df849e0b800f2a82c883c31b3a8409f0bde83a3cca9"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7b742756fc11b83d6dd9cf7b7fffec768d69e6af87fac05c2907a95a5111b462"
+            },
+            {
+              "shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b2c6a8c83803ff33154c42757d93d1a39e827f2745b79e92eb09bd4db3aa8e7a"
+            }
+          ],
+          "last_frame_pad_length": 148
+        }
+      ],
+      "inactive_state_control": {
+        "reference": {
+          "changed_registered_values": 2113552,
+          "codes_unchanged": true,
+          "decoded_audio_unchanged": true
+        },
+        "candidate": {
+          "changed_registered_values": 2113552,
+          "codes_unchanged": true,
+          "decoded_audio_unchanged": true
+        }
+      },
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 290,
+        "files_matching_sha256": 3
+      }
+    }
+  ]
+}

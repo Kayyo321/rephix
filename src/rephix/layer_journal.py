@@ -119,9 +119,11 @@ class LayerJournal:
         return row[2]
 
     def _payload(self, tensor):
-        return memoryview(
-            tensor.detach().cpu().contiguous().reshape(-1).view(self.torch.uint8).numpy()
-        )
+        flat = tensor.detach().cpu().contiguous().reshape(-1)
+        # Singleton views can count as contiguous while retaining a nonunit
+        # stride. Normalize that stride before reinterpreting elements as bytes.
+        flat = flat.as_strided(flat.shape, (1,))
+        return memoryview(flat.view(self.torch.uint8).numpy())
 
     def _check_values(self, values, path, shape, dtype):
         if not isinstance(values, self.torch.Tensor) or tuple(values.shape) != shape:

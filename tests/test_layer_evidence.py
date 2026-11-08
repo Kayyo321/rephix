@@ -21,6 +21,30 @@ HAS_HF = all(
 
 @unittest.skipUnless(HAS_HF, "needs optional Transformers dependencies")
 class LayerEvidenceTests(unittest.TestCase):
+    def test_journal_captures_singleton_views_with_nonunit_strides(self):
+        import torch
+
+        from rephix.layer_journal import LayerJournal
+
+        for dtype in (torch.float16, torch.bfloat16, torch.float32, torch.float64, torch.int64):
+            with self.subTest(dtype=dtype), tempfile.TemporaryDirectory() as directory:
+                values = torch.arange(100, dtype=dtype)
+                inputs = values.as_strided((1, 1, 1), (64, 32, 16), storage_offset=7)
+                response = values.as_strided((1, 1, 1), (28, 28, 28), storage_offset=11)
+                path = Path(directory) / "observations.sqlite3"
+                with LayerJournal(path, torch, binding="singleton") as journal:
+                    actual = journal.observe(
+                        "view", inputs, (1, 1, 1), dtype, oracle=lambda *_: response
+                    )
+                    torch.testing.assert_close(actual, response, atol=0, rtol=0)
+                    journal.finish()
+                with LayerJournal(path, torch, binding="singleton", readonly=True) as journal:
+                    replay = journal.observe("view", inputs, (1, 1, 1), dtype, oracle=None)
+                    torch.testing.assert_close(replay, response, atol=0, rtol=0)
+                    self.assertEqual(journal.fresh_calls, 0)
+                    self.assertEqual(journal.reused_calls, 1)
+                    journal.finish()
+
     def _source(self, path):
         import torch
         from tokenizers import Tokenizer

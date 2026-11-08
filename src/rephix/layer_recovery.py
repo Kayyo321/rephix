@@ -31,6 +31,12 @@ from .batch_norm_recovery import (
     recover_batch_norm_buffer,
     validate_batch_norm,
 )
+from .conv_transpose_recovery import (
+    CONV_TRANSPOSE_TYPES,
+    PARAMETRIZED_CONV_TRANSPOSE1D,
+    recover_conv_transpose,
+    validate_conv_transpose,
+)
 from .convnext_recovery import (
     CONVNEXT_GRN,
     CONVNEXT_LAYER_NORMS,
@@ -58,6 +64,21 @@ from .deepseek_experts import (
     recover_router_correction,
     recover_router_weight,
 )
+from .dense_vision_recovery import (
+    DENSE_VISION_TYPES,
+    DPT_EMBEDDINGS,
+    dense_vision_model_wrapper,
+    observe_dpt_embeddings,
+    recover_dpt_embeddings,
+    validate_dpt_embeddings,
+)
+from .encodec_recovery import (
+    ENCODEC_BUFFER_OPERATIONS,
+    ENCODEC_CODEBOOK,
+    observe_encodec_buffer,
+    recover_encodec_buffer,
+    validate_encodec_codebook,
+)
 from .encoder_recovery import ENCODER_MODEL_TYPES, encoder_auto_model
 from .fused_expert_recovery import (
     GROUPED_EXPERT_BANKS,
@@ -84,6 +105,7 @@ from .group_norm import recover_group_norm, validate_group_norm
 from .hf import _deps, _device, _load_tokenizer
 from .io import write_json
 from .layer_staging import LayerStager
+from .lstm_recovery import observe_lstm, recover_lstm, validate_lstm
 from .multimodal_operators import (
     CLIP_VISION_EMBEDDINGS,
     LLAVA_IMAGE_NEWLINE_MODELS,
@@ -201,8 +223,10 @@ _VISION_LANGUAGE_ASSETS = (
 )
 _PROBE_PLAN_VERSION = 1
 _JOURNAL_FILENAME = "observations.sqlite3"
-_BUFFER_KINDS = {"bart_logits_bias", "router_correction", "swin_relative_index"} | set(
-    BATCH_NORM_BUFFER_OPERATIONS.values()
+_BUFFER_KINDS = (
+    {"bart_logits_bias", "router_correction", "swin_relative_index"}
+    | set(BATCH_NORM_BUFFER_OPERATIONS.values())
+    | set(ENCODEC_BUFFER_OPERATIONS.values())
 )
 _GPTOSS_KINDS = frozenset(GPTOSS_OPERATORS.values())
 
@@ -237,6 +261,10 @@ def _operator(torch, module, *, direct):
         return "llava_image_newline"
     if direct and qualified_name == GEMMA3_PROJECTOR:
         return "gemma3_projector"
+    if direct and qualified_name == DPT_EMBEDDINGS:
+        return "dpt_embeddings"
+    if direct and cls is torch.nn.LSTM:
+        return "lstm_gates"
     if direct and qualified_name in AUDIO_MASK_MODELS:
         return "audio_mask_embedding"
     if direct and qualified_name == WAVLM_POSITION_GATE:
@@ -252,9 +280,12 @@ def _operator(torch, module, *, direct):
         return "swin_logit_scale"
     if direct and (
         qualified_name == WEIGHT_NORM_PARAMETRIZATIONS
-        or (cls is torch.nn.Conv1d and hasattr(module, "weight_g"))
+        or (cls in (torch.nn.Conv1d, torch.nn.ConvTranspose1d) and hasattr(module, "weight_g"))
     ):
         return "weight_norm"
+    if direct and qualified_name in CONV_TRANSPOSE_TYPES | {PARAMETRIZED_CONV_TRANSPOSE1D}:
+        validate_conv_transpose(module)
+        return "conv_transpose"
     if direct and qualified_name in CONVNEXT_LAYER_NORMS:
         return "convnext_norm"
     if direct and qualified_name == CONVNEXT_LAYER_SCALE:
@@ -312,12 +343,28 @@ def _operator(torch, module, *, direct):
     raise ValueError(f"unsupported parameterized operator {qualified_name}")
 
 
-def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
+def _plan(
+    torch, model, *, direct=False, relative_bias_mode="embedding", probe_inactive_state=False
+):
     names = {name for name, _ in model.named_parameters(remove_duplicate=False)}
     buffers = model.state_dict().keys() - names
     bart_bias = direct and _qualified_name(model) == _BART + "BartForConditionalGeneration"
     correction_probes = []
     for path, module in model.named_modules() if direct else ():
+        if _qualified_name(module) == ENCODEC_CODEBOOK:
+            validate_encodec_codebook(module)
+            if not probe_inactive_state:
+                raise ValueError(
+                    "Encodec inactive buffers require explicit registered-state observations; "
+                    "use --probe-inactive-state"
+                )
+            for local_name, operation in ENCODEC_BUFFER_OPERATIONS.items():
+                name = f"{path}.{local_name}" if path else local_name
+                value = getattr(module, local_name)
+                if name not in buffers or value.device.type != "cpu":
+                    raise ValueError(f"{path}: invalid persistent Encodec codebook state")
+                buffers.remove(name)
+                correction_probes.append((path, module, {"bias": value}, operation))
         if _qualified_name(module) in BATCH_NORM_TYPES:
             validate_batch_norm(module)
             if module.track_running_stats:
@@ -399,6 +446,12 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
             allowed = pending.keys()
         elif kind == "gemma3_projector":
             validate_gemma3_projector(module, pending)
+            allowed = pending.keys()
+        elif kind == "dpt_embeddings":
+            validate_dpt_embeddings(module, pending)
+            allowed = pending.keys()
+        elif kind == "lstm_gates":
+            validate_lstm(module, pending)
             allowed = pending.keys()
         elif kind == "audio_mask_embedding":
             validate_audio_mask_embedding(module, pending)
@@ -563,6 +616,7 @@ def recover_from_layer_calls(
     relative_bias_mode="embedding",
     relative_bias_bucket_device="cpu",
     ssm_rate_device="cpu",
+    probe_inactive_state=False,
     _journal=None,
 ):
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
@@ -594,6 +648,10 @@ def recover_from_layer_calls(
     observations. Its counter returns an int64 scalar from a chosen zero update.
     RWKV time mixtures and first offsets use native multiplication and addition,
     while :time_decay_exp exposes a controlled FP64 exponential.
+    LSTM :gate_weight and :gate_bias paths select named affine branches before
+    fused gate nonlinearities and bias addition. Encodec :codebook_embed uses
+    native decode IDs. Optional :inactive_state/<name> paths explicitly read
+    selected registered buffers that never participate in native inference.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -617,7 +675,13 @@ def recover_from_layer_calls(
     import torch
 
     _validate_probe_options(batch_size, relative_bias_mode)
-    plan = _plan(torch, model, direct=True, relative_bias_mode=relative_bias_mode)
+    plan = _plan(
+        torch,
+        model,
+        direct=True,
+        relative_bias_mode=relative_bias_mode,
+        probe_inactive_state=probe_inactive_state,
+    )
     calls = rows = scalars = recovered = recovered_buffers = buffer_probes = 0
     gauges = []
     relative_bias_gauges = []
@@ -702,6 +766,8 @@ def recover_from_layer_calls(
                 from .convolution import recover_conv3d
 
                 recover_conv3d(torch, module, pending, read, batch_size)
+            elif kind == "conv_transpose":
+                recover_conv_transpose(torch, module, pending, read, batch_size)
             elif kind in {"embedding", "scaled_embedding", "offset_embedding"}:
                 weight = module.weight
                 offset = module.offset if kind == "offset_embedding" else 0
@@ -735,6 +801,12 @@ def recover_from_layer_calls(
                 recover_llava_image_newline(module, pending, read)
             elif kind == "gemma3_projector":
                 recover_gemma3_projector(torch, module, read, batch_size)
+            elif kind == "dpt_embeddings":
+                recover_dpt_embeddings(torch, module, pending, read)
+            elif kind == "lstm_gates":
+                recover_lstm(torch, module, pending, read, batch_size)
+            elif kind in ENCODEC_BUFFER_OPERATIONS.values():
+                recover_encodec_buffer(torch, module, pending, read, batch_size, kind)
             elif kind == "audio_mask_embedding":
                 recover_audio_mask_embedding(module, pending, read)
             elif kind == "wavlm_position_gate":
@@ -779,8 +851,18 @@ def recover_from_layer_calls(
             else:
                 _normalization(torch, module, pending, kind, read)
 
+    inactive = [
+        {"module": path, "buffer": kind.partition("/")[2], "elements": pending["bias"].numel()}
+        for path, _, pending, kind in plan
+        if kind.startswith("inactive_state/")
+    ]
     return {
-        "observation_mode": "chosen_inputs_to_individual_layers",
+        "observation_mode": (
+            "chosen_layer_inputs_and_explicit_registered_state"
+            if inactive
+            else "chosen_inputs_to_individual_layers"
+        ),
+        "inactive_registered_state_observations": inactive,
         "parameterized_modules_probed": len(plan) - buffer_probes,
         "unique_parameter_elements_recovered": recovered,
         "persistent_buffer_elements_recovered": recovered_buffers,
@@ -818,18 +900,23 @@ def _observe_bart_logits_bias(torch, model, token):
 
 
 def _model_wrapper(config, causal, architecture=None):
-    is_vision = config.model_type in {
-        "convnext",
-        "convnextv2",
-        "deit",
-        "efficientnet",
-        "resnet",
-        "swin",
-        "swinv2",
-        "vit",
-    }
+    is_vision = (
+        config.model_type
+        in {
+            "convnext",
+            "convnextv2",
+            "deit",
+            "efficientnet",
+            "resnet",
+            "swin",
+            "swinv2",
+            "vit",
+        }
+        | DENSE_VISION_TYPES
+    )
     is_speech = (
-        config.model_type in {"moonshine", "speech_to_text", "whisper"} | AUDIO_ENCODER_TYPES
+        config.model_type
+        in {"encodec", "moonshine", "speech_to_text", "whisper"} | AUDIO_ENCODER_TYPES
     )
     is_encoder = (
         config.model_type in ENCODER_MODEL_TYPES
@@ -839,12 +926,18 @@ def _model_wrapper(config, causal, architecture=None):
     if architecture is not None and not is_encoder:
         raise ValueError("--architecture is supported only for native encoder-only models")
     wrapper = causal
-    if is_vision:
+    if config.model_type in DENSE_VISION_TYPES:
+        wrapper = dense_vision_model_wrapper(config)
+    elif is_vision:
         from transformers import AutoModelForImageClassification
 
         wrapper = AutoModelForImageClassification
     elif config.model_type in AUDIO_ENCODER_TYPES:
         wrapper, _ = audio_model_wrapper(config)
+    elif config.model_type == "encodec":
+        from transformers import AutoModel
+
+        wrapper = AutoModel
     elif is_speech:
         from transformers import AutoModelForSpeechSeq2Seq
 
@@ -912,6 +1005,8 @@ def _save_export_assets(tokenizer_class, config, source, destination, *, vision,
         if speech and processor.is_file():
             shutil.copyfile(processor, destination / processor.name)
     if vision:
+        return
+    if config.model_type == "encodec":
         return
     if config.model_type in AUDIO_ENCODER_TYPES and not audio_model_wrapper(config)[1]:
         return
@@ -1043,6 +1138,7 @@ def export_recovered_model(
     stage_layers=False,
     evidence_dir=None,
     restore_source_dtypes=False,
+    probe_inactive_state=False,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
@@ -1060,6 +1156,11 @@ def export_recovered_model(
     torch, AutoConfig, AutoModelForCausalLM, AutoTokenizer = _deps()
     device = _device(torch, device)
     config = AutoConfig.from_pretrained(source, local_files_only=True, trust_remote_code=False)
+    if config.model_type == "encodec" and not probe_inactive_state:
+        raise ValueError(
+            "Encodec inactive buffers require explicit registered-state observations; "
+            "use --probe-inactive-state"
+        )
     if getattr(config, "quantization_config", None) is not None:
         raise ValueError("layer recovery requires a dense, nonquantized model")
     model_dtype = {"auto": "auto", "float32": torch.float32, "float64": torch.float64}.get(dtype)
@@ -1155,6 +1256,9 @@ def export_recovered_model(
             provenance["export_buffer_dtypes"] = export_buffers
     if is_speech:
         provenance["audio_feature_extractor_exported"] = include_tokenizer
+        if config.model_type == "encodec":
+            provenance["tokenizer_exported"] = False
+            provenance["audio_task"] = "codec"
         if config.model_type in AUDIO_ENCODER_TYPES:
             _, ctc = audio_model_wrapper(config)
             provenance["tokenizer_exported"] = include_tokenizer and ctc
@@ -1193,6 +1297,8 @@ def export_recovered_model(
             },
             "provenance": provenance,
         }
+        if probe_inactive_state:
+            metadata["probe_inactive_state"] = True
         _, assets = prepare_bundle(evidence_dir, metadata, save_scaffold)
         journal_context = LayerJournal(
             evidence_dir / _JOURNAL_FILENAME, torch, binding=bundle_binding(evidence_dir)
@@ -1250,6 +1356,12 @@ def export_recovered_model(
             return observe_clip_class_embedding(torch, module, inputs.to(device))
         if name == GEMMA3_PROJECTOR:
             return observe_gemma3_projector(module, inputs.to(device))
+        if name == DPT_EMBEDDINGS:
+            return observe_dpt_embeddings(torch, module, inputs.to(device), operation)
+        if name == ENCODEC_CODEBOOK:
+            return observe_encodec_buffer(torch, module, inputs.to(device), operation)
+        if type(module) is torch.nn.LSTM:
+            return observe_lstm(torch, module, inputs.to(device), operation)
         if name == WAVLM_POSITION_GATE:
             return observe_wavlm_position_gate(torch, module, inputs.to(device))
         if name in BATCH_NORM_TYPES:
@@ -1263,7 +1375,8 @@ def export_recovered_model(
         if name == SWINV2_ATTENTION:
             return observe_swin_logit_scale(torch, module, inputs.to(device))
         if name == WEIGHT_NORM_PARAMETRIZATIONS or (
-            type(module) is torch.nn.Conv1d and hasattr(module, "weight_g")
+            type(module) in (torch.nn.Conv1d, torch.nn.ConvTranspose1d)
+            and hasattr(module, "weight_g")
         ):
             return observe_weight_norm(torch, module, inputs.to(device), operation)
         if name == CONVNEXT_LAYER_SCALE:
@@ -1305,6 +1418,7 @@ def export_recovered_model(
                 relative_bias_mode=relative_bias_mode,
                 relative_bias_bucket_device=device,
                 ssm_rate_device=device,
+                probe_inactive_state=probe_inactive_state,
                 _journal=journal,
             )
             if journal is not None:
@@ -1387,6 +1501,7 @@ def replay_layer_evidence(evidence_dir, output):
             relative_bias_mode=relative_bias_mode,
             relative_bias_bucket_device=device,
             ssm_rate_device=device,
+            probe_inactive_state=metadata.get("probe_inactive_state", False),
             _journal=journal,
         )
         journal.finish()
@@ -1418,6 +1533,7 @@ def _command(args):
         stage_layers=args.stage_layers,
         evidence_dir=args.evidence_dir,
         restore_source_dtypes=args.restore_source_dtypes,
+        probe_inactive_state=args.probe_inactive_state,
     )
 
 
@@ -1430,6 +1546,11 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument(
+        "--probe-inactive-state",
+        action="store_true",
+        help="also observe registered tensors that never affect native inference",
+    )
     recover.add_argument(
         "--restore-source-dtypes",
         action="store_true",

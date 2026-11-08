@@ -1,10 +1,12 @@
 """Recover stored weight-normalization coordinates through native primitives."""
 
+from .conv_transpose_recovery import recover_conv_transpose
 from .convolution import recover_conv1d
 from .native_operation import ProbeResult, capture_native_operation
 
 WEIGHT_NORM_PARAMETRIZATIONS = "torch.nn.utils.parametrize.ParametrizationList"
 WEIGHT_NORM_CONV1D = "torch.nn.utils.parametrize.ParametrizedConv1d"
+WEIGHT_NORM_CONV_TRANSPOSE1D = "torch.nn.utils.parametrize.ParametrizedConvTranspose1d"
 
 
 def _weight_norm_spec(module):
@@ -21,9 +23,9 @@ def _weight_norm_spec(module):
         and type(hook).__name__ == "WeightNorm"
         and hook.name == "weight"
     ]
-    if type(module) is torch.nn.Conv1d and len(hooks) == 1:
+    if type(module) in (torch.nn.Conv1d, torch.nn.ConvTranspose1d) and len(hooks) == 1:
         return module.weight_g, module.weight_v, hooks[0].dim, ("weight_g", "weight_v")
-    raise ValueError("expected native weight-normalized Conv1d parameters")
+    raise ValueError("expected native weight-normalized temporal convolution parameters")
 
 
 def validate_weight_norm(module, pending):
@@ -80,7 +82,12 @@ def recover_weight_norm(torch, module, pending, read, batch_size):
         def read_bias(inputs, shape):
             return read(inputs.to(dtype), shape, operation="wn_bias")
 
-        recover_conv1d(torch, module, {"bias": pending["bias"]}, read_bias, batch_size)
+        recover = (
+            recover_conv_transpose
+            if isinstance(module, torch.nn.ConvTranspose1d)
+            else recover_conv1d
+        )
+        recover(torch, module, {"bias": pending["bias"]}, read_bias, batch_size)
 
 
 def observe_weight_norm(torch, module, inputs, operation):
