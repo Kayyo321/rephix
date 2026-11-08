@@ -1,0 +1,1287 @@
+{
+ "seed0": {
+  "secret_region_revealed_after_runs": "20.self_attn.o_proj",
+  "plant_final_loss": 3.083259344100952,
+  "methods": {
+   "structured": {
+    "method": "structured",
+    "trainable_parameters": 215040,
+    "validation_nll": 3.7716266856080707,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.6454687403255535,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.065956302088281,
+     "low": 0.05862593151037424,
+     "high": 0.07420944129363088,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 1.0225078526867477
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.2434571067670865
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.6096487396744545
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5666666666666667
+    },
+    "retain_kl": 0.008487985886105115,
+    "agent": {},
+    "trial_summary": {
+     "screened_top_regions": [
+      "20.self_attn.v_proj",
+      "17.self_attn.v_proj",
+      "19.self_attn.v_proj",
+      "23.self_attn.v_proj",
+      "24.self_attn.v_proj",
+      "14.self_attn.v_proj",
+      "21.self_attn.v_proj",
+      "15.self_attn.v_proj",
+      "18.self_attn.v_proj",
+      "1.mlp.gate_proj",
+      "1.mlp.up_proj",
+      "2.mlp.gate_proj"
+     ],
+     "random_control_regions": [
+      "23.self_attn.q_proj",
+      "10.mlp.gate_proj",
+      "12.self_attn.k_proj",
+      "16.self_attn.o_proj",
+      "15.self_attn.o_proj",
+      "0.mlp.down_proj",
+      "3.mlp.up_proj",
+      "12.self_attn.q_proj",
+      "27.mlp.gate_proj",
+      "20.self_attn.o_proj",
+      "26.mlp.up_proj",
+      "29.self_attn.o_proj"
+     ],
+     "mean_validation_gain_top": 0.011747211035043836,
+     "mean_validation_gain_random_regions": -0.007859786003262315,
+     "mean_validation_gain_random_direction_in_top": 0.0018201764480362999,
+     "spearman_score_vs_validation_gain": 0.3817391304347826,
+     "permutation_p_value": 0.03799240151969606,
+     "selected_beats_random": true
+    },
+    "selected_regions": [
+     "20.self_attn.v_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "23.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "21.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "18.self_attn.v_proj",
+     "1.mlp.gate_proj",
+     "1.mlp.up_proj",
+     "2.mlp.gate_proj"
+    ],
+    "ranked_top": [
+     "20.self_attn.v_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "23.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "21.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "18.self_attn.v_proj",
+     "1.mlp.gate_proj",
+     "1.mlp.up_proj",
+     "2.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "0.mlp.up_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.gate_proj",
+     "1.mlp.down_proj",
+     "3.mlp.up_proj",
+     "25.mlp.gate_proj",
+     "4.mlp.gate_proj",
+     "24.mlp.gate_proj",
+     "4.mlp.up_proj",
+     "22.self_attn.v_proj",
+     "12.self_attn.v_proj"
+    ],
+    "region_class_test": {
+     "unrestricted_validation_nll": 3.7731318511427965,
+     "single_region_fits": [
+      {
+       "region": "20.self_attn.v_proj",
+       "validation_nll": 3.797979336470287,
+       "excess_over_unrestricted": {
+        "mean": 0.02484748532749079,
+        "low": 0.021423157594351816,
+        "high": 0.028125118727374145,
+        "groups": 6
+       },
+       "steps": 150
+      },
+      {
+       "region": "19.self_attn.v_proj",
+       "validation_nll": 3.798916377904225,
+       "excess_over_unrestricted": {
+        "mean": 0.025784526761428606,
+        "low": 0.022401511962970855,
+        "high": 0.030072626219820594,
+        "groups": 6
+       },
+       "steps": 150
+      },
+      {
+       "region": "17.self_attn.v_proj",
+       "validation_nll": 3.81201757285597,
+       "excess_over_unrestricted": {
+        "mean": 0.03888572171317392,
+        "low": 0.03658807470316766,
+        "high": 0.04120208998914129,
+        "groups": 6
+       },
+       "steps": 150
+      }
+     ],
+     "best_region": "20.self_attn.v_proj",
+     "status": "rejected_single_region"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "supported",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2693455872,
+     "peak_device_bytes": 3933921792,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 12.73,
+     "hypotheses": 0.07,
+     "structure": 173.3,
+     "identify": 53.52,
+     "fit": 28.85,
+     "evaluate": 12.25,
+     "export": 7.99
+    },
+    "run": null,
+    "kl_source_to_created": 0.036905343984757734,
+    "kl_source_to_base": 0.10333983883408897,
+    "planted_region_rank": 128,
+    "planted_layer_rank": 1,
+    "planted_region_selected": false,
+    "delta_x_export": {
+     "relative_error_delta_x": 1.0,
+     "cosine_delta_x": 0.0
+    },
+    "block_delta_vs_planted": {
+     "block": "20.self_attn",
+     "relative_error": 0.9553054068497023,
+     "cosine": 0.329021832429944,
+     "created_change_norm_ratio": 0.18457881054299694
+    },
+    "identify_best_region_is_planted": false
+   },
+   "random-subspace": {
+    "method": "random-subspace",
+    "trainable_parameters": 215040,
+    "validation_nll": 3.7724495368710116,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.6476078863809662,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.0638171560328683,
+     "low": 0.05748023597646075,
+     "high": 0.07090717709155088,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 1.0321653452534256
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.1649946868157917
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.602677379325708
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5666666666666667
+    },
+    "retain_kl": 0.008434313725142724,
+    "agent": {},
+    "trial_summary": {
+     "screened_top_regions": [
+      "20.self_attn.v_proj",
+      "17.self_attn.v_proj",
+      "19.self_attn.v_proj",
+      "23.self_attn.v_proj",
+      "24.self_attn.v_proj",
+      "14.self_attn.v_proj",
+      "21.self_attn.v_proj",
+      "15.self_attn.v_proj",
+      "18.self_attn.v_proj",
+      "1.mlp.gate_proj",
+      "1.mlp.up_proj",
+      "2.mlp.gate_proj"
+     ],
+     "random_control_regions": [
+      "23.self_attn.q_proj",
+      "10.mlp.gate_proj",
+      "12.self_attn.k_proj",
+      "16.self_attn.o_proj",
+      "15.self_attn.o_proj",
+      "0.mlp.down_proj",
+      "3.mlp.up_proj",
+      "12.self_attn.q_proj",
+      "27.mlp.gate_proj",
+      "20.self_attn.o_proj",
+      "26.mlp.up_proj",
+      "29.self_attn.o_proj"
+     ],
+     "mean_validation_gain_top": 0.011747211035043836,
+     "mean_validation_gain_random_regions": -0.007859786003262315,
+     "mean_validation_gain_random_direction_in_top": 0.0018201764480362999,
+     "spearman_score_vs_validation_gain": 0.3817391304347826,
+     "permutation_p_value": 0.03799240151969606,
+     "selected_beats_random": true
+    },
+    "selected_regions": [
+     "20.self_attn.v_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "23.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "21.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "18.self_attn.v_proj",
+     "1.mlp.gate_proj",
+     "1.mlp.up_proj",
+     "2.mlp.gate_proj"
+    ],
+    "ranked_top": [
+     "20.self_attn.v_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "23.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "21.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "18.self_attn.v_proj",
+     "1.mlp.gate_proj",
+     "1.mlp.up_proj",
+     "2.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "0.mlp.up_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.gate_proj",
+     "1.mlp.down_proj",
+     "3.mlp.up_proj",
+     "25.mlp.gate_proj",
+     "4.mlp.gate_proj",
+     "24.mlp.gate_proj",
+     "4.mlp.up_proj",
+     "22.self_attn.v_proj",
+     "12.self_attn.v_proj"
+    ],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "supported",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2693455872,
+     "peak_device_bytes": 3933921792,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 12.71,
+     "hypotheses": 0.07,
+     "structure": 174.71,
+     "identify": 0.0,
+     "fit": 33.57,
+     "evaluate": 12.29,
+     "export": 5.97
+    },
+    "run": null,
+    "kl_source_to_created": 0.03860437985209945
+   },
+   "random-regions": {
+    "method": "random-regions",
+    "trainable_parameters": 288768,
+    "validation_nll": 3.7862336077677585,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.660985558807701,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.05043948360613329,
+     "low": 0.04487502066332843,
+     "high": 0.057203303819161784,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 1.0545564511654826
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.225243811211476
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.580694689810642
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5333333333333333
+    },
+    "retain_kl": 0.008106158240208708,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [
+     "14.mlp.up_proj",
+     "29.self_attn.q_proj",
+     "8.self_attn.v_proj",
+     "0.self_attn.v_proj",
+     "0.mlp.up_proj",
+     "21.self_attn.q_proj",
+     "11.self_attn.o_proj",
+     "28.mlp.down_proj",
+     "5.mlp.down_proj",
+     "1.self_attn.q_proj",
+     "28.mlp.gate_proj",
+     "6.self_attn.o_proj"
+    ],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2693455872,
+     "peak_device_bytes": 2777970176,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 14.66,
+     "hypotheses": 0.07,
+     "structure": 0.03,
+     "identify": 0.0,
+     "fit": 32.02,
+     "evaluate": 8.66,
+     "export": 6.97
+    },
+    "run": null,
+    "kl_source_to_created": 0.05282345103875859
+   },
+   "lora": {
+    "method": "lora",
+    "trainable_parameters": 2442240,
+    "validation_nll": 3.772549849032938,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.6452866519989686,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.06613839041486572,
+     "low": 0.0517900998855445,
+     "high": 0.08155357736761823,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 0.9944989506242818
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.2033620683101112
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.5400911272008204
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5666666666666667
+    },
+    "retain_kl": 0.006693676806312319,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": "all",
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2693455872,
+     "peak_device_bytes": 3339818496,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 11.42,
+     "hypotheses": 0.07,
+     "structure": 0.09,
+     "identify": 0.0,
+     "fit": 53.97,
+     "evaluate": 56.94,
+     "export": 13.29
+    },
+    "run": null,
+    "kl_source_to_created": 0.037338060944958604
+   },
+   "lora-matched": {
+    "method": "lora-matched",
+    "trainable_parameters": 285696,
+    "validation_nll": 3.7853506290526058,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.659727751529252,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.05169729088458263,
+     "low": 0.04631258522389896,
+     "high": 0.05804326113703142,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 1.0151169752119078
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.2837434160467354
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.5270999760655632
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5333333333333333
+    },
+    "retain_kl": 0.006386101100147499,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [
+     "14.mlp.up_proj",
+     "29.self_attn.q_proj",
+     "8.self_attn.v_proj",
+     "0.self_attn.v_proj",
+     "0.mlp.up_proj",
+     "21.self_attn.q_proj",
+     "11.self_attn.o_proj",
+     "28.mlp.down_proj",
+     "5.mlp.down_proj",
+     "1.self_attn.q_proj",
+     "28.mlp.gate_proj",
+     "6.self_attn.o_proj"
+    ],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2693455872,
+     "peak_device_bytes": 2777337344,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 13.62,
+     "hypotheses": 0.07,
+     "structure": 0.01,
+     "identify": 0.0,
+     "fit": 32.66,
+     "evaluate": 11.78,
+     "export": 8.11
+    },
+    "run": null,
+    "kl_source_to_created": 0.05177466580228689
+   },
+   "sft": {
+    "method": "sft",
+    "trainable_parameters": 134515008,
+    "validation_nll": 3.7767157191043355,
+    "base_validation_nll": 3.834052135190036,
+    "test_nll": 3.6534344444651774,
+    "base_test_nll": 3.7114250424138344,
+    "test_improvement": {
+     "mean": 0.05799059794865684,
+     "low": 0.04894079687902837,
+     "high": 0.06827844759111049,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 1.1379809435198733,
+     "created": 0.9697432422265841
+    },
+    "style_new_topics": {
+     "base": 1.3750631643715692,
+     "created": 1.200509220308392
+    },
+    "fluency_base_nll": {
+     "base": 2.5169888259584217,
+     "created": 2.736577922660332
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5
+    },
+    "retain_kl": null,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 3759132672,
+     "peak_device_bytes": 4158578688,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 14.55,
+     "hypotheses": 0.07,
+     "structure": 0.0,
+     "identify": 0.0,
+     "fit": 41.19,
+     "evaluate": 6.4,
+     "export": 8.46
+    },
+    "run": null,
+    "kl_source_to_created": 0.043601265767409844
+   }
+  }
+ },
+ "seed1": {
+  "secret_region_revealed_after_runs": "12.self_attn.v_proj",
+  "plant_final_loss": 3.1032779216766357,
+  "methods": {
+   "structured": {
+    "method": "structured",
+    "trainable_parameters": 279552,
+    "validation_nll": 3.846510428747732,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.704290676645438,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.05251207385881302,
+     "low": 0.04917032864354626,
+     "high": 0.055553376555535126,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.9006958467494914
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.8701694519356329
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.4755768821964
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5666666666666667
+    },
+    "retain_kl": 0.010447816918706544,
+    "agent": {},
+    "trial_summary": {
+     "screened_top_regions": [
+      "20.self_attn.v_proj",
+      "12.self_attn.v_proj",
+      "14.self_attn.v_proj",
+      "15.self_attn.v_proj",
+      "2.mlp.gate_proj",
+      "1.mlp.gate_proj",
+      "2.mlp.up_proj",
+      "1.mlp.up_proj",
+      "17.self_attn.v_proj",
+      "19.self_attn.v_proj",
+      "3.mlp.gate_proj",
+      "0.mlp.up_proj"
+     ],
+     "random_control_regions": [
+      "8.mlp.gate_proj",
+      "11.self_attn.k_proj",
+      "23.self_attn.o_proj",
+      "17.self_attn.q_proj",
+      "23.self_attn.v_proj",
+      "19.mlp.gate_proj",
+      "23.mlp.down_proj",
+      "22.mlp.down_proj",
+      "28.mlp.gate_proj",
+      "6.mlp.down_proj",
+      "14.mlp.gate_proj",
+      "3.self_attn.v_proj"
+     ],
+     "mean_validation_gain_top": -0.0037115191674375048,
+     "mean_validation_gain_random_regions": -0.01028573405777248,
+     "mean_validation_gain_random_direction_in_top": -0.0019047585022596107,
+     "spearman_score_vs_validation_gain": 0.3930434782608695,
+     "permutation_p_value": 0.2409518096380724,
+     "selected_beats_random": false
+    },
+    "selected_regions": [
+     "20.self_attn.v_proj",
+     "12.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "2.mlp.gate_proj",
+     "1.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "1.mlp.up_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.up_proj"
+    ],
+    "ranked_top": [
+     "20.self_attn.v_proj",
+     "12.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "2.mlp.gate_proj",
+     "1.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "1.mlp.up_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.up_proj",
+     "0.mlp.gate_proj",
+     "3.mlp.up_proj",
+     "5.self_attn.q_proj",
+     "18.self_attn.v_proj",
+     "4.mlp.gate_proj",
+     "4.mlp.up_proj",
+     "1.mlp.down_proj",
+     "5.mlp.gate_proj",
+     "3.mlp.down_proj",
+     "21.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "8.self_attn.v_proj"
+    ],
+    "region_class_test": {
+     "unrestricted_validation_nll": 3.847943493299998,
+     "single_region_fits": [
+      {
+       "region": "12.self_attn.v_proj",
+       "validation_nll": 3.8525273095173262,
+       "excess_over_unrestricted": {
+        "mean": 0.004583816217328137,
+        "low": 0.0026426533478842345,
+        "high": 0.006518328755887133,
+        "groups": 6
+       },
+       "steps": 150
+      },
+      {
+       "region": "14.self_attn.v_proj",
+       "validation_nll": 3.8721773929896433,
+       "excess_over_unrestricted": {
+        "mean": 0.024233899689645275,
+        "low": 0.021917127201646614,
+        "high": 0.02692634576639782,
+        "groups": 6
+       },
+       "steps": 150
+      },
+      {
+       "region": "20.self_attn.v_proj",
+       "validation_nll": 3.883460239546144,
+       "excess_over_unrestricted": {
+        "mean": 0.03551674624614625,
+        "low": 0.029795616715269875,
+        "high": 0.04132534157381852,
+        "groups": 6
+       },
+       "steps": 150
+      }
+     ],
+     "best_region": "12.self_attn.v_proj",
+     "status": "explained_by_single_region",
+     "seed_variation_of_delta_x": {
+      "pairs": [
+       0.1756296455860138,
+       0.13772925734519958,
+       0.1711341291666031
+      ],
+      "max": 0.1756296455860138,
+      "interpretation": "relative difference of \u0394x on held-out region inputs between seed refits; large values mean the finite-data estimate is not unique"
+     }
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_supported",
+     "partial_source_parameter_recovery": "estimate_conditional_on_declared_region_class",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2582798336,
+     "peak_device_bytes": 3938550272,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 12.27,
+     "hypotheses": 0.07,
+     "structure": 174.84,
+     "identify": 84.47,
+     "fit": 34.9,
+     "evaluate": 9.27,
+     "export": 8.91
+    },
+    "run": {
+     "wall_seconds": 329.9,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.02440284167141237,
+    "kl_source_to_base": 0.07326800048862943,
+    "planted_region_rank": 2,
+    "planted_layer_rank": 2,
+    "planted_region_selected": true,
+    "delta_x_export": {
+     "relative_error_delta_x": 0.8851950042275907,
+     "cosine_delta_x": 0.5293195692198317
+    },
+    "block_delta_vs_planted": {
+     "block": "12.self_attn",
+     "relative_error": 0.7462397922343595,
+     "cosine": 0.7384357243115017,
+     "created_change_norm_ratio": 0.41880915086447235
+    },
+    "identify_best_region_is_planted": true
+   },
+   "random-subspace": {
+    "method": "random-subspace",
+    "trainable_parameters": 279552,
+    "validation_nll": 3.848895088171426,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.7067909692534022,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.05001178125084891,
+     "low": 0.047491761605231005,
+     "high": 0.05252047926754099,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.898864866629164
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.898642958572483
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.542080014769794
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5666666666666667
+    },
+    "retain_kl": 0.011795064930810905,
+    "agent": {},
+    "trial_summary": {
+     "screened_top_regions": [
+      "20.self_attn.v_proj",
+      "12.self_attn.v_proj",
+      "14.self_attn.v_proj",
+      "15.self_attn.v_proj",
+      "2.mlp.gate_proj",
+      "1.mlp.gate_proj",
+      "2.mlp.up_proj",
+      "1.mlp.up_proj",
+      "17.self_attn.v_proj",
+      "19.self_attn.v_proj",
+      "3.mlp.gate_proj",
+      "0.mlp.up_proj"
+     ],
+     "random_control_regions": [
+      "8.mlp.gate_proj",
+      "11.self_attn.k_proj",
+      "23.self_attn.o_proj",
+      "17.self_attn.q_proj",
+      "23.self_attn.v_proj",
+      "19.mlp.gate_proj",
+      "23.mlp.down_proj",
+      "22.mlp.down_proj",
+      "28.mlp.gate_proj",
+      "6.mlp.down_proj",
+      "14.mlp.gate_proj",
+      "3.self_attn.v_proj"
+     ],
+     "mean_validation_gain_top": -0.0037115191674375048,
+     "mean_validation_gain_random_regions": -0.01028573405777248,
+     "mean_validation_gain_random_direction_in_top": -0.0019047585022596107,
+     "spearman_score_vs_validation_gain": 0.3930434782608695,
+     "permutation_p_value": 0.2409518096380724,
+     "selected_beats_random": false
+    },
+    "selected_regions": [
+     "20.self_attn.v_proj",
+     "12.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "2.mlp.gate_proj",
+     "1.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "1.mlp.up_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.up_proj"
+    ],
+    "ranked_top": [
+     "20.self_attn.v_proj",
+     "12.self_attn.v_proj",
+     "14.self_attn.v_proj",
+     "15.self_attn.v_proj",
+     "2.mlp.gate_proj",
+     "1.mlp.gate_proj",
+     "2.mlp.up_proj",
+     "1.mlp.up_proj",
+     "17.self_attn.v_proj",
+     "19.self_attn.v_proj",
+     "3.mlp.gate_proj",
+     "0.mlp.up_proj",
+     "0.mlp.gate_proj",
+     "3.mlp.up_proj",
+     "5.self_attn.q_proj",
+     "18.self_attn.v_proj",
+     "4.mlp.gate_proj",
+     "4.mlp.up_proj",
+     "1.mlp.down_proj",
+     "5.mlp.gate_proj",
+     "3.mlp.down_proj",
+     "21.self_attn.v_proj",
+     "24.self_attn.v_proj",
+     "8.self_attn.v_proj"
+    ],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_supported",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2582798336,
+     "peak_device_bytes": 3938550272,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 12.45,
+     "hypotheses": 0.08,
+     "structure": 172.75,
+     "identify": 0.0,
+     "fit": 35.76,
+     "evaluate": 12.76,
+     "export": 7.83
+    },
+    "run": {
+     "wall_seconds": 246.4,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.02691140074348056
+   },
+   "random-regions": {
+    "method": "random-regions",
+    "trainable_parameters": 319488,
+    "validation_nll": 3.8582122784242947,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.714665847408581,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.04213690309567023,
+     "low": 0.038686477306266356,
+     "high": 0.04635391129911871,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.8629375700876665
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.8880699343521872
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.5816343697888113
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5
+    },
+    "retain_kl": 0.0043066346557915644,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [
+     "23.mlp.down_proj",
+     "24.mlp.up_proj",
+     "19.self_attn.q_proj",
+     "14.self_attn.o_proj",
+     "18.self_attn.v_proj",
+     "5.self_attn.k_proj",
+     "26.mlp.up_proj",
+     "28.mlp.gate_proj",
+     "11.mlp.gate_proj",
+     "14.mlp.down_proj",
+     "2.self_attn.q_proj",
+     "13.mlp.gate_proj"
+    ],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2582798336,
+     "peak_device_bytes": 2708561408,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 15.24,
+     "hypotheses": 0.09,
+     "structure": 0.05,
+     "identify": 0.0,
+     "fit": 35.74,
+     "evaluate": 12.78,
+     "export": 7.98
+    },
+    "run": {
+     "wall_seconds": 76.3,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.0327881231756686
+   },
+   "lora": {
+    "method": "lora",
+    "trainable_parameters": 2442240,
+    "validation_nll": 3.8513847856226375,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.7090816014903427,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.04772114901390851,
+     "low": 0.044736733920932914,
+     "high": 0.05116263961534941,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.954742856732131
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.9295451951041974
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.528887613753826
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5
+    },
+    "retain_kl": 0.005899280674008693,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": "all",
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "inconclusive",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2582798336,
+     "peak_device_bytes": 3359485440,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 11.74,
+     "hypotheses": 0.07,
+     "structure": 0.09,
+     "identify": 0.0,
+     "fit": 58.03,
+     "evaluate": 63.47,
+     "export": 122.44
+    },
+    "run": {
+     "wall_seconds": 281.4,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.027831234802930857
+   },
+   "lora-matched": {
+    "method": "lora-matched",
+    "trainable_parameters": 316416,
+    "validation_nll": 3.856904192381629,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.7140665183854367,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.04273623211881486,
+     "low": 0.039329749349665835,
+     "high": 0.04685479093538576,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.9881417523411011
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.8228727009487704
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.5759451085972347
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.5
+    },
+    "retain_kl": 0.004964069515685289,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [
+     "23.mlp.down_proj",
+     "24.mlp.up_proj",
+     "19.self_attn.q_proj",
+     "14.self_attn.o_proj",
+     "18.self_attn.v_proj",
+     "5.self_attn.k_proj",
+     "26.mlp.up_proj",
+     "28.mlp.gate_proj",
+     "11.mlp.gate_proj",
+     "14.mlp.down_proj",
+     "2.self_attn.q_proj",
+     "13.mlp.gate_proj"
+    ],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "inconclusive",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 2582798336,
+     "peak_device_bytes": 2707928576,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 13.63,
+     "hypotheses": 0.06,
+     "structure": 0.01,
+     "identify": 0.0,
+     "fit": 35.52,
+     "evaluate": 12.84,
+     "export": 6.34
+    },
+    "run": {
+     "wall_seconds": 72.7,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.03292026748271736
+   },
+   "sft": {
+    "method": "sft",
+    "trainable_parameters": 134515008,
+    "validation_nll": 3.855976031190881,
+    "base_validation_nll": 3.8987306597160063,
+    "test_nll": 3.7113588170021834,
+    "base_test_nll": 3.756802750504251,
+    "test_improvement": {
+     "mean": 0.04544393350206794,
+     "low": 0.04155698102026306,
+     "high": 0.04916439854146863,
+     "groups": 6
+    },
+    "style_held_out": {
+     "base": 0.9165224125136596,
+     "created": 0.8399287049354707
+    },
+    "style_new_topics": {
+     "base": 0.8545626227321741,
+     "created": 0.788058973641614
+    },
+    "fluency_base_nll": {
+     "base": 2.579557736900691,
+     "created": 2.6271626381647017
+    },
+    "overlap8": 0.0,
+    "longest_copied": 0,
+    "fact_cloze": {
+     "items": 30,
+     "base_accuracy": 0.5,
+     "created_accuracy": 0.43333333333333335
+    },
+    "retain_kl": null,
+    "agent": {},
+    "trial_summary": null,
+    "selected_regions": [],
+    "ranked_top": [],
+    "region_class_test": {
+     "status": "not_run"
+    },
+    "claims": {
+     "behavioral_reconstruction": "supported",
+     "mechanistic_synthesis_in_base": "not_attempted",
+     "partial_source_parameter_recovery": "not_established",
+     "full_source_parameter_recovery": "not_established"
+    },
+    "export_passed": true,
+    "resources": {
+     "peak_host_rss_bytes": 3718881280,
+     "peak_device_bytes": 4165828608,
+     "device_name": "NVIDIA GeForce RTX 5080"
+    },
+    "timings": {
+     "prepare": 15.96,
+     "hypotheses": 0.07,
+     "structure": 0.0,
+     "identify": 0.0,
+     "fit": 180.77,
+     "evaluate": 7.17,
+     "export": 3.37
+    },
+    "run": {
+     "wall_seconds": 211.1,
+     "isolation": {
+      "source_dirs_mode_000": [
+       "/home/dev/.local/share/rephix-create-041/e1/seed1/evaluator-only"
+      ],
+      "forbidden_opens": []
+     }
+    },
+    "kl_source_to_created": 0.03079796171597679
+   }
+  }
+ }
+}

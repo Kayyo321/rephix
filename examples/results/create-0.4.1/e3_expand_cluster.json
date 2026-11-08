@@ -1,0 +1,987 @@
+{
+ "main": [
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 5.551115123125783e-17,
+    "max_cosine_distance": 1.1102230246251565e-16,
+    "max_relative_neuron_error": 4.4363389223237174e-08,
+    "held_out_output_error": 1.5349381417965635e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 10,
+   "recovered_width": 3,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 3,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 1.1102230246251565e-16,
+    "max_cosine_distance": 2.220446049250313e-16,
+    "max_relative_neuron_error": 7.005986848158019e-08,
+    "held_out_output_error": 1.9195983960574782e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 5,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 1.6653345369377348e-16,
+    "max_cosine_distance": 2.220446049250313e-16,
+    "max_relative_neuron_error": 6.715372721327109e-08,
+    "held_out_output_error": 1.638271501680635e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 3,
+   "recovered_width": 6,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 6,
+    "matched_neurons": 4,
+    "mean_cosine_distance": 0.00014339470558125123,
+    "max_cosine_distance": 0.0005603720682119118,
+    "max_relative_neuron_error": 0.14497980814614314,
+    "held_out_output_error": 0.0004470346161136576,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 24,
+   "converged_students": 1,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 16,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 5,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 4.1247788928888696e-07,
+    "max_cosine_distance": 8.24930389331513e-07,
+    "max_relative_neuron_error": 0.0015797388283189772,
+    "held_out_output_error": 2.66709716602584e-05,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 2.220446049250313e-16,
+    "max_cosine_distance": 4.440892098500626e-16,
+    "max_relative_neuron_error": 2.8491957944453622e-08,
+    "held_out_output_error": 1.4494678289905915e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 8,
+   "converged_students": 10,
+   "recovered_width": 3,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 3,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 1.7541523789077473e-14,
+    "max_cosine_distance": 1.9317880628477724e-14,
+    "max_relative_neuron_error": 2.0238449781319363e-06,
+    "held_out_output_error": 2.3780190371886362e-07,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 16,
+   "converged_students": 9,
+   "recovered_width": 5,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 5,
+    "matched_neurons": 4,
+    "mean_cosine_distance": 5.273559366969494e-16,
+    "max_cosine_distance": 8.881784197001252e-16,
+    "max_relative_neuron_error": 5.0775392958528274e-08,
+    "held_out_output_error": 1.1118668395853758e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 9,
+   "recovered_width": 4,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 4,
+    "matched_neurons": 4,
+    "mean_cosine_distance": 0.15420677804412578,
+    "max_cosine_distance": 0.5474017344357391,
+    "max_relative_neuron_error": 0.9255987502528593,
+    "held_out_output_error": 0.000911910445382673,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 32,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  }
+ ],
+ "expansion_1": [
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": -1.1102230246251565e-16,
+    "max_cosine_distance": 0.0,
+    "max_relative_neuron_error": 5.708461350671348e-09,
+    "held_out_output_error": 3.6148644978778006e-09,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 8,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 0.0,
+    "max_cosine_distance": 0.0,
+    "max_relative_neuron_error": 3.506628530990136e-08,
+    "held_out_output_error": 8.776437264065788e-09,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 3.3306690738754696e-16,
+    "max_cosine_distance": 5.551115123125783e-16,
+    "max_relative_neuron_error": 3.652959555347881e-08,
+    "held_out_output_error": 3.096711597047091e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 4,
+   "converged_students": 1,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 4,
+   "converged_students": 9,
+   "recovered_width": 4,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 4,
+    "matched_neurons": 4,
+    "mean_cosine_distance": 2.498001805406602e-16,
+    "max_cosine_distance": 4.440892098500626e-16,
+    "max_relative_neuron_error": 3.397984991591855e-08,
+    "held_out_output_error": 1.4196724417910897e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 4,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 9,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 3.4662382242256484e-07,
+    "max_cosine_distance": 6.932240060875117e-07,
+    "max_relative_neuron_error": 0.001198561252717096,
+    "held_out_output_error": 2.450313266149773e-05,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": -1.1102230246251565e-16,
+    "max_cosine_distance": 0.0,
+    "max_relative_neuron_error": 1.0517095430368512e-08,
+    "held_out_output_error": 6.4560739028658686e-09,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 2,
+   "converged_students": 10,
+   "recovered_width": 2,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 2,
+    "recovered_width": 2,
+    "matched_neurons": 2,
+    "mean_cosine_distance": 0.0,
+    "max_cosine_distance": 0.0,
+    "max_relative_neuron_error": 1.3257658704724011e-08,
+    "held_out_output_error": 6.5984645240740145e-09,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 4,
+   "converged_students": 10,
+   "recovered_width": 4,
+   "exact_recovery": true,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 4,
+    "matched_neurons": 4,
+    "mean_cosine_distance": 2.4702462297909733e-15,
+    "max_cosine_distance": 6.328271240363392e-15,
+    "max_relative_neuron_error": 1.1473310216990651e-07,
+    "held_out_output_error": 2.417032643996867e-08,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 4,
+   "converged_students": 10,
+   "recovered_width": 3,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 4,
+    "recovered_width": 3,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 1.0415031193033997e-07,
+    "max_cosine_distance": 2.1833305519081136e-07,
+    "max_relative_neuron_error": 0.0012825703414010396,
+    "held_out_output_error": 0.0009133413179903665,
+    "output_error_kind": "relative RMSE",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 4,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  }
+ ],
+ "relu_teacher": [
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 12,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 24,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 16,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 16,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 12,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 32,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  }
+ ],
+ "noisy": [
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 2,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 12,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 24,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 4,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 16,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 8,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 0,
+   "status": "students_did_not_converge",
+   "student_width": 16,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 1,
+   "status": "students_did_not_converge",
+   "student_width": 12,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  },
+  {
+   "d": 8,
+   "r": 4,
+   "teacher": 2,
+   "status": "students_did_not_converge",
+   "student_width": 32,
+   "converged_students": 0,
+   "recovered_width": 0,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": false
+   }
+  }
+ ],
+ "string": [
+  {
+   "samples_per_input": 20,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 5,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 5,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.025414236014179137,
+    "max_cosine_distance": 0.05896147009508046,
+    "max_relative_neuron_error": 0.344701433350597,
+    "held_out_output_error": 0.22919687815206485,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": 20,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 7,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 7,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.0004378421371866355,
+    "max_cosine_distance": 0.0006624821096887779,
+    "max_relative_neuron_error": 0.2143161102252547,
+    "held_out_output_error": 0.2377008477620929,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": 20,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 4,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 4,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.2978795916466385,
+    "max_cosine_distance": 0.6599494734763971,
+    "max_relative_neuron_error": 1.7701641317528438,
+    "held_out_output_error": 0.33287058389941465,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": 1000,
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 9,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 9,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.00011370360158095376,
+    "max_cosine_distance": 0.00025538563300608885,
+    "max_relative_neuron_error": 0.12088174739836324,
+    "held_out_output_error": 0.006238090388405769,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": 1000,
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 9,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 9,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 2.3370586432203133e-05,
+    "max_cosine_distance": 6.025016273236705e-05,
+    "max_relative_neuron_error": 0.0640571344618322,
+    "held_out_output_error": 0.03989657043527422,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": 1000,
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 7,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 7,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 8.024264227294668e-05,
+    "max_cosine_distance": 0.00015806161836640076,
+    "max_relative_neuron_error": 0.04392586669428965,
+    "held_out_output_error": 0.00714332951347782,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": "argmax",
+   "teacher": 0,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 8,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 8,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.034367687607832376,
+    "max_cosine_distance": 0.05341792696708303,
+    "max_relative_neuron_error": 18.877921850550866,
+    "held_out_output_error": 0.4537489254393037,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": "argmax",
+   "teacher": 1,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 5,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 5,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.04973860200707888,
+    "max_cosine_distance": 0.08706216483412732,
+    "max_relative_neuron_error": 21.233032774624846,
+    "held_out_output_error": 0.4816068182229981,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  },
+  {
+   "samples_per_input": "argmax",
+   "teacher": 2,
+   "status": "reduced_network_fits",
+   "student_width": 12,
+   "converged_students": 10,
+   "recovered_width": 7,
+   "exact_recovery": false,
+   "evaluation": {
+    "recovered": true,
+    "teacher_width": 3,
+    "recovered_width": 7,
+    "matched_neurons": 3,
+    "mean_cosine_distance": 0.03297130596199246,
+    "max_cosine_distance": 0.07366333401297454,
+    "max_relative_neuron_error": 45.08505164252023,
+    "held_out_output_error": 0.455754986583735,
+    "output_error_kind": "mean total variation",
+    "alignment": "Hungarian matching on 1 \u2212 |cos| (sign symmetry) over [w; b]"
+   }
+  }
+ ]
+}
