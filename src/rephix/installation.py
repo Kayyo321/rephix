@@ -323,6 +323,72 @@ def _publish_bytes(path, data):
         temporary.unlink(missing_ok=True)
 
 
+def _hosting_cmd_pid():
+    """PID of a cmd.exe among this process's near ancestors (a running batch file)."""
+    import ctypes
+    from ctypes import wintypes
+
+    class Entry(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wintypes.DWORD),
+            ("cntUsage", wintypes.DWORD),
+            ("th32ProcessID", wintypes.DWORD),
+            ("th32DefaultHeapID", ctypes.c_void_p),
+            ("th32ModuleID", wintypes.DWORD),
+            ("cntThreads", wintypes.DWORD),
+            ("th32ParentProcessID", wintypes.DWORD),
+            ("pcPriClassBase", ctypes.c_long),
+            ("dwFlags", wintypes.DWORD),
+            ("szExeFile", wintypes.WCHAR * 260),
+        ]
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+    snapshot = kernel32.CreateToolhelp32Snapshot(2, 0)  # TH32CS_SNAPPROCESS
+    table = {}
+    entry = Entry()
+    entry.dwSize = ctypes.sizeof(entry)
+    found = kernel32.Process32FirstW(snapshot, ctypes.byref(entry))
+    while found:
+        table[entry.th32ProcessID] = (entry.th32ParentProcessID, entry.szExeFile.lower())
+        found = kernel32.Process32NextW(snapshot, ctypes.byref(entry))
+    kernel32.CloseHandle(snapshot)
+    pid = os.getpid()
+    for _ in range(3):  # manager <- launch.py <- cmd.exe running rephix.cmd
+        parent = table.get(pid, (None, ""))[0]
+        if parent not in table:
+            return None
+        if table[parent][1] == "cmd.exe":
+            return parent
+        pid = parent
+    return None
+
+
+def _retire_after_batch(path):
+    """cmd.exe rereads a running batch file; delete rephix.cmd only after it exits."""
+    host = _hosting_cmd_pid() if os.name == "nt" else None
+    if host is None:
+        path.unlink(missing_ok=True)
+        return None
+    subprocess.Popen(
+        [
+            _base_python(),
+            "-I",
+            "-c",
+            "import ctypes, os, sys\n"
+            "k = ctypes.WinDLL('kernel32')\n"
+            "h = k.OpenProcess(0x00100000, False, int(sys.argv[2]))\n"
+            "if h:\n    k.WaitForSingleObject(h, 86400000)\n    k.CloseHandle(h)\n"
+            "try:\n    os.remove(sys.argv[1])\nexcept OSError:\n    pass\n",
+            str(path),
+            str(host),
+        ],
+        creationflags=0x00000008 | 0x00000200,  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
+        close_fds=True,
+    )
+    return str(path)
+
+
 def _retire(path):
     """Remove a file now, or after the process using it exits (Windows launchers)."""
     try:
@@ -753,7 +819,7 @@ def uninstall(args):
         deferred = []
         if getattr(args, "remove_bootstrap", False):
             for path in bootstrap_files:
-                pending = _retire(path)
+                pending = _retire_after_batch(path) if path.name == "rephix.cmd" else _retire(path)
                 if pending:
                     deferred.append(pending)
         return {

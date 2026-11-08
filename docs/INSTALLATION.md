@@ -195,7 +195,9 @@ By default the small bootstrap, manifest and coordination lock remain for inspec
 retry and reinstall. `--remove-bootstrap` also removes the launchers, manager and
 manifest. On Windows a launcher that is still running (for example `rephix.exe`
 running this very command) is renamed aside and deleted by a short helper once it
-exits; the report lists it under `deferred_removal`. A persistent coordination lock remains to prevent concurrent operations
+exits. When the command runs through `rephix.cmd`, that batch file is deleted after
+the hosting `cmd.exe` exits, because cmd.exe rereads a running batch file. The report
+lists both under `deferred_removal`. A persistent coordination lock remains to prevent concurrent operations
 from opening different lock files. After reviewing retained files and stopping all
 operations, manually remove the dedicated prefix to remove that final record. If
 you removed the bootstrap while retaining data, install into a new prefix and use
