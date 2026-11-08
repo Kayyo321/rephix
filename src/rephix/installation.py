@@ -191,6 +191,8 @@ os.environ['REPHIX_INSTALL_ROOT'] = str(root)
 if sys.argv[1:2] == ['installation']:
     argv = [sys.executable, str(root / 'manager.py'), *sys.argv[2:]]
 else:
+    if (root / '.installation.lock').is_symlink():
+        sys.exit('Invalid installation lock: symlink.')
     lease = (root / '.installation.lock').open('a+b')
     try:
         if os.name == 'nt':
@@ -203,6 +205,8 @@ else:
     except OSError:
         sys.exit('An installation operation is running. Retry after it exits.')
     state = json.loads((root / 'installation.json').read_text(encoding='utf-8'))
+    if not isinstance(state, dict):
+        sys.exit('Invalid installation manifest; use the external installer to inspect it.')
     name = state.get('active')
     import re
     if state.get('schema_version') != 1 or not isinstance(name, str) or not re.fullmatch(r'env-[0-9a-f]{32}', name):
@@ -222,6 +226,14 @@ try:
 except OSError as exc:
     sys.exit('Cannot launch Rephix: ' + str(exc))
 """
+    import textwrap
+
+    launcher = (
+        "import sys\ntry:\n"
+        + textwrap.indent(launcher, "    ")
+        + "\nexcept (OSError, ValueError, KeyError, TypeError) as exc:\n"
+        "    sys.exit('Cannot read managed installation; use the external installer to inspect or recover it: ' + str(exc))\n"
+    )
     _atomic(root / "launch.py", launcher)
     _atomic(root / "manager.py", Path(__file__).read_text(encoding="utf-8"))
     base = getattr(sys, "_base_executable", sys.executable)

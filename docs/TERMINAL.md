@@ -40,7 +40,8 @@ animation, or network connection is required. For screen readers, redirected out
 or very small terminals, use the ordinary CLI or `ui --plain`.
 
 The interface uses prompt_toolkit's buffered rendering, input parser, resize
-handling and terminal restoration. Verified locally in a real Linux PTY at 40, 80,
+handling and terminal restoration. An outer POSIX guard also restores the complete
+mode snapshot around toolkit setup and execution. Verified locally in a real Linux PTY at 40, 80,
 and 120 columns: launch, editing, execution, help, resize, exit, and exact restoration
 of terminal modes. Automated input-routing tests also exercise help, command execution,
 and monochrome mode. Windows/macOS interactive verification remains pending.

@@ -63,6 +63,18 @@ class InstallationTests(unittest.TestCase):
         for category in ("data", "config", "checkpoints"):
             self.assertEqual((self.root / category / "keep").read_text(), category)
 
+    def test_launcher_reports_corrupt_manifest_without_a_traceback(self):
+        self.install()
+        (self.root / manager.MANIFEST).write_text("{corrupted")
+        result = subprocess.run(
+            [manager.sys.executable, str(self.root / "launch.py"), "--version"],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Cannot read managed installation", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+
     def test_venv_bootstrap_failure_is_a_clear_cli_error(self):
         from rephix.cli import main
 

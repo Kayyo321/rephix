@@ -9,6 +9,7 @@ import shlex
 import signal
 import sys
 import unicodedata
+from contextlib import contextmanager
 from dataclasses import dataclass
 
 from . import __version__
@@ -340,6 +341,28 @@ def build_application(catalog, *, color="auto", theme="dark", input=None, output
     return app, state
 
 
+@contextmanager
+def _terminal_state(stream):
+    """Restore the complete POSIX mode snapshot around toolkit setup and execution."""
+    if os.name == "nt":
+        yield
+        return
+    import termios
+
+    descriptor = stream.fileno()
+    try:
+        saved = termios.tcgetattr(descriptor)
+    except termios.error as exc:
+        raise RuntimeError(f"Cannot read terminal settings: {exc}") from exc
+    try:
+        yield
+    finally:
+        try:
+            termios.tcsetattr(descriptor, termios.TCSANOW, saved)
+        except termios.error as exc:
+            raise RuntimeError(f"Cannot restore terminal settings: {exc}") from exc
+
+
 def launch(args):
     if args.plain:
         from .cli import build_parser
@@ -355,17 +378,18 @@ def launch(args):
         raise ValueError(
             "The workbench needs an interactive terminal. Use rephix ui --plain or --help."
         )
-    try:
-        from .cli import build_parser
+    with _terminal_state(sys.stdin):
+        try:
+            from .cli import build_parser
 
-        app, _ = build_application(
-            command_catalog(build_parser()), color=args.color, theme=args.theme
-        )
-    except ImportError as exc:
-        raise ImportError(
-            "Install the terminal interface with: python -m pip install 'rephix[tui]'"
-        ) from exc
-    app.run()
+            app, _ = build_application(
+                command_catalog(build_parser()), color=args.color, theme=args.theme
+            )
+        except ImportError as exc:
+            raise ImportError(
+                "Install the terminal interface with: python -m pip install 'rephix[tui]'"
+            ) from exc
+        app.run()
 
 
 def add_subcommands(commands):

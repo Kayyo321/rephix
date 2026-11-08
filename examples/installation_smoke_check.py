@@ -39,6 +39,8 @@ def evaluate(args):
             raise AssertionError(
                 f"Unexpected exit {result.returncode}: {result.stdout}\n{result.stderr}"
             )
+        if expected != 0 and "Traceback" in result.stderr:
+            raise AssertionError("A normal user error leaked a traceback: " + result.stderr)
         commands.append({"exit": result.returncode})
         return result.stdout
 
@@ -60,6 +62,13 @@ def evaluate(args):
     wheel = args.wheel.resolve()
     initial = json.loads(run([base, manager, "install", "--prefix", prefix, "--wheel", old_wheel]))
     initial_version = launch("--version").strip()
+    manifest = prefix / "installation.json"
+    original_manifest = manifest.read_bytes()
+    manifest.write_text("{corrupted manifest")
+    try:
+        launch("--version", expected=1)
+    finally:
+        manifest.write_bytes(original_manifest)
     for category in CATEGORIES:
         (prefix / category / "existing-user-artifact").write_text(f"preserve {category}\n")
     (prefix / "unrelated-note").write_text("user file, not managed software\n")
@@ -135,7 +144,10 @@ def evaluate(args):
             runtime_lease_verified = True
             os.write(master, b"\x03")
             assert child.wait(timeout=10) == 0
-            assert termios.tcgetattr(slave) == original_modes
+            restored_modes = termios.tcgetattr(slave)
+            assert restored_modes == original_modes, (
+                f"Terminal modes changed: {original_modes!r} -> {restored_modes!r}"
+            )
             assert b"Traceback" not in terminal_output
         finally:
             if child.poll() is None:
@@ -185,6 +197,7 @@ def evaluate(args):
         "initial_wheel_sha256": hashlib.sha256(old_wheel.read_bytes()).hexdigest(),
         "updated_wheel_sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
         "failed_upgrade_preserved_manifest_and_version": True,
+        "corrupt_manifest_failed_without_traceback": True,
         "updates_preserved_user_file_sha256": original_data,
         "inherited_extras": ["tui"],
         "rollback_validated": True,

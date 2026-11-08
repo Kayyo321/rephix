@@ -2,9 +2,9 @@
   "release": "0.3.0",
   "python": "3.13.5",
   "platform": "Linux-7.1.13+deb13-amd64-x86_64-with-glibc2.41",
-  "unit_tests": 344,
+  "unit_tests": 345,
   "skipped": 0,
-  "test_log_sha256": "3177c5a9c6195a0c61cd4ad6838acc774a9fb8ec847bce56071682dbfdbf8000",
+  "test_log_sha256": "f11b80b9b1ac1152d423beb06c61b210e5aa14de7238b3b933876b8c080b5e2e",
   "dependency_consistency": "passed",
   "ruff_lint": "passed",
   "ruff_format": "passed",
@@ -20,15 +20,15 @@
     "psutil==7.2.2"
   ],
   "tested_source_sha256": {
-    "src/rephix/installation.py": "252a186eaa44ab7d3f0de1bd905441264c55af339f06bf7950a66cb72179f85a",
+    "src/rephix/installation.py": "a7124a03e86b8f6257aa0824704b13a4ced78738396a76f6df34b49f71ffc3ff",
     "src/rephix/cli.py": "5d26ca848463820336473f997f2f12577b7d21b1fc9d485b132ec6e4f0295965",
-    "src/rephix/terminal.py": "05cff3642c5f92d59b1e0c1433ad996cb59c4c42381a71c8730b7447dab4b05d",
+    "src/rephix/terminal.py": "7d986f84ebba26c8d8e1cd62380ea6276d2de351ffea34146e010ec351545184",
     "src/rephix/layer_journal.py": "c3185f0e051da092eca9dbb504e9376b11085ebffb5f24c4819692be59fde5b0",
     "src/rephix/convolution.py": "a220aa79df3889e25782b390a4d94e3a7ca279eea52a2da10e32b55668859192",
     "src/rephix/layer_recovery.py": "264df045868cf819f8cc2f30fd00592b1a318bf2b685a7a56fa1758b12f3c44b",
     "src/rephix/diffusers_recovery.py": "d861f085ddadfa31336134819b5de296fe3b2a16c5bad4c5d63d2b1c57beb3ed"
   },
-  "wheel_sha256": "b0fae8531bf5738bbabe1bb4f5fd75da6bf3c13301f537e1cd437d848c008e46",
+  "wheel_sha256": "1104e71cbe179040eab7024866d458773a6a4b70f969139f9bfabb63a6e674c0",
   "lifecycle_result": "installation-lifecycle.json",
   "cross_platform_ci": "pending"
 }

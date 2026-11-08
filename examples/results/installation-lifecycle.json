@@ -4,8 +4,9 @@
   "initial_version": "0.2.0",
   "updated_version": "0.3.0",
   "initial_wheel_sha256": "b696724082cb0c6ab2538492df14781b83240bfb062979273b70e8f5bd18ca14",
-  "updated_wheel_sha256": "b0fae8531bf5738bbabe1bb4f5fd75da6bf3c13301f537e1cd437d848c008e46",
+  "updated_wheel_sha256": "1104e71cbe179040eab7024866d458773a6a4b70f969139f9bfabb63a6e674c0",
   "failed_upgrade_preserved_manifest_and_version": true,
+  "corrupt_manifest_failed_without_traceback": true,
   "updates_preserved_user_file_sha256": {
     "data/existing-user-artifact": "827857db5f34bc7c972d753ba012bcc0b7a9af92798a6914103407113612dcb3",
     "config/existing-user-artifact": "137a931ca13669beeb3b071559e8774bb09fa948de14bcbffba0fc3096f95790",
@@ -33,7 +34,7 @@
   ],
   "unrelated_user_file_retained": true,
   "explicit_bootstrap_removal_verified": true,
-  "commands_checked": 23,
+  "commands_checked": 24,
   "temporary_environments_remaining": 0,
   "windows": false
 }

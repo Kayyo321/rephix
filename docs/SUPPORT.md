@@ -7,7 +7,7 @@ model endpoint.
 
 | Area | Supported contract | Verification or limit |
 | --- | --- | --- |
-| Python | CPython 3.10–3.13 | Local release checks use 3.13.5; CI covers 3.10, 3.12 and 3.13. Newer Python versions are unvalidated. |
+| Python | CPython 3.10–3.13 | Local release checks use 3.13.5; CI covers 3.10, 3.11, 3.12 and 3.13. Newer Python versions are unvalidated. |
 | Core operating systems | Linux, macOS, Windows with Python/NumPy wheels and writable local storage | Core CI matrix includes all three; current measured model and real-PTY runs are Linux. |
 | Managed installation | Standard-library venv/ensurepip, local Rephix wheels, a retained base Python | Isolated updates, rollback, scoped uninstall; local lifecycle measurements are Linux. CI includes lifecycle checks on all three operating systems. |
 | Interactive terminal | Optional prompt_toolkit 3.x, interactive stdin/stdout | Linux PTY launch, edits, resize, help, exit and terminal restoration verified. Windows/macOS interactive checks remain unverified; plain CLI remains available. |
