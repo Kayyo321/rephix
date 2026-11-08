@@ -40,6 +40,12 @@ LONG_COMMAND = "demo --samples 600000 --features 240 --classes 60"
 
 PROGRESS = None  # Incremental results survive a job timeout.
 NOTES = []  # Observations of legacy behaviour that are not pass/fail requirements.
+UNEXERCISED = []  # Checks the host could not drive; never counted as passed.
+
+
+def not_exercised(name, reason, **evidence):
+    UNEXERCISED.append({"check": name, "reason": reason, **evidence})
+    print("NOT EXERCISED " + name + ": " + reason, flush=True)
 
 
 def check(name, passed, **evidence):
@@ -479,22 +485,40 @@ def scenario_workbench(ctx, Backend, label):
             done and output.is_file(),
             screen=term.text(),
         )
+
+        def resized(size):
+            return term.last_resize is None or term.last_resize.get("window") == list(size)
+
         term.resize(24, 60)
-        narrow = wait_until(lambda: "demo" in term.text() and " commands" not in term.text(), 6)
-        check(
-            f"{label}/ui: two-page layout after resize to 60x24",
-            narrow,
-            screen=term.text(),
-            resize=term.last_resize,
-        )
+        if resized((60, 24)):
+            narrow = wait_until(lambda: "demo" in term.text() and " commands" not in term.text(), 6)
+            check(
+                f"{label}/ui: two-page layout after resize to 60x24",
+                narrow,
+                screen=term.text(),
+                resize=term.last_resize,
+            )
+        else:
+            not_exercised(
+                f"{label}/ui: two-page layout after resize to 60x24",
+                "the console host did not apply the requested window size",
+                resize=term.last_resize,
+            )
         term.resize(10, 40)
-        small = wait_until(lambda: "too small" in term.text().lower(), 6)
-        check(
-            f"{label}/ui: too-small notice at 40x10",
-            small,
-            screen=term.text(),
-            resize=term.last_resize,
-        )
+        if resized((40, 10)):
+            small = wait_until(lambda: "too small" in term.text().lower(), 6)
+            check(
+                f"{label}/ui: too-small notice at 40x10",
+                small,
+                screen=term.text(),
+                resize=term.last_resize,
+            )
+        else:
+            not_exercised(
+                f"{label}/ui: too-small notice at 40x10",
+                "the console host did not apply the requested window size",
+                resize=term.last_resize,
+            )
         term.resize(30, 110)
         restored = wait_until(lambda: " commands" in term.text(), 6)
         check(
@@ -592,6 +616,17 @@ def scenario_plain_interrupt(ctx, Backend, label):
                     }
                 )
                 continue
+            if not (started and message and back and not leftover):
+                control = scenario_signal_control(Backend, shell, ctx["work"])
+                evidence["plain_python_control_interrupted"] = control
+                if control is False:
+                    not_exercised(
+                        f"{name}: Ctrl+C interrupts a plain command",
+                        "the harness's Ctrl+C does not reach a plain Python program "
+                        "under this shell either",
+                        **evidence,
+                    )
+                    continue
             check(
                 f"{name}: Ctrl+C interrupts a plain command and returns to the shell",
                 started and message and back and not leftover,
@@ -600,6 +635,26 @@ def scenario_plain_interrupt(ctx, Backend, label):
             check(f"{name}: no batch-termination prompt after Ctrl+C", not prompt)
         finally:
             term.close()
+
+
+def scenario_signal_control(Backend, shell, work):
+    """Does the harness's Ctrl+C reach any console program under this shell?"""
+    term = Backend(shell_argv(shell), cwd=str(work))
+    try:
+        if not wait_until(lambda: "READY>" in term.text(), 30):
+            return None
+        script = Path(work) / "signal_control.py"
+        script.write_text(
+            "import time\ntry:\n    time.sleep(120)\nexcept KeyboardInterrupt:\n"
+            "    print('CONTROL-INTERRUPTED')\n",
+            encoding="utf-8",
+        )
+        term.type(invoke(shell, BASE_PYTHON, f'"{script}"') + "\r")
+        time.sleep(3)
+        term.interrupt()
+        return bool(wait_until(lambda: "CONTROL-INTERRUPTED" in term.text(), 15))
+    finally:
+        term.close()
 
 
 def scenario_resume(ctx):
@@ -851,7 +906,10 @@ def conhost_driver(scenario, context_file, result_file):
     except Exception as exc:  # noqa: BLE001 - record and report driver failures
         check(f"conhost/{scenario}: driver completed", False, error=repr(exc))
     Path(result_file).write_text(
-        json.dumps({"checks": CHECKS, "notes": NOTES}, ensure_ascii=False), encoding="utf-8"
+        json.dumps(
+            {"checks": CHECKS, "notes": NOTES, "not_exercised": UNEXERCISED}, ensure_ascii=False
+        ),
+        encoding="utf-8",
     )
 
 
@@ -975,6 +1033,7 @@ def main():
         if result_file.is_file():
             driven = json.loads(result_file.read_text(encoding="utf-8"))
             NOTES.extend(driven["notes"])
+            UNEXERCISED.extend(driven.get("not_exercised", []))
             for item in driven["checks"]:
                 CHECKS.append(item)
                 print(("PASS " if item["passed"] else "FAIL ") + item["check"], flush=True)
@@ -992,7 +1051,13 @@ def main():
     failed = [c["check"] for c in CHECKS if not c["passed"]]
     Path(args.output).write_text(
         json.dumps(
-            {"environment": environment, "checks": CHECKS, "notes": NOTES, "failed": failed},
+            {
+                "environment": environment,
+                "checks": CHECKS,
+                "notes": NOTES,
+                "not_exercised": UNEXERCISED,
+                "failed": failed,
+            },
             indent=1,
             ensure_ascii=False,
         ),
