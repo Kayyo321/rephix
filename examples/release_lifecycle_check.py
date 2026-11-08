@@ -229,7 +229,7 @@ def representative_workflow(rephix, work):
             "--samples-per-context",
             "3000",
             "--bootstrap",
-            "39",
+            "79",
             "--alpha",
             "0.05",
         ]

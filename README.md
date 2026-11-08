@@ -6,6 +6,20 @@ An experimental engine for reconstructing model behavior and identifiable parame
 
 Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. With direct access to individual layers, it can export a recovered checkpoint for supported architectures and compare the stored tensors. Endpoint observations can leave different checkpoints indistinguishable even with unlimited queries.
 
+## What text alone can and cannot recover
+
+Universal recovery of a model's original parameters from text is impossible.
+Symmetric reparameterizations, greedy decoding and unqueried inputs each leave
+different models indistinguishable; `rephix text-identifiability` runs executable
+counterexamples. Inside a declared class (softmax-affine outputs over a public feature
+map: an additive log-linear n-gram model, or a private head on a public backbone),
+`rephix text-recover` recovers a defined canonical parameterization from sampled
+strings only, with standard errors, a class test and a standalone export. The class
+test can reject class membership but cannot prove it, so the guarantee is
+conditional on membership.
+[Contract, theorem and limits](docs/TEXT_RECOVERY.md) ·
+[Pre-registered results](docs/TEXT_RECOVERY_RESULTS.md)
+
 ## Run a persistent reconstruction session
 
 The session workflow accepts local text models or an authorized agent endpoint. It learns a standalone byte-level candidate without the target tokenizer, saves evidence and recovery state across process restarts, and locks a validation-selected candidate before final testing. Real runs cover three text model families and a controlled two-step tool agent.
@@ -36,11 +50,21 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
-[Version 0.3 release measurements and verification](docs/RELEASE_0_3.md).
+[Version 0.4 release notes and verification](docs/RELEASE_0_4.md) ·
+[Version 0.3 release measurements](docs/RELEASE_0_3.md).
 
 ## Installation and support
 
-[Install, update, roll back, and uninstall](docs/INSTALLATION.md) ·
+Install the latest stable release without cloning:
+
+```bash
+curl -LO https://github.com/Kayyo321/rephix/releases/latest/download/rephix-installer.py
+python3 rephix-installer.py install --prefix "$HOME/.local/share/rephix-app" --release latest --extras tui
+"$HOME/.local/share/rephix-app/rephix" --version
+```
+
+[Install, update, roll back, and uninstall](docs/INSTALLATION.md) (including Windows
+and checksum verification) ·
 [Supported environments and access requirements](docs/SUPPORT.md)
 
 ## Interactive terminal
@@ -113,6 +137,8 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `audit-mxfp4-safetensors` | Compare packed GPT-OSS scales, codes, and numeric weights | Separate stored-field and effective weight agreement |
 | `recover-fp8-safetensors` | Rebuild block-scaled E4M3FN safetensors with FP32 or BF16 scales | [Exact dequantized tensor responses](docs/FP8_RECOVERY.md) |
 | `audit-fp8-safetensors` | Compare FP8 codes, scales, and decoded weights | Separate packed-field, exact numeric, and FP32 agreement |
+| `text-recover`, `text-model` | Recover canonical softmax-affine parameters from sampled strings only and run the export | Recovery up to a defined equivalence for a declared class, conditional on class membership |
+| `text-identifiability` | Run counterexamples to universal text-only parameter recovery | Why original parameters are not identifiable from text in general |
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |
 | `calibrate-layer-traces` | Add chosen evidence only for missing affine directions or lookup IDs | Resolve gaps left by passive traces under separate probe budgets |

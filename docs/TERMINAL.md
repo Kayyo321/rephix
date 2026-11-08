@@ -60,11 +60,59 @@ handling and terminal restoration. An outer POSIX guard also restores the comple
 mode snapshot around toolkit setup and execution. Verified locally in a real Linux PTY at 40, 80,
 and 120 columns: launch, editing, execution, help, resize, exit, and exact restoration
 of terminal modes. Automated input-routing tests also exercise help, command execution,
-and monochrome mode. macOS CI also verified PTY launch, exit, cooked line input and restoration. Full
-manual macOS and Windows console exploration remains unverified.
+and monochrome mode. macOS CI also verified PTY launch, exit, cooked line input and
+restoration. Windows is covered by the native console verification below.
 
 The lifecycle PTY check exercises a cooked input line after exit before comparing
 the complete terminal-mode snapshot. On macOS, the kernel sets the transient PENDIN
 state when canonical input is restored and clears it on the next input; this is
 [defined by XNU](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/tty.c).
 The test checks actual line input and every mode field without masking that state.
+
+## Windows console verification
+
+`examples/windows_console_check.py` (workflow `windows console`) installs the wheel
+into a managed prefix whose path contains spaces and non-ASCII characters. It then
+drives the installed `rephix.exe` interactively, with nothing redirected, through two
+independent console paths:
+
+* **ConPTY:** a real pseudoconsole (pywinpty), the layer Windows Terminal uses. The
+  VT stream is rendered into a screen model (pyte) that the checks read.
+* **Classic console host:** a real conhost window (`CREATE_NEW_CONSOLE`). Keys are
+  sent with `WriteConsoleInputW` and the screen is read with
+  `ReadConsoleOutputCharacterW`. Ctrl+C in cooked mode uses
+  `GenerateConsoleCtrlEvent`, and resizing moves the window as a user drag would.
+
+Matrix: Windows Server 2022 (10.0.20348) and 2025 (10.0.26100), each with Python 3.10
+and 3.13; shells cmd.exe, Windows PowerShell 5.1 and PowerShell 7.
+
+| Area | Verified in both hosts unless noted |
+| --- | --- |
+| Launch | Fresh shell; `--version`; quoted output paths with spaces, `é`, `ü` and CJK; non-ASCII arguments round-trip; usage errors exit 2 without a traceback |
+| Rendering | Unicode welcome with no raw escape codes; full-screen workbench; filter, F1 options, editing, Enter to run, `✓ Done` |
+| Resize | Two-page layout at 60×24, "Terminal too small" at 40×10, full layout again at 110×30 (ConPTY on both releases; conhost window on Server 2022) |
+| Interruption | Ctrl+C stops a running workbench command and its child process; Ctrl+C when idle exits to a working shell with echo and a visible cursor; Ctrl+C interrupts plain commands in cmd and PowerShell 7 with no "Terminate batch job" prompt and no orphan processes |
+| Long runs and resume | `text-recover` with its oracle subprocess is interrupted, leaves no orphans, and resumes from its durable transcript |
+| Concurrency | Two commands through the launcher at once; installation changes are refused while either runs |
+| Redirection | `>` redirection, pipes to an ANSI code page, `ui --plain` in a PowerShell pipeline, and `ui` without a console explains `--plain` |
+| Lifecycle | Update and uninstall are refused while the workbench runs, then update, prune, uninstall and reinstall succeed |
+
+Not exercised (host limitations, not passes):
+
+* Ctrl+C on a plain command in a **conhost window under PowerShell**: the synthetic
+  `GenerateConsoleCtrlEvent` does not interrupt even a plain Python control program
+  there. The same combination through ConPTY receives a real Ctrl+C keystroke and
+  passes.
+* Resizing a **conhost window on Server 2025**: the host ignores the window-size
+  change. Resize handling on Server 2025 is verified through ConPTY.
+* The Windows Terminal application itself was not driven; it hosts ConPTY.
+
+Defects found and fixed by this verification:
+
+* Ctrl+C through `rephix.cmd` produced cmd.exe's "Terminate batch job (Y/N)?" prompt.
+  Use the native `rephix.exe` launcher; `rephix.cmd` remains for existing scripts and
+  still behaves that way.
+* A bare `rephix` piped to an ANSI code page crashed on the box-drawing wordmark.
+* The colored welcome printed raw escape codes in classic console windows.
+* The launcher's "shared" runtime lease was exclusive on Windows, so a second
+  concurrent command failed.
