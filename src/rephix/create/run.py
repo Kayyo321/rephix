@@ -1238,15 +1238,15 @@ def _paused(run_dir, reason):
 
 
 def _measured(torch):
-    import resource
-
     measured = {"peak_host_rss_bytes": None, "peak_device_bytes": None}
     try:
+        import resource  # POSIX only
+
         rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         measured["peak_host_rss_bytes"] = int(rss * (1 if sys.platform == "darwin" else 1024))
-    except (AttributeError, OSError):
+    except (ImportError, AttributeError, OSError):
         pass
-    if torch.cuda.is_available():
+    if torch.cuda.is_available() and torch.cuda.is_initialized():
         measured["peak_device_bytes"] = int(torch.cuda.max_memory_allocated())
         measured["device_name"] = torch.cuda.get_device_name(0)
     return measured

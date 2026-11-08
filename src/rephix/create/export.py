@@ -231,7 +231,8 @@ def verify_export(directory: str | Path) -> dict:
     if hashlib.sha256(sums.encode()).hexdigest() != info["checksums_sha256"]:
         return {"valid": False, "reason": "CHECKSUMS.sha256 does not match the marker"}
     bad = []
-    for line in sums.splitlines():
+    lines = [line for line in sums.split("\n") if line]
+    for line in lines:
         digest, name = line.split("  ", 1)
         path = directory / name
         if not path.is_file() or file_sha256(path) != digest:
@@ -239,7 +240,7 @@ def verify_export(directory: str | Path) -> dict:
     return {
         "valid": not bad,
         "corrupted_or_missing": bad,
-        "files": len(sums.splitlines()),
+        "files": len(lines),
         "created_by": info.get("created_by"),
     }
 
@@ -313,8 +314,9 @@ def export(
         if not reload["passed"] and "OutOfMemoryError" in reload.get("error", ""):
             # Accelerator full (for example, other jobs): reload on the CPU instead, where
             # float32 kernels differ slightly from the accelerator's, so the tolerance widens.
-            reload = fresh_process_check(staging, ids, prefix, "cpu", reference, generated,
-                                         max(tolerance, 2e-2))
+            reload = fresh_process_check(
+                staging, ids, prefix, "cpu", reference, generated, max(tolerance, 2e-2)
+            )
             reload["device_fallback"] = "cpu (accelerator out of memory)"
         verification = {
             "schema": schema,

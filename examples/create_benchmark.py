@@ -450,7 +450,8 @@ def _test_records(run_dir):
     split = json.loads((Path(run_dir) / "evidence" / "splits.json").read_text())
     rows = [
         json.loads(line)
-        for line in (Path(run_dir) / "evidence" / "records.jsonl").read_text().splitlines()
+        for line in (Path(run_dir) / "evidence" / "records.jsonl").read_text().split("\n")
+        if line
     ]
     return [r for r in rows if split["assignment"][r["id"]] == "test"], CreateRecord
 
