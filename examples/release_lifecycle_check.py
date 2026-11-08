@@ -616,8 +616,18 @@ def main():
     if args.old_wheel_04 and args.installer_04:
         managed = work / "managed 0.4"
         ok, out = run(
-            [base, "-I", args.installer_04, "install", "--prefix", managed,
-             "--wheel", args.old_wheel_04, "--extras", "tui"]
+            [
+                base,
+                "-I",
+                args.installer_04,
+                "install",
+                "--prefix",
+                managed,
+                "--wheel",
+                args.old_wheel_04,
+                "--extras",
+                "tui",
+            ]
         )
         rephix4 = launcher(managed)
         ok2, ver = run([rephix4, "--version"])
@@ -644,8 +654,12 @@ def main():
         ok3, inspect = run([rephix4, "create-inspect", run_dir])
         record(
             "upgrade 0.4.0: update activates the release, preserves data, reads the run",
-            ok and ok2 and ver.stdout.strip() == version and user_files(managed) == snapshot
-            and ok3 and json.loads(inspect.stdout)["status"] == "created",
+            ok
+            and ok2
+            and ver.stdout.strip() == version
+            and user_files(managed) == snapshot
+            and ok3
+            and json.loads(inspect.stdout)["status"] == "created",
             stderr=out.stderr[-400:],
         )
         ok, out = run([rephix4, "installation", "rollback"], env=env)
@@ -653,8 +667,12 @@ def main():
         ok3, refused = run([rephix4, "create-inspect", run_dir], expect=2)
         record(
             "rollback to 0.4.0: package rolls back; newer Create Mode data is refused, unchanged",
-            ok and ok2 and ver.stdout.strip() == "0.4.0" and ok3
-            and "invalid choice" in refused.stderr and user_files(managed) == snapshot,
+            ok
+            and ok2
+            and ver.stdout.strip() == "0.4.0"
+            and ok3
+            and "invalid choice" in refused.stderr
+            and user_files(managed) == snapshot,
         )
         ok, out = run([rephix4, "installation", "rollback"], env=env)
         ok2, ver = run([rephix4, "--version"])
@@ -663,8 +681,7 @@ def main():
             ok and ok2 and ver.stdout.strip() == version,
         )
         ok, out = run([rephix4, "installation", "inspect", "--verify"], env=env)
-        record("upgrade 0.4.0: managed integrity verification passes", ok,
-               stdout=out.stdout[-300:])
+        record("upgrade 0.4.0: managed integrity verification passes", ok, stdout=out.stdout[-300:])
         ok, out = run([rephix4, "installation", "uninstall"])
         record(
             "upgrade 0.4.0: uninstall retains user data including the Create Mode run",

@@ -52,8 +52,14 @@ def record(name, passed, **evidence):
 
 
 def run(argv, expect=0, **kwargs):
-    completed = subprocess.run([str(a) for a in argv], capture_output=True, text=True,
-                               encoding="utf-8", errors="replace", **kwargs)
+    completed = subprocess.run(
+        [str(a) for a in argv],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        **kwargs,
+    )
     return completed.returncode == expect, completed
 
 
@@ -81,10 +87,17 @@ def main():
     record("install: wheel with the hf extra in a fresh environment", ok, stderr=out.stderr[-600:])
     version = args.wheel.name.split("-")[1]
     ok, out = run([rephix, "--version"], cwd=work)
-    record("version: installed package reports the wheel version",
-           ok and out.stdout.strip() == version, reported=out.stdout.strip())
-    env = {**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
-           "CUDA_VISIBLE_DEVICES": ""}
+    record(
+        "version: installed package reports the wheel version",
+        ok and out.stdout.strip() == version,
+        reported=out.stdout.strip(),
+    )
+    env = {
+        **os.environ,
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1",
+        "CUDA_VISIBLE_DEVICES": "",
+    }
     env.pop("PYTHONPATH", None)
     fixture = work / "fixture"
     ok, out = run([rephix, "create-fixture", "--output", fixture], cwd=work, env=env)
@@ -92,43 +105,100 @@ def main():
     common = ["--profile", "cpu-smoke", "--device", "cpu"]
     traces = work / "run traces"
     started = time.monotonic()
-    ok, out = run([rephix, "--threads", "2", "create", "--base", fixture / "base", "--evidence",
-                   fixture / "traces.jsonl", "--output", traces, *common, "--stop-after", "fit"],
-                  cwd=work, env=env)
+    ok, out = run(
+        [
+            rephix,
+            "--threads",
+            "2",
+            "create",
+            "--base",
+            fixture / "base",
+            "--evidence",
+            fixture / "traces.jsonl",
+            "--output",
+            traces,
+            *common,
+            "--stop-after",
+            "fit",
+        ],
+        cwd=work,
+        env=env,
+    )
     paused = ok and json.loads(out.stdout)["status"] == "paused"
     record("traces: run stops after the fit as an interruption", paused, stderr=out.stderr[-600:])
     ok, out = run([rephix, "--threads", "2", "create-resume", traces], cwd=work, env=env)
     done = json.loads(out.stdout) if ok else {}
-    record("traces: resume completes and exports", ok and done.get("status") == "complete",
-           stderr=out.stderr[-600:], seconds=round(time.monotonic() - started, 1))
+    record(
+        "traces: resume completes and exports",
+        ok and done.get("status") == "complete",
+        stderr=out.stderr[-600:],
+        seconds=round(time.monotonic() - started, 1),
+    )
     corpus = work / "run corpus"
-    ok, out = run([rephix, "--threads", "2", "create", "--base", fixture / "base", "--corpus",
-                   fixture / "corpus.txt", "--prompt", "Keep the formal voice", "--output",
-                   corpus, *common], cwd=work, env=env)
+    ok, out = run(
+        [
+            rephix,
+            "--threads",
+            "2",
+            "create",
+            "--base",
+            fixture / "base",
+            "--corpus",
+            fixture / "corpus.txt",
+            "--prompt",
+            "Keep the formal voice",
+            "--output",
+            corpus,
+            *common,
+        ],
+        cwd=work,
+        env=env,
+    )
     corpus_done = json.loads(out.stdout) if ok else {}
-    record("corpus: instruction-guided corpus-only run completes",
-           ok and corpus_done.get("status") == "complete", stderr=out.stderr[-600:])
-    exports = [Path(done.get("export", traces / "export")), Path(corpus_done.get("export", corpus / "export"))]
+    record(
+        "corpus: instruction-guided corpus-only run completes",
+        ok and corpus_done.get("status") == "complete",
+        stderr=out.stderr[-600:],
+    )
+    exports = [
+        Path(done.get("export", traces / "export")),
+        Path(corpus_done.get("export", corpus / "export")),
+    ]
     for export in exports:
         ok, out = run([rephix, "create-export", "--verify", export], cwd=work, env=env)
         record(f"export: {export.parent.name} verifies", ok and json.loads(out.stdout)["valid"])
         verification = json.loads((export / "export-verification.json").read_text())
-        record(f"export: {export.parent.name} schema, confinement and fresh reload",
-               verification["passed"])
+        record(
+            f"export: {export.parent.name} schema, confinement and fresh reload",
+            verification["passed"],
+        )
     ok, out = run([rephix, "create-inspect", traces, "--verify"], cwd=work, env=env)
-    record("inspect: completed run verifies", ok and json.loads(out.stdout)["verification"]["passed"])
+    record(
+        "inspect: completed run verifies", ok and json.loads(out.stdout)["verification"]["passed"]
+    )
     ok, out = run([*pip, "uninstall", "-y", "rephix"])
     record("uninstall: rephix removed from the environment", ok)
     ok, out = run([python, "-I", "-c", _RELOAD, exports[0]], cwd=work, env=env)
     info = json.loads(out.stdout.strip().splitlines()[-1]) if ok else {}
-    record("independence: export loads and generates with plain Transformers, Rephix absent",
-           ok and info.get("rephix_importable") is False and info.get("generated_tokens") == 8,
-           stderr=out.stderr[-400:])
+    record(
+        "independence: export loads and generates with plain Transformers, Rephix absent",
+        ok and info.get("rephix_importable") is False and info.get("generated_tokens") == 8,
+        stderr=out.stderr[-400:],
+    )
     failed = [r["check"] for r in RESULTS if not r["passed"]]
-    args.output.write_text(json.dumps({"platform": platform.platform(),
-                                       "python": platform.python_version(),
-                                       "wheel": args.wheel.name, "checks": RESULTS,
-                                       "failed": failed}, indent=1) + "\n")
+    args.output.write_text(
+        json.dumps(
+            {
+                "platform": platform.platform(),
+                "python": platform.python_version(),
+                "wheel": args.wheel.name,
+                "checks": RESULTS,
+                "failed": failed,
+            },
+            indent=1,
+        )
+        + "\n"
+    )
     print(f"{len(RESULTS) - len(failed)}/{len(RESULTS)} Create Mode install checks passed")
     return 1 if failed else 0
 
