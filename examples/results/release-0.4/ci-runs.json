@@ -1,0 +1,10 @@
+{
+ "candidate_commit": "05261da255c946842e7e106c1f2e8c8e8aa34ca6",
+ "runs": {
+  "release artifacts (build once + lifecycle on 6 OS/Python combinations)": "https://github.com/Kayyo321/rephix/actions/runs/42511286962",
+  "windows console (Server 2022/2025 x Python 3.10/3.13, ConPTY and conhost)": "https://github.com/Kayyo321/rephix/actions/runs/42511287294",
+  "tests (12 core OS/Python combinations, lifecycle, CPU model integration, packaging)": "https://github.com/Kayyo321/rephix/actions/runs/42511287310",
+  "mps (unavailable path on real macOS 15; Apple silicon job needs a self-hosted runner)": "https://github.com/Kayyo321/rephix/actions/runs/42511287307"
+ },
+ "all_concluded": "success"
+}

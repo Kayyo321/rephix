@@ -1,0 +1,38 @@
+{
+ "environment": {
+  "platform": "macOS-15.8.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.12.10",
+  "torch": "2.15.0",
+  "mps_built": true,
+  "mps_available": false,
+  "chip": "Apple M1 (Virtual)",
+  "macos": "15.8.2",
+  "transformers": "4.57.6"
+ },
+ "checks": [
+  {
+   "check": "host: MPS unavailable as expected",
+   "passed": true,
+   "platform": "macOS-15.8.2-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.10",
+   "torch": "2.15.0",
+   "mps_built": true,
+   "mps_available": false,
+   "chip": "Apple M1 (Virtual)",
+   "macos": "15.8.2",
+   "transformers": "4.57.6"
+  },
+  {
+   "check": "unavailable: --device mps fails with an explicit message and no traceback",
+   "passed": true,
+   "stderr": "ing device Apple Paravirtual device that does not support Metal 2.0 (Triggered internally at /Users/runner/work/pytorch/pytorch/aten/src/ATen/mps/MPSDevice.mm:28.)\n  return torch._C._mps_is_available()\nrephix: MPS was requested but is unavailable (this PyTorch build supports MPS, but no Metal device is usable: macOS 12.3+ on Apple silicon with a non-virtualized GPU is required). Use --device cpu.\n"
+  },
+  {
+   "check": "unavailable: --device auto runs on CPU and reports no accelerator",
+   "passed": true
+  }
+ ],
+ "failed": []
+}

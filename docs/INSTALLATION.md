@@ -36,8 +36,8 @@ py -3 rephix-installer.py install --prefix "$env:LOCALAPPDATA\Rephix" --release 
 `--release latest` asks the GitHub Releases API for the latest **stable** release (the
 `/releases/latest` endpoint never returns drafts or prereleases). `--release v0.4.0`
 selects a specific stable release. The installer downloads the wheel, checks it
-against both the release's `SHA256SUMS` and the asset digest GitHub records
-server-side, and installs only on agreement. Any mismatch, unreachable channel, or
+against the release's `SHA256SUMS` and, when the channel provides one, the asset
+digest GitHub records server-side, and installs only on agreement. Any mismatch, unreachable channel, or
 missing asset stops with an error before anything changes. `REPHIX_RELEASES_API`
 overrides the channel URL for mirrors and tests. Provenance attestations can be
 checked with `gh attestation verify rephix-0.4.0-py3-none-any.whl --repo Kayyo321/rephix`.
@@ -99,7 +99,9 @@ rephix doctor
 
 `update --wheel /absolute/rephix-X-py3-none-any.whl` installs a wheel you supply.
 Updating to the release that is already active, with the same extras, is reported as
-`already_current` and changes nothing; add `--force` to rebuild the environment anyway.
+`already_current` and leaves the environment unchanged. It still refreshes the
+launcher and manager, which repairs an interrupted refresh or a bootstrap left by an
+older manager. Add `--force` to rebuild the environment anyway.
 After a successful update, the launcher and manager files in PREFIX are refreshed from
 the new version. An unchanged `rephix.cmd` is never rewritten, because `cmd.exe`
 rereads a running batch file. A running `rephix.exe` is renamed aside and replaced,
@@ -152,8 +154,8 @@ is rejected before deactivation; use the stable launcher or external bootstrap.
 
 ## Data formats and migration
 
-Installation manifest schema 1 and session journal schema 1 are supported; 0.4 adds
-optional slot fields that 0.3 managers ignore. Existing
+Installation manifest schema 1 and session journal schema 1 are supported; 0.4 keeps
+the 0.3 manifest format unchanged. Existing
 layer evidence schema 1 is read and resumed in place; new layer journals use schema
 2 with lossless compression. Bundle manifests remain schema 1. No migration of user
 sessions, evidence or configuration is needed for 0.2/0.3-to-0.4 updates, and the installer

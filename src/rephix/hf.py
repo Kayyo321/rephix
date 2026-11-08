@@ -88,12 +88,13 @@ def _monitor_mps():
         )
 
 
-def _device(torch, name):
+def _device(torch, name, monitor=True):
     if name == "auto":
         if torch.cuda.is_available():
             return "cuda"
         if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-            _monitor_mps()
+            if monitor:
+                _monitor_mps()
             return "mps"
         return "cpu"
     if name == "cuda" and not torch.cuda.is_available():
@@ -112,7 +113,8 @@ def _device(torch, name):
                 )
                 + "). Use --device cpu."
             )
-        _monitor_mps()
+        if monitor:
+            _monitor_mps()
     return name
 
 

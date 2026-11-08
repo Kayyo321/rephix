@@ -223,10 +223,37 @@ class BasePythonTests(unittest.TestCase):
             result = subprocess.run(
                 [str(python), "-I", str(script)], capture_output=True, text=True, check=True
             )
-            base = Path(result.stdout.strip()).resolve()
-            self.assertNotIn(root.resolve(), base.parents)
+            # Unresolved: a venv interpreter is often a symlink to the base itself.
+            base = Path(result.stdout.strip()).absolute()
+            self.assertNotIn(root.absolute(), base.parents)
             self.assertTrue(base.is_file())
             self.assertTrue(Path(manager._base_python()).is_file())
+
+
+class HttpChannelErrorTests(unittest.TestCase):
+    def test_truncated_transfer_is_a_clean_channel_error(self):
+        import http.client
+
+        with patch("urllib.request.urlopen", side_effect=http.client.IncompleteRead(b"x")):
+            with self.assertRaisesRegex(RuntimeError, "Cannot reach the release channel"):
+                manager._http_get("https://example.invalid", 10)
+
+
+class WindowsLauncherTemplateTests(unittest.TestCase):
+    def test_template_falls_back_to_launcher_files_for_older_pip(self):
+        import types
+
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            for name in ("t64.exe", "t64-arm.exe", "t32.exe"):
+                (folder / name).write_bytes(b"launcher-" + name.encode())
+            fake = types.SimpleNamespace(__file__=str(folder / "scripts.py"))  # no WRAPPERS
+            package = types.ModuleType("pip._vendor.distlib")
+            package.scripts = fake
+            with patch.dict(
+                "sys.modules", {"pip._vendor.distlib": package, "pip._vendor.distlib.scripts": fake}
+            ):
+                self.assertTrue(manager._windows_launcher_template().startswith(b"launcher-t"))
 
 
 class ReleaseChannelTests(unittest.TestCase):
@@ -307,6 +334,7 @@ class ReleaseChannelTests(unittest.TestCase):
             args.operation, args.force = "update", False
             again = manager.install(args)
             self.assertTrue(again["already_current"])
+            self.assertIn("bootstrap_refreshed", again)  # repairs still run when current
             self.assertEqual(again["active"], first["active"])
             self.assertEqual(len(list((self.base / "m").glob("env-*"))), 1)
             state = manager._read(self.base / "m")

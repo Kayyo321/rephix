@@ -1,0 +1,175 @@
+{
+ "channel": "mirror",
+ "platform": "Windows-10-10.0.26100-SP0",
+ "python": "3.10.11",
+ "version": "0.4.0",
+ "assets": {
+  "BUILD-INFO.json": "1608a2162216c71d341f1d113ab73d907e16b8625ecad64e2da2222730e9589a",
+  "rephix-0.4.0-py3-none-any.whl": "0ea9545787b8c8f936c6f375115f4891fa1d96678402a862131858763952afcd",
+  "rephix-0.4.0.tar.gz": "97ccd51cd1fe02fecda69fa6a97a595889dc7da832475613b0d1eceddf67976c",
+  "rephix-installer.py": "28fe3cec149afddcbd23d94613feac4b1dc7ed43202d2fa8114bc8439b4f311b"
+ },
+ "old_wheels": {
+  "0.2.0": "870e1d3d51d816e3599bea9d714792c2275e9b154198cd5ce3062bc2a905e2c5",
+  "0.3.0": "ce2db52051671c1e5fac30d0a7a079a6ab6372877de7cc683ce707f2db836a86"
+ },
+ "checks": [
+  {
+   "check": "assets: SHA256SUMS lists every asset and every digest matches",
+   "passed": true,
+   "listed": [
+    "BUILD-INFO.json",
+    "rephix-0.4.0-py3-none-any.whl",
+    "rephix-0.4.0.tar.gz",
+    "rephix-installer.py"
+   ],
+   "present": [
+    "BUILD-INFO.json",
+    "rephix-0.4.0-py3-none-any.whl",
+    "rephix-0.4.0.tar.gz",
+    "rephix-installer.py"
+   ]
+  },
+  {
+   "check": "assets: wheel name, wheel metadata, sdist and build info agree on the version",
+   "passed": true,
+   "version": "0.4.0",
+   "build": {
+    "version": "0.4.0",
+    "tag": "v0.4.0",
+    "commit": "05261da255c946842e7e106c1f2e8c8e8aa34ca6",
+    "python": "3.12.16"
+   }
+  },
+  {
+   "check": "fresh install: installer resolves the latest stable release and verifies it",
+   "passed": true,
+   "stderr": "",
+   "release": {
+    "tag": "v0.4.0",
+    "wheel_url": "http://127.0.0.1:59691/download/v0.4.0/rephix-0.4.0-py3-none-any.whl",
+    "html_url": "http://127.0.0.1:59691/download/v0.4.0/"
+   }
+  },
+  {
+   "check": "fresh install: launcher reports the release version",
+   "passed": true,
+   "reported": "0.4.0"
+  },
+  {
+   "check": "fresh install: manifest records the verified wheel digest",
+   "passed": true
+  },
+  {
+   "check": "fresh install: representative workflow (affine demo, text-only recovery, export)",
+   "passed": true,
+   "status": "recovered_in_class"
+  },
+  {
+   "check": "fresh install: check-update reports current",
+   "passed": true,
+   "stdout": "{\n  \"installed\": \"0.4.0\",\n  \"available\": \"0.4.0\",\n  \"tag\": \"v0.4.0\",\n  \"update_available\": false,\n  \"wheel_url\": \"http://127.0.0.1:59691/download/v0.4.0/rephix-0.4.0-py3-none-any.whl\",\n  \"command\": null\n}\n"
+  },
+  {
+   "check": "repeat: update to the same release is a no-op",
+   "passed": true
+  },
+  {
+   "check": "repeat: second install is refused without changes",
+   "passed": true
+  },
+  {
+   "check": "channel: prereleases are never selected",
+   "passed": true,
+   "stderr": "rephix: v9.9.9 is not a published stable release.\n"
+  },
+  {
+   "check": "upgrade 0.2 (pip): published v0.2.0 installs and runs",
+   "passed": true,
+   "wheel_sha256": "870e1d3d51d816e3599bea9d714792c2275e9b154198cd5ce3062bc2a905e2c5"
+  },
+  {
+   "check": "upgrade 0.2 (pip): documented pip upgrade reaches the release and reads 0.2 evidence",
+   "passed": true
+  },
+  {
+   "check": "uninstall (pip): package removed, user files untouched",
+   "passed": true
+  },
+  {
+   "check": "upgrade 0.3 (old-manager): 0.3.0 managed install",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "upgrade 0.3 (old-manager): update activates the release and preserves user data",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "upgrade 0.3 (old-manager): legacy manager kept and still works",
+   "passed": true
+  },
+  {
+   "check": "upgrade 0.3 (old-manager): rollback returns to 0.3.0",
+   "passed": true
+  },
+  {
+   "check": "upgrade 0.3 (new-installer): 0.3.0 managed install",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "upgrade 0.3 (new-installer): update activates the release and preserves user data",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "upgrade 0.3 (new-installer): manager adopted from the release",
+   "passed": true
+  },
+  {
+   "check": "upgrade 0.3 (new-installer): rollback returns to 0.3.0",
+   "passed": true
+  },
+  {
+   "check": "failed update: corrupted download is rejected without changes",
+   "passed": true,
+   "stderr": "rephix: Integrity check failed for rephix-0.4.0-py3-none-any.whl: expected 0ea9545787b8c8f936c6f375115f4891fa1d96678402a862131858763952afcd, got 001f29266356ff5dc123fa62bc977effbea84bda605657f519b390b862b2d9df. No changes made.\n"
+  },
+  {
+   "check": "failed update: unreachable channel is reported without changes",
+   "passed": true
+  },
+  {
+   "check": "failed update: invalid wheel leaves the active version usable",
+   "passed": true
+  },
+  {
+   "check": "uninstall: environments removed, user directories retained",
+   "passed": true
+  },
+  {
+   "check": "uninstall: launcher reports the uninstalled state",
+   "passed": true
+  },
+  {
+   "check": "reinstall: retained bootstrap reinstalls the release with data intact",
+   "passed": true
+  },
+  {
+   "check": "purge: only requested directories and the bootstrap are removed",
+   "passed": true
+  },
+  {
+   "check": "reinstall: fresh prefix after bootstrap removal",
+   "passed": true
+  },
+  {
+   "check": "integrations: PATH, shell startup files and user environment untouched",
+   "passed": true
+  }
+ ],
+ "failed": [],
+ "finished": "2026-11-08T18:45:20Z"
+}

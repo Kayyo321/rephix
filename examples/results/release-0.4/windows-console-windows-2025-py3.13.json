@@ -1,0 +1,600 @@
+{
+ "environment": {
+  "windows": "Windows-2025Server-10.0.26100-SP0",
+  "release": "2025Server",
+  "version": "10.0.26100",
+  "python": "3.13.17 (tags/v3.13.17:64e080d, Oct 21 2026, 14:08:53) [MSC v.1944 64 bit (AMD64)]",
+  "wheel": "rephix-0.4.0-py3-none-any.whl",
+  "console_paths": [
+   "ConPTY via pywinpty + pyte",
+   "conhost via WriteConsoleInputW"
+  ]
+ },
+ "checks": [
+  {
+   "check": "install: managed install into a path with spaces and non-ASCII",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "install: native rephix.exe launcher created",
+   "passed": true
+  },
+  {
+   "check": "conpty/cmd: fresh shell prompt",
+   "passed": true,
+   "screen": "\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conpty/cmd: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conpty/cmd: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conpty-cmd demo é.json"
+  },
+  {
+   "check": "conpty/cmd: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": "eported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>echo DEMO=%ERRORLEVEL%\nDEMO=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n\nREADY>"
+  },
+  {
+   "check": "conpty/cmd: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\n\nREADY>echo BARE=%ERRORLEVEL%\nBARE=0\n\nREADY>"
+  },
+  {
+   "check": "conpty/cmd: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conpty/powershell: fresh shell prompt",
+   "passed": true,
+   "screen": "READY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conpty/powershell: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conpty/powershell: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conpty-powershell demo é.json"
+  },
+  {
+   "check": "conpty/powershell: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": " gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY>"
+  },
+  {
+   "check": "conpty/powershell: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
+  },
+  {
+   "check": "conpty/powershell: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conpty/pwsh: fresh shell prompt",
+   "passed": true,
+   "screen": "READY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conpty/pwsh: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conpty/pwsh: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conpty-pwsh demo é.json"
+  },
+  {
+   "check": "conpty/pwsh: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": " gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY>"
+  },
+  {
+   "check": "conpty/pwsh: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
+  },
+  {
+   "check": "conpty/pwsh: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conpty/ui: shell ready",
+   "passed": true,
+   "screen": "\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conpty/ui: opens full-screen workbench",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / filter commands              │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   recover-linear               │  ❯ rephix demo add arguments…\n   audit-weights                │\n   validate                     │\n   split                        │  Output ──────────────────────────────────────────────────────────────────\n   collect                      │\n   fit                          │  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n   evaluate                     │  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n   compare-weights              │  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n   recover-projection           │\n   recover-layers               │  Nothing has run yet. Type arguments above and press ⏎.\n   replay-layers                │\n   installation                 │\n   recover-diffusion            │\n   replay-diffusion             │\n   recover-gguf                 │\n   audit-gguf                   │\n   recover-mxfp4-safetensors    │\n   audit-mxfp4-safetensors      │\n   recover-endpoint-head        │\n   symmetry-demo                │\n                                │\n   39 of 39 commands            │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ choose   ⏎ open   F1 options   ctrl+c quit"
+  },
+  {
+   "check": "conpty/ui: typing filters the command list",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo add arguments…\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │\n                                │  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n                                │  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n                                │  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n                                │\n                                │  Nothing has run yet. Type arguments above and press ⏎.\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ choose   ⏎ open   F1 options   ctrl+c quit"
+  },
+  {
+   "check": "conpty/ui: F1 shows command options",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conpty tui ü.json\"\n                                │\n                                │\n                                │  Options · demo ──────────────────────────────────────────────────────────\n                                │  usage: rephix demo [-h] [--seed SEED] [--samples SAMPLES]\n                                │                     [--features FEATURES] [--classes CLASSES]\n                                │                     [--output OUTPUT]\n                                │\n                                │  options:\n                                │    -h, --help           show this help message and exit\n                                │    --seed SEED\n                                │    --samples SAMPLES\n                                │    --features FEATURES\n                                │    --classes CLASSES\n                                │    --output OUTPUT      also save the JSON report here\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ scroll   esc back   tab next   ctrl+c quit"
+  },
+  {
+   "check": "conpty/ui: runs edited command to completion",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                  ✓ Done · 0.2s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conpty tui ü.json\"\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"features\": 8,?\n                                │        \"classes\": 5,?\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options"
+  },
+  {
+   "check": "conpty/ui: two-page layout after resize to 60x24",
+   "passed": true,
+   "screen": " rephix 0.4.0  ›  demo                       ✓ Done · 0.2s\n───────────────────────────────────────────────────────────\n\n demo\n Recover planted affine weights and evaluate held-out\n features\n\n \\data dir ü 数据\\conpty tui ü.json\"\n\n\n Output ──────────────────────────────────────────────────\n       \"training_target_rmse\": 9.892452585312709e-16,?\n       \"interpretation\": \"Unique affine parameters in the\n  reported gauge for exact observations.\"?\n     }?\n   },?\n   \"scope\": \"Known input features and an affine output la\n yer; this does not recover hidden transformer weights.\"?\n\n }?\n ✓ Done · exit 0 · 0.2s\n\n───────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options",
+   "resize": null
+  },
+  {
+   "check": "conpty/ui: too-small notice at 40x10",
+   "passed": true,
+   "screen": "\n\n\n\n          Terminal too small\n       Resize to at least 48×12\n       or use: rephix ui --plain\n\n\n",
+   "resize": null
+  },
+  {
+   "check": "conpty/ui: full layout after resize back to 110x30",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                  ✓ Done · 0.2s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conpty tui ü.json\"\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"features\": 8,?\n                                │        \"classes\": 5,?\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options",
+   "resize": null
+  },
+  {
+   "check": "conpty/ui: shows running state with a child process",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                            ● Running demo · 0s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ctrl+c stop   tab focus",
+   "new_children": [
+    "(1924, 'python.exe')",
+    "(7576, 'python.exe')"
+   ]
+  },
+  {
+   "check": "conpty/ui: Ctrl+C stops the running command and its process",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                ✗ Exit 1 · 2.1s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n                                │  ■ Stopped · exit 1 · 2.1s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options",
+   "leftover": []
+  },
+  {
+   "check": "conpty/ui: Ctrl+C when idle exits to the shell",
+   "passed": true,
+   "screen": "\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n   2 of 39 commands             │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n                                │  ■ Stopped · exit 1 · 2.1s\n                                │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options\n\nREADY>"
+  },
+  {
+   "check": "conpty/ui: shell input and echo restored after exit",
+   "passed": true,
+   "screen": "\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demecho after-ui ü 数据      │\nafter-ui ü 数据o                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\nREADY>                          │\n   2 of 39 commands             │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n                                │  ■ Stopped · exit 1 · 2.1s\n                                │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options\n\nREADY>"
+  },
+  {
+   "check": "conpty/ui: no batch-termination prompt",
+   "passed": true
+  },
+  {
+   "check": "conpty/ui: cursor visible after exit",
+   "passed": true
+  },
+  {
+   "check": "conpty/cmd/rephix.exe: Ctrl+C interrupts a plain command and returns to the shell",
+   "passed": true,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+   "interrupt_path": "VT input ^C",
+   "children_before": [
+    "(7176, 'python.exe')",
+    "(5632, 'python.exe')",
+    "(2008, 'python.exe')"
+   ],
+   "children_after": []
+  },
+  {
+   "check": "conpty/cmd/rephix.exe: no batch-termination prompt after Ctrl+C",
+   "passed": true
+  },
+  {
+   "check": "conpty/pwsh/rephix.exe: Ctrl+C interrupts a plain command and returns to the shell",
+   "passed": true,
+   "screen": "READY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+   "interrupt_path": "VT input ^C",
+   "children_before": [
+    "(8016, 'python.exe')",
+    "(5996, 'python.exe')",
+    "(6932, 'python.exe')"
+   ],
+   "children_after": []
+  },
+  {
+   "check": "conpty/pwsh/rephix.exe: no batch-termination prompt after Ctrl+C",
+   "passed": true
+  },
+  {
+   "check": "concurrency: a second command runs while another is active",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "concurrency: installation changes are refused while a command runs",
+   "passed": true,
+   "stderr": "rephix: Rephix is running or another installation operation holds the lock. Retry after it exits.\n"
+  },
+  {
+   "check": "resume: Ctrl+C stops recovery and its oracle process",
+   "passed": true,
+   "transcript_lines": 21,
+   "orphans": [],
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" text-recover --features \"D:\\a\\_temp\\console check\\dat\na dir ü 数据\\resume é\\features.json\" --target \"D:\\a\\_temp\\console check\\data dir ü 数据\\resume é\\target.json\"\n--output \"D:\\a\\_temp\\console check\\data dir ü 数据\\resume é\\export\" --contexts 300 --samples-per-context 20000\n --bootstrap 79 --alpha 0.05\nrephix: interrupted; resume using the saved evidence or session directory\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "resume: rerun resumes from the durable transcript",
+   "passed": true,
+   "exit": 0,
+   "resumed_contexts": 20,
+   "status": "recovered_in_class"
+  },
+  {
+   "check": "redirect/cmd: JSON written through > redirection",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "redirect: welcome to pipes",
+   "passed": true,
+   "exit": 0,
+   "stderr": ""
+  },
+  {
+   "check": "redirect: ui --plain to pipes",
+   "passed": true,
+   "exit": 0,
+   "stderr": ""
+  },
+  {
+   "check": "redirect: validate to pipes",
+   "passed": true,
+   "exit": 0,
+   "stderr": ""
+  },
+  {
+   "check": "redirect: missing to pipes",
+   "passed": true,
+   "exit": 1,
+   "stderr": "rephix: [Errno 2] No such file or directory: 'D:\\\\a\\\\_temp\\\\console check\\\\data dir � \\u6570\\u636e\\\\\\u7f3a\\u5931 �.jsonl'\r\n"
+  },
+  {
+   "check": "redirect: ui without a console explains --plain",
+   "passed": true,
+   "stderr": "rephix: The workbench needs an interactive terminal. Use rephix ui --plain or --help.\r\n"
+  },
+  {
+   "check": "redirect/powershell: pipeline consumes plain catalog",
+   "passed": true,
+   "stdout": "\r\n      \"command\": \"text-recover\",\r\n\r\n\r\n"
+  },
+  {
+   "check": "conhost/cmd: fresh shell prompt",
+   "passed": true,
+   "screen": "\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/cmd: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conhost/cmd: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conhost-cmd demo é.json"
+  },
+  {
+   "check": "conhost/cmd: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": "eported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>echo DEMO=%ERRORLEVEL%\nDEMO=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n\nREADY>"
+  },
+  {
+   "check": "conhost/cmd: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\n\nREADY>echo BARE=%ERRORLEVEL%\nBARE=0\n\nREADY>"
+  },
+  {
+   "check": "conhost/cmd: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conhost/powershell: fresh shell prompt",
+   "passed": true,
+   "screen": "READY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/powershell: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conhost/powershell: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conhost-powershell demo é.json"
+  },
+  {
+   "check": "conhost/powershell: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": " gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY>"
+  },
+  {
+   "check": "conhost/powershell: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
+  },
+  {
+   "check": "conhost/powershell: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conhost/pwsh: fresh shell prompt",
+   "passed": true,
+   "screen": "READY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/pwsh: --version through launcher",
+   "passed": true,
+   "exit": 0
+  },
+  {
+   "check": "conhost/pwsh: quoted non-ASCII output path",
+   "passed": true,
+   "exit": 0,
+   "path": "D:\\a\\_temp\\console check\\data dir ü 数据\\conhost-pwsh demo é.json"
+  },
+  {
+   "check": "conhost/pwsh: non-ASCII argument round trip",
+   "passed": true,
+   "exit": 0,
+   "screen": " gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY>"
+  },
+  {
+   "check": "conhost/pwsh: Unicode welcome renders",
+   "passed": true,
+   "exit": 0,
+   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
+  },
+  {
+   "check": "conhost/pwsh: usage error exit status",
+   "passed": true,
+   "exit": 2
+  },
+  {
+   "check": "conhost/ui: shell ready",
+   "passed": true,
+   "screen": "\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/ui: opens full-screen workbench",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / filter commands              │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   recover-linear               │  ❯ rephix demo add arguments…\n   audit-weights                │\n   validate                     │\n   split                        │  Output ──────────────────────────────────────────────────────────────────\n   collect                      │\n   fit                          │  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n   evaluate                     │  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n   compare-weights              │  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n   recover-projection           │\n   recover-layers               │  Nothing has run yet. Type arguments above and press ⏎.\n   replay-layers                │\n   installation                 │\n   recover-diffusion            │\n   replay-diffusion             │\n   recover-gguf                 │\n   audit-gguf                   │\n   recover-mxfp4-safetensors    │\n   audit-mxfp4-safetensors      │\n   recover-endpoint-head        │\n   symmetry-demo                │\n                                │\n   39 of 39 commands            │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ choose   ⏎ open   F1 options   ctrl+c quit"
+  },
+  {
+   "check": "conhost/ui: typing filters the command list",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo add arguments…\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │\n                                │  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n                                │  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n                                │  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n                                │\n                                │  Nothing has run yet. Type arguments above and press ⏎.\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ choose   ⏎ open   F1 options   ctrl+c quit"
+  },
+  {
+   "check": "conhost/ui: F1 shows command options",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                        ○ Ready\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conhost tui ü.json\"\n                                │\n                                │\n                                │  Options · demo ──────────────────────────────────────────────────────────\n                                │  usage: rephix demo [-h] [--seed SEED] [--samples SAMPLES]\n                                │                     [--features FEATURES] [--classes CLASSES]\n                                │                     [--output OUTPUT]\n                                │\n                                │  options:\n                                │    -h, --help           show this help message and exit\n                                │    --seed SEED\n                                │    --samples SAMPLES\n                                │    --features FEATURES\n                                │    --classes CLASSES\n                                │    --output OUTPUT      also save the JSON report here\n                                │\n                                │\n                                │\n                                │\n                                │\n                                │\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ↑↓ scroll   esc back   tab next   ctrl+c quit"
+  },
+  {
+   "check": "conhost/ui: runs edited command to completion",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                  ✓ Done · 0.2s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conhost tui ü.json\"\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"features\": 8,?\n                                │        \"classes\": 5,?\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options"
+  },
+  {
+   "check": "conhost/ui: full layout after resize back to 110x30",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                  ✓ Done · 0.2s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  \\conhost tui ü.json\"\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"features\": 8,?\n                                │        \"classes\": 5,?\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options",
+   "resize": {
+    "method": "SetWindowPos on the console window",
+    "requested": [
+     110,
+     30
+    ],
+    "font": [
+     8,
+     16
+    ],
+    "moved": true,
+    "error": 0,
+    "hwnd": true,
+    "window": [
+     110,
+     30
+    ]
+   }
+  },
+  {
+   "check": "conhost/ui: shows running state with a child process",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                            ● Running demo · 0s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ctrl+c stop   tab focus",
+   "new_children": [
+    "(7648, 'python.exe')",
+    "(7788, 'python.exe')"
+   ]
+  },
+  {
+   "check": "conhost/ui: Ctrl+C stops the running command and its process",
+   "passed": true,
+   "screen": " rephix 0.4.0                                                                                ✗ Exit 1 · 2.1s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.4236630764228053,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 9.892452585312709e-16,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n                                │  ■ Stopped · exit 1 · 2.1s\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ⏎ run   esc back   tab output   F1 options",
+   "leftover": []
+  },
+  {
+   "check": "conhost/ui: Ctrl+C when idle exits to the shell",
+   "passed": true,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" ui\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/ui: shell input and echo restored after exit",
+   "passed": true,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" ui\n\nREADY>echo after-ui ü 数据\nafter-ui ü 数据\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "check": "conhost/ui: no batch-termination prompt",
+   "passed": true
+  },
+  {
+   "check": "conhost/cmd/rephix.exe: Ctrl+C interrupts a plain command and returns to the shell",
+   "passed": true,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+   "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
+   "children_before": [
+    "(4984, 'python.exe')",
+    "(3144, 'python.exe')",
+    "(8920, 'python.exe')"
+   ],
+   "children_after": []
+  },
+  {
+   "check": "conhost/cmd/rephix.exe: no batch-termination prompt after Ctrl+C",
+   "passed": true
+  },
+  {
+   "check": "lifecycle: update rejected while the workbench runs",
+   "passed": true,
+   "stderr": "rephix: Rephix is running or another installation operation holds the lock. Retry after it exits.\n"
+  },
+  {
+   "check": "lifecycle: uninstall rejected while the workbench runs",
+   "passed": true
+  },
+  {
+   "check": "lifecycle: update succeeds after exit",
+   "passed": true,
+   "stderr": ""
+  },
+  {
+   "check": "lifecycle: prune after update",
+   "passed": true
+  },
+  {
+   "check": "lifecycle: uninstall removes environments",
+   "passed": true,
+   "remaining": []
+  },
+  {
+   "check": "lifecycle: reinstall after uninstall",
+   "passed": true,
+   "stderr": ""
+  }
+ ],
+ "notes": [
+  {
+   "note": "conpty/cmd/rephix.cmd: legacy batch launcher after Ctrl+C",
+   "batch_termination_prompt": true,
+   "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.cmd\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\nTerminate batch job (Y/N)? Y\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+   "interrupt_path": "VT input ^C",
+   "children_before": [
+    "(6292, 'python.exe')",
+    "(5152, 'python.exe')",
+    "(1412, 'python.exe')"
+   ],
+   "children_after": []
+  },
+  {
+   "note": "conhost/cmd/rephix.cmd: legacy batch launcher after Ctrl+C",
+   "batch_termination_prompt": false,
+   "screen": "r_relative_error\": 5.03467215859541e-15,\n    \"heldout_logit_rmse\": 3.964943318759975e-14,\n    \"heldout_top1_accuracy\": 1.0,\n    \"diagnostics\": {\n      \"observation_kind\": \"log_probs\",\n      \"parameter_gauge\": \"zero_class_mean\",\n      \"samples\": 450000,\n      \"features\": 240,\n      \"classes\": 60,\n      \"design_rank\": 241,\n      \"parameters_per_class\": 241,\n      \"identifiable_in_reported_gauge\": true,\n      \"condition_number\": 1.0472912601688555,\n      \"rank_tolerance\": 6.857588900278953e-08,\n      \"ridge\": 0.0,\n      \"training_target_rmse\": 3.971453310185467e-14,\n      \"interpretation\": \"Unique affine parameters in the reported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>",
+   "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
+   "children_before": [
+    "(4728, 'python.exe')",
+    "(5292, 'python.exe')",
+    "(2296, 'python.exe')"
+   ],
+   "children_after": []
+  }
+ ],
+ "not_exercised": [
+  {
+   "check": "conhost/ui: two-page layout after resize to 60x24",
+   "reason": "the console host did not apply the requested window size",
+   "resize": {
+    "method": "SetWindowPos on the console window",
+    "requested": [
+     60,
+     24
+    ],
+    "font": [
+     8,
+     16
+    ],
+    "moved": true,
+    "error": 0,
+    "hwnd": true,
+    "window": [
+     110,
+     30
+    ]
+   }
+  },
+  {
+   "check": "conhost/ui: too-small notice at 40x10",
+   "reason": "the console host did not apply the requested window size",
+   "resize": {
+    "method": "SetWindowPos on the console window",
+    "requested": [
+     40,
+     10
+    ],
+    "font": [
+     8,
+     16
+    ],
+    "moved": true,
+    "error": 0,
+    "hwnd": true,
+    "window": [
+     110,
+     30
+    ]
+   }
+  },
+  {
+   "check": "conhost/pwsh/rephix.exe: Ctrl+C interrupts a plain command",
+   "reason": "the harness's Ctrl+C does not reach a plain Python program under this shell either",
+   "screen": "er_relative_error\": 5.03467215859541e-15,\n    \"heldout_logit_rmse\": 3.964943318759975e-14,\n    \"heldout_top1_accuracy\": 1.0,\n    \"diagnostics\": {\n      \"observation_kind\": \"log_probs\",\n      \"parameter_gauge\": \"zero_class_mean\",\n      \"samples\": 450000,\n      \"features\": 240,\n      \"classes\": 60,\n      \"design_rank\": 241,\n      \"parameters_per_class\": 241,\n      \"identifiable_in_reported_gauge\": true,\n      \"condition_number\": 1.0472912601688555,\n      \"rank_tolerance\": 6.857588900278953e-08,\n      \"ridge\": 0.0,\n      \"training_target_rmse\": 3.971453310185467e-14,\n      \"interpretation\": \"Unique affine parameters in the reported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY>",
+   "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
+   "children_before": [
+    "(5128, 'python.exe')",
+    "(7728, 'python.exe')",
+    "(932, 'python.exe')"
+   ],
+   "children_after": [],
+   "plain_python_control_interrupted": false
+  }
+ ],
+ "failed": []
+}

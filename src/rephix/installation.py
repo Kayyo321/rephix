@@ -73,11 +73,13 @@ def _http_get(url, limit):
     request = urllib.request.Request(
         url, headers={"User-Agent": "rephix-installer", "Accept": "application/vnd.github+json"}
     )
+    import http.client
+
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
             data = response.read(limit + 1)
-    except OSError as exc:
-        raise RuntimeError(f"Cannot reach the release channel ({url}): {exc}") from exc
+    except (OSError, http.client.HTTPException) as exc:
+        raise RuntimeError(f"Cannot reach the release channel ({url}): {exc!r}") from exc
     if len(data) > limit:
         raise RuntimeError(f"Release download exceeds the expected size: {url}")
     return data
@@ -109,7 +111,11 @@ def resolve_release(selector="latest"):
     version = tag[1:]
     assets = {a.get("name"): a for a in release.get("assets", []) if isinstance(a, dict)}
     wheel = f"rephix-{version}-py3-none-any.whl"
-    missing = [name for name in (wheel, "SHA256SUMS") if name not in assets]
+    missing = [
+        name
+        for name in (wheel, "SHA256SUMS")
+        if not isinstance(assets.get(name, {}).get("browser_download_url"), str)
+    ]
     if missing:
         raise RuntimeError(f"{tag} is missing release assets: {', '.join(missing)}")
     return {
@@ -294,7 +300,11 @@ def _windows_launcher_template():
 
     arm = platform.machine().lower() in ("arm64", "aarch64")
     name = "t64-arm.exe" if arm else ("t64.exe" if struct.calcsize("P") == 8 else "t32.exe")
-    return scripts.WRAPPERS[name]
+    wrappers = getattr(scripts, "WRAPPERS", None)  # pip >= 24.1
+    if wrappers and name in wrappers:
+        return wrappers[name]
+    # Older pip (bundled with Python 3.10/3.11) ships the same launchers as files.
+    return (Path(scripts.__file__).parent / name).read_bytes()
 
 
 def _windows_exe(base):
@@ -353,14 +363,12 @@ def _hosting_cmd_pid():
         table[entry.th32ProcessID] = (entry.th32ParentProcessID, entry.szExeFile.lower())
         found = kernel32.Process32NextW(snapshot, ctypes.byref(entry))
     kernel32.CloseHandle(snapshot)
-    pid = os.getpid()
-    for _ in range(3):  # manager <- launch.py <- cmd.exe running rephix.cmd
-        parent = table.get(pid, (None, ""))[0]
-        if parent not in table:
-            return None
-        if table[parent][1] == "cmd.exe":
-            return parent
-        pid = parent
+    # manager.py <- launch.py <- cmd.exe only when the batch file started launch.py;
+    # through rephix.exe the chain is manager <- launch.py <- rephix.exe.
+    launch = table.get(os.getpid(), (None, ""))[0]
+    host = table.get(launch, (None, ""))[0]
+    if host in table and table[host][1] == "cmd.exe":
+        return host
     return None
 
 
@@ -379,9 +387,14 @@ def _retire_after_batch(path):
             "k = ctypes.WinDLL('kernel32')\n"
             "h = k.OpenProcess(0x00100000, False, int(sys.argv[2]))\n"
             "if h:\n    k.WaitForSingleObject(h, 86400000)\n    k.CloseHandle(h)\n"
-            "try:\n    os.remove(sys.argv[1])\nexcept OSError:\n    pass\n",
+            "import hashlib\n"
+            "try:\n"
+            "    if hashlib.sha256(open(sys.argv[1], 'rb').read()).hexdigest() == sys.argv[3]:\n"
+            "        os.remove(sys.argv[1])\n"
+            "except OSError:\n    pass\n",
             str(path),
             str(host),
+            hashlib.sha256(path.read_bytes()).hexdigest(),
         ],
         creationflags=0x00000008 | 0x00000200,  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
         close_fds=True,
@@ -426,10 +439,11 @@ def _base_python():
     if sys.prefix == sys.base_prefix:
         return sys.executable
     base = getattr(sys, "_base_executable", None)
-    venv_root = Path(sys.prefix).resolve()
-    if base and venv_root not in Path(base).resolve().parents:
+    venv_root = Path(sys.prefix).absolute()
+    # Compare unresolved paths: a venv's bin/python is often a symlink to the base.
+    if base and venv_root not in Path(base).absolute().parents:
         return base
-    config = venv_root / "pyvenv.cfg"
+    config = Path(sys.prefix) / "pyvenv.cfg"
     home = None
     for line in config.read_text(encoding="utf-8").splitlines():
         key, _, value = line.partition("=")
@@ -538,7 +552,7 @@ except OSError as exc:
                 pass
         try:
             template_available = bool(_windows_exe(base))
-        except (ImportError, KeyError, AttributeError):
+        except (ImportError, KeyError, AttributeError, OSError):
             template_available = False  # Base Python without pip; refreshed from the venv.
         if template_available:
             _publish_bytes(root / "rephix.exe", _windows_exe(base))
@@ -626,6 +640,9 @@ def install(args):
         ):
             report = _report(root, state)
             report["already_current"] = True
+            # Still adopt this version's manager and launchers (repairs a stale or
+            # interrupted refresh, or a bootstrap left by an older manager).
+            report["bootstrap_refreshed"] = _refresh_bootstrap(root, _slot(root, state["active"]))
             return report
         name = "env-" + uuid.uuid4().hex
         path = _slot(root, name)
@@ -720,14 +737,19 @@ def check_update(args):
         raise ValueError("No active installation.")
     installed = state["slots"][state["active"]].get("version")
     release = resolve_release(args.release)
-    newer = _version_key(release["version"]) > _version_key(installed)
+    try:
+        newer = _version_key(release["version"]) > _version_key(installed)
+    except ValueError:
+        newer = None  # A development or local build cannot be ordered against releases.
     return {
         "installed": installed,
         "available": release["version"],
         "tag": release["tag"],
         "update_available": newer,
         "wheel_url": release["wheel_url"],
-        "command": "rephix installation update --release " + release["tag"] if newer else None,
+        "command": "rephix installation update --release " + release["tag"]
+        if newer is not False
+        else None,
     }
 
 

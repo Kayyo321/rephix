@@ -845,14 +845,16 @@ def scenario_lifecycle_locks(ctx):
         wait_until(lambda: not term.alive(), 20)
     finally:
         term.close()
+    before = json.loads((ctx["prefix"] / "installation.json").read_text())["active"]
     updated = subprocess.run(
-        [launcher, "installation", "update", "--wheel", str(ctx["wheel"])],
+        [launcher, "installation", "update", "--wheel", str(ctx["wheel"]), "--force"],
         capture_output=True,
         text=True,
     )
+    after = json.loads((ctx["prefix"] / "installation.json").read_text())["active"]
     check(
-        "lifecycle: update succeeds after exit",
-        updated.returncode == 0,
+        "lifecycle: update builds and activates a new environment after exit",
+        updated.returncode == 0 and after != before,
         stderr=updated.stderr[-300:],
     )
     pruned = subprocess.run([launcher, "installation", "prune", "--apply"], capture_output=True)
@@ -886,6 +888,25 @@ def scenario_lifecycle_locks(ctx):
         "lifecycle: reinstall after uninstall",
         again.returncode == 0 and version.stdout.strip() == ctx["version"],
         stderr=again.stderr[-300:],
+    )
+    # Removing the bootstrap through the running rephix.exe: it is renamed aside and
+    # deleted after it exits.
+    retire = subprocess.run(
+        [launcher, "installation", "uninstall", "--remove-bootstrap"],
+        capture_output=True,
+        text=True,
+    )
+    report = json.loads(retire.stdout) if retire.returncode == 0 else {}
+    deferred = [Path(p) for p in report.get("deferred_removal", [])]
+    cleaned = wait_until(lambda: not any(p.exists() for p in deferred), 30)
+    check(
+        "lifecycle: remove-bootstrap through the running rephix.exe",
+        retire.returncode == 0
+        and not Path(launcher).exists()
+        and any(p.name.startswith(".rephix.exe.") for p in deferred)
+        and cleaned,
+        deferred=[str(p) for p in deferred],
+        stderr=retire.stderr[-300:],
     )
 
 
