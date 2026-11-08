@@ -10,8 +10,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-15, macos-26]
+        os: [macos-14-xlarge, macos-15-xlarge, macos-latest-xlarge]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     steps:
       - uses: actions/setup-python@v6
         with:
@@ -48,5 +49,7 @@ jobs:
       - run: cmd /c ver; [Environment]::OSVersion; $PSVersionTable; Get-Command wt -ErrorAction SilentlyContinue; Get-Command pwsh
       - run: python -m pip install pywinpty pyte
       - name: ConPTY probe
+        env:
+          PYTHONIOENCODING: utf-8
         run: |
           python -c "import winpty,time; p=winpty.PtyProcess.spawn('cmd.exe /c echo héllo ✓ & set /p X=name: & echo got %X%', dimensions=(24,80)); time.sleep(2); print(repr(p.read(4000))); p.write('abc\r\n'); time.sleep(2); print(repr(p.read(4000))); print('alive', p.isalive())"
