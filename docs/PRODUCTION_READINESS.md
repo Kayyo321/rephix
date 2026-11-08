@@ -11,8 +11,8 @@ was not available. See [the 0.4 release notes](RELEASE_0_4.md).
 | Universal text-only recovery | Impossible for original parameters (theorem and executable counterexamples). Conditional guarantee for a declared class, implemented with pre-registered held-out evaluation | Resolved; [results](TEXT_RECOVERY_RESULTS.md) |
 | Independent review of recovery claims | Review findings fixed: conditional guarantee, validation in a two-sided class test, LayerNorm span, isolation, analysis; protocol v2 registered before its final run | Done |
 | MPS end-to-end | No usable Metal device on any reachable runner ([probe](../examples/results/mps-runner-probe.json)); unavailable path and fallback reporting verified; harness ready | **Blocked** |
-| Native Windows console | ConPTY and conhost on Server 2022/2025, Python 3.10/3.13, cmd, PowerShell 5.1 and 7; 86–88 checks per combination with named host limitations | Verified ([details](TERMINAL.md#windows-console-verification)) |
-| Install, upgrade, failure, uninstall, reinstall | Candidate bytes on Linux/macOS/Windows × Python 3.10/3.13: 30/30 lifecycle checks each, including real 0.2.0 (pip) and 0.3.0 (managed) upgrades | Verified before publication |
+| Native Windows console | ConPTY and conhost on Server 2022/2025, Python 3.10/3.13, cmd, PowerShell 5.1 and 7; 87–89 checks per combination, all passing, with named host limitations | Verified ([details](TERMINAL.md#windows-console-verification)) |
+| Install, upgrade, failure, uninstall, reinstall | Candidate bytes on Linux/macOS/Windows × Python 3.10/3.13: all lifecycle checks pass (30 on POSIX, 31 on Windows), including real 0.2.0 (pip) and 0.3.0 (managed) upgrades | Verified before publication |
 | Release automation | Build-once workflow with SHA256SUMS, BUILD-INFO and provenance; publish-time verification only | Validated by workflow_dispatch runs |
 | Publication and post-publication verification | Not performed | Blocked by MPS |
 

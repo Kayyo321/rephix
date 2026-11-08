@@ -1,0 +1,411 @@
+{
+ "protocol_sha256": "b430dd0c07fc39db5bfc6176c589898c690a8314f69bbf071d6627514a01a9b2",
+ "results_commit": "c7815cf856890122233e2d9beffcfb746271dfff",
+ "split": "final",
+ "runs": 85,
+ "all_criteria_passed": false,
+ "criteria": {
+  "S1_status": {
+   "passed": false,
+   "mismatches": [
+    {
+     "case": "ngram-random",
+     "seed": 204,
+     "status": "misspecified_approximation",
+     "allowed": [
+      "recovered_in_class"
+     ],
+     "error": ""
+    }
+   ],
+   "provenance": []
+  },
+  "S2_recovery_rate": {
+   "passed": true,
+   "cases": {
+    "ngram-random": {
+     "recovered": 4,
+     "required": 4,
+     "passed": true
+    },
+    "ngram-random-4x-budget": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    },
+    "head-tiny-qwen2": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    },
+    "head-tiny-gpt2": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    },
+    "head-tinyllama-15m": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    },
+    "head-smollm2-135m": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    },
+    "ngram-blind-spot": {
+     "recovered": 5,
+     "required": 4,
+     "passed": true
+    }
+   }
+  },
+  "S3_accuracy": {
+   "passed": true,
+   "runs": 37,
+   "max_canonical_error": 0.09785820204032446
+  },
+  "S4_self_report": {
+   "passed": true,
+   "max_error_to_reported_se": 1.225951370429172
+  },
+  "S5_coverage": {
+   "passed": true,
+   "pooled_coverage": 0.948432760364004,
+   "coordinates": 27692
+  },
+  "S6_behaviour": {
+   "passed": true,
+   "max_heldout_total_variation": 0.009522378537492972
+  },
+  "S7_baseline": {
+   "passed": true,
+   "mle_better_fraction": 1.0
+  },
+  "S8_consistency": {
+   "passed": true,
+   "median_ratio": 2.1027966521270143,
+   "ratios": [
+    1.822883629455285,
+    1.5843022849075605,
+    2.2998265485111182,
+    2.1027966521270143,
+    2.1625978707743196
+   ]
+  },
+  "S9_no_false_recovery": {
+   "passed": true,
+   "false_recoveries": []
+  },
+  "S10_isolation": {
+   "passed": true,
+   "violations": [],
+   "max_reload_difference": 1.4210854715202004e-14
+  },
+  "S11_blind_spot": {
+   "passed": true,
+   "demonstrated_runs": 5,
+   "trigger_tv": [
+    0.5758170981259526,
+    0.9597761648661566,
+    0.9044070158544028,
+    0.5265901443080161,
+    0.9462501419426411
+   ]
+  }
+ },
+ "cases": {
+  "ngram-random": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "misspecified_approximation",
+    "recovered_in_class"
+   ],
+   "recovered": 4,
+   "median_canonical_error_when_recovered": 0.04430455761078782,
+   "median_heldout_tv": 0.008387752188624005,
+   "sampled_outputs_per_run": 1152000,
+   "median_recovery_seconds": 3.1802395620015886
+  },
+  "ngram-random-low-budget": {
+   "allowed": [
+    "insufficient_evidence"
+   ],
+   "statuses": [
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.0345227870873067,
+   "sampled_outputs_per_run": 72000,
+   "median_recovery_seconds": 10.850643540999954
+  },
+  "ngram-random-4x-budget": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.023652123469010074,
+   "median_heldout_tv": 0.004568472135761736,
+   "sampled_outputs_per_run": 4608000,
+   "median_recovery_seconds": 3.920478471000024
+  },
+  "ngram-moderate": {
+   "allowed": [
+    "recovered_in_class",
+    "insufficient_evidence"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "insufficient_evidence",
+    "recovered_in_class",
+    "recovered_in_class",
+    "insufficient_evidence"
+   ],
+   "recovered": 3,
+   "median_canonical_error_when_recovered": 0.027768866630918165,
+   "median_heldout_tv": 0.00425312932544537,
+   "sampled_outputs_per_run": 4608000,
+   "median_recovery_seconds": 14.675836790000176
+  },
+  "head-tiny-qwen2": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.02534415523723745,
+   "median_heldout_tv": 0.008059524236299546,
+   "sampled_outputs_per_run": 420000,
+   "median_recovery_seconds": 2.8648195349996968
+  },
+  "head-tiny-gpt2": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.031198243337683385,
+   "median_heldout_tv": 0.0070334240285087205,
+   "sampled_outputs_per_run": 420000,
+   "median_recovery_seconds": 3.246482422999179
+  },
+  "head-tinyllama-15m": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.01735052010905519,
+   "median_heldout_tv": 0.006259121200669068,
+   "sampled_outputs_per_run": 4880000,
+   "median_recovery_seconds": 26.76264630100013
+  },
+  "head-smollm2-135m": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.047081993365538664,
+   "median_heldout_tv": 0.005504914958240964,
+   "sampled_outputs_per_run": 12100000,
+   "median_recovery_seconds": 455.5617302319988
+  },
+  "ngram-peaked": {
+   "allowed": [
+    "insufficient_evidence",
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.013451191729607221,
+   "sampled_outputs_per_run": 1152000,
+   "median_recovery_seconds": 24.74871351299953
+  },
+  "ngram-corpus": {
+   "allowed": [
+    "insufficient_evidence",
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.012457329228956402,
+   "sampled_outputs_per_run": 1856000,
+   "median_recovery_seconds": 54.518559870999525
+  },
+  "ngram-order3-target": {
+   "allowed": [
+    "misspecified_approximation"
+   ],
+   "statuses": [
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.3594224864697169,
+   "sampled_outputs_per_run": 1152000,
+   "median_recovery_seconds": 3.1964503079998394
+  },
+  "ngram-mlp-target": {
+   "allowed": [
+    "misspecified_approximation"
+   ],
+   "statuses": [
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.055300732355998895,
+   "sampled_outputs_per_run": 1152000,
+   "median_recovery_seconds": 3.4766691439999704
+  },
+  "head-perturbed-backbone": {
+   "allowed": [
+    "misspecified_approximation"
+   ],
+   "statuses": [
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation",
+    "misspecified_approximation"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.07284055908039166,
+   "sampled_outputs_per_run": 4880000,
+   "median_recovery_seconds": 28.34449242000119
+  },
+  "ngram-greedy-target": {
+   "allowed": [
+    "deterministic_outputs_not_identifiable"
+   ],
+   "statuses": [
+    "deterministic_outputs_not_identifiable",
+    "deterministic_outputs_not_identifiable",
+    "deterministic_outputs_not_identifiable",
+    "deterministic_outputs_not_identifiable",
+    "deterministic_outputs_not_identifiable"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.626064464735012,
+   "sampled_outputs_per_run": 7200,
+   "median_recovery_seconds": 0.7866324650003662
+  },
+  "ngram-undeclared-output": {
+   "allowed": [
+    "error"
+   ],
+   "statuses": [
+    "error",
+    "error",
+    "error",
+    "error",
+    "error"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": null,
+   "sampled_outputs_per_run": null,
+   "median_recovery_seconds": 0.24647162399924127
+  },
+  "ngram-underdetermined": {
+   "allowed": [
+    "insufficient_evidence"
+   ],
+   "statuses": [
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence",
+    "insufficient_evidence"
+   ],
+   "recovered": 0,
+   "median_canonical_error_when_recovered": null,
+   "median_heldout_tv": 0.3221962843508409,
+   "sampled_outputs_per_run": 256000,
+   "median_recovery_seconds": 6.050388612000461
+  },
+  "ngram-blind-spot": {
+   "allowed": [
+    "recovered_in_class"
+   ],
+   "statuses": [
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class",
+    "recovered_in_class"
+   ],
+   "recovered": 5,
+   "median_canonical_error_when_recovered": 0.05041947903544866,
+   "median_heldout_tv": 0.008853269549924485,
+   "sampled_outputs_per_run": 1152000,
+   "median_recovery_seconds": 3.4873379040000145
+  }
+ }
+}

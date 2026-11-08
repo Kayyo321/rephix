@@ -42,10 +42,10 @@ staged in a draft GitHub release that is not visible to users.
 
 | Gate | Status | Evidence |
 | --- | --- | --- |
-| Universal text-only recovery | Resolved. Universal recovery of original parameters is impossible (proof and counterexamples). A conditional guarantee for the declared class is implemented and measured. One registered criterion failed in a conservative direction (below) | [TEXT_RECOVERY.md](TEXT_RECOVERY.md), [results](TEXT_RECOVERY_RESULTS.md) |
+| Universal text-only recovery | Resolved. Universal recovery of original parameters is impossible (proof and counterexamples). A conditional guarantee for the declared class is implemented and measured on 85 pre-registered held-out runs: 10 of 11 criteria passed. S1 failed on a single conservative false alarm (one in-class target rejected at p = α/2) | [TEXT_RECOVERY.md](TEXT_RECOVERY.md), [results](TEXT_RECOVERY_RESULTS.md) |
 | MPS | **Blocked: no usable Metal device available** | [probe record](../examples/results/mps-runner-probe.json), `mps` workflow |
-| Full Windows console operation | Verified for the stated matrix, with three named host limitations | [TERMINAL.md](TERMINAL.md#windows-console-verification) |
-| Install, upgrade, failure, uninstall, reinstall | Verified on Linux, macOS and Windows with Python 3.10 and 3.13, using the candidate bytes and a mirror of the release channel | `release artifacts` workflow lifecycle jobs |
+| Full Windows console operation | Verified for the stated matrix: Server 2022 and 2025 × Python 3.10 and 3.13, cmd, PowerShell 5.1 and 7, ConPTY and conhost; 87–89 checks each, all passing. Three named host limitations are listed as not exercised | [TERMINAL.md](TERMINAL.md#windows-console-verification), [evidence](../examples/results/release-0.4/) |
+| Install, upgrade, failure, uninstall, reinstall | Verified on Linux, macOS and Windows with Python 3.10 and 3.13, using the candidate bytes and a mirror of the release channel; all checks pass. Windows 3.10 used the stock pip 23.0.1 | [evidence](../examples/results/release-0.4/) |
 | Publication and post-publication checks | Not done; blocked by the MPS gate | — |
 
 ## MPS (Apple silicon)

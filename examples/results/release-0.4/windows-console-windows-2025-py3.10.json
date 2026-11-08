@@ -40,7 +40,7 @@
    "check": "conpty/cmd: non-ASCII argument round trip",
    "passed": true,
    "exit": 0,
-   "screen": "eported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>echo DEMO=%ERRORLEVEL%\nDEMO=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n\nREADY>"
+   "screen": "n the reported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>echo DEMO=%ERRORLEVEL%\nDEMO=0\n\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\\证\n据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\n\nREADY>echo VAL=%ERRORLEVEL%\nVAL=0\n"
   },
   {
    "check": "conpty/cmd: Unicode welcome renders",
@@ -73,13 +73,13 @@
    "check": "conpty/powershell: non-ASCII argument round trip",
    "passed": true,
    "exit": 0,
-   "screen": " gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY>"
+   "screen": "ported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\n"
   },
   {
    "check": "conpty/powershell: Unicode welcome renders",
    "passed": true,
    "exit": 0,
-   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
+   "screen": "  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0"
   },
   {
    "check": "conpty/powershell: usage error exit status",
@@ -112,7 +112,7 @@
    "check": "conpty/pwsh: Unicode welcome renders",
    "passed": true,
    "exit": 0,
-   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\n"
+   "screen": "  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY> echo \"DEMO=$LASTEXITCODE\"\nDEMO=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" validate \"D:\\a\\_temp\\console check\\data dir ü 数据\n\\证据 ü.jsonl\"\n{\n  \"path\": \"D:\\\\a\\\\_temp\\\\console check\\\\data dir \\u00fc \\u6570\\u636e\\\\\\u8bc1\\u636e \\u00fc.jsonl\",\n  \"observations\": 1,\n  \"independent_prompt_groups\": 1,\n  \"with_observed_thinking\": 0,\n  \"with_token_ids\": 0,\n  \"with_top_logprobs\": 0\n}\nREADY> echo \"VAL=$LASTEXITCODE\"\nVAL=0\nREADY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\"\n\n  ┏━┓ ┏━╸ ┏━┓ ╻ ╻ ╻ ╲ ╱\n  ┣┳┛ ┣╸  ┣━┛ ┣━┫ ┃  ╳\n  ╹┗╸ ┗━╸ ╹   ╹ ╹ ╹ ╱ ╲\n\n  rephix ui              open the interactive workbench\n  rephix demo            recover planted weights in seconds\n  rephix --help          list every command\n\nREADY> echo \"BARE=$LASTEXITCODE\"\nBARE=0\nREADY>"
   },
   {
    "check": "conpty/pwsh: usage error exit status",
@@ -167,8 +167,8 @@
    "passed": true,
    "screen": " rephix 0.4.0                                                                            ● Running demo · 0s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.423663076422805,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 1.5239143891400258e-15,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ctrl+c stop   tab focus",
    "new_children": [
-    "(6536, 'python.exe')",
-    "(6744, 'python.exe')"
+    "(8516, 'python.exe')",
+    "(9128, 'python.exe')"
    ]
   },
   {
@@ -201,9 +201,9 @@
    "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
    "interrupt_path": "VT input ^C",
    "children_before": [
-    "(8732, 'python.exe')",
-    "(3484, 'python.exe')",
-    "(3360, 'python.exe')"
+    "(8928, 'python.exe')",
+    "(6900, 'python.exe')",
+    "(1324, 'python.exe')"
    ],
    "children_after": []
   },
@@ -217,9 +217,9 @@
    "screen": "READY> & \"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
    "interrupt_path": "VT input ^C",
    "children_before": [
-    "(5316, 'python.exe')",
-    "(4520, 'python.exe')",
-    "(2540, 'python.exe')"
+    "(2760, 'python.exe')",
+    "(6488, 'python.exe')",
+    "(3048, 'python.exe')"
    ],
    "children_after": []
   },
@@ -240,7 +240,7 @@
   {
    "check": "resume: Ctrl+C stops recovery and its oracle process",
    "passed": true,
-   "transcript_lines": 17,
+   "transcript_lines": 25,
    "orphans": [],
    "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" text-recover --features \"D:\\a\\_temp\\console check\\dat\na dir ü 数据\\resume é\\features.json\" --target \"D:\\a\\_temp\\console check\\data dir ü 数据\\resume é\\target.json\"\n--output \"D:\\a\\_temp\\console check\\data dir ü 数据\\resume é\\export\" --contexts 300 --samples-per-context 20000\n --bootstrap 79 --alpha 0.05\nrephix: interrupted; resume using the saved evidence or session directory\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
   },
@@ -248,7 +248,7 @@
    "check": "resume: rerun resumes from the durable transcript",
    "passed": true,
    "exit": 0,
-   "resumed_contexts": 16,
+   "resumed_contexts": 24,
    "status": "recovered_in_class"
   },
   {
@@ -442,8 +442,8 @@
    "passed": true,
    "screen": " rephix 0.4.0                                                                            ● Running demo · 0s\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n / demo                         │  demo\n                                │  Recover planted affine weights and evaluate held-out features\n ▌ demo                         │\n   symmetry-demo                │  ❯ rephix demo --samples 600000 --features 240 --classes 60\n                                │\n                                │\n                                │  Output ──────────────────────────────────────────────────────────────────\n                                │        \"design_rank\": 9,?\n                                │        \"parameters_per_class\": 9,?\n                                │        \"identifiable_in_reported_gauge\": true,?\n                                │        \"condition_number\": 1.423663076422805,?\n                                │        \"rank_tolerance\": 6.930465656813277e-13,?\n                                │        \"ridge\": 0.0,?\n                                │        \"training_target_rmse\": 1.5239143891400258e-15,?\n                                │        \"interpretation\": \"Unique affine parameters in the reported gauge\n                                │  for exact observations.\"?\n                                │      }?\n                                │    },?\n                                │    \"scope\": \"Known input features and an affine output layer; this does n\n                                │  ot recover hidden transformer weights.\"?\n                                │  }?\n                                │  ✓ Done · exit 0 · 0.2s\n                                │\n                                │  $ rephix demo --samples 600000 --features 240 --classes 60\n   2 of 39 commands             │\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n ctrl+c stop   tab focus",
    "new_children": [
-    "(6244, 'python.exe')",
-    "(6568, 'python.exe')"
+    "(2332, 'python.exe')",
+    "(7264, 'python.exe')"
    ]
   },
   {
@@ -472,9 +472,9 @@
    "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.exe\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
    "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
    "children_before": [
-    "(5640, 'python.exe')",
-    "(2704, 'python.exe')",
-    "(4400, 'python.exe')"
+    "(2660, 'python.exe')",
+    "(8440, 'python.exe')",
+    "(5912, 'python.exe')"
    ],
    "children_after": []
   },
@@ -492,7 +492,7 @@
    "passed": true
   },
   {
-   "check": "lifecycle: update succeeds after exit",
+   "check": "lifecycle: update builds and activates a new environment after exit",
    "passed": true,
    "stderr": ""
   },
@@ -509,6 +509,14 @@
    "check": "lifecycle: reinstall after uninstall",
    "passed": true,
    "stderr": ""
+  },
+  {
+   "check": "lifecycle: remove-bootstrap through the running rephix.exe",
+   "passed": true,
+   "deferred": [
+    "D:\\a\\_temp\\console check\\Rephix app ü\\.rephix.exe.3967fcc001004ecd9721eb894727da29.retired"
+   ],
+   "stderr": ""
   }
  ],
  "notes": [
@@ -518,9 +526,9 @@
    "screen": "\nREADY>\"D:\\a\\_temp\\console check\\Rephix app ü\\rephix.cmd\" demo --samples 600000 --features 240 --classes 60\nrephix: interrupted; resume using the saved evidence or session directory\nTerminate batch job (Y/N)? Y\n\nREADY>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
    "interrupt_path": "VT input ^C",
    "children_before": [
-    "(8880, 'python.exe')",
-    "(5752, 'python.exe')",
-    "(1784, 'python.exe')"
+    "(4556, 'python.exe')",
+    "(5364, 'python.exe')",
+    "(9564, 'python.exe')"
    ],
    "children_after": []
   },
@@ -530,9 +538,9 @@
    "screen": "r_relative_error\": 5.02554363605202e-15,\n    \"heldout_logit_rmse\": 3.956303710636084e-14,\n    \"heldout_top1_accuracy\": 1.0,\n    \"diagnostics\": {\n      \"observation_kind\": \"log_probs\",\n      \"parameter_gauge\": \"zero_class_mean\",\n      \"samples\": 450000,\n      \"features\": 240,\n      \"classes\": 60,\n      \"design_rank\": 241,\n      \"parameters_per_class\": 241,\n      \"identifiable_in_reported_gauge\": true,\n      \"condition_number\": 1.0472912601688555,\n      \"rank_tolerance\": 6.857588900278953e-08,\n      \"ridge\": 0.0,\n      \"training_target_rmse\": 3.964312128071157e-14,\n      \"interpretation\": \"Unique affine parameters in the reported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\n\nREADY>",
    "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
    "children_before": [
-    "(6872, 'python.exe')",
-    "(3512, 'python.exe')",
-    "(1048, 'python.exe')"
+    "(1484, 'python.exe')",
+    "(9068, 'python.exe')",
+    "(4616, 'python.exe')"
    ],
    "children_after": []
   }
@@ -588,9 +596,9 @@
    "screen": "er_relative_error\": 5.02554363605202e-15,\n    \"heldout_logit_rmse\": 3.956303710636084e-14,\n    \"heldout_top1_accuracy\": 1.0,\n    \"diagnostics\": {\n      \"observation_kind\": \"log_probs\",\n      \"parameter_gauge\": \"zero_class_mean\",\n      \"samples\": 450000,\n      \"features\": 240,\n      \"classes\": 60,\n      \"design_rank\": 241,\n      \"parameters_per_class\": 241,\n      \"identifiable_in_reported_gauge\": true,\n      \"condition_number\": 1.0472912601688555,\n      \"rank_tolerance\": 6.857588900278953e-08,\n      \"ridge\": 0.0,\n      \"training_target_rmse\": 3.964312128071157e-14,\n      \"interpretation\": \"Unique affine parameters in the reported gauge for exact observations.\"\n    }\n  },\n  \"scope\": \"Known input features and an affine output layer; this does not recover hidden transformer weights.\n\"\n}\nREADY>",
    "interrupt_path": "GenerateConsoleCtrlEvent(CTRL_C_EVENT)",
    "children_before": [
-    "(5192, 'python.exe')",
-    "(4012, 'python.exe')",
-    "(3620, 'python.exe')"
+    "(8400, 'python.exe')",
+    "(820, 'python.exe')",
+    "(3616, 'python.exe')"
    ],
    "children_after": [],
    "plain_python_control_interrupted": false

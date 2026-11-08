@@ -4,14 +4,14 @@
  "python": "3.13.17",
  "version": "0.4.0",
  "assets": {
-  "BUILD-INFO.json": "1608a2162216c71d341f1d113ab73d907e16b8625ecad64e2da2222730e9589a",
-  "rephix-0.4.0-py3-none-any.whl": "0ea9545787b8c8f936c6f375115f4891fa1d96678402a862131858763952afcd",
-  "rephix-0.4.0.tar.gz": "97ccd51cd1fe02fecda69fa6a97a595889dc7da832475613b0d1eceddf67976c",
-  "rephix-installer.py": "28fe3cec149afddcbd23d94613feac4b1dc7ed43202d2fa8114bc8439b4f311b"
+  "BUILD-INFO.json": "5fe999b959f858b5ccdd2744d7e0a5ad9ed9988b33d9b029a11fb4af64facebf",
+  "rephix-0.4.0-py3-none-any.whl": "edfede25bdbc87542117afb6cf482e8bfa71fa52a77657583b00570715eac446",
+  "rephix-0.4.0.tar.gz": "00c5e0dbbf29b1c8a819800f34b6dff71be4fc7d8d2ea0151021a5c27fc1f468",
+  "rephix-installer.py": "7b8e4c246b003d7079680bcb9533d43dcdf83def58230b9a8b90bd20e32970b3"
  },
  "old_wheels": {
   "0.2.0": "870e1d3d51d816e3599bea9d714792c2275e9b154198cd5ce3062bc2a905e2c5",
-  "0.3.0": "9933e26abbdf8adb472119c24dc7ffb3e5e13fda37114eb3d4d7be1c2c502ae9"
+  "0.3.0": "648fc9adb2aa17ff41a15e4b02309c614b4a35d368de7328dd8bcff2286f3938"
  },
  "checks": [
   {
@@ -37,7 +37,7 @@
    "build": {
     "version": "0.4.0",
     "tag": "v0.4.0",
-    "commit": "05261da255c946842e7e106c1f2e8c8e8aa34ca6",
+    "commit": "2c7117b6a8136ef258bd5f425cd40093011bbdd6",
     "python": "3.12.16"
    }
   },
@@ -47,8 +47,8 @@
    "stderr": "",
    "release": {
     "tag": "v0.4.0",
-    "wheel_url": "http://127.0.0.1:49178/download/v0.4.0/rephix-0.4.0-py3-none-any.whl",
-    "html_url": "http://127.0.0.1:49178/download/v0.4.0/"
+    "wheel_url": "http://127.0.0.1:49179/download/v0.4.0/rephix-0.4.0-py3-none-any.whl",
+    "html_url": "http://127.0.0.1:49179/download/v0.4.0/"
    }
   },
   {
@@ -68,7 +68,7 @@
   {
    "check": "fresh install: check-update reports current",
    "passed": true,
-   "stdout": "{\n  \"installed\": \"0.4.0\",\n  \"available\": \"0.4.0\",\n  \"tag\": \"v0.4.0\",\n  \"update_available\": false,\n  \"wheel_url\": \"http://127.0.0.1:49178/download/v0.4.0/rephix-0.4.0-py3-none-any.whl\",\n  \"command\": null\n}\n"
+   "stdout": "{\n  \"installed\": \"0.4.0\",\n  \"available\": \"0.4.0\",\n  \"tag\": \"v0.4.0\",\n  \"update_available\": false,\n  \"wheel_url\": \"http://127.0.0.1:49179/download/v0.4.0/rephix-0.4.0-py3-none-any.whl\",\n  \"command\": null\n}\n"
   },
   {
    "check": "repeat: update to the same release is a no-op",
@@ -135,7 +135,7 @@
   {
    "check": "failed update: corrupted download is rejected without changes",
    "passed": true,
-   "stderr": "rephix: Integrity check failed for rephix-0.4.0-py3-none-any.whl: expected 0ea9545787b8c8f936c6f375115f4891fa1d96678402a862131858763952afcd, got 001f29266356ff5dc123fa62bc977effbea84bda605657f519b390b862b2d9df. No changes made.\n"
+   "stderr": "rephix: Integrity check failed for rephix-0.4.0-py3-none-any.whl: expected edfede25bdbc87542117afb6cf482e8bfa71fa52a77657583b00570715eac446, got 2789086ed2d0306a9d1fa9ee3e28447ce60cc53639c33885f1594051ae341378. No changes made.\n"
   },
   {
    "check": "failed update: unreachable channel is reported without changes",
@@ -171,5 +171,5 @@
   }
  ],
  "failed": [],
- "finished": "2026-11-08T18:44:26Z"
+ "finished": "2026-11-08T19:05:43Z"
 }
