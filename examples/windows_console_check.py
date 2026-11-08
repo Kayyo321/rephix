@@ -694,7 +694,7 @@ def scenario_resume(ctx):
     arguments = (
         f'text-recover --features "{folder / "features.json"}" --target '
         f'"{folder / "target.json"}" --output "{folder / "export"}" --contexts 300 '
-        f"--samples-per-context 20000 --bootstrap 19 --alpha 0.05"
+        f"--samples-per-context 20000 --bootstrap 79 --alpha 0.05"
     )
     term = ConPty(shell_argv("cmd"), cwd=str(folder))
     try:
