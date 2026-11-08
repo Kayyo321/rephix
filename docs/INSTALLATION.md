@@ -1,6 +1,6 @@
 # Install, update, recover, and remove Rephix
 
-Rephix 0.4 supports ordinary Python virtual-environment installations and a managed
+Rephix 0.4.1 supports ordinary Python virtual-environment installations and a managed
 installation with transactional updates. Use a dedicated user-owned directory for
 the managed installation. Administrative privileges are unnecessary. The installer
 requires Python 3.10+ with `venv` and `ensurepip`; on Linux distributions that split
@@ -14,24 +14,32 @@ commit) and `SHA256SUMS`. The wheel is pure Python (`py3-none-any`), so the same
 artifact serves Linux, macOS and Windows on x86-64 and ARM64.
 
 ```bash
-curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.0/rephix-installer.py
-curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.0/SHA256SUMS
+curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.1/rephix-installer.py
+curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.1/SHA256SUMS
 sha256sum --check --ignore-missing SHA256SUMS   # macOS: shasum -a 256 -c --ignore-missing
 python3 rephix-installer.py install --prefix "$HOME/.local/share/rephix-app" \
-  --release latest --extras tui
+  --release v0.4.1 --extras tui,hf
 "$HOME/.local/share/rephix-app/rephix" --version
 ```
 
 On Windows PowerShell:
 
 ```powershell
-$base = "https://github.com/Kayyo321/rephix/releases/download/v0.4.0"
+$base = "https://github.com/Kayyo321/rephix/releases/download/v0.4.1"
 Invoke-WebRequest "$base/rephix-installer.py" -OutFile rephix-installer.py
 Invoke-WebRequest "$base/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash rephix-installer.py -Algorithm SHA256).Hash.ToLower()   # compare with SHA256SUMS
-py -3 rephix-installer.py install --prefix "$env:LOCALAPPDATA\Rephix" --release latest --extras tui
+py -3 rephix-installer.py install --prefix "$env:LOCALAPPDATA\Rephix" --release v0.4.1 --extras tui,hf
 & "$env:LOCALAPPDATA\Rephix\rephix.exe" --version
 ```
+
+**0.4.0 and 0.4.1 are published as prereleases**, because the stable gate requires
+end-to-end Apple MPS verification and no usable Metal device was available (see
+[RELEASE_0_4_1.md](RELEASE_0_4_1.md)). Install them by tag, as above. `--release
+latest` finds no stable 0.4 release.
+
+The `hf` extra (PyTorch, Transformers, safetensors) is required for Create Mode and
+the model workflows; omit it for core-only use.
 
 `--release latest` asks the GitHub Releases API for the latest **stable** release (the
 `/releases/latest` endpoint never returns drafts or prereleases). `--release vX.Y.Z`
@@ -40,7 +48,7 @@ against the release's `SHA256SUMS` and, when the channel provides one, the asset
 digest GitHub records server-side, and installs only on agreement. Any mismatch, unreachable channel, or
 missing asset stops with an error before anything changes. `REPHIX_RELEASES_API`
 overrides the channel URL for mirrors and tests. Provenance attestations can be
-checked with `gh attestation verify rephix-0.4.0-py3-none-any.whl --repo Kayyo321/rephix`.
+checked with `gh attestation verify rephix-0.4.1-py3-none-any.whl --repo Kayyo321/rephix`.
 
 The managed launcher is `PREFIX/rephix` on POSIX and `PREFIX\rephix.exe` on Windows.
 The `.exe` is pip's standard console launcher, so Ctrl+C reaches Rephix directly.
@@ -68,7 +76,7 @@ python -m venv .build-env
 .build-env/bin/python -m pip install build
 .build-env/bin/python -m build
 python src/rephix/installation.py install --prefix "$HOME/.local/share/rephix-app" \
-  --wheel dist/rephix-0.4.0-py3-none-any.whl --extras tui,hf
+  --wheel dist/rephix-0.4.1-py3-none-any.whl --extras tui,hf
 ```
 
 The bootstrap itself uses only the standard library. It creates a fresh environment
@@ -81,7 +89,7 @@ location. Keep the original wheel and an offline wheelhouse for portable reprodu
 
 To pin dependencies, supply `--constraints /absolute/constraints.txt`. To prohibit
 index access, also supply `--wheelhouse /absolute/wheels`. Prepare the wheelhouse
-using `python -m pip download 'dist/rephix-0.4.0-py3-none-any.whl[tui,hf]' --dest wheels`.
+using `python -m pip download 'dist/rephix-0.4.1-py3-none-any.whl[tui,hf]' --dest wheels`.
 Record its files and hashes if exact environment reproduction is required. Without
 constraints or a wheelhouse, dependencies resolve within the release's declared
 ranges, so repeated installations can select different compatible dependency builds.
@@ -91,8 +99,8 @@ ranges, so repeated installations can select different compatible dependency bui
 Stop active model writers, then:
 
 ```bash
-rephix installation check-update          # installed vs latest stable release
-rephix installation update --release latest
+rephix installation check-update --release v0.4.1   # installed vs a tagged release
+rephix installation update --release v0.4.1          # or --release latest for stable
 rephix --version
 rephix doctor
 ```
@@ -107,18 +115,36 @@ the new version. An unchanged `rephix.cmd` is never rewritten, because `cmd.exe`
 rereads a running batch file. A running `rephix.exe` is renamed aside and replaced,
 never overwritten in place.
 
+### Upgrading from 0.4.0
+
+A managed 0.4.0 installation updates by tag:
+`PREFIX/rephix installation update --release v0.4.1` (add `--extras tui,hf` to add
+Create Mode's model libraries). The 0.4.1 installer works too:
+`python rephix-installer.py update --prefix PREFIX --release v0.4.1`. A pip
+installation upgrades with `python -m pip install --upgrade
+'rephix-0.4.1-py3-none-any.whl[hf]'` after checking `SHA256SUMS`. User data needs no
+migration. The release lifecycle check covers this path with the published 0.4.0
+bytes:
+
+* the upgrade preserves user data;
+* rollback returns to 0.4.0;
+* a Create Mode run directory written by 0.4.1 is refused by 0.4.0 (it has no
+  `create` commands) and left unchanged;
+* rolling forward works again;
+* integrity verification and uninstall retention pass.
+
 ### Upgrading from 0.2 or 0.3
 
 * **pip installation of 0.2.0 (the previous public release):**
-  `python -m pip install --upgrade rephix-0.4.0-py3-none-any.whl` in the same
+  `python -m pip install --upgrade rephix-0.4.1-py3-none-any.whl` in the same
   environment, after verifying the wheel against `SHA256SUMS`. Existing evidence files
   and outputs need no migration.
 * **Managed installation of 0.3.0:** the 0.3 manager has no release discovery. Either
   run the 0.4 installer against the existing prefix, which updates and adopts the 0.4
   manager:
-  `python rephix-installer.py update --prefix PREFIX --release latest`,
-  or download and verify the 0.4.0 wheel and run
-  `PREFIX/rephix installation update --wheel /absolute/rephix-0.4.0-py3-none-any.whl`.
+  `python rephix-installer.py update --prefix PREFIX --release v0.4.1`,
+  or download and verify the 0.4.1 wheel and run
+  `PREFIX/rephix installation update --wheel /absolute/rephix-0.4.1-py3-none-any.whl`.
   The second route keeps the 0.3 manager until a later update through the 0.4
   installer. Both routes keep the manifest at schema 1, so 0.3 rollback still works.
 
@@ -158,8 +184,14 @@ Installation manifest schema 1 and session journal schema 1 are supported; 0.4 k
 the 0.3 manifest format unchanged. Existing
 layer evidence schema 1 is read and resumed in place; new layer journals use schema
 2 with lossless compression. Bundle manifests remain schema 1. No migration of user
-sessions, evidence or configuration is needed for 0.2/0.3-to-0.4 updates, and the installer
-does not open or rewrite those files. Unsupported future schemas fail explicitly.
+sessions, evidence or configuration is needed for 0.2/0.3/0.4.0-to-0.4.1 updates, and the
+installer does not open or rewrite those files. Unsupported future schemas fail explicitly.
+
+Create Mode (new in 0.4.1) writes run directories with schema `rephix-create-run/1`
+and exports with an `EXPORT_COMPLETE` marker and `CHECKSUMS.sha256`. Versions before
+0.4.1 have no Create Mode and reject its commands, so a package rollback never opens or
+changes these directories. Exports are ordinary Transformers checkpoints and do not
+depend on any Rephix version.
 
 Application rollback switches software and dependencies; it doesn't reverse user
 work. A pre-schema-2 application cannot read new schema-2 layer evidence. Before

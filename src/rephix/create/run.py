@@ -351,7 +351,7 @@ def load_run(run_dir: Path) -> dict:
 
 def verify_inputs(run) -> None:
     for kind in ("evidence", "corpus"):
-        for entry in run["inputs"][kind]:
+        for entry in run.get("inputs", {}).get(kind, []):
             path = Path(entry["path"])
             if not path.exists():
                 raise ValueError(f"{kind} input {path} is missing; resume needs the same inputs")
@@ -1439,9 +1439,13 @@ def inspect_run(run_dir, verify=False):
         "phases": {
             name: (state["phases"].get(name) or {}).get("status", "pending") for name in PHASES
         },
-        "plan": plan_summary(run),
         "timings_seconds": state.get("timings"),
     }
+    try:
+        result["plan"] = plan_summary(run)
+    except (KeyError, TypeError):
+        result["plan"] = None
+        result["plan_error"] = "run.json lacks the resolved base or configuration"
     checkpoint = run_dir / "fit" / "main" / "checkpoint.pt"
     result["fit_checkpoint"] = str(checkpoint) if checkpoint.is_file() else None
     if verify:

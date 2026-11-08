@@ -1,6 +1,6 @@
 # Supported environments and scientific limits
 
-Rephix 0.4 is a dependable experiment and checkpoint-recovery toolkit within the
+Rephix 0.4.1 is a dependable experiment and checkpoint-recovery toolkit within the
 contracts below. Reconstruction methods remain research: software reliability does
 not establish universal model identifiability or guarantee a score for an unknown
 model endpoint.
@@ -18,6 +18,8 @@ model endpoint.
 | Quantized operators | GGUF >=0.19,<0.20; supported FP8 and MXFP4 safetensors layouts | Packed-field and effective numeric agreement are separate metrics; code ambiguity is reported. Native FP8 inference requires compatible CUDA and optional accelerate/Triton. |
 | Compute | CPU for core and model fixtures; CUDA where runtime/operator supports it | Current measured GPU: RTX 5080, 16 GB. GPU-specific rounding can affect recoverability. |
 | Apple MPS | **Not verified.** `--device mps` is accepted and monitored, but no Apple silicon machine with a usable Metal device was available | GitHub-hosted macOS runners expose a paravirtual GPU without Metal 2.0, so PyTorch reports MPS unavailable ([probe](../examples/results/mps-runner-probe.json)). Verified: the explicit unavailable-MPS error on real macOS, `--device auto` falling back to CPU, and CPU-fallback operator reporting (`accelerator.cpu_fallback_operators`). The end-to-end MPS check (`examples/mps_check.py`, `mps` workflow) is ready for a self-hosted Apple silicon runner. |
+| Create Mode bases | Llama, Qwen2 (pretrained-verified: SmolLM2-135M/-Instruct, Qwen2.5-0.5B-Instruct); Mistral and Qwen3 (random tiny fixtures only). Safetensors weights, no custom code, hub bases pinned to a 40-hex revision | Other architectures are rejected with a specific error. Exports keep the base's exact tensor schema, ties and tokenizer bytes; see [Create Mode](CREATE_MODE.md#supported-bases) |
+| Create Mode compute | CUDA (RTX 5080 16 GB measured, profile `rtx5080-16gb`) and CPU (`cpu-smoke` profile, tiny fixtures; packaged-wheel checks on Linux, macOS and Windows CPU in the release workflow) | Apple MPS accepted but unverified. Bases above ~0.5B parameters were not measured on 16 GB. Windows and macOS were exercised only with the CPU fixture profile. |
 | Storage | Local filesystem, SQLite transactions, atomic same-filesystem publication | Keep source, evidence and output directories disjoint. Network/synchronized filesystems need their own locking/durability validation. |
 
 The package's Python metadata permits >=3.10 to avoid blocking newer environments;
@@ -33,6 +35,11 @@ CUDA kernels are optional for many state-space paths, which have slower fallback
   softmax-affine class with a public feature map. The guarantee is conditional on
   class membership, which observations can reject but not prove. Original parameters
   are not identifiable from text in general. See [text recovery](TEXT_RECOVERY.md).
+- Create Mode builds a base-compatible checkpoint from unknown-model evidence or a
+  corpus. Its claims are behavioral reconstruction and mechanistic synthesis *in the
+  base*. Partial source-parameter recovery is reported only under a declared,
+  rejectable class (a single-region edit of the same base, or the declared-class head);
+  full source recovery is never claimed. See [the method](CREATE_MODE_METHOD.md).
 - Behavioral sessions learn from supplied text and exposed agent events without the
   target tokenizer, architecture or weights. They train a standalone byte-level
   candidate. Held-out behavior measures agreement, not original parameter recovery.

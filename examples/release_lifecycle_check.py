@@ -289,6 +289,8 @@ def main():
     parser.add_argument("--old-wheel-02", type=Path, required=True)
     parser.add_argument("--old-wheel-03", type=Path, required=True)
     parser.add_argument("--installer-03", type=Path, required=True)
+    parser.add_argument("--old-wheel-04", type=Path, help="published v0.4.0 wheel")
+    parser.add_argument("--installer-04", type=Path, help="published v0.4.0 installer")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--channel", choices=("mirror", "github"), default="mirror")
     parser.add_argument("--output", type=Path, required=True)
@@ -610,6 +612,65 @@ def main():
         else:
             run([rephix3, "installation", "uninstall"])
 
+    # 4b. Managed 0.4.0 (published prerelease bytes) -> candidate, rollback, data semantics.
+    if args.old_wheel_04 and args.installer_04:
+        managed = work / "managed 0.4"
+        ok, out = run(
+            [base, "-I", args.installer_04, "install", "--prefix", managed,
+             "--wheel", args.old_wheel_04, "--extras", "tui"]
+        )
+        rephix4 = launcher(managed)
+        ok2, ver = run([rephix4, "--version"])
+        record(
+            "upgrade 0.4.0: published 0.4.0 managed install",
+            ok and ok2 and ver.stdout.strip() == "0.4.0",
+            wheel_sha256=sha256(args.old_wheel_04),
+            stderr=out.stderr[-300:],
+        )
+        for category in CATEGORIES:
+            (managed / category / "kept 0.4.txt").write_text(f"{category}\n", encoding="utf-8")
+        # A Create Mode run directory written by the new version must not be opened or
+        # changed by a rolled-back 0.4.0, which has no Create Mode.
+        run_dir = managed / "data" / "create-run"
+        run_dir.mkdir()
+        (run_dir / "run.json").write_text(json.dumps({"schema": "rephix-create-run/1"}))
+        (run_dir / "state.json").write_text(json.dumps({"phases": {}, "status": "created"}))
+        snapshot = user_files(managed)
+        ok, out = run(
+            [base, "-I", installer, "update", "--prefix", managed, "--release", "latest"],
+            env=env,
+        )
+        ok2, ver = run([rephix4, "--version"])
+        ok3, inspect = run([rephix4, "create-inspect", run_dir])
+        record(
+            "upgrade 0.4.0: update activates the release, preserves data, reads the run",
+            ok and ok2 and ver.stdout.strip() == version and user_files(managed) == snapshot
+            and ok3 and json.loads(inspect.stdout)["status"] == "created",
+            stderr=out.stderr[-400:],
+        )
+        ok, out = run([rephix4, "installation", "rollback"], env=env)
+        ok2, ver = run([rephix4, "--version"])
+        ok3, refused = run([rephix4, "create-inspect", run_dir], expect=2)
+        record(
+            "rollback to 0.4.0: package rolls back; newer Create Mode data is refused, unchanged",
+            ok and ok2 and ver.stdout.strip() == "0.4.0" and ok3
+            and "invalid choice" in refused.stderr and user_files(managed) == snapshot,
+        )
+        ok, out = run([rephix4, "installation", "rollback"], env=env)
+        ok2, ver = run([rephix4, "--version"])
+        record(
+            "roll forward: second rollback returns to the release",
+            ok and ok2 and ver.stdout.strip() == version,
+        )
+        ok, out = run([rephix4, "installation", "inspect", "--verify"], env=env)
+        record("upgrade 0.4.0: managed integrity verification passes", ok,
+               stdout=out.stdout[-300:])
+        ok, out = run([rephix4, "installation", "uninstall"])
+        record(
+            "upgrade 0.4.0: uninstall retains user data including the Create Mode run",
+            ok and user_files(managed) == snapshot and (run_dir / "run.json").is_file(),
+        )
+
     integrations_after = shell_integrations()
     record(
         "integrations: PATH, shell startup files and user environment untouched",
@@ -622,7 +683,11 @@ def main():
         "python": platform.python_version(),
         "version": version,
         "assets": {n: sums[n] for n in listed},
-        "old_wheels": {"0.2.0": sha256(args.old_wheel_02), "0.3.0": sha256(args.old_wheel_03)},
+        "old_wheels": {
+            "0.2.0": sha256(args.old_wheel_02),
+            "0.3.0": sha256(args.old_wheel_03),
+            **({"0.4.0": sha256(args.old_wheel_04)} if args.old_wheel_04 else {}),
+        },
         "checks": RESULTS,
         "failed": failed,
         "finished": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

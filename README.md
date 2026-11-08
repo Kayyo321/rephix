@@ -6,6 +6,32 @@ An experimental engine for reconstructing model behavior and identifiable parame
 
 Rephix collects evidence, fits candidates, measures held-out agreement, and runs reproducible comparisons. With direct access to individual layers, it can export a recovered checkpoint for supported architectures and compare the stored tensors. Endpoint observations can leave different checkpoints indistinguishable even with unlimited queries.
 
+## Create Mode (experimental, 0.4.1)
+
+`rephix create` builds a new checkpoint inside a base model you choose (A). It uses
+evidence (B): observations of an unknown model, or ordinary writing with no prompts
+such as a thesis. An optional instruction (C) can guide it. The base's architecture,
+tokenizer and tensor schema are kept exactly. Structural inference picks which linear
+maps of the base to edit, and in which subspaces. It tests those choices with held-out
+causal interventions before fitting, and the export loads with plain Transformers.
+
+This is synthesis inside the base, not recovery of the unknown source's weights.
+Fitting a model's sampled text is sequence-level distillation; Create Mode says so and
+adds a separately tested structural stage. Reports keep four claim statuses apart:
+behavioral reconstruction, mechanistic synthesis in the base, partial source-parameter
+recovery (only under a declared, rejectable class) and full source recovery (never
+established).
+
+```bash
+rephix create --base /models/base --corpus thesis.txt --output runs/thesis
+rephix create --base /models/base --evidence traces.jsonl --output runs/create \
+  --prompt "Preserve the formal voice and paragraph structure"
+```
+
+[Usage and evidence format](docs/CREATE_MODE.md) ·
+[Method, identifiability and claims](docs/CREATE_MODE_METHOD.md) ·
+[Pre-registered benchmark results](docs/CREATE_MODE_RESULTS.md)
+
 ## What text alone can and cannot recover
 
 Universal recovery of a model's original parameters from text is impossible.
@@ -50,16 +76,18 @@ The session workflow accepts local text models or an authorized agent endpoint. 
 - [Mamba state-space model recovery](docs/SSM_RECOVERY.md)
 - [Recover a private head from endpoint scores and a known base](docs/ENDPOINT_HEAD_RECOVERY.md)
 
-[Version 0.4 release notes and verification](docs/RELEASE_0_4.md) ·
+[Version 0.4.1 release notes and verification](docs/RELEASE_0_4_1.md) ·
+[Version 0.4 release notes](docs/RELEASE_0_4.md) ·
 [Version 0.3 release measurements](docs/RELEASE_0_3.md).
 
 ## Installation and support
 
-Install the latest stable release without cloning:
+Install the 0.4.1 release without cloning (0.4.x releases are prereleases while Apple
+MPS remains unverified, so install by tag):
 
 ```bash
-curl -LO https://github.com/Kayyo321/rephix/releases/latest/download/rephix-installer.py
-python3 rephix-installer.py install --prefix "$HOME/.local/share/rephix-app" --release latest --extras tui
+curl -LO https://github.com/Kayyo321/rephix/releases/download/v0.4.1/rephix-installer.py
+python3 rephix-installer.py install --prefix "$HOME/.local/share/rephix-app" --release v0.4.1 --extras tui,hf
 "$HOME/.local/share/rephix-app/rephix" --version
 ```
 
@@ -138,6 +166,9 @@ Collection and fitting both support `--resume`. Training keeps the latest optimi
 | `recover-fp8-safetensors` | Rebuild block-scaled E4M3FN safetensors with FP32 or BF16 scales | [Exact dequantized tensor responses](docs/FP8_RECOVERY.md) |
 | `audit-fp8-safetensors` | Compare FP8 codes, scales, and decoded weights | Separate packed-field, exact numeric, and FP32 agreement |
 | `text-recover`, `text-model` | Recover canonical softmax-affine parameters from sampled strings only and run the export | Recovery up to a defined equivalence for a declared class, conditional on class membership |
+| `create`, `create-resume`, `create-inspect`, `create-evaluate`, `create-export`, `create-generate` | Build a base-compatible model from unknown-model evidence or a corpus, with structural inference, resume and verified export | Behavioral reconstruction and mechanistic synthesis in the selected base; source recovery only under a declared class |
+| `create-fixture` | Write a tiny random base and synthetic evidence | Download-free Create Mode checks |
+| `expand-cluster` | Expand-and-Cluster for small numerical-output MLPs | Neuron recovery up to permutation and sign under that paper's assumptions |
 | `text-identifiability` | Run counterexamples to universal text-only parameter recovery | Why original parameters are not identifiable from text in general |
 | `recover-endpoint-head` | Fit and export a private head from dense endpoint scores and a known base | Raw head recovery under full rank with an absolute score or a trusted parameter prior |
 | `capture-layer-traces`, `recover-layer-traces` | Export a fresh checkpoint using internal traces of ordinary inference | Raw recovery under per-layer rank and embedding coverage checks |

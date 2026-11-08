@@ -1032,18 +1032,29 @@ def e3_ec(work):
                 x = inputs(d)
                 y = ec.teacher_forward(teacher, x, "tanh")
                 x_test = inputs(d, 1000)
-                for condition, kwargs, activation, yy in (
-                    ("main", {"expansion": 4.0}, "tanh", y),
-                    ("expansion_1", {"student_width": r}, "tanh", y),
-                    (
-                        "noisy",
-                        {"expansion": 4.0},
-                        "tanh",
-                        y + rng.normal(0, 0.05 * y.std(), y.shape),
-                    ),
+                # Main condition: width search, then expansion 4 (recovery sees only x, y).
+                report, params = ec.recover(
+                    x, y, activation="tanh", students=10, steps=3000, seed=t, expansion=4.0
+                )
+                width = report["student_width"]
+                evaluation = ec.evaluate_recovery(params, teacher, "tanh", x_test)
+                results["main"].append(
+                    {"d": d, "r": r, "teacher": t, **_ec_row(report, evaluation, r)}
+                )
+                # Controls reuse the main condition's student width (no second search).
+                noisy = y + rng.normal(0, 0.05 * y.std(), y.shape)
+                for condition, yy, student_width in (
+                    ("expansion_1", y, r),
+                    ("noisy", noisy, width),
                 ):
                     report, params = ec.recover(
-                        x, yy, activation=activation, students=10, steps=3000, seed=t, **kwargs
+                        x,
+                        yy,
+                        activation="tanh",
+                        students=10,
+                        steps=3000,
+                        seed=t,
+                        student_width=student_width,
                     )
                     evaluation = ec.evaluate_recovery(params, teacher, "tanh", x_test)
                     results[condition].append(
@@ -1052,19 +1063,22 @@ def e3_ec(work):
                 relu = ec.make_teacher(rng, d, r, 1, "relu")
                 yr = ec.teacher_forward(relu, x, "relu")
                 report, params = ec.recover(
-                    x, yr, activation="tanh", students=10, steps=3000, seed=t, expansion=4.0
+                    x, yr, activation="tanh", students=10, steps=3000, seed=t, student_width=width
                 )
                 evaluation = ec.evaluate_recovery(params, relu, "tanh", x_test)
                 results["relu_teacher"].append(
                     {"d": d, "r": r, "teacher": t, **_ec_row(report, evaluation, r)}
                 )
                 _save("e3_expand_cluster", results)
+    # String-only extension: sampled class labels instead of real outputs. The student
+    # width is fixed at 4x the teacher width (an evaluator-known quantity, so a favourable
+    # assumption), and every student is kept: there is no zero-loss convergence for
+    # sampled labels. Recovery still sees only (x, label counts).
     for samples in (20, 1000, "argmax"):
         for t in range(3):
             teacher = ec.make_teacher(rng, 4, 3, 5, "tanh", scale=1.5)
             x = inputs(4, 1500)
-            logits = ec.teacher_forward(teacher, x, "tanh")
-            p = ec._softmax(logits)
+            p = ec._softmax(ec.teacher_forward(teacher, x, "tanh"))
             counts = np.zeros_like(p)
             for i in range(len(x)):
                 if samples == "argmax":
@@ -1078,9 +1092,11 @@ def e3_ec(work):
                 students=10,
                 steps=3000,
                 seed=t,
-                expansion=4.0,
+                student_width=12,
                 mode="categorical",
                 convergence=1e9,
+                gamma=0.5,
+                beta=math.pi / 12,
             )
             evaluation = ec.evaluate_recovery(
                 params, teacher, "tanh", inputs(4, 1000), mode="categorical"
@@ -1096,7 +1112,8 @@ def _ec_row(report, evaluation, r):
     exact = bool(
         evaluation.get("recovered")
         and evaluation["recovered_width"] == r
-        and (evaluation.get("max_cosine_distance") or 1) < 0.01
+        and evaluation.get("max_cosine_distance") is not None
+        and evaluation["max_cosine_distance"] < 0.01
     )
     return {
         "status": report["status"],
