@@ -206,6 +206,11 @@ def build_parser():
 
 
 def main(argv=None):
+    if not (sys.argv[1:] if argv is None else argv):
+        from .splash import welcome
+
+        print(welcome())
+        return 0
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

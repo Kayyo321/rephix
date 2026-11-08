@@ -45,6 +45,20 @@ class TerminalCoreTests(unittest.TestCase):
         self.assertIn("interrupted", errors.getvalue())
         self.assertNotIn("Traceback", errors.getvalue())
 
+    def test_bare_command_prints_welcome_without_color_when_redirected(self):
+        import contextlib
+        import io
+
+        from rephix.cli import main
+        from rephix.splash import LOGO
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            self.assertEqual(main([]), 0)
+        self.assertIn(LOGO[0], out.getvalue())
+        self.assertIn("rephix ui", out.getvalue())
+        self.assertNotIn("\x1b", out.getvalue())
+
     def test_control_sequences_cannot_reach_the_terminal(self):
         value = display_text("hello\x1b]52;c;secret\x07\n世界 e\u0301\x9b31m")
         self.assertNotIn("\x1b", value)

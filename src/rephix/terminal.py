@@ -267,6 +267,13 @@ def build_application(
     from prompt_toolkit.output.defaults import create_output
     from prompt_toolkit.widgets import TextArea
 
+    from .splash import LOGO, TAGLINE
+    from .splash import fragments as splash_fragments
+
+    def splash_plain():
+        return [("class:title", "\n".join(LOGO) + "\n\n"), ("class:muted", TAGLINE)]
+
+    monochrome = color == "never" or (color == "auto" and bool(os.environ.get("NO_COLOR")))
     state = WorkbenchState(catalog)
     process = None
     keys = KeyBindings()
@@ -609,8 +616,10 @@ def build_application(
             return result
         return text(
             lambda: [
-                ("class:faint", "Nothing has run yet.\n"),
-                ("class:faint", "Type arguments above and press ⏎ to run."),
+                ("", "\n"),
+                *(splash_fragments(theme) if not monochrome else splash_plain()),
+                ("", "\n\n"),
+                ("class:faint", "Nothing has run yet. Type arguments above and press ⏎."),
             ]
         )
 
@@ -732,7 +741,6 @@ def build_application(
 
     # ── Color and application ────────────────────────────────────────────────
 
-    monochrome = color == "never" or (color == "auto" and bool(os.environ.get("NO_COLOR")))
     color_depth = ColorDepth.DEPTH_1_BIT if monochrome else None
     if color == "always":
         output = output if output is not None else create_output()
