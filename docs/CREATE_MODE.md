@@ -57,6 +57,7 @@ The export is an ordinary checkpoint. It loads without Rephix:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
 model = AutoModelForCausalLM.from_pretrained("models/thesis-model")
 tokenizer = AutoTokenizer.from_pretrained("models/thesis-model")
 ```
