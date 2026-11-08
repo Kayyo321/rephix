@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install build numpy psutil pywinpty==3.1.2 pyte==0.8.2
+      - name: Use the pip that stock Python 3.10 ships (no distlib WRAPPERS)
+        if: matrix.python == '3.10'
+        run: python -m pip install pip==23.0.1
       - run: python -m build --wheel
       - name: Drive the installed launcher through ConPTY and a conhost window
         shell: pwsh

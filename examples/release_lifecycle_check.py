@@ -366,6 +366,10 @@ def main():
         reported=out.stdout.strip(),
     )
     slot = report.get("slots", {}).get(report.get("active"), {})
+    if os.name == "nt":
+        record(
+            "fresh install: native rephix.exe launcher created", (prefix / "rephix.exe").is_file()
+        )
     record(
         "fresh install: manifest records the verified wheel digest",
         slot.get("wheel_sha256") == sha256(wheel) and slot.get("version") == version,

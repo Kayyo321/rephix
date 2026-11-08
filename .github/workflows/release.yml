@@ -94,6 +94,9 @@ jobs:
           test "$(git -C old-0.3 rev-parse HEAD)" = 553bfea6999ec979a602fc7096d4110bb7d320ac
           python -m pip install build
           python -m build --wheel --outdir old-0.3-dist old-0.3
+      - name: Use the pip that stock Python 3.10 ships (no distlib WRAPPERS)
+        if: matrix.python == '3.10'
+        run: python -m pip install pip==23.0.1
       - name: Install, upgrade, fail, uninstall and reinstall
         shell: bash
         run: python -I examples/release_lifecycle_check.py --assets release-assets --old-wheel-02 old-0.2/rephix-0.2.0-py3-none-any.whl --old-wheel-03 old-0.3-dist/rephix-0.3.0-py3-none-any.whl --installer-03 old-0.3/src/rephix/installation.py --work-dir "$RUNNER_TEMP/lifecycle" --channel mirror --output lifecycle-${{ matrix.os }}-${{ matrix.python }}.json
