@@ -51,11 +51,11 @@ class Conv3dRecoveryTests(unittest.TestCase):
                 video = torch.randn(2, 4, 7, 8, 9, dtype=torch.float64)
                 torch.testing.assert_close(target(video), source(video), rtol=1e-13, atol=1e-13)
 
-    def test_same_padding_is_rejected(self):
+    def test_nonzero_padding_mode_is_rejected(self):
         import torch
 
         with self.assertRaisesRegex(ValueError, "Conv3d probes require numeric nonnegative"):
-            validate_conv3d(torch.nn.Conv3d(1, 1, 3, padding="same"))
+            validate_conv3d(torch.nn.Conv3d(1, 1, 3, padding=1, padding_mode="reflect"))
 
 
 @unittest.skipUnless(

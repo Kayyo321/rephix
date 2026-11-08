@@ -5,7 +5,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from rephix.storage_dtypes import apply_parameter_dtypes, source_parameter_dtypes
+from rephix.storage_dtypes import (
+    apply_buffer_dtypes,
+    apply_parameter_dtypes,
+    source_buffer_dtypes,
+    source_parameter_dtypes,
+)
 
 HAS_HF = all(importlib.util.find_spec(name) for name in ("torch", "safetensors"))
 
@@ -120,6 +125,28 @@ class StorageDtypeTests(unittest.TestCase):
                 source_parameter_dtypes(torch, source, model, {}, unstored_names=("bias",)),
                 {"weight": "torch.float16"},
             )
+
+    def test_persistent_float_buffers_restore_precision_and_aliases(self):
+        import torch
+        from safetensors.torch import save_file
+
+        model = torch.nn.Module()
+        values = torch.tensor([0.25, 0.5], dtype=torch.float64)
+        model.register_buffer("mean", values)
+        model.register_buffer("mean_alias", values)
+        model.register_buffer("counter", torch.tensor(7))
+        model.register_buffer("regenerated", values.clone(), persistent=False)
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "model.safetensors"
+            save_file({"mean_alias": values.float(), "counter": model.counter}, source)
+            dtypes = source_buffer_dtypes(torch, source, model)
+            self.assertEqual(dtypes, {"mean": "torch.float32"})
+            apply_buffer_dtypes(torch, model, dtypes)
+            self.assertIs(model.mean, model.mean_alias)
+            self.assertEqual(model.mean.dtype, torch.float32)
+            self.assertEqual(model.counter.dtype, torch.int64)
+            self.assertEqual(model.regenerated.dtype, torch.float64)
+            torch.testing.assert_close(model.mean, values.float(), atol=0, rtol=0)
 
 
 if __name__ == "__main__":

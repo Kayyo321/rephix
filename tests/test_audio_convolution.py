@@ -73,7 +73,7 @@ class Conv1dRecoveryTests(unittest.TestCase):
     def test_unsupported_padding_fails_before_the_probe(self):
         import torch
 
-        for options in ({"padding": "same"}, {"padding": -1}, {"padding_mode": "circular"}):
+        for options in ({"padding": -1}, {"padding_mode": "circular"}):
             with (
                 self.subTest(**options),
                 self.assertRaisesRegex(ValueError, "Conv1d probes require numeric nonnegative"),

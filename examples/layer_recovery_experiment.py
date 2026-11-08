@@ -32,6 +32,8 @@ def _capture(model, tokenizer, texts, device, *, logit_dtype=None):
     tokenizer.padding_side = "left"
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
+    if model.config.model_type == "rwkv":
+        return _capture_recurrent(model, tokenizer, texts, device, logit_dtype=logit_dtype)
     rows, ids = [], []
     forward = inspect.signature(model.forward).parameters
     last_logits = {"logits_to_keep": 1} if "logits_to_keep" in forward else {}
@@ -50,6 +52,27 @@ def _capture(model, tokenizer, texts, device, *, logit_dtype=None):
         config = _generation_config(model, tokenizer, 8)
         completion = model.generate(**selected, generation_config=config, **auxiliary)
         continuations = completion[:, selected.input_ids.shape[1] :].tolist()
+    return torch.cat(rows), continuations, ids
+
+
+def _capture_recurrent(model, tokenizer, texts, device, *, logit_dtype=None):
+    import torch
+
+    rows, continuations, ids = [], [], []
+    config = _generation_config(model, tokenizer, 8)
+    with torch.inference_mode():
+        for index, text in enumerate(texts):
+            tokens = tokenizer(text, return_tensors="pt").input_ids.to(device)
+            ids.extend(tokens[0].tolist())
+            output = model(input_ids=tokens, use_cache=False)
+            rows.append(output.logits[:, -1].to(dtype=logit_dtype or output.logits.dtype).cpu())
+            if index % 4 == 0:
+                generated = model.generate(
+                    input_ids=tokens,
+                    attention_mask=torch.ones_like(tokens),
+                    generation_config=config,
+                )
+                continuations.append(generated[0, tokens.shape[1] :].tolist())
     return torch.cat(rows), continuations, ids
 
 
@@ -125,7 +148,7 @@ def _hashes(path):
     return {
         file.name: file_sha256(file)
         for file in sorted(path.iterdir())
-        if file.suffix in {".safetensors", ".json", ".model", ".txt", ".jinja"}
+        if file.suffix in {".safetensors", ".bin", ".json", ".model", ".txt", ".jinja"}
     }
 
 
@@ -151,6 +174,7 @@ def evaluate(args):
     recovery = json.loads(recovery_path.read_text(encoding="utf-8"))
     recovery.pop("source")
     recovery.pop("checkpoint")
+    recovery.pop("evidence_dir", None)
     rows = prompts(TEST, 4, 7116)
     texts = [row["text"] for row in rows]
 
@@ -190,6 +214,7 @@ def evaluate(args):
         "torch": str(torch.__version__),
         "transformers": transformers.__version__,
         "device": args.device,
+        "measured_logit_dtype": str(reference[0].dtype),
         "gpu": torch.cuda.get_device_name() if args.device == "cuda" else None,
         "recovery": recovery,
         "raw_checkpoint_audit": audit,

@@ -21,6 +21,11 @@ def validate_conv3d(module):
 def _numeric_padding(module):
     if module.padding == "valid":
         return (0,) * len(module.kernel_size)
+    if module.padding == "same":
+        return tuple(
+            dilation * (kernel - 1) // 2
+            for dilation, kernel in zip(module.dilation, module.kernel_size)
+        )
     return module.padding
 
 
@@ -31,6 +36,7 @@ def _validate_convolution(module, rank):
     padding = _numeric_padding(module)
     if (
         module.padding_mode != "zeros"
+        or (module.padding == "same" and any(stride != 1 for stride in module.stride))
         or not isinstance(padding, tuple)
         or len(padding) != rank
         or any(
@@ -66,13 +72,13 @@ def _validate_convolution(module, rank):
         raise ValueError(f"{operator} parameter shape disagrees with its configuration")
 
 
-def _probe_axis(padding, stride, dilation, kernel_size):
+def _probe_axis(padding, stride, dilation, kernel_size, same):
     # Use the first output whose receptive field starts inside the input.
     output_index = (padding + stride - 1) // stride
     start = output_index * stride - padding
     extent = dilation * (kernel_size - 1) + 1
     input_size = start + extent
-    output_size = (input_size + 2 * padding - extent) // stride + 1
+    output_size = input_size if same else (input_size + 2 * padding - extent) // stride + 1
     return output_index, start, input_size, output_size
 
 
@@ -95,7 +101,7 @@ def _recover_convolution(torch, module, pending, read, batch_size):
     weight = module.weight
     bias = module.bias
     probe_axes = (
-        _probe_axis(padding, stride, dilation, kernel_size)
+        _probe_axis(padding, stride, dilation, kernel_size, module.padding == "same")
         for padding, stride, dilation, kernel_size in zip(
             _numeric_padding(module), module.stride, module.dilation, module.kernel_size
         )

@@ -3,7 +3,7 @@
 import importlib.util
 import unittest
 
-from rephix.convolution import recover_conv2d, validate_conv2d
+from rephix.convolution import recover_conv1d, recover_conv2d, recover_conv3d, validate_conv2d
 
 HAS_TORCH = importlib.util.find_spec("torch") is not None
 
@@ -90,7 +90,6 @@ class Conv2dRecoveryTests(unittest.TestCase):
         import torch
 
         for kwargs in (
-            {"padding": "same"},
             {"padding": -1},
             {"padding_mode": "reflect"},
         ):
@@ -99,6 +98,41 @@ class Conv2dRecoveryTests(unittest.TestCase):
                 self.assertRaisesRegex(ValueError, "numeric nonnegative padding"),
             ):
                 validate_conv2d(torch.nn.Conv2d(1, 1, 3, **kwargs))
+
+    def test_same_padding_recovers_even_kernels_and_dilation(self):
+        import torch
+
+        for rank, recover in ((1, recover_conv1d), (2, recover_conv2d), (3, recover_conv3d)):
+            for bias in (False, True):
+                with self.subTest(rank=rank, bias=bias), torch.no_grad():
+                    options = dict(
+                        in_channels=4,
+                        out_channels=6,
+                        kernel_size=(2, 3, 4)[:rank],
+                        dilation=(3, 2, 1)[:rank],
+                        groups=2,
+                        padding="same",
+                        bias=bias,
+                        dtype=torch.float64,
+                    )
+                    cls = getattr(torch.nn, f"Conv{rank}d")
+                    source, target = cls(**options), cls(**options)
+
+                    def read(inputs, shape):
+                        output = source(inputs)
+                        self.assertEqual(output.shape, shape)
+                        self.assertEqual(tuple(output.shape[2:]), tuple(inputs.shape[2:]))
+                        return output
+
+                    recover(torch, target, dict(target.named_parameters()), read, batch_size=7)
+                    atol = 1e-15 if bias else 0
+                    torch.testing.assert_close(target.weight, source.weight, atol=atol, rtol=0)
+                    if bias:
+                        torch.testing.assert_close(target.bias, source.bias, atol=0, rtol=0)
+                    pixels = torch.randn((2, 4, *(9,) * rank), dtype=torch.float64)
+                    torch.testing.assert_close(
+                        target(pixels), source(pixels), atol=1e-13, rtol=1e-13
+                    )
 
     def test_conv2d_rejects_sparse_weights(self):
         import torch

@@ -303,6 +303,51 @@ class LayerEvidenceTests(unittest.TestCase):
                 (output / weights.name).read_bytes(), (replay / weights.name).read_bytes()
             )
 
+    def test_resuming_older_dtype_restore_bundle_preserves_buffer_precision(self):
+        import torch
+        from transformers import BartConfig, BartForConditionalGeneration
+
+        from rephix.layer_recovery import export_recovered_model
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, evidence = root / "source", root / "evidence"
+            config = BartConfig(
+                vocab_size=19,
+                d_model=12,
+                encoder_layers=1,
+                decoder_layers=1,
+                encoder_attention_heads=3,
+                decoder_attention_heads=3,
+                encoder_ffn_dim=18,
+                decoder_ffn_dim=18,
+                max_position_embeddings=16,
+            )
+            BartForConditionalGeneration(config).save_pretrained(source)
+            options = dict(dtype="float64", include_tokenizer=False, restore_source_dtypes=True)
+            with patch("rephix.layer_recovery.source_buffer_dtypes", return_value={}):
+                original = export_recovered_model(
+                    source, root / "original", evidence_dir=evidence, **options
+                )
+            resumed = export_recovered_model(
+                source, root / "resumed", evidence_dir=evidence, **options
+            )
+            self.assertNotIn("export_buffer_dtypes", resumed)
+            self.assertEqual(resumed["evidence_observations_cached"], original["layer_calls"])
+            self.assertEqual(resumed["evidence_observations_collected"], 0)
+            self.assertEqual(
+                (root / "original" / "model.safetensors").read_bytes(),
+                (root / "resumed" / "model.safetensors").read_bytes(),
+            )
+            fresh = export_recovered_model(source, root / "fresh", **options)
+            self.assertEqual(fresh["export_buffer_dtypes"], {"final_logits_bias": "torch.float32"})
+            self.assertEqual(
+                BartForConditionalGeneration.from_pretrained(
+                    root / "fresh"
+                ).final_logits_bias.dtype,
+                torch.float32,
+            )
+
     def test_resume_rejects_changed_probe_options_or_source(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

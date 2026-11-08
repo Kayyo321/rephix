@@ -1,0 +1,2385 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "schema_version": 1,
+      "model_id": "microsoft/resnet-18",
+      "revision": "65a5785d9156231087c481e0c7dd33a5ff6f7e3e",
+      "reference_sha256": {
+        "config.json": "11a01bcc873444bb433140e5f30f3687356641ed923266d738eef1c3438f6d22",
+        "model.safetensors": "1cf00ee468998c23d084361b02cffadabacb5074105564c596b8079f77ecb126",
+        "preprocessor_config.json": "fd575b890da5a949493e1d1e7a70bfcb9e4b99fe444004d2dbfa253add254741"
+      },
+      "candidate_sha256": {
+        "config.json": "92d4e5807ae8bf70378d2b1309b931f0ddbdf70d442fae2b2f863037b9d6950d",
+        "layer-recovery.json": "1e7e4ec2d6e8bdd97d40e214a35053fa2ed036ce489584dae3f6daed15bd204f",
+        "model.safetensors": "197a1c78db3d3041e2a8c0260d96305484d292f00290deedfb490162e7d55ea1",
+        "preprocessor_config.json": "fd575b890da5a949493e1d1e7a70bfcb9e4b99fe444004d2dbfa253add254741"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "gpu": null
+      },
+      "real_images_sha256": {
+        "coco_sample.png": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 41,
+        "unique_parameter_elements_recovered": 11689512,
+        "persistent_buffer_elements_recovered": 9620,
+        "individually_identified_parameter_elements": 11689512,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 175,
+        "probe_input_rows": 31736,
+        "observed_output_scalars": 91982588,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 175,
+        "model_type": "resnet",
+        "architecture": "ResNetForImageClassification",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "export_parameter_dtypes": {
+          "resnet.embedder.embedder.convolution.weight": "torch.float32",
+          "resnet.embedder.embedder.normalization.weight": "torch.float32",
+          "resnet.embedder.embedder.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.shortcut.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.shortcut.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.shortcut.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.0.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.bias": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.1.convolution.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.weight": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.bias": "torch.float32",
+          "classifier.1.weight": "torch.float32",
+          "classifier.1.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {
+          "resnet.embedder.embedder.normalization.running_mean": "torch.float32",
+          "resnet.embedder.embedder.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.running_var": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.running_mean": "torch.float32",
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.running_var": "torch.float32"
+        },
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 175
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 122,
+        "candidate_tensors": 122,
+        "compared_tensors": 122,
+        "reference_elements": 11699132,
+        "candidate_elements": 11699132,
+        "compared_elements": 11699132,
+        "coverage": 1.0,
+        "exactly_equal_elements": 11699132,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 11699132,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 122,
+        "candidate_tensors": 122,
+        "compared_tensors": 122,
+        "reference_elements": 11699132,
+        "candidate_elements": 11699132,
+        "compared_elements": 11699132,
+        "coverage": 1.0,
+        "exactly_equal_elements": 11699132,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 11699132,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.1.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.1.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.embedder.embedder.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.embedder.embedder.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.embedder.embedder.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.embedder.embedder.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.embedder.embedder.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.0.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.0.layers.1.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.shortcut.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.0.shortcut.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.1.layers.1.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.shortcut.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.0.shortcut.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.2.layers.1.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.shortcut.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.0.shortcut.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.0.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.0.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.1.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "resnet.encoder.stages.3.layers.1.layer.1.normalization.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "evaluation_seconds": 2.8979333719998976,
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 175,
+        "files_matching_sha256": 3
+      },
+      "processed_image_source": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/coco_sample.png"
+    },
+    {
+      "schema_version": 1,
+      "model_id": "google/efficientnet-b0",
+      "revision": "3d8d75d0812b65064f0151b456f869c6344bf20c",
+      "reference_sha256": {
+        "config.json": "7056f55764f0b51fe7e27d874c65870ed5f7bda2d9f8da81d1fdc9ba2c5ac7c7",
+        "model.safetensors": "c3cd95b350e7867c1947da57988b80b6070deb35c8af719845c964249a842033",
+        "preprocessor_config.json": "6f161cb5de895bc2e041020251c315490f98b3d46b9bcbdb40fe98bda1143515"
+      },
+      "candidate_sha256": {
+        "config.json": "08405e4b11254b88593323b97c4b63054dd63a58ad3e279e306088b965787885",
+        "layer-recovery.json": "73b03c2ca634cea794c91308c82db7c5cc58bc0a5cefd7444d65539dfff2d8f2",
+        "model.safetensors": "c3cd95b350e7867c1947da57988b80b6070deb35c8af719845c964249a842033",
+        "preprocessor_config.json": "6f161cb5de895bc2e041020251c315490f98b3d46b9bcbdb40fe98bda1143515"
+      },
+      "runtime": {
+        "python": "3.13.5",
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "device": "cpu",
+        "gpu": null
+      },
+      "real_images_sha256": {
+        "coco_sample.png": "cf6f3c4befa148732c7453e0de5afab00f682427435fead2d88b07a9615cdac2"
+      },
+      "recovery": {
+        "observation_mode": "chosen_inputs_to_individual_layers",
+        "parameterized_modules_probed": 131,
+        "unique_parameter_elements_recovered": 5288548,
+        "persistent_buffer_elements_recovered": 42065,
+        "individually_identified_parameter_elements": 5288548,
+        "embedding_gauges": [],
+        "relative_bias_mode": "embedding",
+        "relative_bias_gauges": [],
+        "state_space_decays": [],
+        "gemma_rms_rounding": [],
+        "router_rounding": [],
+        "layer_calls": 384,
+        "probe_input_rows": 21981,
+        "observed_output_scalars": 8807349,
+        "probe_batch_size": 512,
+        "evidence_observations_cached": 0,
+        "evidence_observations_collected": 384,
+        "model_type": "efficientnet",
+        "architecture": "EfficientNetForImageClassification",
+        "oracle_device": "cpu",
+        "oracle_dtype": "torch.float64",
+        "oracle_placement": "resident",
+        "ignored_source_keys": [],
+        "image_processor_exported": true,
+        "export_parameter_dtypes": {
+          "efficientnet.embeddings.convolution.weight": "torch.float32",
+          "efficientnet.embeddings.batchnorm.weight": "torch.float32",
+          "efficientnet.embeddings.batchnorm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.0.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.0.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.0.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.0.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.1.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.1.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.1.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.1.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.1.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.2.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.2.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.2.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.2.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.2.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.3.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.3.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.3.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.3.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.3.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.4.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.4.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.4.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.4.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.4.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.5.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.5.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.5.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.5.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.5.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.6.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.6.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.6.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.6.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.6.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.7.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.7.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.7.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.7.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.7.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.8.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.8.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.8.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.8.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.8.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.9.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.9.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.9.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.9.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.9.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.10.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.10.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.10.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.10.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.10.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.11.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.11.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.11.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.11.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.11.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.12.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.12.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.12.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.12.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.12.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.13.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.13.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.13.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.13.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.13.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.14.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.14.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.14.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.14.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.14.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.15.expansion.expand_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.bias": "torch.float32",
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.bias": "torch.float32",
+          "efficientnet.encoder.blocks.15.squeeze_excite.reduce.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.squeeze_excite.reduce.bias": "torch.float32",
+          "efficientnet.encoder.blocks.15.squeeze_excite.expand.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.squeeze_excite.expand.bias": "torch.float32",
+          "efficientnet.encoder.blocks.15.projection.project_conv.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.projection.project_bn.weight": "torch.float32",
+          "efficientnet.encoder.blocks.15.projection.project_bn.bias": "torch.float32",
+          "efficientnet.encoder.top_conv.weight": "torch.float32",
+          "efficientnet.encoder.top_bn.weight": "torch.float32",
+          "efficientnet.encoder.top_bn.bias": "torch.float32",
+          "classifier.weight": "torch.float32",
+          "classifier.bias": "torch.float32"
+        },
+        "export_buffer_dtypes": {
+          "efficientnet.embeddings.batchnorm.running_mean": "torch.float32",
+          "efficientnet.embeddings.batchnorm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.0.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.0.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.1.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.1.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.2.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.2.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.3.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.3.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.4.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.4.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.5.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.5.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.6.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.6.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.7.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.7.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.8.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.8.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.9.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.9.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.10.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.10.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.11.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.11.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.12.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.12.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.13.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.13.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.14.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.14.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.running_var": "torch.float32",
+          "efficientnet.encoder.blocks.15.projection.project_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.blocks.15.projection.project_bn.running_var": "torch.float32",
+          "efficientnet.encoder.top_bn.running_mean": "torch.float32",
+          "efficientnet.encoder.top_bn.running_var": "torch.float32"
+        },
+        "oracle_staged_groups": 0,
+        "oracle_peak_staged_state_bytes": 0,
+        "oracle_host_layer_calls": 384
+      },
+      "raw_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 360,
+        "candidate_tensors": 360,
+        "compared_tensors": 360,
+        "reference_elements": 5330613,
+        "candidate_elements": 5330613,
+        "compared_elements": 5330613,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5330613,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 5330613,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {},
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "gauge_aligned_checkpoint_audit": {
+        "atol": 1e-08,
+        "rtol": 1e-05,
+        "scope": "raw stored safetensors tensors, including buffers, compared by name and shape",
+        "reference_tensors": 360,
+        "candidate_tensors": 360,
+        "compared_tensors": 360,
+        "reference_elements": 5330613,
+        "candidate_elements": 5330613,
+        "compared_elements": 5330613,
+        "coverage": 1.0,
+        "exactly_equal_elements": 5330613,
+        "fraction_exactly_equal": 1.0,
+        "within_tolerance_elements": 5330613,
+        "fraction_within_tolerance": 1.0,
+        "relative_l2": 0.0,
+        "zero_filled_relative_l2": 0.0,
+        "missing_tensors": [],
+        "extra_tensors": [],
+        "shape_mismatches": {},
+        "dtype_mismatches": {
+          "classifier.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "classifier.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.embeddings.batchnorm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.embeddings.batchnorm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.embeddings.batchnorm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.embeddings.batchnorm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.embeddings.convolution.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.0.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.1.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.10.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.11.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.12.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.13.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.14.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.15.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.2.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.3.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.4.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.5.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.6.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.7.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.8.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.depthwise_conv.depthwise_norm.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.expansion.expand_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.expansion.expand_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.projection.project_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.projection.project_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.projection.project_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.projection.project_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.projection.project_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.squeeze_excite.expand.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.squeeze_excite.expand.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.squeeze_excite.reduce.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.blocks.9.squeeze_excite.reduce.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.top_bn.bias": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.top_bn.running_mean": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.top_bn.running_var": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.top_bn.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          },
+          "efficientnet.encoder.top_conv.weight": {
+            "reference": "F32",
+            "candidate": "F64"
+          }
+        },
+        "interpretation": "Numeric equality and tolerance use all stored reference elements. Tolerance is abs(candidate - reference) <= atol + rtol * abs(reference). Raw relative L2 requires full reference name and shape coverage. The zero-filled score substitutes zeros for missing or shape-incompatible tensors. Candidate extras are outside the scores. Serialized names can differ when checkpoints save tied weights under different aliases. This audit compares stored values without resolving aliases or aligning symmetries."
+      },
+      "special_token_sum_errors": [],
+      "held_out_behavior": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "function_preserving_reference_gauge_control": {
+        "native_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "rectangular_synthetic": {
+          "images": 8,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 8
+        },
+        "processed_real_images": {
+          "images": 1,
+          "logit_rmse": 0.0,
+          "logit_max_abs_error": 0.0,
+          "top1_matches": 1
+        }
+      },
+      "evaluation_seconds": 1.9416432599998643,
+      "source_free_replay": {
+        "source_path_absent": true,
+        "new_observations": 0,
+        "cached_observations": 384,
+        "files_matching_sha256": 3
+      },
+      "reference_preparation": {
+        "method": "torch.load(weights_only=True), direct safetensors serialization",
+        "all_names_shapes_dtypes_and_values_verified": true,
+        "original_bin_sha256": "30753ee4fb7d6ac093423435b2648d8e295b3120f8f3ba00cc714b2c4a34de6f"
+      },
+      "processed_image_source": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/coco_sample.png"
+    }
+  ]
+}

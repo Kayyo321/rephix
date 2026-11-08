@@ -4,6 +4,8 @@
 
 [Swin and Swin V2 recovery](SWIN_RECOVERY.md) also captures learned relative position state and Swin V1's persistent integer indices.
 
+[ResNet and EfficientNet recovery](CNN_RECOVERY.md) includes their stored BatchNorm statistics and integer counters.
+
 ```bash
 rephix --threads 4 recover-layers --model models/vit --output runs/vit-recovered \
   --device cuda --dtype float64

@@ -23,6 +23,14 @@ from .audio_encoder_recovery import (
     validate_audio_mask_embedding,
     validate_wavlm_position_gate,
 )
+from .batch_norm_recovery import (
+    BATCH_NORM_BUFFER_OPERATIONS,
+    BATCH_NORM_TYPES,
+    observe_batch_norm,
+    recover_batch_norm,
+    recover_batch_norm_buffer,
+    validate_batch_norm,
+)
 from .convnext_recovery import (
     CONVNEXT_GRN,
     CONVNEXT_LAYER_NORMS,
@@ -87,8 +95,19 @@ from .multimodal_operators import (
     validate_llava_image_newline,
 )
 from .rms_probe import unit_float32_rms_amplitude
+from .rwkv_recovery import (
+    RWKV_OPERATORS,
+    observe_rwkv_operator,
+    recover_rwkv_operator,
+    validate_rwkv_operator,
+)
 from .ssm_recovery import SSM_MIXERS, observe_ssm_mixer, recover_ssm_mixer, validate_ssm_mixer
-from .storage_dtypes import apply_parameter_dtypes, source_parameter_dtypes
+from .storage_dtypes import (
+    apply_buffer_dtypes,
+    apply_parameter_dtypes,
+    source_buffer_dtypes,
+    source_parameter_dtypes,
+)
 from .swin_recovery import (
     SWIN_ATTENTION,
     SWINV2_ATTENTION,
@@ -182,7 +201,9 @@ _VISION_LANGUAGE_ASSETS = (
 )
 _PROBE_PLAN_VERSION = 1
 _JOURNAL_FILENAME = "observations.sqlite3"
-_BUFFER_KINDS = {"bart_logits_bias", "router_correction", "swin_relative_index"}
+_BUFFER_KINDS = {"bart_logits_bias", "router_correction", "swin_relative_index"} | set(
+    BATCH_NORM_BUFFER_OPERATIONS.values()
+)
 _GPTOSS_KINDS = frozenset(GPTOSS_OPERATORS.values())
 
 
@@ -220,6 +241,11 @@ def _operator(torch, module, *, direct):
         return "audio_mask_embedding"
     if direct and qualified_name == WAVLM_POSITION_GATE:
         return "wavlm_position_gate"
+    if direct and qualified_name in BATCH_NORM_TYPES:
+        validate_batch_norm(module)
+        return "batch_norm"
+    if direct and qualified_name in RWKV_OPERATORS:
+        return "rwkv_operator"
     if direct and qualified_name == SWIN_ATTENTION:
         return "swin_relative_bias"
     if direct and qualified_name == SWINV2_ATTENTION:
@@ -243,7 +269,11 @@ def _operator(torch, module, *, direct):
 
         validate_conv1d(module)
         return "spatial_conv1d"
-    if cls is torch.nn.Conv2d:
+    if cls is torch.nn.Conv2d or (
+        direct
+        and qualified_name
+        == "transformers.models.efficientnet.modeling_efficientnet.EfficientNetDepthwiseConv2d"
+    ):
         from .convolution import validate_conv2d
 
         validate_conv2d(module)
@@ -288,6 +318,16 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
     bart_bias = direct and _qualified_name(model) == _BART + "BartForConditionalGeneration"
     correction_probes = []
     for path, module in model.named_modules() if direct else ():
+        if _qualified_name(module) in BATCH_NORM_TYPES:
+            validate_batch_norm(module)
+            if module.track_running_stats:
+                for local_name, operation in BATCH_NORM_BUFFER_OPERATIONS.items():
+                    name = f"{path}.{local_name}" if path else local_name
+                    value = getattr(module, local_name)
+                    if name not in buffers or value.device.type != "cpu":
+                        raise ValueError(f"{path}: invalid persistent BatchNorm statistic")
+                    buffers.remove(name)
+                    correction_probes.append((path, module, {"bias": value}, operation))
         if _qualified_name(module) == SWIN_ATTENTION:
             validate_swin_index(module)
             name = f"{path}.relative_position_index"
@@ -366,6 +406,9 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
         elif kind == "wavlm_position_gate":
             validate_wavlm_position_gate(module, pending)
             allowed = pending.keys()
+        elif kind == "rwkv_operator":
+            validate_rwkv_operator(module, pending)
+            allowed = pending.keys()
         elif kind == "swin_relative_bias":
             validate_swin_bias(module, pending)
             allowed = pending.keys()
@@ -408,7 +451,7 @@ def _plan(torch, model, *, direct=False, relative_bias_mode="embedding"):
                 raise ValueError(f"{path}: recovery destination must be a materialized CPU model")
         plan.append((path, module, pending, kind))
         seen.update(map(id, pending.values()))
-    if not seen:
+    if not seen and not correction_probes and not bart_bias:
         raise ValueError("model has no recoverable parameters")
     # The parent observation combines patch projection and position values.
     # Recover the child projection before subtracting it from that observation.
@@ -547,6 +590,10 @@ def recover_from_layer_calls(
     Weight normalization exposes :wn_scale from a chosen unit direction,
     :wn_norms from its native norm, and :wn_direction with a chosen scale.
     Low-precision weight-normalization probes use FP32 inputs and outputs.
+    BatchNorm affine values and running statistics use FP64 controlled primitive
+    observations. Its counter returns an int64 scalar from a chosen zero update.
+    RWKV time mixtures and first offsets use native multiplication and addition,
+    while :time_decay_exp exposes a controlled FP64 exponential.
     Grouped expert banks use paths ending in :expert_<index> for the
     corresponding affine map. Native router paths ending in :router_logits
     expose FP32 logits. :router_correction probes expose the additive
@@ -589,6 +636,12 @@ def recover_from_layer_calls(
             dtype = torch.float64 if kind == "ssm_mixer" else next(iter(pending.values())).dtype
             if kind in {"gemma_rms_norm", "native_router"}:
                 dtype = torch.float32
+            elif kind == "batch_norm_counter":
+                dtype = torch.int64
+            elif kind in {"batch_norm", "rwkv_operator"} | set(
+                BATCH_NORM_BUFFER_OPERATIONS.values()
+            ):
+                dtype = torch.float64
             elif kind == "weight_norm":
                 dtype = weight_norm_probe_dtype(torch, module)
             elif kind == "post_multiply_rms_norm" and dtype != torch.float64:
@@ -686,6 +739,12 @@ def recover_from_layer_calls(
                 recover_audio_mask_embedding(module, pending, read)
             elif kind == "wavlm_position_gate":
                 recover_wavlm_position_gate(module, pending, read)
+            elif kind == "batch_norm":
+                recover_batch_norm(torch, module, pending, read)
+            elif kind in BATCH_NORM_BUFFER_OPERATIONS.values():
+                recover_batch_norm_buffer(torch, module, pending, read, kind)
+            elif kind == "rwkv_operator":
+                recover_rwkv_operator(torch, module, pending, read)
             elif kind == "swin_relative_bias":
                 recover_swin_bias(torch, module, pending, read, batch_size)
             elif kind == "swin_relative_index":
@@ -759,7 +818,16 @@ def _observe_bart_logits_bias(torch, model, token):
 
 
 def _model_wrapper(config, causal, architecture=None):
-    is_vision = config.model_type in {"convnext", "convnextv2", "deit", "swin", "swinv2", "vit"}
+    is_vision = config.model_type in {
+        "convnext",
+        "convnextv2",
+        "deit",
+        "efficientnet",
+        "resnet",
+        "swin",
+        "swinv2",
+        "vit",
+    }
     is_speech = (
         config.model_type in {"moonshine", "speech_to_text", "whisper"} | AUDIO_ENCODER_TYPES
     )
@@ -914,6 +982,8 @@ def _publish_checkpoint(candidate, output, report, write_assets):
         staged = Path(temporary) / "checkpoint"
         if report.get("export_parameter_dtypes"):
             apply_parameter_dtypes(torch, candidate, report["export_parameter_dtypes"])
+        if report.get("export_buffer_dtypes"):
+            apply_buffer_dtypes(torch, candidate, report["export_buffer_dtypes"])
         state = candidate.state_dict()
         for current, stored in report.get("serialized_weight_norm_aliases", {}).items():
             if current not in state or stored in state:
@@ -1067,6 +1137,22 @@ def export_recovered_model(
         for name in initialized_audio_masks:
             export_dtypes[name] = next(iter(export_dtypes.values()))
         provenance["export_parameter_dtypes"] = export_dtypes
+        restore_buffers = True
+        if evidence_dir is not None and evidence_dir.exists():
+            from .layer_bundle import open_bundle
+
+            previous_metadata, _ = open_bundle(evidence_dir)
+            previous_export = previous_metadata.get("provenance", {})
+            if isinstance(previous_export, dict):
+                # Older captures restored parameters only. Preserve their
+                # recorded export precision when resuming the same bundle.
+                restore_buffers = not (
+                    "export_parameter_dtypes" in previous_export
+                    and "export_buffer_dtypes" not in previous_export
+                )
+        export_buffers = source_buffer_dtypes(torch, source, candidate) if restore_buffers else {}
+        if export_buffers:
+            provenance["export_buffer_dtypes"] = export_buffers
     if is_speech:
         provenance["audio_feature_extractor_exported"] = include_tokenizer
         if config.model_type in AUDIO_ENCODER_TYPES:
@@ -1166,6 +1252,10 @@ def export_recovered_model(
             return observe_gemma3_projector(module, inputs.to(device))
         if name == WAVLM_POSITION_GATE:
             return observe_wavlm_position_gate(torch, module, inputs.to(device))
+        if name in BATCH_NORM_TYPES:
+            return observe_batch_norm(torch, module, inputs.to(device), operation)
+        if name in RWKV_OPERATORS:
+            return observe_rwkv_operator(torch, module, inputs.to(device), operation)
         if name == SWIN_ATTENTION:
             if operation == "relative_position_index":
                 return observe_swin_index(torch, module, inputs.to(device))
@@ -1343,7 +1433,7 @@ def add_subcommands(commands):
     recover.add_argument(
         "--restore-source-dtypes",
         action="store_true",
-        help="cast recovered parameters to their original stored dtypes before export",
+        help="restore original parameter and floating-buffer dtypes before export",
     )
     recover.add_argument(
         "--evidence-dir", help="durable layer observation bundle to create or resume"
