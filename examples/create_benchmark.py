@@ -512,9 +512,9 @@ def region_weight(model_dir, region):
     layer, block, module = region.split(".")
     name = f"model.layers.{layer}.{block}.{module}.weight"
     for file in Path(model_dir).glob("*.safetensors"):
-        with safe_open(str(file), framework="np") as handle:
+        with safe_open(str(file), framework="pt") as handle:
             if name in handle.keys():
-                return handle.get_tensor(name).astype(np.float64)
+                return handle.get_tensor(name).double().numpy()
     raise KeyError(name)
 
 
@@ -538,6 +538,68 @@ def region_inputs(base_dir, region, run_dir, limit=4096):
     handle.remove()
     del model
     return torch.cat(captured)[:limit].double().numpy()
+
+
+def block_delta(base_dir, created_dir, source_dir, region, run_dir, limit=24):
+    """Evaluator: change of the planted region's whole block (self_attn or mlp) output.
+
+    The block receives identical inputs (captured from the base) in base, created and
+    source models, so edits that are equivalent within the block (for example a v_proj
+    edit standing in for an o_proj edit) compare as equal. Added after registration as
+    a symmetry-aware evaluator metric; it does not change any reconstruction.
+    """
+    import torch
+
+    layer, block, _ = region.split(".")
+    rows, _ = _test_records(run_dir)
+    model, tokenizer = load(base_dir)
+    captured = []
+
+    def pre(module, args, kwargs):
+        captured.append(
+            (
+                tuple(a.detach() if torch.is_tensor(a) else a for a in args),
+                {
+                    k: v
+                    for k, v in kwargs.items()
+                    if k not in ("past_key_values", "past_key_value", "use_cache", "cache_position")
+                },
+            )
+        )
+
+    target = getattr(model.model.layers[int(layer)], block)
+    handle = target.register_forward_pre_hook(pre, with_kwargs=True)
+    with torch.inference_mode():
+        for row in rows[:limit]:
+            ids = tokenizer((row.get("context") or "") + row["text"], return_tensors="pt")[
+                "input_ids"
+            ].to("cuda")
+            model(input_ids=ids, use_cache=False)
+    handle.remove()
+    del model
+    outputs = {}
+    for name, directory in (("base", base_dir), ("created", created_dir), ("source", source_dir)):
+        m, _ = load(directory)
+        module = getattr(m.model.layers[int(layer)], block)
+        chunks = []
+        with torch.inference_mode():
+            for args, kwargs in captured:
+                out = module(*args, **kwargs)
+                out = out[0] if isinstance(out, tuple) else out
+                chunks.append(out.double().reshape(-1, out.shape[-1]).cpu())
+        outputs[name] = torch.cat(chunks)
+        del m
+        torch.cuda.empty_cache()
+    created = outputs["created"] - outputs["base"]
+    planted = outputs["source"] - outputs["base"]
+    return {
+        "block": f"{layer}.{block}",
+        "relative_error": float((created - planted).norm() / planted.norm().clamp_min(1e-30)),
+        "cosine": float(
+            (created * planted).sum() / (created.norm() * planted.norm()).clamp_min(1e-30)
+        ),
+        "created_change_norm_ratio": float(created.norm() / planted.norm().clamp_min(1e-30)),
+    }
 
 
 def delta_error(true_delta, estimate, inputs):
@@ -647,6 +709,9 @@ def e1(work, seeds=None, methods=None):
                 estimate = region_weight(out / "export", region) - region_weight(base, region)
                 entry["planted_region_selected"] = region in entry["selected_regions"]
                 entry["delta_x_export"] = delta_error(true_delta, estimate, inputs)
+                entry["block_delta_vs_planted"] = block_delta(
+                    base, out / "export", source, region, out
+                )
                 ident = json.loads((out / "phases" / "identify.json").read_text())[
                     "region_class_test"
                 ]
