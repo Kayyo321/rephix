@@ -106,8 +106,11 @@ def resolve_release(selector="latest"):
     tag = release.get("tag_name")
     if not isinstance(tag, str) or not VERSION_TAG.fullmatch(tag):
         raise RuntimeError(f"Release channel returned an unsupported tag: {tag!r}")
-    if release.get("draft") or release.get("prerelease"):
-        raise RuntimeError(f"{tag} is not a published stable release.")
+    if release.get("draft"):
+        raise RuntimeError(f"{tag} is a draft and is not published.")
+    if release.get("prerelease") and selector == "latest":
+        # The channel's latest endpoint never returns prereleases; this is defensive.
+        raise RuntimeError(f"{tag} is a prerelease; request it explicitly by tag.")
     version = tag[1:]
     assets = {a.get("name"): a for a in release.get("assets", []) if isinstance(a, dict)}
     wheel = f"rephix-{version}-py3-none-any.whl"

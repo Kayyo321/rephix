@@ -305,8 +305,12 @@ class ReleaseChannelTests(unittest.TestCase):
             manager.download_release(manager.resolve_release("latest"), self.base)
         self.assertEqual(list(self.base.iterdir()), [])
         self.release["prerelease"] = True
-        with self.assertRaisesRegex(RuntimeError, "not a published stable release"):
+        # A prerelease is installable only when requested explicitly by its tag.
+        self.assertEqual(manager.resolve_release("v9.8.7")["tag"], "v9.8.7")
+        self.release["draft"] = True
+        with self.assertRaisesRegex(RuntimeError, "draft"):
             manager.resolve_release("v9.8.7")
+        self.release["draft"] = False
         with self.assertRaisesRegex(ValueError, "latest or a tag"):
             manager.resolve_release("main")
 

@@ -34,8 +34,8 @@ py -3 rephix-installer.py install --prefix "$env:LOCALAPPDATA\Rephix" --release 
 ```
 
 `--release latest` asks the GitHub Releases API for the latest **stable** release (the
-`/releases/latest` endpoint never returns drafts or prereleases). `--release v0.4.0`
-selects a specific stable release. The installer downloads the wheel, checks it
+`/releases/latest` endpoint never returns drafts or prereleases). `--release vX.Y.Z`
+selects that release by tag. A prerelease is installable only this way; `latest` never selects one, and drafts are never installable. The installer downloads the wheel, checks it
 against the release's `SHA256SUMS` and, when the channel provides one, the asset
 digest GitHub records server-side, and installs only on agreement. Any mismatch, unreachable channel, or
 missing asset stops with an error before anything changes. `REPHIX_RELEASES_API`
