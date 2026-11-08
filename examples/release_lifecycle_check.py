@@ -407,9 +407,11 @@ def main():
     )
     ok, out = run([rephix, "installation", "update", "--release", "v9.9.9"], env=env, expect=1)
     if args.channel == "mirror":
+        # An explicit prerelease tag resolves (the mirror's v9.9.9 has no wheel), so the
+        # failure must come from the missing asset, not from the channel rule.
         record(
-            "channel: prereleases are never selected",
-            ok and "not a published stable" in out.stderr,
+            "channel: an explicit prerelease tag resolves, then fails on its missing wheel",
+            ok and "missing release assets" in out.stderr and "prerelease" not in out.stderr,
             stderr=out.stderr[-300:],
         )
 
