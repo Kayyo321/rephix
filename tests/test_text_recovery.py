@@ -83,6 +83,19 @@ class IdentifiabilityTests(unittest.TestCase):
         self.assertTrue(info["converged"])
         np.testing.assert_allclose(gamma, _canonical(theta, basis), atol=1e-6)
 
+    def test_fisher_information_matches_kronecker_definition(self):
+        from rephix.text_recovery import _softmax, fisher_information
+
+        rng = np.random.default_rng(1)
+        z, gamma = rng.normal(size=(30, 4)), rng.normal(size=(3, 4))
+        counts = rng.integers(1, 50, size=(30, 3)).astype(float)
+        p = _softmax(z @ gamma.T)
+        expected = sum(
+            n * np.kron(np.diag(q) - np.outer(q, q), np.outer(x, x))
+            for n, q, x in zip(counts.sum(1), p, z)
+        )
+        np.testing.assert_allclose(fisher_information(z, counts, gamma), expected, atol=1e-9)
+
 
 class RecoveryWorkflowTests(unittest.TestCase):
     def setUp(self):

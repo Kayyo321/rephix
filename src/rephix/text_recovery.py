@@ -420,21 +420,31 @@ def fit_multinomial(z, counts, *, ridge=1e-6, start=None, max_newton=60, toleran
     return gamma, {"newton_iterations": max_newton, "converged": False, "objective": value}
 
 
+def fisher_information(z, counts, gamma):
+    """Fisher information of the multinomial logit, shape (V*r, V*r).
+
+    Assembled per class pair as a weighted Gram matrix so memory stays O(V^2 r^2)
+    regardless of the number of contexts.
+    """
+    classes, width = gamma.shape
+    probabilities = _softmax(z @ gamma.T)
+    totals = counts.sum(axis=1)
+    information = np.zeros((classes, width, classes, width))
+    for a in range(classes):
+        for c in range(a, classes):
+            weight = totals * probabilities[:, a] * ((a == c) - probabilities[:, c])
+            block = (z * weight[:, None]).T @ z
+            information[a, :, c, :] = block
+            information[c, :, a, :] = block.T
+    return information.reshape(classes * width, classes * width)
+
+
 def fisher_covariance(z, counts, gamma, limit=6000):
     """Inverse Fisher information on the class-centred subspace, when small enough."""
     classes, width = gamma.shape
     if classes * width > limit:
         return None
-    probabilities = _softmax(z @ gamma.T)
-    totals = counts.sum(axis=1)
-    sigma = (
-        np.einsum("jv,vw->jvw", probabilities, np.eye(classes))
-        - probabilities[:, :, None] * probabilities[:, None, :]
-    )
-    left = (totals[:, None, None] * sigma).reshape(len(z), classes * classes)
-    right = np.einsum("jb,jd->jbd", z, z).reshape(len(z), width * width)
-    information = (left.T @ right).reshape(classes, classes, width, width)
-    information = information.transpose(0, 2, 1, 3).reshape(classes * width, classes * width)
+    information = fisher_information(z, counts, gamma)
     centre = np.eye(classes) - 1.0 / classes
     projector = np.kron(centre, np.eye(width))
     return projector @ np.linalg.pinv(information, hermitian=True) @ projector
