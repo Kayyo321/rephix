@@ -7,10 +7,11 @@ import json
 import math
 import sqlite3
 import sys
+import zlib
 from contextlib import contextmanager
 from pathlib import Path
 
-_SCHEMA_VERSION = 1
+_SCHEMA_VERSION = 2
 
 
 def _digest(metadata, payload):
@@ -25,13 +26,19 @@ class LayerJournal:
     A capture retries any call whose response was lost before SQLite committed it.
     """
 
-    def __init__(self, path, torch, *, binding, readonly=False):
+    def __init__(self, path, torch, *, binding, readonly=False, compression=True):
+        if not isinstance(compression, bool):
+            raise ValueError("layer journal compression must be a boolean")
         self.path = Path(path)
         self.torch = torch
         self.binding = binding
         self.readonly = readonly
+        self.compression = compression
+        self.schema_version = None
         self.reused_calls = 0
         self.fresh_calls = 0
+        self.decoded_payload_bytes = 0
+        self.stored_payload_bytes = 0
         self._finished = False
 
     def __enter__(self):
@@ -95,7 +102,8 @@ class LayerJournal:
                 dtype TEXT NOT NULL,
                 shape TEXT NOT NULL,
                 payload BLOB NOT NULL,
-                checksum TEXT NOT NULL
+                checksum TEXT NOT NULL,
+                encoding TEXT NOT NULL DEFAULT 'raw' CHECK (encoding IN ('raw', 'zlib'))
             )
         """)
         self._db.execute(
@@ -112,10 +120,11 @@ class LayerJournal:
         row = self._db.execute(
             "SELECT schema_version, binding, total_calls FROM journal_metadata WHERE id = 1"
         ).fetchone()
-        if row is None or row[0] != _SCHEMA_VERSION:
+        if row is None or row[0] not in (1, _SCHEMA_VERSION):
             raise ValueError("missing or unsupported layer journal metadata")
         if row[1] != self.binding:
             raise ValueError("layer journal binding does not match the requested probe plan")
+        self.schema_version = row[0]
         return row[2]
 
     def _payload(self, tensor):
@@ -135,32 +144,83 @@ class LayerJournal:
             raise ValueError(f"{path}: layer response contains non-finite values")
         return values
 
+    def _encode(self, metadata, payload):
+        encoding, stored = "raw", payload
+        if self.schema_version == 2 and self.compression and len(payload) >= 256:
+            compressed = zlib.compress(payload, level=1)
+            if len(compressed) < len(payload):
+                encoding, stored = "zlib", compressed
+        checksum_metadata = (*metadata, encoding) if self.schema_version == 2 else metadata
+        return encoding, stored, _digest(checksum_metadata, payload)
+
+    def _decode(self, metadata, payload, checksum, encoding, expected_bytes, path, position):
+        if not isinstance(payload, bytes) or encoding not in {"raw", "zlib"}:
+            raise ValueError(f"{path}: corrupt layer journal encoding at call {position}")
+        decoded = payload
+        if encoding == "zlib":
+            try:
+                decoder = zlib.decompressobj()
+                # Request at most one byte beyond the expected response. This
+                # detects oversized streams while bounding decoded allocation.
+                decoded = decoder.decompress(payload, expected_bytes + 1)
+            except zlib.error as exc:
+                raise ValueError(
+                    f"{path}: corrupt compressed layer journal response at call {position}"
+                ) from exc
+            if not decoder.eof or decoder.unconsumed_tail or decoder.unused_data:
+                raise ValueError(
+                    f"{path}: corrupt compressed layer journal stream at call {position}"
+                )
+        if len(decoded) != expected_bytes:
+            raise ValueError(f"{path}: layer journal payload length mismatch at call {position}")
+        checksum_metadata = (*metadata, encoding) if self.schema_version == 2 else metadata
+        if _digest(checksum_metadata, decoded) != checksum:
+            raise ValueError(f"{path}: layer journal checksum mismatch at call {position}")
+        return decoded
+
     def _read(self, position, path, input_digest, shape, dtype, oracle, inputs):
+        encoding_column = "encoding" if self.schema_version == 2 else "'raw'"
         row = self._db.execute(
-            "SELECT path, input_digest, dtype, shape, payload, checksum "
-            "FROM responses WHERE position = ?",
+            "SELECT path, input_digest, dtype, shape, payload, checksum, "
+            f"{encoding_column} FROM responses WHERE position = ?",
             (position,),
         ).fetchone()
         encoded_shape = json.dumps(shape, separators=(",", ":"))
         metadata = (position, path, input_digest, str(dtype), encoded_shape)
         if row is not None:
-            stored_path, stored_input_digest, stored_dtype, stored_shape, payload, checksum = row
+            (
+                stored_path,
+                stored_input_digest,
+                stored_dtype,
+                stored_shape,
+                payload,
+                checksum,
+                encoding,
+            ) = row
             if (stored_path, stored_input_digest) != (path, input_digest):
                 raise ValueError(f"{path}: layer journal input mismatch at call {position}")
             if (stored_dtype, stored_shape) != (str(dtype), encoded_shape):
                 raise ValueError(
                     f"{path}: layer journal output metadata mismatch at call {position}"
                 )
-            if not isinstance(payload, bytes) or _digest(metadata, payload) != checksum:
-                raise ValueError(f"{path}: layer journal checksum mismatch at call {position}")
             values = self.torch.empty(0, dtype=dtype, device="cpu")
-            if len(payload) != math.prod(shape) * values.element_size():
-                raise ValueError(
-                    f"{path}: layer journal payload length mismatch at call {position}"
-                )
-            if payload:
-                values = self.torch.frombuffer(bytearray(payload), dtype=dtype)
-            return self._check_values(values.reshape(shape), path, shape, dtype), False
+            decoded = self._decode(
+                metadata,
+                payload,
+                checksum,
+                encoding,
+                math.prod(shape) * values.element_size(),
+                path,
+                position,
+            )
+            if decoded:
+                values = self.torch.frombuffer(bytearray(decoded), dtype=dtype)
+            return (
+                self._check_values(values.reshape(shape), path, shape, dtype),
+                False,
+                len(decoded),
+                len(payload),
+            )
 
         if self.readonly or oracle is None or self._total_calls() is not None:
             raise ValueError(f"{path}: missing layer journal response at call {position}")
@@ -171,11 +231,19 @@ class LayerJournal:
             raise ValueError(f"{path}: layer journal has a missing response before a later call")
         values = self._check_values(oracle(path, inputs), path, shape, dtype)
         payload = self._payload(values)
+        encoding, stored, checksum = self._encode(metadata, payload)
+        columns = "position, path, input_digest, dtype, shape, payload, checksum"
+        placeholders = "?, ?, ?, ?, ?, ?, ?"
+        entry = (*metadata, stored, checksum)
+        if self.schema_version == 2:
+            columns += ", encoding"
+            placeholders += ", ?"
+            entry += (encoding,)
         self._db.execute(
-            "INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (*metadata, payload, _digest(metadata, payload)),
+            f"INSERT INTO responses ({columns}) VALUES ({placeholders})",
+            entry,
         )
-        return values, True
+        return values, True, len(payload), len(stored)
 
     def observe(self, path, inputs, expected_shape, expected_dtype, oracle=None):
         if self._finished:
@@ -186,13 +254,15 @@ class LayerJournal:
         )
         transaction = self._sql_errors() if self.readonly else self._write_transaction()
         with transaction:
-            values, fresh = self._read(
+            values, fresh, decoded_bytes, stored_bytes = self._read(
                 position, path, input_digest, tuple(expected_shape), expected_dtype, oracle, inputs
             )
         if fresh:
             self.fresh_calls += 1
         else:
             self.reused_calls += 1
+        self.decoded_payload_bytes += decoded_bytes
+        self.stored_payload_bytes += stored_bytes
         return values
 
     def finish(self):

@@ -50,6 +50,7 @@ from .convnext_recovery import (
     validate_convnext_norm,
     validate_convnext_scale,
 )
+from .convolution import COMPACT_CONVOLUTION_OPERATION, observe_compact_convolution
 from .dbrx_experts import (
     DBRX_EXPERT_GLU,
     observe_dbrx_experts,
@@ -617,6 +618,7 @@ def recover_from_layer_calls(
     relative_bias_bucket_device="cpu",
     ssm_rate_device="cpu",
     probe_inactive_state=False,
+    compact_convolutions=False,
     _journal=None,
 ):
     """Populate a CPU skeleton using only the call_layer(module_path, inputs) oracle.
@@ -757,15 +759,21 @@ def recover_from_layer_calls(
             elif kind == "spatial_conv1d":
                 from .convolution import recover_conv1d
 
-                recover_conv1d(torch, module, pending, read, batch_size)
+                recover_conv1d(
+                    torch, module, pending, read, batch_size, compact=compact_convolutions
+                )
             elif kind == "conv2d":
                 from .convolution import recover_conv2d
 
-                recover_conv2d(torch, module, pending, read, batch_size)
+                recover_conv2d(
+                    torch, module, pending, read, batch_size, compact=compact_convolutions
+                )
             elif kind == "conv3d":
                 from .convolution import recover_conv3d
 
-                recover_conv3d(torch, module, pending, read, batch_size)
+                recover_conv3d(
+                    torch, module, pending, read, batch_size, compact=compact_convolutions
+                )
             elif kind == "conv_transpose":
                 recover_conv_transpose(torch, module, pending, read, batch_size)
             elif kind in {"embedding", "scaled_embedding", "offset_embedding"}:
@@ -1122,6 +1130,9 @@ def _evidence_report(journal, evidence_dir):
         "evidence_dir": str(evidence_dir),
         "evidence_observations_cached": journal.reused_calls,
         "evidence_observations_collected": journal.fresh_calls,
+        "evidence_journal_schema": journal.schema_version,
+        "evidence_decoded_payload_bytes": journal.decoded_payload_bytes,
+        "evidence_stored_payload_bytes": journal.stored_payload_bytes,
     }
 
 
@@ -1139,6 +1150,7 @@ def export_recovered_model(
     evidence_dir=None,
     restore_source_dtypes=False,
     probe_inactive_state=False,
+    compact_convolutions=False,
 ):
     """Run the local layer oracle and export a stand-alone Transformers model."""
     source, output = Path(source), Path(output)
@@ -1231,6 +1243,8 @@ def export_recovered_model(
         provenance["serialized_weight_norm_aliases"] = aliases
     if initialized_audio_masks:
         provenance["source_initialized_audio_masks"] = initialized_audio_masks
+    if compact_convolutions:
+        provenance["compact_convolutions"] = True
     if restore_source_dtypes:
         export_dtypes = source_parameter_dtypes(
             torch, source, candidate, aliases, unstored_names=initialized_audio_masks
@@ -1299,6 +1313,8 @@ def export_recovered_model(
         }
         if probe_inactive_state:
             metadata["probe_inactive_state"] = True
+        if compact_convolutions:
+            metadata["compact_convolutions"] = True
         _, assets = prepare_bundle(evidence_dir, metadata, save_scaffold)
         journal_context = LayerJournal(
             evidence_dir / _JOURNAL_FILENAME, torch, binding=bundle_binding(evidence_dir)
@@ -1352,6 +1368,8 @@ def export_recovered_model(
                 handle.remove()
         if stager is not None:
             (module,) = stager.get(module)
+        if operation == COMPACT_CONVOLUTION_OPERATION:
+            return observe_compact_convolution(torch, module, inputs.to(device), operation)
         if name == CLIP_VISION_EMBEDDINGS:
             return observe_clip_class_embedding(torch, module, inputs.to(device))
         if name == GEMMA3_PROJECTOR:
@@ -1419,6 +1437,7 @@ def export_recovered_model(
                 relative_bias_bucket_device=device,
                 ssm_rate_device=device,
                 probe_inactive_state=probe_inactive_state,
+                compact_convolutions=compact_convolutions,
                 _journal=journal,
             )
             if journal is not None:
@@ -1504,6 +1523,7 @@ def replay_layer_evidence(evidence_dir, output):
             relative_bias_bucket_device=device,
             ssm_rate_device=device,
             probe_inactive_state=metadata.get("probe_inactive_state", False),
+            compact_convolutions=metadata.get("compact_convolutions", False),
             _journal=journal,
         )
         journal.finish()
@@ -1536,6 +1556,7 @@ def _command(args):
         evidence_dir=args.evidence_dir,
         restore_source_dtypes=args.restore_source_dtypes,
         probe_inactive_state=args.probe_inactive_state,
+        compact_convolutions=args.compact_convolutions,
     )
 
 
@@ -1548,6 +1569,11 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument(
+        "--compact-convolutions",
+        action="store_true",
+        help="observe one complete-receptive-field position per convolution response",
+    )
     recover.add_argument(
         "--probe-inactive-state",
         action="store_true",

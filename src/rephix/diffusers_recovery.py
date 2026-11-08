@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from .batch_norm_recovery import BATCH_NORM_TYPES, observe_batch_norm
+from .convolution import COMPACT_CONVOLUTION_OPERATION, observe_compact_convolution
 from .hf import _device
 from .io import write_json
 from .layer_bundle import bundle_binding, open_bundle, prepare_bundle, source_fingerprint
@@ -200,6 +201,7 @@ def recover_diffusion_model(
     stage_layers=False,
     evidence_dir=None,
     restore_source_dtypes=False,
+    compact_convolutions=False,
 ):
     """Reconstruct a local native Diffusers component from its layer responses."""
     source, output = Path(source), Path(output)
@@ -250,6 +252,8 @@ def recover_diffusion_model(
         "oracle_placement": "staged" if stage_layers else "resident",
         "serialized_parameter_aliases": aliases,
     }
+    if compact_convolutions:
+        provenance["compact_convolutions"] = True
     if restore_source_dtypes:
         provenance["export_parameter_dtypes"] = source_parameter_dtypes(
             torch, source, candidate, aliases
@@ -279,6 +283,8 @@ def recover_diffusion_model(
         }
         if scaffold_dtype != oracle_dtype:
             metadata["scaffold_dtype"] = str(scaffold_dtype)
+        if compact_convolutions:
+            metadata["compact_convolutions"] = True
 
         def save_scaffold(destination):
             target.save_config(destination)
@@ -295,6 +301,8 @@ def recover_diffusion_model(
         if stager is not None:
             (module,) = stager.get(module)
         name = _qualified_name(module)
+        if operation == COMPACT_CONVOLUTION_OPERATION:
+            return observe_compact_convolution(torch, module, inputs.to(device), operation)
         if name in BATCH_NORM_TYPES:
             return observe_batch_norm(torch, module, inputs.to(device), operation)
         if name == WEIGHT_NORM_PARAMETRIZATIONS:
@@ -304,7 +312,11 @@ def recover_diffusion_model(
     try:
         with context as journal:
             report = recover_from_layer_calls(
-                candidate, observe, batch_size=batch_size, _journal=journal
+                candidate,
+                observe,
+                batch_size=batch_size,
+                compact_convolutions=compact_convolutions,
+                _journal=journal,
             )
             if journal is not None:
                 journal.finish()
@@ -357,7 +369,11 @@ def replay_diffusion_evidence(evidence_dir, output):
         evidence_dir / _JOURNAL_FILENAME, torch, binding=bundle_binding(evidence_dir), readonly=True
     ) as journal:
         report = recover_from_layer_calls(
-            candidate, None, batch_size=metadata["batch_size"], _journal=journal
+            candidate,
+            None,
+            batch_size=metadata["batch_size"],
+            compact_convolutions=metadata.get("compact_convolutions", False),
+            _journal=journal,
         )
         journal.finish()
         report.update(_evidence_report(journal, evidence_dir))
@@ -383,6 +399,7 @@ def _command(args):
         stage_layers=args.stage_layers,
         evidence_dir=args.evidence_dir,
         restore_source_dtypes=args.restore_source_dtypes,
+        compact_convolutions=args.compact_convolutions,
     )
 
 
@@ -399,6 +416,7 @@ def add_subcommands(commands):
     recover.add_argument("--device", choices=("cpu", "cuda", "mps", "auto"), default="cpu")
     recover.add_argument("--dtype", choices=("float32", "float64", "auto"), default="float32")
     recover.add_argument("--batch-size", type=int, default=128)
+    recover.add_argument("--compact-convolutions", action="store_true")
     recover.add_argument("--stage-layers", action="store_true")
     recover.add_argument("--restore-source-dtypes", action="store_true")
     recover.add_argument(

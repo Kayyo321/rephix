@@ -5,6 +5,8 @@ from __future__ import annotations
 from math import prod
 from numbers import Integral
 
+COMPACT_CONVOLUTION_OPERATION = "conv_kernel_position"
+
 
 def validate_conv1d(module):
     _validate_convolution(module, 1)
@@ -82,36 +84,57 @@ def _probe_axis(padding, stride, dilation, kernel_size, same):
     return output_index, start, input_size, output_size
 
 
-def recover_conv1d(torch, module, pending, read, batch_size):
+def recover_conv1d(torch, module, pending, read, batch_size, *, compact=False):
     validate_conv1d(module)
-    _recover_convolution(torch, module, pending, read, batch_size)
+    _recover_convolution(torch, module, pending, read, batch_size, compact)
 
 
-def recover_conv2d(torch, module, pending, read, batch_size):
+def recover_conv2d(torch, module, pending, read, batch_size, *, compact=False):
     validate_conv2d(module)
-    _recover_convolution(torch, module, pending, read, batch_size)
+    _recover_convolution(torch, module, pending, read, batch_size, compact)
 
 
-def recover_conv3d(torch, module, pending, read, batch_size):
+def recover_conv3d(torch, module, pending, read, batch_size, *, compact=False):
     validate_conv3d(module)
-    _recover_convolution(torch, module, pending, read, batch_size)
+    _recover_convolution(torch, module, pending, read, batch_size, compact)
 
 
-def _recover_convolution(torch, module, pending, read, batch_size):
-    weight = module.weight
-    bias = module.bias
-    probe_axes = (
+def _probe_axes(module):
+    return tuple(
         _probe_axis(padding, stride, dilation, kernel_size, module.padding == "same")
         for padding, stride, dilation, kernel_size in zip(
             _numeric_padding(module), module.stride, module.dilation, module.kernel_size
         )
     )
-    output_indices, field_starts, input_sizes, output_sizes = zip(*probe_axes)
+
+
+def observe_compact_convolution(torch, module, inputs, operation):
+    """Run the native convolution and return one complete-field output position."""
+    if operation != COMPACT_CONVOLUTION_OPERATION:
+        raise ValueError("unknown compact convolution observation")
+    _validate_convolution(module, len(module.kernel_size))
+    output_indices = tuple(axis[0] for axis in _probe_axes(module))
+    return module(inputs)[(slice(None), slice(None), *output_indices)]
+
+
+def _recover_convolution(torch, module, pending, read, batch_size, compact):
+    weight = module.weight
+    bias = module.bias
+    output_indices, field_starts, input_sizes, output_sizes = zip(*_probe_axes(module))
     input_shape = (module.in_channels, *input_sizes)
     output_shape = (module.out_channels, *output_sizes)
     output_slice = (slice(None), slice(None), *output_indices)
+
+    def read_position(inputs):
+        count = inputs.shape[0]
+        if compact:
+            return read(
+                inputs, (count, module.out_channels), operation=COMPACT_CONVOLUTION_OPERATION
+            )
+        return read(inputs, (count, *output_shape))[output_slice]
+
     if bias is not None:
-        baseline = read(weight.new_zeros((1, *input_shape)), (1, *output_shape))[output_slice][0]
+        baseline = read_position(weight.new_zeros((1, *input_shape)))[0]
         baseline = baseline.to(dtype=torch.float64, copy=True)
         if "bias" in pending:
             bias.copy_(baseline)
@@ -144,7 +167,7 @@ def _recover_convolution(torch, module, pending, read, batch_size):
             *spatial_indices,
         )
         inputs[input_indices] = amplitude
-        values = read(inputs, (count, *output_shape))[output_slice]
+        values = read_position(inputs)
         if bias is not None:
             values = (values.double() - baseline) / amplitude
         weight[(slice(None), channels, *taps)] = values.T.to(weight.dtype)
