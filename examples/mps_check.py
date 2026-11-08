@@ -128,6 +128,8 @@ def unavailable(work):
         trial / "fixture" / "model",
         "--device",
         "auto",
+        "--max-seq-length",
+        "64",
     )
     check(
         "unavailable: --device auto runs on CPU and reports no accelerator",

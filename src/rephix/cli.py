@@ -236,7 +236,11 @@ def main(argv=None):
             torch = sys.modules.get("torch")
             if torch is not None and accelerator.get("device") == "mps":
                 # Metal memory still held by this process: direct evidence of MPS work.
-                accelerator["mps_driver_allocated_bytes"] = int(torch.mps.driver_allocated_memory())
+                try:
+                    allocated = int(torch.mps.driver_allocated_memory())
+                except (RuntimeError, AttributeError):
+                    allocated = None
+                accelerator["mps_driver_allocated_bytes"] = allocated
             result = {**result, "accelerator": accelerator}
         if result is not None:
             print(json.dumps(result, indent=2, allow_nan=False))

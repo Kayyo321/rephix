@@ -203,7 +203,8 @@ def representative_workflow(rephix, work):
         encoding="utf-8",
     )
     (folder / "features.json").write_text(
-        json.dumps({"kind": "ngram", "vocabulary": vocab, "order": 1}), encoding="utf-8"
+        json.dumps({"kind": "ngram", "vocabulary": vocab, "order": 1, "prompt_length": 3}),
+        encoding="utf-8",
     )
     (folder / "target.json").write_text(
         json.dumps(
